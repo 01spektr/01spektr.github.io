@@ -184,7 +184,7 @@ export default defineConfig(({ command, isPreview }) => {
           }
         : undefined,
     ),
-    ...(command === "build" || isPreview
+    ...(((command === "build" || isPreview) && !isGitHubPages)
       ? [
           nitro({
             preset: isGitHubPages ? "static" : "vercel",
