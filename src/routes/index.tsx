@@ -1,145 +1,43 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Clock3, Grid2X2, Lock, Search, ShieldCheck, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ToolCard } from "@/components/tool-card";
-import { useI18n } from "@/lib/i18n";
-import { iconByName } from "@/lib/icons";
-import { CATEGORIES, TOOLS, toolsByCategory } from "@/lib/tools/catalog";
-import { getHistory } from "@/lib/tools/history";
+import { ArrowRight, Calculator, Check, Clock3, FileText, Image, QrCode, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { useSyncExternalStore } from "react";
-import { subscribeHistory } from "@/lib/tools/history";
+import { ToolCard } from "@/components/tool-card";
+import { iconByName } from "@/lib/icons";
+import { useI18n } from "@/lib/i18n";
+import { CATEGORIES, TOOLS, toolsByCategory } from "@/lib/tools/catalog";
+import { getHistory, subscribeHistory } from "@/lib/tools/history";
 
-export const Route = createFileRoute("/")({
-  component: Home,
-  head: () => ({
-    meta: [{ title: "ToolBox" }],
-  }),
-});
+export const Route = createFileRoute("/")({ component: Home, head: () => ({ meta: [{ title: "ToolBox" }] }) });
 
 function Home() {
-  const { t, locale } = useI18n();
+  const { locale } = useI18n();
   const history = useSyncExternalStore(subscribeHistory, getHistory, getHistory);
-  const featured = TOOLS.filter((tool) => tool.featured || tool.available);
-  const recentIds = [...new Set(history.map((h) => h.toolId))].slice(0, 4);
-  const recent = recentIds
-    .map((id) => TOOLS.find((tool) => tool.id === id))
-    .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool));
-
-  return (
-    <div className="mx-auto max-w-6xl pb-12">
-      <section className="relative mb-10 overflow-hidden rounded-3xl bg-card px-6 py-8 shadow-[var(--shadow-border)] sm:px-10 sm:py-12">
-        <div className="absolute inset-y-0 right-0 hidden w-2/5 bg-primary/5 lg:block" aria-hidden="true" />
-        <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary">
-              <Zap className="size-4" />
-              {t("home.kicker")}
-            </p>
-            <h1 className="mt-5 max-w-2xl font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-              {t("home.title")}
-            </h1>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-              {t("home.subtitle")}
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link to="/tools/$slug" params={{ slug: "qr-generator" }}>
-                  {t("home.cta")}
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/tools">{t("home.catalog")}</Link>
-              </Button>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <HeroMetric icon={Grid2X2} value={`${TOOLS.length}+`} label={t("home.featured")} />
-            <HeroMetric icon={Search} value={`${CATEGORIES.length}`} label={t("home.categories")} />
-            <div className="col-span-2 rounded-2xl bg-primary p-5 text-primary-foreground shadow-sm">
-              <ShieldCheck className="size-6" />
-              <p className="mt-4 text-sm font-semibold">{t("home.privacy")}</p>
-              <p className="mt-1 text-sm leading-relaxed text-primary-foreground/80">{t("home.offlineish")}</p>
-            </div>
-          </div>
-        </div>
+  const featured = TOOLS.filter((tool) => tool.featured || tool.available).slice(0, 5);
+  const recent = [...new Set(history.map((entry) => entry.toolId))].slice(0, 5).map((id) => TOOLS.find((tool) => tool.id === id)).filter((tool): tool is (typeof TOOLS)[number] => Boolean(tool));
+  return <div className="home-page -mx-4 -mt-5 pb-12 lg:-mx-8 lg:-mt-6">
+    <section className="home-hero">
+      <div className="home-hero-inner"><div className="home-hero-copy">
+        <p className="home-kicker"><Sparkles className="size-4" /> {TOOLS.length}+ инструментов · бесплатно</p>
+        <h1>Один сервис.<br /><span>Много инструментов.</span></h1>
+        <p className="home-lead">Рассчитывайте, конвертируйте, создавайте и анализируйте. Быстро, удобно и без регистрации.</p>
+        <Link to="/tools" className="home-search-link"><Search className="size-5" /><span>Например: QR-код, кредит, контейнер, dpi…</span><b><ArrowRight className="size-4" /></b></Link>
+        <div className="home-query-list"><span>Популярные запросы:</span>{["qr", "контейнер", "кредит", "конвертер", "json"].map((query) => <span key={query}>{query}</span>)}</div>
+      </div><HeroArt /></div>
+      <div className="home-trust-row"><Trust title="100% автономность" text="Данные остаются в браузере" /><Trust title="Быстрая работа" text="Результат за несколько секунд" /><Trust title="Полностью бесплатно" text="Без регистрации и платежей" /></div>
+    </section>
+    <div className="home-content">
+      <div className="home-stats"><Stat value={`${TOOLS.length}+`} label="инструментов" /><Stat value={`${CATEGORIES.length}`} label="категорий" /><Stat value="100%" label="в браузере" /><Stat value="∞" label="бесплатно" /></div>
+      <section className="home-section"><SectionTitle title="Категории" action="Смотреть все категории" />
+        <div className="home-category-grid">{CATEGORIES.map((category) => { const Icon = iconByName(category.icon); return <Link key={category.id} to="/categories/$id" params={{ id: category.slug }} className="home-category-card"><span className="home-category-icon" style={{ color: category.tint }}><Icon className="size-6" /></span><span className="min-w-0 flex-1"><b>{category.name[locale]}</b><small>{toolsByCategory(category.id).length} инструмента</small></span><ArrowRight className="size-4 text-muted-foreground" /></Link>; })}</div>
       </section>
-
-      <section className="mb-11">
-        <SectionHeading title={t("home.featured")} href="/tools" action={t("home.catalog")} />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((tool) => (
-            <ToolCard key={tool.id} tool={tool} />
-          ))}
-        </div>
-      </section>
-
-      {recent.length > 0 ? (
-        <section className="mb-11">
-          <div className="mb-4 flex items-center gap-2">
-            <Clock3 className="size-5 text-primary" />
-            <h2 className="text-xl font-semibold tracking-tight">{t("home.recent")}</h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {recent.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section>
-        <SectionHeading title={t("home.categories")} href="/tools" action={t("home.catalog")} />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {CATEGORIES.map((cat) => {
-            const Icon = iconByName(cat.icon);
-            const count = toolsByCategory(cat.id).length;
-            return (
-              <Link
-                key={cat.id}
-                to="/categories/$id"
-                params={{ id: cat.slug }}
-                className="surface-card surface-card-hover flex items-start gap-3 p-4"
-              >
-                <span
-                  className="flex size-10 items-center justify-center rounded-xl"
-                  style={{ background: `${cat.tint}22`, color: cat.tint }}
-                >
-                  <Icon className="size-5" />
-                </span>
-                <span>
-                  <span className="block font-semibold">{cat.name[locale]}</span>
-                  <span className="mt-1 block text-sm text-muted-foreground">
-                    {count} · {cat.description[locale]}
-                  </span>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      <section className="home-section"><SectionTitle title="Популярные инструменты" action="Смотреть все" /><div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">{featured.map((tool) => <ToolCard key={tool.id} tool={tool} />)}</div></section>
+      <div className="home-lower-grid"><section className="home-section home-recent-section"><div className="mb-4 flex items-center justify-between"><h2>Недавно использовали</h2><Clock3 className="size-4 text-muted-foreground" /></div>{recent.length ? <div className="home-recent-list">{recent.map((tool) => <RecentItem key={tool.id} tool={tool} />)}</div> : <p className="home-empty">Здесь появятся инструменты, которыми вы воспользуетесь.</p>}</section><section className="home-privacy-card"><ShieldCheck className="size-8" /><h2>Ваши данные<br />остаются с вами</h2><p>Инструменты работают прямо в браузере. Мы не отправляем ваши данные на сервер.</p><ul>{["100% конфиденциальность", "Автономная работа", "Без регистрации"].map((item) => <li key={item}><Check className="size-4" />{item}</li>)}</ul></section></div>
     </div>
-  );
+  </div>;
 }
 
-function SectionHeading({ title, href, action }: { title: string; href: string; action: string }) {
-  return (
-    <div className="mb-4 flex items-center justify-between gap-4">
-      <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
-      <Link to={href} className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80">
-        {action}
-        <ArrowRight className="size-4" />
-      </Link>
-    </div>
-  );
-}
-
-function HeroMetric({ icon: Icon, value, label }: { icon: typeof Lock; value: string; label: string }) {
-  return (
-    <div className="rounded-2xl bg-muted p-4">
-      <Icon className="size-5 text-primary" />
-      <p className="mt-5 text-2xl font-semibold tracking-tight tabular-nums">{value}</p>
-      <p className="mt-1 text-sm text-muted-foreground">{label}</p>
-    </div>
-  );
-}
+function HeroArt() { return <div className="home-hero-art" aria-hidden="true"><i className="orbit one"><Image /></i><i className="orbit two"><Calculator /></i><i className="orbit three"><QrCode /></i><i className="orbit four"><FileText /></i></div>; }
+function Trust({ title, text }: { title: string; text: string }) { return <div><ShieldCheck className="size-5" /><span><b>{title}</b><small>{text}</small></span></div>; }
+function Stat({ value, label }: { value: string; label: string }) { return <div><strong>{value}</strong><span>{label}</span></div>; }
+function SectionTitle({ title, action }: { title: string; action: string }) { return <div className="home-section-title"><h2>{title}</h2><Link to="/tools">{action}<ArrowRight className="size-4" /></Link></div>; }
+function RecentItem({ tool }: { tool: (typeof TOOLS)[number] }) { const { locale } = useI18n(); const Icon = iconByName(tool.icon); return <Link to="/tools/$slug" params={{ slug: tool.slug }}><span className="home-recent-icon"><Icon className="size-4" /></span><b>{tool.name[locale]}</b><ArrowRight className="size-4 text-muted-foreground" /></Link>; }

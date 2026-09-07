@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
+import { useRouterState } from "@tanstack/react-router";
 
 interface Props {
   onMenu: () => void;
@@ -17,9 +18,10 @@ interface Props {
 export function Header({ onMenu, onSearch }: Props) {
   const { t, locale, setLocale } = useI18n();
   const { theme, toggleTheme } = useTheme();
+  const isHome = useRouterState({ select: (state) => state.location.pathname === "/" });
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 bg-background/90 px-4 backdrop-blur-md lg:px-8">
+    <header className={`sticky top-0 z-30 flex h-16 items-center gap-3 px-4 backdrop-blur-md lg:px-8 ${isHome ? "home-header" : "bg-background/90"}`}>
       <Button
         variant="ghost"
         size="icon"
