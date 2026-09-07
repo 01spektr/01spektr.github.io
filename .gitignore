@@ -1,0 +1,8 @@
+node_modules/
+.vercel/
+.output/
+.tanstack/
+.node_modules.lock
+artifacts/
+.grok/
+.project_id
