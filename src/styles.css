@@ -190,7 +190,7 @@
 /* Refined homepage composition. */
 .sidebar-promo { min-height: 220px; background: #091526 url("/visuals/sidebar-mountain.png") center / cover no-repeat; }
 .home-page { background: #f7faff; }
-.home-hero { position: relative; overflow: hidden; min-height: 510px; padding: 46px 28px 92px; color: #f8fbff; background: #071426; }
+.home-hero { position: relative; overflow: hidden; min-height: 450px; padding: 40px 28px 38px; color: #f8fbff; background: #071426; }
 .home-hero::after { position: absolute; inset: 0; z-index: 0; content: ""; pointer-events: none; background: radial-gradient(ellipse at 75% 35%, rgb(31 94 240 / 25%), transparent 35%); }
 .home-hero-inner, .home-trust-row { position: relative; z-index: 1; max-width: 1280px; margin: auto; }
 .home-hero-inner { display: grid; grid-template-columns: minmax(0, .97fr) minmax(380px, 1.03fr); align-items: center; min-height: 330px; }

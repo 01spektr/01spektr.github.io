@@ -56,6 +56,15 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               </Link>
             );
           })}
+          <Link
+            to="/"
+            hash="categories"
+            onClick={onNavigate}
+            className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground"
+          >
+            <LayoutGrid className="size-4" />
+            {t("nav.categories")}
+          </Link>
         </nav>
 
         <p className="px-3 pb-2 pt-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">
