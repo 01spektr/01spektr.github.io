@@ -10,13 +10,20 @@ export const Route = createFileRoute("/")({ component: Home, head: () => ({ meta
 
 const QUICK_LINKS = [["qr", "qr-generator"], ["контейнер", "cargo-volume"], ["кредит", "loan-calculator"], ["конвертер", "unit-converter"], ["json", "json-formatter"]] as const;
 const POPULAR_SLUGS = ["qr-generator", "cargo-volume", "loan-calculator", "color-palette", "image-resize"];
+const DEMO_RECENT_SLUGS = ["uuid-generator", "qr-generator", "color-palette", "image-resize", "cargo-volume"];
 
 function Home() {
   const { locale } = useI18n();
   const history = useSyncExternalStore(subscribeHistory, getHistory, getHistory);
   const popular = POPULAR_SLUGS.map((slug) => TOOLS.find((tool) => tool.slug === slug)).filter((tool): tool is ToolDef => Boolean(tool));
   const newTools = TOOLS.filter((tool) => !POPULAR_SLUGS.includes(tool.slug)).slice(0, 5);
-  const recent = [...new Set(history.map((entry) => entry.toolId))].slice(0, 5).map((id) => TOOLS.find((tool) => tool.id === id)).filter((tool): tool is ToolDef => Boolean(tool));
+  const actualRecent = [...new Set(history.map((entry) => entry.toolId))]
+    .map((id) => TOOLS.find((tool) => tool.id === id))
+    .filter((tool): tool is ToolDef => Boolean(tool));
+  const demoRecent = DEMO_RECENT_SLUGS
+    .map((slug) => TOOLS.find((tool) => tool.slug === slug))
+    .filter((tool): tool is ToolDef => Boolean(tool));
+  const recent = [...actualRecent, ...demoRecent.filter((tool) => !actualRecent.some((item) => item.id === tool.id))].slice(0, 5);
 
   return <div className="home-page -mx-4 -mt-5 pb-12 lg:-mx-8 lg:-mt-6">
     <section className="home-hero"><div className="home-hero-inner"><div className="home-hero-copy">
