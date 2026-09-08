@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  Check, ChevronRight, Clipboard, Download, FileDown, Fingerprint, Info,
-  Lock, Share2, Star, Trash2,
+  Braces, Check, ChevronRight, Clipboard, Download, FileDown, Fingerprint, Hash,
+  Info, KeyRound, Lock, QrCode, Share2, Star, Trash2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,14 @@ export function UuidGeneratorPage() {
     const sync = () => setFav(isFavorite("uuid-generator"));
     sync();
     return subscribeFavorites(sync);
+  }, []);
+
+  useEffect(() => {
+    try {
+      setUuids([secureUuid()]);
+    } catch {
+      // The generation button retains the explanatory error for unsupported browsers.
+    }
   }, []);
 
   function generate() {
@@ -175,9 +183,10 @@ export function UuidGeneratorPage() {
         </section>
       </div>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-[.9fr_1.1fr]">
-        <section className="surface-card p-5 sm:p-6"><h2 className="text-lg font-semibold">Информация</h2><p className="mt-3 text-sm leading-relaxed text-muted-foreground">UUID — это 128-битный уникальный идентификатор. Версия v4 создаётся из криптографически случайных данных и подходит для идентификаторов в приложениях, базах данных и API.</p></section>
-        <section className="surface-card p-5 sm:p-6"><h2 className="text-lg font-semibold">Где пригодится UUID</h2><ul className="uuid-uses mt-3 text-sm text-muted-foreground"><li>Записи в базах данных и API</li><li>Идентификаторы пользователей и сессий</li><li>Имена файлов и тестовые данные</li><li>Микросервисы и интеграции</li></ul></section>
+      <div className="mt-5 grid gap-5 lg:grid-cols-[.85fr_1fr_1.2fr]">
+        <section className="surface-card p-5 sm:p-6"><div className="uuid-section-heading"><Info /><h2 className="text-lg font-semibold">Информация</h2></div><p className="mt-3 text-sm leading-relaxed text-muted-foreground">UUID — это 128-битный уникальный идентификатор. Версия v4 создаётся из криптографически случайных данных и подходит для идентификаторов в приложениях, базах данных и API.</p><span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">Работает без сервера <ChevronRight className="size-4" /></span></section>
+        <section className="surface-card p-5 sm:p-6"><div className="uuid-section-heading"><Braces /><h2 className="text-lg font-semibold">Где пригодится UUID</h2></div><ul className="uuid-uses mt-3 text-sm text-muted-foreground"><li>Записи в базах данных и API</li><li>Идентификаторы пользователей и сессий</li><li>Имена файлов и тестовые данные</li><li>Микросервисы и интеграции</li></ul></section>
+        <section className="surface-card p-5 sm:p-6"><div className="flex items-center justify-between gap-3"><div className="uuid-section-heading"><Hash /><h2 className="text-lg font-semibold">Похожие инструменты</h2></div><Link to="/tools" className="text-xs font-medium text-primary hover:underline">Смотреть все</Link></div><div className="uuid-related mt-4"><Link to="/tools/$slug" params={{ slug: "qr-generator" }}><span className="bg-blue-100 text-blue-600"><QrCode /></span><strong>Генератор QR</strong><small>Ссылки и текст</small></Link><Link to="/tools/$slug" params={{ slug: "password-generator" }}><span className="bg-violet-100 text-violet-600"><KeyRound /></span><strong>Пароли</strong><small>Скоро</small></Link><Link to="/tools/$slug" params={{ slug: "base64" }}><span className="bg-emerald-100 text-emerald-600"><Braces /></span><strong>Base64</strong><small>Скоро</small></Link></div></section>
       </div>
     </div>
   );
