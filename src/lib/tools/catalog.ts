@@ -359,7 +359,7 @@ export const TOOLS: ToolDef[] = [
     },
     keywords: ["uuid", "guid"],
     icon: "Fingerprint",
-    available: false,
+    available: true,
   },
   {
     id: "area-calculator",

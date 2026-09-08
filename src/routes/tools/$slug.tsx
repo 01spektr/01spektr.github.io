@@ -10,6 +10,9 @@ import { getToolBySlug } from "@/lib/tools/catalog";
 const QrGeneratorPage = lazy(() =>
   import("@/features/qr-generator").then((m) => ({ default: m.QrGeneratorPage })),
 );
+const UuidGeneratorPage = lazy(() =>
+  import("@/features/uuid-generator").then((m) => ({ default: m.UuidGeneratorPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -26,6 +29,17 @@ export const Route = createFileRoute("/tools/$slug")({
         ],
       };
     }
+    if (params.slug === "uuid-generator") {
+      return {
+        meta: [
+          { title: "Генератор UUID — ToolBox" },
+          {
+            name: "description",
+            content: "Безопасно создавайте UUID v4 пакетами прямо в браузере.",
+          },
+        ],
+      };
+    }
     return { meta: [{ title: "ToolBox" }] };
   },
 });
@@ -36,6 +50,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <QrGeneratorPage />
+      </Suspense>
+    );
+  }
+  if (slug === "uuid-generator") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <UuidGeneratorPage />
       </Suspense>
     );
   }
