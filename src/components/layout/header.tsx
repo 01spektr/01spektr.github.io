@@ -1,4 +1,4 @@
-import { Globe, Menu, Search, Sun, Moon } from "lucide-react";
+import { Globe, LogIn, Menu, Search, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -35,7 +35,7 @@ export function Header({ onMenu, onSearch }: Props) {
       <button
         type="button"
         onClick={onSearch}
-        className="flex h-11 min-w-0 flex-1 items-center gap-3 rounded-full bg-card px-4 text-left text-sm text-muted-foreground shadow-[var(--shadow-border)]"
+        className="flex h-11 min-w-0 flex-1 items-center gap-3 rounded-xl bg-card px-4 text-left text-sm text-muted-foreground shadow-[var(--shadow-border)] lg:max-w-[760px]"
       >
         <Search className="size-4 shrink-0" />
         <span className="truncate">{t("search.placeholder")}</span>
@@ -44,6 +44,7 @@ export function Header({ onMenu, onSearch }: Props) {
         </kbd>
       </button>
 
+      <div className="ml-auto flex items-center gap-1">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="gap-1.5 px-2.5" aria-label={t("lang.ru")}>
@@ -69,10 +70,12 @@ export function Header({ onMenu, onSearch }: Props) {
 
       <span
         aria-hidden="true"
-        className="flex size-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground"
+        className="home-login flex h-10 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground"
       >
-        A
+        <LogIn className="size-4" />
+        <span className="hidden sm:inline">Войти</span>
       </span>
+      </div>
     </header>
   );
 }
