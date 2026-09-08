@@ -91,12 +91,12 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </ScrollArea>
 
       <div className="p-3">
-        <div className="relative overflow-hidden rounded-2xl bg-sidebar-active p-4">
+        <div className="sidebar-promo relative overflow-hidden rounded-2xl p-4">
           <div
-            className="pointer-events-none absolute inset-0 opacity-70"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, transparent 0%, #0c1222 70%), radial-gradient(120% 80% at 50% 0%, #3b6ff555, transparent)",
+                "linear-gradient(180deg, rgb(9 20 39 / 10%) 0%, rgb(4 12 25 / 96%) 80%)",
             }}
           />
           <p className="relative text-sm font-semibold">{t("nav.promoTitle")}</p>
