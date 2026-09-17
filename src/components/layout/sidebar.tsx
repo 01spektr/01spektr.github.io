@@ -7,8 +7,10 @@ import {
   Moon,
   Sun,
   ArrowRight,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from "lucide-react";
-import { ToolboxLogo } from "@/components/brand/logo";
+import { ToolboxLogo, ToolboxMark } from "@/components/brand/logo";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
@@ -23,20 +25,21 @@ const NAV = [
   { to: "/history", icon: Clock3, key: "nav.history" as const, exact: false },
 ];
 
-export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
+export function Sidebar({ onNavigate, compact = false, onToggle }: { onNavigate?: () => void; compact?: boolean; onToggle?: () => void }) {
   const { t, locale } = useI18n();
   const { theme, toggleTheme } = useTheme();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
-      <div className="px-5 py-5">
-        <Link to="/" onClick={onNavigate} className="block">
-          <ToolboxLogo />
+      <div className={cn("flex items-center py-5", compact ? "justify-center px-3" : "justify-between px-5")}>
+        <Link to="/" onClick={onNavigate} className="block" aria-label="Toolbox">
+          {compact ? <ToolboxMark /> : <ToolboxLogo />}
         </Link>
+        {!compact && onToggle ? <button type="button" onClick={onToggle} className="rounded-lg p-2 text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-foreground" aria-label="Свернуть меню"><PanelLeftClose className="size-4" /></button> : null}
       </div>
 
-      <ScrollArea className="flex-1 px-3">
+      <ScrollArea className={cn("flex-1", compact ? "px-2" : "px-3")}>
         <nav className="grid gap-1 pb-4">
           {NAV.map((item) => {
             const Icon = item.icon;
@@ -47,12 +50,13 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                 to={item.to}
                 onClick={onNavigate}
                 className={cn(
-                  "flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground",
+                  "flex min-h-11 items-center rounded-xl text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground",
+                  compact ? "justify-center px-2" : "gap-3 px-3",
                   active && "bg-sidebar-active text-sidebar-foreground",
                 )}
               >
                 <Icon className="size-4" />
-                {t(item.key)}
+                {compact ? <span className="sr-only">{t(item.key)}</span> : t(item.key)}
               </Link>
             );
           })}
@@ -60,16 +64,14 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             to="/"
             hash="categories"
             onClick={onNavigate}
-            className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground"
+            className={cn("flex min-h-11 items-center rounded-xl text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground", compact ? "justify-center px-2" : "gap-3 px-3")}
           >
             <LayoutGrid className="size-4" />
-            {t("nav.categories")}
+            {compact ? <span className="sr-only">{t("nav.categories")}</span> : t("nav.categories")}
           </Link>
         </nav>
 
-        <p className="px-3 pb-2 pt-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">
-          {t("nav.categories")}
-        </p>
+        {!compact ? <p className="px-3 pb-2 pt-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted">{t("nav.categories")}</p> : null}
         <nav className="grid gap-1 pb-6">
           {CATEGORIES.map((cat) => {
             const Icon = iconByName(cat.icon);
@@ -82,7 +84,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                 params={{ id: cat.slug }}
                 onClick={onNavigate}
                 className={cn(
-                  "flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground",
+                  "flex min-h-11 items-center rounded-xl text-sm text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground",
+                  compact ? "justify-center px-2" : "gap-3 px-3",
                   active && "bg-sidebar-active text-sidebar-foreground",
                 )}
               >
@@ -92,7 +95,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                 >
                   <Icon className="size-3.5" />
                 </span>
-                <span className="leading-tight">{cat.name[locale]}</span>
+                {compact ? <span className="sr-only">{cat.name[locale]}</span> : <span className="leading-tight">{cat.name[locale]}</span>}
               </Link>
             );
           })}
@@ -100,7 +103,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </ScrollArea>
 
       <div className="p-3">
-        <div className="sidebar-promo relative overflow-hidden rounded-2xl p-4">
+        {!compact ? <div className="sidebar-promo relative overflow-hidden rounded-2xl p-4">
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -120,15 +123,16 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             {t("nav.explore")}
             <ArrowRight className="size-3.5" />
           </Link>
-        </div>
+        </div> : null}
+        {compact && onToggle ? <button type="button" onClick={onToggle} className="mb-2 flex min-h-11 w-full items-center justify-center rounded-xl text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-foreground" aria-label="Развернуть меню"><PanelLeftOpen className="size-4" /></button> : null}
         <button
           type="button"
           onClick={toggleTheme}
-          className="mt-3 flex min-h-11 w-full items-center justify-between rounded-xl px-3 text-sm text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-foreground"
+          className={cn("flex min-h-11 w-full items-center rounded-xl px-3 text-sm text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-foreground", compact ? "justify-center" : "mt-3 justify-between")}
         >
           <span className="inline-flex items-center gap-2">
             {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
-            {theme === "dark" ? t("nav.theme.light") : t("nav.theme.dark")}
+            {compact ? <span className="sr-only">{theme === "dark" ? t("nav.theme.light") : t("nav.theme.dark")}</span> : theme === "dark" ? t("nav.theme.light") : t("nav.theme.dark")}
           </span>
         </button>
       </div>

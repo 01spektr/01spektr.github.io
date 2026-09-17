@@ -73,7 +73,7 @@ export function Header({ onMenu, onSearch }: Props) {
         className="home-login flex h-10 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground"
       >
         <LogIn className="size-4" />
-        <span className="hidden sm:inline">Войти</span>
+        <span className="hidden sm:inline">{t("nav.login")}</span>
       </span>
       </div>
     </header>

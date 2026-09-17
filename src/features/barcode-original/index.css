@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Toolboxi.uz integration layer: preserve the generator layout while adapting
+   its surfaces to the site themes. */
+.barcode-integrated {
+  background: transparent;
+}
+.dark .barcode-integrated .bg-white {
+  background: #111d31 !important;
+}
+.dark .barcode-integrated .bg-slate-50,
+.dark .barcode-integrated .bg-slate-100,
+.dark .barcode-integrated .bg-\[\#f8fafc\] {
+  background: #172640 !important;
+}
+.dark .barcode-integrated .bg-blue-50,
+.dark .barcode-integrated .bg-\[\#f0f6ff\] {
+  background: #14294a !important;
+}
+.dark .barcode-integrated .border-blue-100\/70 {
+  border-color: #294e7d !important;
+}
+.dark .barcode-integrated .border-slate-100,
+.dark .barcode-integrated .border-slate-200,
+.dark .barcode-integrated .border-slate-200\/80 {
+  border-color: #2a405f !important;
+}
+.dark .barcode-integrated .text-slate-900,
+.dark .barcode-integrated .text-slate-800 {
+  color: #edf4ff !important;
+}
+.dark .barcode-integrated .text-slate-700,
+.dark .barcode-integrated .text-slate-600 {
+  color: #c2d3ec !important;
+}
+.dark .barcode-integrated .text-slate-500,
+.dark .barcode-integrated .text-slate-400 {
+  color: #91a9ca !important;
+}
+.dark .barcode-integrated input,
+.dark .barcode-integrated select {
+  background: #0d182a !important;
+  border-color: #2a405f !important;
+  color: #edf4ff !important;
+}
+.dark .barcode-integrated #barcode-preview-stage {
+  background: #172640 !important;
+  border-color: #2a405f !important;
+}
+.dark .barcode-integrated #barcode-render-box {
+  background: #ffffff !important;
+}
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

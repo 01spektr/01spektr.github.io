@@ -4,10 +4,17 @@ import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
 import { TOOLS } from "@/lib/tools/catalog";
 import { getFavorites, subscribeFavorites } from "@/lib/tools/favorites";
+import { seoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/favorites")({
   component: FavoritesPage,
-  head: () => ({ meta: [{ title: "Избранное — ToolBox" }] }),
+  head: () =>
+    seoHead({
+      title: "Избранное — Toolboxi.uz",
+      description: "Ваши избранные инструменты Toolboxi.uz.",
+      path: "/favorites",
+      noIndex: true,
+    }),
 });
 
 function FavoritesPage() {

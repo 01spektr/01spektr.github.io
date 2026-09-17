@@ -1,5 +1,6 @@
 import {
   createContext,
+  useEffect,
   useCallback,
   useContext,
   useMemo,
@@ -7,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Locale } from "@/lib/tools/catalog";
+import { useRouterState } from "@tanstack/react-router";
 
 const STORAGE_KEY = "toolbox:locale";
 
@@ -22,6 +24,7 @@ const RU: Dict = {
   "nav.theme.dark": "Тёмная тема",
   "nav.theme.light": "Светлая тема",
   "nav.explore": "Исследовать все",
+  "nav.login": "Войти",
   "nav.promoTitle": "Больше возможностей в одном месте",
   "nav.promoBody": "Быстрые, удобные и бесплатные инструменты для вашей работы.",
   "search.placeholder": "Поиск инструментов, например: QR, калькулятор, конвертер…",
@@ -54,7 +57,7 @@ const RU: Dict = {
   "hist.emptyHint": "Действия с инструментами сохраняются только в этом браузере.",
   "hist.clear": "Очистить историю",
   "hist.open": "Открыть",
-  "share": "Поделиться",
+  share: "Поделиться",
   "share.copied": "Ссылка скопирована",
   "share.failed": "Не удалось скопировать ссылку",
   "coming.title": "Инструмент в разработке",
@@ -73,8 +76,7 @@ const RU: Dict = {
   "qr.title": "Генератор QR-кодов",
   "qr.subtitle":
     "Создавайте стильные QR-коды с логотипом, настройкой цветов и экспортом в нужном формате. Быстро, удобно, бесплатно.",
-  "qr.tip":
-    "Создавайте QR-коды для ссылок, текста, контактов, Wi-Fi и многого другого.",
+  "qr.tip": "Создавайте QR-коды для ссылок, текста, контактов, Wi-Fi и многого другого.",
   "qr.privacyTitle": "Ваши данные остаются в браузере",
   "qr.privacyBody":
     "QR-коды создаются непосредственно на вашем устройстве. Данные не отправляются на сервер.",
@@ -119,8 +121,7 @@ const RU: Dict = {
   "qr.tab.frame": "Рамка",
   "qr.fg": "Цвет QR-кода",
   "qr.bg": "Фон",
-  "qr.contrast.warn":
-    "Низкий контраст: такое сочетание цветов может плохо сканироваться.",
+  "qr.contrast.warn": "Низкий контраст: такое сочетание цветов может плохо сканироваться.",
   "qr.contrast.ok": "Контраст достаточный для сканирования.",
   "qr.logo.enable": "Включить логотип",
   "qr.logo.upload": "Загрузить изображение",
@@ -146,8 +147,7 @@ const RU: Dict = {
   "qr.caption.placeholder": "Например: Отсканируй меня",
   "qr.caption.font": "Шрифт",
   "qr.svgQuality": "Высокое качество (SVG)",
-  "qr.svgQuality.hint":
-    "Экспорт в SVG сохраняет вектор без потери качества при любом размере.",
+  "qr.svgQuality.hint": "Экспорт в SVG сохраняет вектор без потери качества при любом размере.",
   "qr.preview": "Предпросмотр",
   "qr.size": "Размер",
   "qr.size.custom": "Свой размер",
@@ -192,6 +192,7 @@ const EN: Dict = {
   "nav.theme.dark": "Dark theme",
   "nav.theme.light": "Light theme",
   "nav.explore": "Explore all",
+  "nav.login": "Sign in",
   "nav.promoTitle": "More power in one place",
   "nav.promoBody": "Fast, private, free tools for everyday work.",
   "search.placeholder": "Search tools, e.g. QR, calculator, converter…",
@@ -224,7 +225,7 @@ const EN: Dict = {
   "hist.emptyHint": "Tool actions are stored only in this browser.",
   "hist.clear": "Clear history",
   "hist.open": "Open",
-  "share": "Share",
+  share: "Share",
   "share.copied": "Link copied",
   "share.failed": "Could not copy the link",
   "coming.title": "This tool is on the way",
@@ -245,8 +246,7 @@ const EN: Dict = {
     "Create styled QR codes with a logo, custom colors and export in the format you need. Fast, simple, free.",
   "qr.tip": "Create QR codes for links, text, contacts, Wi-Fi and more.",
   "qr.privacyTitle": "Your data stays in the browser",
-  "qr.privacyBody":
-    "QR codes are created on your device. Nothing is sent to a server.",
+  "qr.privacyBody": "QR codes are created on your device. Nothing is sent to a server.",
   "qr.section.content": "1. Content type",
   "qr.section.design": "2. Design",
   "qr.section.extra": "3. Extra options",
@@ -288,8 +288,7 @@ const EN: Dict = {
   "qr.tab.frame": "Frame",
   "qr.fg": "QR color",
   "qr.bg": "Background",
-  "qr.contrast.warn":
-    "Low contrast: this color pair may be hard to scan.",
+  "qr.contrast.warn": "Low contrast: this color pair may be hard to scan.",
   "qr.contrast.ok": "Contrast is good enough to scan.",
   "qr.logo.enable": "Enable logo",
   "qr.logo.upload": "Upload image",
@@ -315,8 +314,7 @@ const EN: Dict = {
   "qr.caption.placeholder": "e.g. Scan me",
   "qr.caption.font": "Font",
   "qr.svgQuality": "High quality (SVG)",
-  "qr.svgQuality.hint":
-    "SVG export stays vector-sharp at any size.",
+  "qr.svgQuality.hint": "SVG export stays vector-sharp at any size.",
   "qr.preview": "Preview",
   "qr.size": "Size",
   "qr.size.custom": "Custom size",
@@ -358,7 +356,13 @@ const listeners = new Set<() => void>();
 
 function readLocale(): Locale {
   if (typeof window === "undefined") return locale;
-  const stored = window.localStorage.getItem(STORAGE_KEY);
+  if (window.location.pathname.replace(/\/$/, "") === "/en") return "en";
+  let stored: string | null = null;
+  try {
+    stored = window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return "ru";
+  }
   if (stored === "ru" || stored === "en") return stored;
   return "ru";
 }
@@ -379,7 +383,11 @@ function subscribe(cb: () => void) {
 export function setLocale(next: Locale) {
   locale = next;
   if (typeof window !== "undefined") {
-    window.localStorage.setItem(STORAGE_KEY, next);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* Still switch languages when storage is blocked. */
+    }
     document.documentElement.lang = next;
   }
   emit();
@@ -401,7 +409,14 @@ const I18nContext = createContext<{
 } | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const current = useSyncExternalStore(subscribe, getLocale, () => "ru" as Locale);
+  const path = useRouterState({ select: (s) => s.location.pathname.replace(/\/$/, "") });
+  const snapshot = useSyncExternalStore(subscribe, getLocale, () =>
+    path === "/en" ? ("en" as Locale) : ("ru" as Locale),
+  );
+  const current = path === "/en" ? "en" : path === "" ? "ru" : snapshot;
+  useEffect(() => {
+    document.documentElement.lang = current;
+  }, [current]);
   const t = useCallback(
     (key: string, vars?: Record<string, string>) => {
       const dict = DICTS[current];
@@ -409,10 +424,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     },
     [current],
   );
-  const value = useMemo(
-    () => ({ locale: current, t, setLocale }),
-    [current, t],
-  );
+  const value = useMemo(() => ({ locale: current, t, setLocale }), [current, t]);
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 

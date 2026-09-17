@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+/* Custom Range Slider Thumb Styling */
+.cmyk-integrated input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.1s ease,
+    border-color 0.1s ease;
+}
+
+.cmyk-integrated input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.cmyk-integrated input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@media print {
+  .cmyk-integrated header,
+  .cmyk-integrated #how-it-works-card,
+  .cmyk-integrated #tips-card,
+  .cmyk-integrated #faq-card,
+  .cmyk-integrated button,
+  .cmyk-integrated select {
+    display: none !important;
+  }
+  .cmyk-integrated {
+    background-color: #ffffff !important;
+  }
+}
+
+/* Converter navigation: on wide cards each section stays visible as a calm,
+   equal tab. On narrow cards it remains scrollable, but the browser scrollbar
+   is intentionally hidden so it does not look like a broken UI element. */
+.cmyk-tabs-nav {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 4px !important;
+  margin-bottom: 20px !important;
+  padding: 4px !important;
+  overflow: visible !important;
+  border: 1px solid #e2eaf4 !important;
+  border-radius: 12px;
+  background: #f4f7fb;
+}
+
+.cmyk-tabs-nav button {
+  min-width: 0;
+  min-height: 34px;
+  padding: 6px 4px !important;
+  line-height: 1.15;
+  white-space: normal !important;
+  border: 1px solid transparent;
+  background: #ffffff;
+}
+
+.cmyk-tabs-nav button.text-blue-600 {
+  border-color: #2563eb;
+  background: #eaf2ff;
+  box-shadow: inset 0 0 0 1px rgb(37 99 235 / 8%);
+}
+
+.cmyk-tabs-nav button:last-child {
+  grid-column: auto;
+}
+
+.cmyk-export-action {
+  min-height: 56px !important;
+  height: auto !important;
+  padding: 8px 10px !important;
+  border: 1px solid #079878 !important;
+  border-radius: 12px !important;
+  background: #087f69 !important;
+  box-shadow: none !important;
+}
+
+.cmyk-export-action:hover {
+  background: #056d59 !important;
+  box-shadow: 0 5px 14px rgb(5 109 89 / 18%) !important;
+}
+
+.cmyk-export-action .bg-white\/20 {
+  background: rgb(255 255 255 / 14%) !important;
+  border: 1px solid rgb(255 255 255 / 16%);
+}
+
+@media (max-width: 700px) {
+  .cmyk-tabs-nav {
+    display: flex !important;
+    overflow-x: auto !important;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+  }
+
+  .cmyk-tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cmyk-tabs-nav button {
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 7px 10px !important;
+    white-space: nowrap !important;
+    scroll-snap-align: start;
+  }
+
+  .cmyk-tabs-nav button:last-child {
+    grid-column: auto;
+  }
+}
+
+/* Toolboxi.uz dark theme layer. It intentionally changes colors only, leaving
+   the original converter's DOM, layout and interaction logic untouched. */
+.dark .cmyk-integrated {
+  background: transparent !important;
+  color: #eaf2ff;
+}
+.dark .cmyk-integrated .bg-white {
+  background: #111d31 !important;
+}
+.dark .cmyk-integrated .bg-slate-50,
+.dark .cmyk-integrated .bg-slate-100,
+.dark .cmyk-integrated .bg-slate-50\/80,
+.dark .cmyk-integrated .bg-slate-100\/90 {
+  background: #172640 !important;
+}
+.dark .cmyk-integrated .bg-blue-50,
+.dark .cmyk-integrated .bg-cyan-50,
+.dark .cmyk-integrated .bg-pink-50,
+.dark .cmyk-integrated .bg-amber-50,
+.dark .cmyk-integrated .bg-gray-50 {
+  background: #1b2d4a !important;
+}
+.dark .cmyk-integrated .bg-emerald-50 {
+  background: #123a31 !important;
+}
+.dark .cmyk-integrated .bg-\[\#f8fafc\] {
+  background: #0d1728 !important;
+}
+.dark .cmyk-integrated .border-slate-100,
+.dark .cmyk-integrated .border-slate-200,
+.dark .cmyk-integrated .border-slate-200\/80,
+.dark .cmyk-integrated .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #2a405f !important;
+}
+.dark .cmyk-integrated .text-slate-900,
+.dark .cmyk-integrated .text-slate-800 {
+  color: #edf4ff !important;
+}
+.dark .cmyk-integrated .text-slate-700,
+.dark .cmyk-integrated .text-slate-600 {
+  color: #c2d3ec !important;
+}
+.dark .cmyk-integrated .text-slate-500,
+.dark .cmyk-integrated .text-slate-400 {
+  color: #91a9ca !important;
+}
+.dark .cmyk-integrated input,
+.dark .cmyk-integrated select {
+  background-color: #0d182a !important;
+  border-color: #2a405f !important;
+  color: #edf4ff !important;
+}
+.dark .cmyk-integrated input[type="range"]::-webkit-slider-thumb {
+  background: #dce9ff;
+  border-color: #4c82ff;
+}
+.dark .cmyk-integrated .shadow-sm,
+.dark .cmyk-integrated .shadow-xs {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 20%) !important;
+}
+.dark .cmyk-tabs-nav {
+  background: #172640;
+  border-color: #2a405f !important;
+}
+.dark .cmyk-tabs-nav button.text-blue-600 {
+  background: #20375c;
+  box-shadow: none;
+}
+.dark .cmyk-export-action {
+  background: #087b67 !important;
+  border-color: #0fa88b !important;
+}

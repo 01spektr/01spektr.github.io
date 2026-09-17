@@ -1,12 +1,4 @@
-import {
-  Link2,
-  Instagram,
-  FileText,
-  Contact,
-  Wifi,
-  Mail,
-  Phone,
-} from "lucide-react";
+import { Link2, Instagram, FileText, Contact, Wifi, Mail, Phone } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import type { QrContentType, QrState } from "../state";
 import { defaultQrState } from "../state";
@@ -57,7 +49,7 @@ export function Examples({ onApply }: Props) {
           ...defaultQrState().contact,
           firstName: "Anna",
           lastName: "Ivanova",
-          company: "ToolBox",
+          company: "Toolboxi.uz",
           phone: "+1 555 0100",
           email: "hello@example.com",
           website: "https://example.com",

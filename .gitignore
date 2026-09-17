@@ -7,3 +7,5 @@ dist/
 artifacts/
 .grok/
 .project_id
+/.review-backups/
+/*.png

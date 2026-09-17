@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Lock, QrCode, Share2, Star } from "lucide-react";
 import { toast } from "sonner";
+import { ToolIcon } from "@/components/tool-icon";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { isFavorite, subscribeFavorites, toggleFavorite } from "@/lib/tools/favorites";
@@ -77,14 +78,21 @@ export function QrGeneratorPage() {
   const categoryName = locale === "ru" ? "Дизайн и полиграфия" : "Design & print";
 
   return (
-    <div className="qr-generator pb-10">
+    <div className="qr-generator tool-page-frame pb-10">
       <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+        <nav
+          aria-label="Breadcrumb"
+          className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground"
+        >
           <Link to="/" className="hover:text-foreground">
             {t("breadcrumb.home")}
           </Link>
           <ChevronRight className="size-3.5" />
-          <Link to="/categories/$id" params={{ id: "design-print" }} className="hover:text-foreground">
+          <Link
+            to="/categories/$id"
+            params={{ id: "design-print" }}
+            className="hover:text-foreground"
+          >
             {categoryName}
           </Link>
           <ChevronRight className="size-3.5" />
@@ -108,11 +116,9 @@ export function QrGeneratorPage() {
 
       <header className="mb-6 grid gap-4 lg:grid-cols-[1fr_20rem] lg:items-start">
         <div className="flex gap-4">
-          <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-[#6d5ef6] text-primary-foreground">
-            <QrCode className="size-7" />
-          </span>
+          <ToolIcon tool={{ slug: "qr-generator", icon: "QrCode" }} size="hero" />
           <div>
-            <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-[1.75rem]">
+            <h1 className="font-display text-2xl font-bold tracking-tight sm:text-[1.75rem]">
               {t("qr.title")}
             </h1>
             <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
@@ -125,23 +131,21 @@ export function QrGeneratorPage() {
         </aside>
       </header>
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,1fr)]">
-        <div className="grid gap-5">
+      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-start gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,1fr)]">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5">
           <ContentTypePanel state={state} patch={patch} />
           <DesignSettings state={state} patch={patch} contrast={contrast} />
           <ExtraOptions state={state} patch={patch} />
         </div>
 
-        <aside className="surface-card p-5 lg:sticky lg:top-20">
+        <aside className="surface-card min-w-0 p-5 lg:sticky lg:top-20">
           <ExportControls
             state={state}
             patch={patch}
             svg={svg}
             disabled={disabled}
             onUsed={persistUse}
-            preview={
-              <QrPreview svg={svg} empty={empty} error={error} contrast={contrast} />
-            }
+            preview={<QrPreview svg={svg} empty={empty} error={error} contrast={contrast} />}
           />
           <div className="mt-4 flex items-start gap-2 rounded-xl bg-muted/60 px-3 py-3 text-xs leading-relaxed text-muted-foreground">
             <Lock className="mt-0.5 size-3.5 shrink-0" />

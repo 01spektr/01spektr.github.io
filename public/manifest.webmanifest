@@ -1,0 +1,26 @@
+{
+  "name": "Toolboxi.uz",
+  "short_name": "Toolboxi",
+  "description": "Бесплатные калькуляторы, генераторы и конвертеры прямо в браузере.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f3f5fa",
+  "theme_color": "#0c1222",
+  "icons": [
+    {
+      "src": "/toolboxi_uz_icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
+

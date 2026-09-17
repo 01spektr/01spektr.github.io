@@ -2,10 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
 import { CATEGORIES, toolsByCategory } from "@/lib/tools/catalog";
+import { seoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/tools/")({
   component: ToolsIndex,
-  head: () => ({ meta: [{ title: "ToolBox — инструменты" }] }),
+  head: () =>
+    seoHead({
+      title: "Все онлайн-инструменты — Toolboxi.uz",
+      description:
+        "Бесплатные калькуляторы, генераторы и конвертеры для работы, дизайна, финансов и повседневных задач.",
+      path: "/tools",
+    }),
 });
 
 function ToolsIndex() {

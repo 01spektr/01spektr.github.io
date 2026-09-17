@@ -172,12 +172,12 @@ export const TOOLS: ToolDef[] = [
     category: "design-print",
     name: { ru: "Ресайз изображений", en: "Image resizer" },
     description: {
-      ru: "Изменение размера картинок без потери качества.",
+      ru: "Изменение размеров, обрезка и экспорт изображений.",
       en: "Resize images without leaving the browser.",
     },
     keywords: ["изображение", "ресайз", "png"],
     icon: "Image",
-    available: false,
+    available: true,
   },
   {
     id: "barcode-generator",
@@ -190,7 +190,7 @@ export const TOOLS: ToolDef[] = [
     },
     keywords: ["штрихкод", "ean", "barcode"],
     icon: "Barcode",
-    available: false,
+    available: true,
   },
   {
     id: "cmyk-convert",
@@ -203,7 +203,7 @@ export const TOOLS: ToolDef[] = [
     },
     keywords: ["cmyk", "rgb", "печать"],
     icon: "Droplets",
-    available: false,
+    available: true,
   },
   {
     id: "cargo-volume",
@@ -255,7 +255,7 @@ export const TOOLS: ToolDef[] = [
     },
     keywords: ["кредит", "платёж"],
     icon: "Landmark",
-    available: false,
+    available: true,
   },
   {
     id: "invoice-number",
@@ -362,6 +362,19 @@ export const TOOLS: ToolDef[] = [
     available: true,
   },
   {
+    id: "roof-calculator",
+    slug: "roof-calculator",
+    category: "construction",
+    name: { ru: "Калькулятор кровли", en: "Roof calculator" },
+    description: {
+      ru: "Четыре типа крыши, материалы и предварительная смета.",
+      en: "Four roof types, materials and a preliminary estimate.",
+    },
+    keywords: ["кровля", "крыша", "металлочерепица", "конёк"],
+    icon: "House",
+    available: true,
+  },
+  {
     id: "area-calculator",
     slug: "area-calculator",
     category: "construction",
@@ -406,7 +419,17 @@ export function toolsByCategory(id: CategoryId): ToolDef[] {
 }
 
 export function searchTools(query: string): ToolDef[] {
-  const q = query.trim().toLowerCase();
+  const aliases: Record<string, string> = {
+    фото: "image",
+    photo: "image",
+    картинка: "image",
+    картинки: "image",
+    ресайз: "image",
+    крышу: "roof",
+    кровлю: "roof",
+  };
+  const raw = query.trim().toLowerCase();
+  const q = aliases[raw] ?? raw;
   if (!q) return TOOLS;
   return TOOLS.filter((t) => {
     const hay = [

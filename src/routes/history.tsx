@@ -1,14 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
+import { ToolIcon } from "@/components/tool-icon";
 import { useI18n } from "@/lib/i18n";
 import { TOOLS } from "@/lib/tools/catalog";
 import { clearHistory, getHistory, subscribeHistory } from "@/lib/tools/history";
-import { iconByName } from "@/lib/icons";
+import { seoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
-  head: () => ({ meta: [{ title: "История — ToolBox" }] }),
+  head: () =>
+    seoHead({
+      title: "История — Toolboxi.uz",
+      description: "Локальная история использования инструментов Toolboxi.uz.",
+      path: "/history",
+      noIndex: true,
+    }),
 });
 
 function HistoryPage() {
@@ -33,7 +40,6 @@ function HistoryPage() {
         <ul className="mt-6 grid gap-2">
           {entries.map((entry) => {
             const tool = TOOLS.find((item) => item.id === entry.toolId);
-            const Icon = iconByName(tool?.icon ?? "QrCode");
             const qs = new URLSearchParams(entry.params).toString();
             const href = tool ? `/tools/${tool.slug}${qs ? `?${qs}` : ""}` : "/tools";
             return (
@@ -42,9 +48,11 @@ function HistoryPage() {
                   href={href}
                   className="surface-card surface-card-hover flex items-center gap-3 p-4"
                 >
-                  <span className="flex size-10 items-center justify-center rounded-xl bg-muted text-primary">
-                    <Icon className="size-4" />
-                  </span>
+                  {tool ? (
+                    <ToolIcon tool={tool} />
+                  ) : (
+                    <span className="flex size-10 items-center justify-center rounded-xl bg-muted text-primary" />
+                  )}
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-medium">{entry.title}</span>
                     <span className="text-xs text-muted-foreground">

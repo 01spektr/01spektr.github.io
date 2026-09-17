@@ -21,7 +21,7 @@ export function DesignSettings({ state, patch, contrast }: Props) {
     <section className="surface-card p-5">
       <h2 className="mb-4 text-sm font-semibold">{t("qr.section.design")}</h2>
       <Tabs defaultValue="colors">
-        <TabsList>
+        <TabsList className="max-w-full overflow-x-auto">
           <TabsTrigger value="colors">{t("qr.tab.colors")}</TabsTrigger>
           <TabsTrigger value="logo">{t("qr.tab.logo")}</TabsTrigger>
           <TabsTrigger value="style">{t("qr.tab.style")}</TabsTrigger>

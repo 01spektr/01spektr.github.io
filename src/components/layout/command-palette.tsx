@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useI18n } from "@/lib/i18n";
-import { iconByName } from "@/lib/icons";
+import { ToolIcon } from "@/components/tool-icon";
 import { searchTools } from "@/lib/tools/catalog";
 
 interface Props {
@@ -22,7 +22,13 @@ export function CommandPalette({ open, onOpenChange }: Props) {
   const { t, locale } = useI18n();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
-  const results = useMemo(() => searchTools(query).slice(0, 12), [query]);
+  const results = useMemo(
+    () =>
+      searchTools(query)
+        .filter((tool) => tool.available)
+        .slice(0, 12),
+    [query],
+  );
 
   return (
     <Dialog
@@ -56,7 +62,6 @@ export function CommandPalette({ open, onOpenChange }: Props) {
             </li>
           ) : (
             results.map((tool) => {
-              const Icon = iconByName(tool.icon);
               return (
                 <li key={tool.id}>
                   <button
@@ -67,9 +72,7 @@ export function CommandPalette({ open, onOpenChange }: Props) {
                       void navigate({ to: "/tools/$slug", params: { slug: tool.slug } });
                     }}
                   >
-                    <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-primary">
-                      <Icon className="size-4" />
-                    </span>
+                    <ToolIcon tool={tool} size="compact" />
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-medium">
                         {tool.name[locale]}

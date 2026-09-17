@@ -9,16 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useI18n } from "@/lib/i18n";
 import type { ErrorCorrection, QrState } from "../state";
 
@@ -56,7 +48,7 @@ export function ExtraOptions({ state, patch }: Props) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Plus Jakarta Sans">Jakarta</SelectItem>
+                <SelectItem value="Montserrat">Montserrat</SelectItem>
                 <SelectItem value="Inter">Inter</SelectItem>
                 <SelectItem value="Georgia">Georgia</SelectItem>
                 <SelectItem value="system-ui">System</SelectItem>
@@ -70,7 +62,11 @@ export function ExtraOptions({ state, patch }: Props) {
             {t("qr.svgQuality")}
             <Tooltip>
               <TooltipTrigger asChild>
-                <button type="button" className="text-muted-foreground" aria-label={t("qr.svgQuality.hint")}>
+                <button
+                  type="button"
+                  className="text-muted-foreground"
+                  aria-label={t("qr.svgQuality.hint")}
+                >
                   <HelpCircle className="size-3.5" />
                 </button>
               </TooltipTrigger>
@@ -79,9 +75,7 @@ export function ExtraOptions({ state, patch }: Props) {
           </span>
           <Switch
             checked={state.highQualitySvg}
-            onCheckedChange={(v) =>
-              patch({ highQualitySvg: v, exportFormat: v ? "svg" : "png" })
-            }
+            onCheckedChange={(v) => patch({ highQualitySvg: v, exportFormat: v ? "svg" : "png" })}
           />
         </label>
 
@@ -124,10 +118,7 @@ export function ExtraOptions({ state, patch }: Props) {
             </div>
             <label className="flex min-h-11 items-center justify-between gap-3 text-sm">
               <span>{t("qr.quiet")}</span>
-              <Switch
-                checked={state.quietZone}
-                onCheckedChange={(v) => patch({ quietZone: v })}
-              />
+              <Switch checked={state.quietZone} onCheckedChange={(v) => patch({ quietZone: v })} />
             </label>
             <label className="flex min-h-11 items-center justify-between gap-3 text-sm">
               <span>{t("qr.transparent")}</span>
