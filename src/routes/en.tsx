@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Home, homeHead } from "@/features/home/home";
+import { homeHead } from "@/features/home/home";
+import { HomePage } from "./index";
 export const Route = createFileRoute("/en")({
-  component: () => <Home language="en" />,
+  component: () => <HomePage language="en" />,
   head: () => homeHead("en"),
 });

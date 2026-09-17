@@ -416,7 +416,15 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const current = path === "/en" ? "en" : path === "" ? "ru" : snapshot;
   useEffect(() => {
     document.documentElement.lang = current;
-  }, [current]);
+    if (path === "/en" || path === "") {
+      locale = current;
+      try {
+        window.localStorage.setItem(STORAGE_KEY, current);
+      } catch {
+        /* The route still determines the homepage language when storage is blocked. */
+      }
+    }
+  }, [current, path]);
   const t = useCallback(
     (key: string, vars?: Record<string, string>) => {
       const dict = DICTS[current];

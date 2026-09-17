@@ -29,11 +29,12 @@ export function Sidebar({ onNavigate, compact = false, onToggle }: { onNavigate?
   const { t, locale } = useI18n();
   const { theme, toggleTheme } = useTheme();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const homePath = locale === "en" ? "/en" : "/";
 
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
       <div className={cn("flex items-center py-5", compact ? "justify-center px-3" : "justify-between px-5")}>
-        <Link to="/" onClick={onNavigate} className="block" aria-label="Toolbox">
+        <Link to={homePath} onClick={onNavigate} className="block" aria-label="Toolboxi.uz">
           {compact ? <ToolboxMark /> : <ToolboxLogo />}
         </Link>
         {!compact && onToggle ? <button type="button" onClick={onToggle} className="rounded-lg p-2 text-sidebar-muted hover:bg-sidebar-hover hover:text-sidebar-foreground" aria-label="Свернуть меню"><PanelLeftClose className="size-4" /></button> : null}
@@ -43,11 +44,14 @@ export function Sidebar({ onNavigate, compact = false, onToggle }: { onNavigate?
         <nav className="grid gap-1 pb-4">
           {NAV.map((item) => {
             const Icon = item.icon;
-            const active = item.exact ? pathname === item.to : pathname.startsWith(item.to);
+            const target = item.exact ? homePath : item.to;
+            const active = item.exact
+              ? pathname.replace(/\/$/, "") === target.replace(/\/$/, "")
+              : pathname.startsWith(item.to);
             return (
               <Link
                 key={item.to}
-                to={item.to}
+                to={target}
                 onClick={onNavigate}
                 className={cn(
                   "flex min-h-11 items-center rounded-xl text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground",
@@ -61,7 +65,7 @@ export function Sidebar({ onNavigate, compact = false, onToggle }: { onNavigate?
             );
           })}
           <Link
-            to="/"
+            to={homePath}
             hash="categories"
             onClick={onNavigate}
             className={cn("flex min-h-11 items-center rounded-xl text-sm font-medium text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground", compact ? "justify-center px-2" : "gap-3 px-3")}

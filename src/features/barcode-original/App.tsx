@@ -382,7 +382,7 @@ export default function App() {
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 pb-5 pt-1 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500">
-            <Link to="/" className="hover:text-blue-600">{t("breadcrumb.home")}</Link>
+            <Link to={en ? "/en" : "/"} className="hover:text-blue-600">{t("breadcrumb.home")}</Link>
             <span>›</span>
             <Link
               to="/categories/$id"

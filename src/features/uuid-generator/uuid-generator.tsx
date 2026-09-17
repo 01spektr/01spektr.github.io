@@ -129,7 +129,7 @@ export function UuidGeneratorPage() {
           aria-label="Breadcrumb"
           className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground"
         >
-          <Link to="/" className="hover:text-foreground">
+          <Link to={locale === "en" ? "/en" : "/"} className="hover:text-foreground">
             {t("breadcrumb.home")}
           </Link>
           <ChevronRight className="size-3.5" />

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
-import { useRouterState } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 interface Props {
   onMenu: () => void;
@@ -18,7 +18,13 @@ interface Props {
 export function Header({ onMenu, onSearch }: Props) {
   const { t, locale, setLocale } = useI18n();
   const { theme, toggleTheme } = useTheme();
-  const isHome = useRouterState({ select: (state) => state.location.pathname === "/" });
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (state) => state.location.pathname.replace(/\/$/, "") });
+  const isHome = pathname === "" || pathname === "/en";
+  const changeLocale = (next: "ru" | "en") => {
+    setLocale(next);
+    if (isHome) void navigate({ to: next === "en" ? "/en" : "/" });
+  };
 
   return (
     <header className={`sticky top-0 z-30 flex h-16 items-center gap-3 px-4 backdrop-blur-md lg:px-8 ${isHome ? "home-header" : "bg-background/90"}`}>
@@ -47,14 +53,18 @@ export function Header({ onMenu, onSearch }: Props) {
       <div className="ml-auto flex items-center gap-1">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="gap-1.5 px-2.5" aria-label={t("lang.ru")}>
+          <Button
+            variant="ghost"
+            className="gap-1.5 px-2.5"
+            aria-label={t(locale === "en" ? "lang.en" : "lang.ru")}
+          >
             <Globe className="size-4" />
             <span className="hidden sm:inline">{locale.toUpperCase()}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => setLocale("ru")}>{t("lang.ru")}</DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => setLocale("en")}>{t("lang.en")}</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => changeLocale("ru")}>{t("lang.ru")}</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => changeLocale("en")}>{t("lang.en")}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
