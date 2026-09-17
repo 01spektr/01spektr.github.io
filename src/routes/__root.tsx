@@ -28,6 +28,10 @@ export const Route = createRootRoute({
           "Toolboxi.uz — универсальный набор онлайн-инструментов. Генератор QR-кодов и другие утилиты прямо в браузере.",
       },
       { name: "theme-color", content: "#0c1222" },
+      {
+        name: "google-site-verification",
+        content: "kYuouS1MnKm03A1r76sKyqDDJ-HDLKAV0iKrVIU0oNI",
+      },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
