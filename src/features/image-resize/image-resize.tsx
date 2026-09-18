@@ -1,3 +1,4 @@
+import { IMAGE_RESIZE_EN } from "@/lib/i18n/legacy/image-resize.en";
 import { type ChangeEvent, type DragEvent, useEffect, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
@@ -40,79 +41,6 @@ const FORMAT_OPTIONS: { type: OutputFormat; label: string; accent: string }[] = 
   { type: "image/avif", label: "AVIF", accent: "#22b970" },
 ];
 
-const EN: Record<string, string> = {
-  "Не удалось прочитать изображение.": "Could not read the image.",
-  "Поддерживаются JPG, PNG и WebP.": "JPG, PNG, and WebP are supported.",
-  "Размер файла не должен превышать 20 МБ.": "The file must not exceed 20 MB.",
-  "Не удалось открыть изображение.": "Could not open the image.",
-  "Сначала выберите изображение.": "Choose an image first.",
-  "AVIF не поддерживается в этом браузере.": "AVIF is not supported by this browser.",
-  "Не удалось обработать изображение.": "Could not process the image.",
-  "Изображение обработано": "Image processed",
-  "Ресайз изображений": "Image resize",
-  "Ссылка скопирована": "Link copied",
-  "Не удалось поделиться ссылкой": "Could not share the link",
-  "Полноэкранный режим недоступен в этом браузере.":
-    "Fullscreen mode is unavailable in this browser.",
-  Главная: "Home",
-  "Дизайн и полиграфия": "Design & print",
-  "Ресайз и конвертер изображений": "Image resize & converter",
-  "В избранном": "Saved",
-  "В избранное": "Save",
-  Поделиться: "Share",
-  "Изменяйте размер изображений, конвертируйте в нужный формат и уменьшайте вес. Быстро. Удобно. Бесплатно.":
-    "Resize images, convert them to the format you need, and reduce file size. Fast. Convenient. Free.",
-  "Обработка происходит прямо в вашем браузере.": "Processing happens directly in your browser.",
-  "Файлы не загружаются на сервер.": "Files are never uploaded to a server.",
-  "Загрузите изображение": "Upload an image",
-  "Перетащите изображение сюда": "Drag an image here",
-  или: "or",
-  "выберите файл": "choose a file",
-  "с компьютера": "from your computer",
-  "Поддерживаются: JPG, PNG, WebP (макс. 20 МБ)": "Supported: JPG, PNG, WebP (max. 20 MB)",
-  "Выбранное изображение": "Selected image",
-  "Удалить изображение": "Remove image",
-  "Размер изображения": "Image size",
-  Ширина: "Width",
-  Высота: "Height",
-  "Сохранять пропорции": "Keep aspect ratio",
-  "Исходное соотношение:": "Original ratio:",
-  "Формат и качество": "Format & quality",
-  "Качество:": "Quality:",
-  "Качество изображения": "Image quality",
-  "Дополнительные настройки": "Advanced settings",
-  "Обрабатываем…": "Processing…",
-  "Обработать изображение": "Process image",
-  Информация: "Information",
-  "Изменяйте размер изображений и конвертируйте их в современные форматы. Все операции выполняются в браузере, без загрузки на сервер.":
-    "Resize images and convert them to modern formats. All operations run in your browser without uploads to a server.",
-  Предпросмотр: "Preview",
-  Сравнение: "Compare",
-  Исходное: "Original",
-  Результат: "Result",
-  "На весь экран": "Fullscreen",
-  "ещё не обработано": "not processed yet",
-  "Здесь появится предпросмотр": "Your preview will appear here",
-  "Загрузите изображение, чтобы начать обработку.": "Upload an image to begin processing.",
-  "Размер файла": "File size",
-  Экономия: "Savings",
-  Размеры: "Dimensions",
-  "Изображение успешно обработано!": "Image processed successfully!",
-  "Результат будет готов после обработки": "Your result will be ready after processing",
-  "Скачать изображение": "Download image",
-  Преимущества: "Benefits",
-  "Быстрая обработка в браузере": "Fast browser-based processing",
-  "Поддержка JPG, PNG, WebP, AVIF*": "JPG, PNG, WebP, AVIF support*",
-  "Сохранение качества": "Quality control",
-  "Контроль размера файла": "File-size control",
-  "Никаких загрузок на сервер": "No uploads to a server",
-  "Похожие инструменты": "Related tools",
-  "Смотреть все": "See all",
-  "Генератор QR-кодов": "QR code generator",
-  "Палитра цветов": "Color palette",
-  "Генератор штрихкодов": "Barcode generator",
-};
-
 function formatBytes(value: number, locale: "ru" | "en") {
   const kb = locale === "en" ? "KB" : "КБ";
   const mb = locale === "en" ? "MB" : "МБ";
@@ -137,7 +65,7 @@ function loadImage(src: string, errorMessage = "Не удалось прочит
 
 export function ImageResizePage() {
   const { locale } = useI18n();
-  const tr = (value: string) => (locale === "en" ? (EN[value] ?? value) : value);
+  const tr = (value: string) => (locale === "en" ? (IMAGE_RESIZE_EN[value] ?? value) : value);
   const bytes = (value: number) => formatBytes(value, locale);
   const fileInput = useRef<HTMLInputElement>(null);
   const sourceObjectUrl = useRef<string | null>(null);

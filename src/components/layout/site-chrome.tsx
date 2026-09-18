@@ -2,9 +2,10 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Heart, History, Menu, Search } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useState } from "react";
+import { LOCALES, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/config";
 import "@/features/home/home.css";
 export function SiteHeader({ onSearch }: { onSearch: () => void }) {
-  const { locale, setLocale } = useI18n(),
+  const { locale, setLocale, t } = useI18n(),
     navigate = useNavigate();
   const en = locale === "en";
   const [menu, setMenu] = useState(false);
@@ -16,39 +17,40 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
           <img src="/toolboxi_uz_logo.svg" alt="Toolboxi.uz" />
         </Link>
         <nav className="tc-nav">
-          <Link to="/tools">{en ? "Tools" : "Инструменты"}</Link>
-          <a href={en ? "/en/#categories" : "/#categories"}>{en ? "Categories" : "Категории"}</a>
-          <Link to="/about">{en ? "About" : "О проекте"}</Link>
+          <Link to="/tools">{t("nav.tools")}</Link>
+          <a href={en ? "/en/#categories" : "/#categories"}>{t("nav.categories")}</a>
+          <Link to="/about">{t("nav.about")}</Link>
         </nav>
         <div className="tc-header-actions">
           <button
             className="tc-search-button"
             onClick={onSearch}
-            aria-label={en ? "Search tools" : "Поиск инструментов"}
+            aria-label={t("search.placeholder")}
           >
             <Search />
           </button>
           <Link to="/favorites" className="tc-utility">
             <Heart />
-            <span>{en ? "Favorites" : "Избранное"}</span>
+            <span>{t("nav.favorites")}</span>
           </Link>
           <Link to="/history" className="tc-utility">
             <History />
-            <span>{en ? "History" : "История"}</span>
+            <span>{t("nav.history")}</span>
           </Link>
           <label className="tc-language">
-            <span className="sr-only">{en ? "Language" : "Язык"}</span>
+            <span className="sr-only">{t("common.language")}</span>
             <select
               value={locale}
               onChange={(e) => {
-                const next = e.target.value as "ru" | "en";
+                const next = e.target.value as Locale;
                 setLocale(next);
                 if (path === "/" || path.replace(/\/$/, "") === "/en")
                   void navigate({ to: next === "en" ? "/en" : "/" });
               }}
             >
-              <option value="ru">RU</option>
-              <option value="en">EN</option>
+              {SUPPORTED_LOCALES.map((code) => (
+                <option key={code} value={code}>{LOCALES[code].shortLabel}</option>
+              ))}
             </select>
             <ChevronDown />
           </label>
@@ -56,7 +58,7 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
             className="tc-menu-button"
             onClick={() => setMenu(!menu)}
             aria-expanded={menu}
-            aria-label={en ? "Menu" : "Меню"}
+            aria-label={t("common.menu")}
           >
             <Menu />
           </button>
@@ -64,18 +66,18 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
       </div>
       {menu && (
         <nav className="tc-mobile-nav" onClick={() => setMenu(false)}>
-          <Link to="/tools">{en ? "All tools" : "Все инструменты"}</Link>
-          <a href={en ? "/en/#categories" : "/#categories"}>{en ? "Categories" : "Категории"}</a>
-          <Link to="/favorites">{en ? "Favorites" : "Избранное"}</Link>
-          <Link to="/history">{en ? "History" : "История"}</Link>
-          <Link to="/about">{en ? "About" : "О проекте"}</Link>
+          <Link to="/tools">{t("nav.all")}</Link>
+          <a href={en ? "/en/#categories" : "/#categories"}>{t("nav.categories")}</a>
+          <Link to="/favorites">{t("nav.favorites")}</Link>
+          <Link to="/history">{t("nav.history")}</Link>
+          <Link to="/about">{t("nav.about")}</Link>
         </nav>
       )}
     </header>
   );
 }
 export function SiteFooter() {
-  const { locale } = useI18n(),
+  const { locale, t } = useI18n(),
     en = locale === "en";
   return (
     <footer className="tc-footer">
@@ -84,22 +86,18 @@ export function SiteFooter() {
           <Link to={en ? "/en" : "/"} className="tc-brand">
             <img src="/toolboxi_uz_logo.svg" alt="Toolboxi.uz" />
           </Link>
-          <p>
-            {en
-              ? "Useful tools. More time for what matters."
-              : "Полезные инструменты. Больше времени на важное."}
-          </p>
+          <p>{t("footer.tagline")}</p>
         </div>
-        <nav aria-label={en ? "Site information" : "Информация о сайте"}>
-          <Link to="/about">{en ? "About Toolboxi" : "О проекте"}</Link>
-          <Link to="/tools">{en ? "All tools" : "Все инструменты"}</Link>
-          <Link to="/privacy">{en ? "Privacy policy" : "Конфиденциальность"}</Link>
-          <Link to="/terms">{en ? "Terms of use" : "Условия использования"}</Link>
+        <nav aria-label={t("footer.siteInfo")}>
+          <Link to="/about">{t("footer.about")}</Link>
+          <Link to="/tools">{t("nav.all")}</Link>
+          <Link to="/privacy">{t("footer.privacy")}</Link>
+          <Link to="/terms">{t("footer.terms")}</Link>
         </nav>
       </div>
       <div className="tc-footer-bottom">
         <span>© {new Date().getFullYear()} Toolboxi.uz</span>
-        <span>{en ? "Free tools. No account required." : "Бесплатно. Без регистрации."}</span>
+        <span>{t("footer.free")}</span>
       </div>
     </footer>
   );

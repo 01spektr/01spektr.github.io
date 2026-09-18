@@ -7,26 +7,18 @@ import {
   Infinity as InfinityIcon,
   Info,
   Settings,
-  Settings2,
   Copy,
   Download,
-  Check,
   CheckCircle2,
-  Lightbulb,
   FileCode,
-  FileImage,
   FileText,
   AlertCircle,
-  Sparkles,
   ChevronDown,
   Palette,
-  ExternalLink,
-  RefreshCw,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import {
   BARCODE_FORMATS,
-  BarcodeFormatInfo,
   renderBarcodeToSvg,
   downloadSvgAsFile,
   downloadSvgAsPng,
@@ -46,6 +38,13 @@ import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
 import { Star, Share2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import {
+  BARCODE_COLOR_LABELS_EN,
+  BARCODE_DESCRIPTIONS_EN,
+  BARCODE_HINTS_EN,
+  BARCODE_SIZE_LABELS_EN,
+  translateBarcodeRuntimeMessage,
+} from "@/lib/i18n/legacy/barcode.en";
 
 const COLOR_OPTIONS = [
   { id: "black", name: "Чёрный", hex: "#000000" },
@@ -64,46 +63,23 @@ const SIZE_OPTIONS = [
 ];
 
 function colourLabel(id: string) {
-  return ({ black: "Black", navy: "Dark blue", slate: "Dark grey", green: "Green", red: "Red", custom: "Custom colour…" } as Record<string, string>)[id] ?? id;
+  return BARCODE_COLOR_LABELS_EN[id] ?? id;
 }
 
 function sizeLabel(id: string) {
-  return ({ small: "Small (200 px)", medium: "Medium (300 px)", large: "Large (450 px)", xlarge: "Extra large (600 px)" } as Record<string, string>)[id] ?? id;
+  return BARCODE_SIZE_LABELS_EN[id] ?? id;
 }
 
 function barcodeDescription(id: string) {
-  return ({
-    "EAN-13": "Standard 13-digit code used for retail products.",
-    "EAN-8": "Compact 8-digit code for small packages.",
-    Code128: "High-density code for letters, numbers and symbols.",
-    Code39: "Popular industrial barcode for Latin letters and numbers.",
-    "ITF-14": "Barcode for shipping packages and cardboard boxes.",
-    "UPC-A": "American 12-digit retail barcode standard.",
-    Codabar: "Simple barcode used by libraries, laboratories and logistics.",
-  } as Record<string, string>)[id] ?? "Barcode format";
+  return BARCODE_DESCRIPTIONS_EN[id] ?? "Barcode format";
 }
 
 function barcodeHint(id: string) {
-  return ({
-    "EAN-13": "Enter 12 or 13 digits; the check digit is calculated automatically.",
-    "EAN-8": "Enter 7 or 8 digits.",
-    Code128: "Supports Latin letters, numbers and special characters.",
-    Code39: "Supports uppercase Latin letters, numbers and - . $ / + %.",
-    "ITF-14": "Enter exactly 13 or 14 digits.",
-    "UPC-A": "Enter 11 or 12 digits.",
-    Codabar: "Supports digits and the symbols - $ : / . +.",
-  } as Record<string, string>)[id] ?? "Enter barcode data.";
+  return BARCODE_HINTS_EN[id] ?? "Enter barcode data.";
 }
 
 function englishRuntimeMessage(message: string) {
-  return message
-    .replace("Введите данные для штрихкода", "Enter barcode data")
-    .replace(/Введено (\d+) из (\d+) цифр\./, "Entered $1 of $2 digits.")
-    .replace(/Для (EAN-13|EAN-8|ITF-14) требуется/, "$1 requires")
-    .replace(/13-я цифра '(.+)' неверна по стандарту GS1\. Для кодирования использована верная контрольная сумма '(.+)'\./, "The 13th digit '$1' is invalid under GS1. The correct check digit '$2' is used for encoding.")
-    .replace(/8-я цифра '(.+)' скорректирована на верную сумму '(.+)'\./, "The 8th digit '$1' was corrected to '$2'.")
-    .replace(/14-я контрольная цифра скорректирована на '(.+)'\./, "The 14th check digit was corrected to '$1'.")
-    .replace(/Ошибка формата данных для (.+)\. Проверьте введенные символы\./, "Invalid $1 data. Check the entered characters.");
+  return translateBarcodeRuntimeMessage(message);
 }
 
 export default function App() {

@@ -135,10 +135,12 @@ const HOME_COPY = {
   },
 } as const;
 
+const EMPTY_HISTORY: ReturnType<typeof getHistory> = [];
+
 export function HomePage({ language }: { language: Locale }) {
   const { locale } = useI18n();
   const copy = HOME_COPY[language];
-  const history = useSyncExternalStore(subscribeHistory, getHistory, getHistory);
+  const history = useSyncExternalStore(subscribeHistory, getHistory, () => EMPTY_HISTORY);
   const popular = POPULAR_SLUGS.map((slug) => TOOLS.find((tool) => tool.slug === slug)).filter(
     (tool): tool is ToolDef => Boolean(tool),
   );

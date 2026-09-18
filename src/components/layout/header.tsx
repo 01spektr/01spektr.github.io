@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
+import { LOCALES, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/config";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 interface Props {
@@ -21,7 +22,7 @@ export function Header({ onMenu, onSearch }: Props) {
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (state) => state.location.pathname.replace(/\/$/, "") });
   const isHome = pathname === "" || pathname === "/en";
-  const changeLocale = (next: "ru" | "en") => {
+  const changeLocale = (next: Locale) => {
     setLocale(next);
     if (isHome) void navigate({ to: next === "en" ? "/en" : "/" });
   };
@@ -63,8 +64,11 @@ export function Header({ onMenu, onSearch }: Props) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => changeLocale("ru")}>{t("lang.ru")}</DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => changeLocale("en")}>{t("lang.en")}</DropdownMenuItem>
+          {SUPPORTED_LOCALES.map((code) => (
+            <DropdownMenuItem key={code} onSelect={() => changeLocale(code)}>
+              {LOCALES[code].label}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
 

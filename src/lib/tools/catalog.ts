@@ -1,4 +1,5 @@
-export type Locale = "ru" | "en";
+export type { Locale } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
 
 export type CategoryId =
   | "logistics"
@@ -10,10 +11,7 @@ export type CategoryId =
   | "developers"
   | "construction";
 
-export interface Localized {
-  ru: string;
-  en: string;
-}
+export type Localized = Record<Locale, string>;
 
 export interface ToolCategory {
   id: CategoryId;

@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Check, BookOpen, AlertCircle } from 'lucide-react';
 import { BarcodeFormatInfo } from '../utils/barcode';
 import { useI18n } from '@/lib/i18n';
+import { BARCODE_FORMATS_EN } from '@/lib/i18n/legacy/barcode.en';
 
 interface FormatInfoModalProps {
   format: BarcodeFormatInfo | null;
@@ -19,7 +20,7 @@ export const FormatInfoModal: React.FC<FormatInfoModalProps> = ({
   const tr = (ru: string, english: string) => en ? english : ru;
   if (!isOpen || !format) return null;
 
-  const english = ENGLISH_FORMATS[format.id] ?? ENGLISH_FORMATS.default;
+  const english = BARCODE_FORMATS_EN[format.id] ?? BARCODE_FORMATS_EN.default;
 
   return (
     <div
@@ -110,15 +111,4 @@ export const FormatInfoModal: React.FC<FormatInfoModalProps> = ({
       </div>
     </div>
   );
-};
-
-const ENGLISH_FORMATS: Record<string, { description: string; usage: string; hint: string }> = {
-  'EAN-13': { description: 'The international retail product identifier used worldwide.', usage: 'Retail, supermarkets and finished consumer goods.', hint: 'Enter 12 or 13 digits; the check digit is calculated automatically.' },
-  'EAN-8': { description: 'A compact EAN format for products with limited label space.', usage: 'Small retail items, bottles and blister packs.', hint: 'Enter 7 or 8 digits.' },
-  Code128: { description: 'A high-density variable-length barcode supporting the full ASCII character set.', usage: 'Logistics, shipping labels, serial numbers and inventory.', hint: 'Use Latin letters, digits and ASCII symbols.' },
-  Code39: { description: 'A reliable industrial barcode for uppercase Latin letters, digits and a small symbol set.', usage: 'Industrial assets, automotive and inventory control.', hint: 'Use uppercase Latin letters, digits and - . $ / + %.' },
-  'ITF-14': { description: 'A 14-digit shipping-container barcode designed for corrugated packaging.', usage: 'Wholesale boxes, pallets and shipping containers.', hint: 'Enter exactly 13 or 14 digits.' },
-  'UPC-A': { description: 'The 12-digit retail product standard used in the United States and Canada.', usage: 'Products intended for the US and Canadian retail markets.', hint: 'Enter 11 or 12 digits.' },
-  Codabar: { description: 'A simple discrete barcode with A–D start and stop characters.', usage: 'Libraries, laboratories and courier documents.', hint: 'Start and end with A, B, C or D.' },
-  default: { description: 'Barcode standard.', usage: 'Product and logistics identification.', hint: 'Enter valid barcode data.' },
 };

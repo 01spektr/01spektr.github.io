@@ -22,9 +22,10 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
+import type { MessageKey } from "@/lib/i18n/messages";
 import type { QrContentType, QrState } from "../state";
 
-const TYPES: { id: QrContentType; icon: typeof Link2; label: string }[] = [
+const TYPES: { id: QrContentType; icon: typeof Link2; label: MessageKey }[] = [
   { id: "url", icon: Link2, label: "qr.type.url" },
   { id: "text", icon: Type, label: "qr.type.text" },
   { id: "contact", icon: Users, label: "qr.type.contact" },
