@@ -27,14 +27,16 @@ export const Route = createRootRoute({
         content:
           "Toolboxi.uz — универсальный набор онлайн-инструментов. Генератор QR-кодов и другие утилиты прямо в браузере.",
       },
-      { name: "theme-color", content: "#0c1222" },
+      { name: "theme-color", content: "#f3f5fa" },
       {
         name: "google-site-verification",
         content: "kYuouS1MnKm03A1r76sKyqDDJ-HDLKAV0iKrVIU0oNI",
       },
     ],
     links: [
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-48.png" },
+      { rel: "icon", type: "image/svg+xml", sizes: "any", href: "/favicon.svg" },
+      { rel: "shortcut icon", href: "/favicon-48.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
@@ -66,6 +68,18 @@ function RootComponent() {
               inLanguage: ["ru", "en"],
               description:
                 "Бесплатные калькуляторы, генераторы и конвертеры прямо в браузере.",
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Toolboxi.uz",
+              url: "https://toolboxi.uz/",
+              logo: "https://toolboxi.uz/apple-touch-icon.png",
             }).replace(/</g, "\\u003c"),
           }}
         />

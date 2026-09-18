@@ -9,7 +9,7 @@ import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { seoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  component: () => <HomePage language="ru" />,
+  component: HomeRoute,
   head: () => {
     const head = seoHead({
       title: "Toolboxi.uz — бесплатные инструменты для работы и жизни",
@@ -28,6 +28,11 @@ export const Route = createFileRoute("/")({
     };
   },
 });
+
+function HomeRoute() {
+  const { locale } = useI18n();
+  return <HomePage language={locale} />;
+}
 
 const QUICK_LINKS = {
   ru: [

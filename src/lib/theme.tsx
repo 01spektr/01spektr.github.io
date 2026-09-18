@@ -32,15 +32,13 @@ function apply(next: Theme) {
   }
 }
 
-function readTheme(): Theme {
-  if (typeof window === "undefined") return "light";
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === "dark" || stored === "light") return stored;
-  return "light";
-}
-
 if (typeof window !== "undefined") {
-  apply(readTheme());
+  apply("light");
+  try {
+    window.localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    /* Light mode is still applied when storage is unavailable. */
+  }
 }
 
 export function getTheme() {
@@ -49,7 +47,6 @@ export function getTheme() {
 
 export function setTheme(next: Theme) {
   apply(next);
-  if (typeof window !== "undefined") window.localStorage.setItem(STORAGE_KEY, next);
   emit();
 }
 

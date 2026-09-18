@@ -10,7 +10,7 @@ import {
 import type { Locale } from "@/lib/tools/catalog";
 import { useRouterState } from "@tanstack/react-router";
 
-const STORAGE_KEY = "toolbox:locale";
+const STORAGE_KEY = "toolbox:locale-choice";
 
 type Dict = Record<string, string>;
 
@@ -361,10 +361,11 @@ function readLocale(): Locale {
   try {
     stored = window.localStorage.getItem(STORAGE_KEY);
   } catch {
-    return "ru";
+    stored = null;
   }
   if (stored === "ru" || stored === "en") return stored;
-  return "ru";
+  const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+  return browserLanguages.some((value) => value.toLowerCase().startsWith("ru")) ? "ru" : "en";
 }
 
 locale = typeof window === "undefined" ? "ru" : readLocale();
@@ -413,17 +414,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const snapshot = useSyncExternalStore(subscribe, getLocale, () =>
     path === "/en" ? ("en" as Locale) : ("ru" as Locale),
   );
-  const current = path === "/en" ? "en" : path === "" ? "ru" : snapshot;
+  const current = path === "/en" ? "en" : snapshot;
   useEffect(() => {
     document.documentElement.lang = current;
-    if (path === "/en" || path === "") {
-      locale = current;
-      try {
-        window.localStorage.setItem(STORAGE_KEY, current);
-      } catch {
-        /* The route still determines the homepage language when storage is blocked. */
-      }
-    }
+    locale = current;
   }, [current, path]);
   const t = useCallback(
     (key: string, vars?: Record<string, string>) => {
