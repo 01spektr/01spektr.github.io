@@ -17,6 +17,7 @@ import {
 import { CityTimezone } from '../types';
 import { getTimeInTimezone, getUtcOffsetString, getHourSegmentType } from '../utils/timezone';
 import { FlagIcon } from './FlagIcon';
+import { useWorldTimezonesI18n } from '../i18n';
 
 interface TimezoneDirectoryProps {
   allCities: CityTimezone[];
@@ -35,6 +36,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
   onAddToTimeline,
   onSelectForConverter,
 }) => {
+  const { tr, cityName, countryName } = useWorldTimezonesI18n();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedContinent, setSelectedContinent] = useState('Все');
   const [selectedUtc, setSelectedUtc] = useState('Все UTC');
@@ -87,9 +89,9 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
     const q = searchQuery.toLowerCase().trim();
     const matchesSearch =
       !q ||
-      city.cityRu.toLowerCase().includes(q) ||
+      cityName(city).toLowerCase().includes(q) ||
       city.city.toLowerCase().includes(q) ||
-      city.countryRu.toLowerCase().includes(q) ||
+      countryName(city).toLowerCase().includes(q) ||
       city.country.toLowerCase().includes(q) ||
       city.timezone.toLowerCase().includes(q);
 
@@ -132,10 +134,10 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900">
-                Каталог городов и часовых поясов мира
+                {tr("Каталог городов и часовых поясов мира")}
               </h3>
               <p className="text-xs text-slate-500">
-                Актуальное местное время, смещение UTC и статус рабочих часов в городах мира
+                {tr("Актуальное местное время, смещение UTC и статус рабочих часов в городах мира")}
               </p>
             </div>
           </div>
@@ -144,7 +146,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
         {/* Global Stats Counter */}
         <div className="flex items-center gap-3 text-xs text-slate-500">
           <span className="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl font-medium">
-            Найдено: <strong className="text-slate-900 font-bold">{filteredCities.length}</strong> из {allCities.length}
+            {tr("Найдено:")} <strong className="text-slate-900 font-bold">{filteredCities.length}</strong> {tr("из")} {allCities.length}
           </span>
           <button
             onClick={() => setOnlyFavorites(!onlyFavorites)}
@@ -155,7 +157,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
             }`}
           >
             <Star className={`w-3.5 h-3.5 ${onlyFavorites ? 'fill-amber-400 text-amber-500' : 'text-slate-400'}`} />
-            <span>Избранные ({favoriteCityIds.length})</span>
+            <span>{tr("Избранные")} ({favoriteCityIds.length})</span>
           </button>
         </div>
       </div>
@@ -180,7 +182,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                     : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/80'
                 }`}
               >
-                {continent}
+                {tr(continent as Parameters<typeof tr>[0])}
                 <span
                   className={`ml-1.5 text-[10px] px-1.5 py-0.2 rounded-md ${
                     selectedContinent === continent
@@ -207,7 +209,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
             }`}
           >
             <Briefcase className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Сейчас работают (09-18)</span>
+            <span>{tr("Сейчас работают (09-18)")}</span>
           </button>
 
           {/* UTC Selector */}
@@ -215,12 +217,12 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
             <select
               value={selectedUtc}
               onChange={(e) => setSelectedUtc(e.target.value)}
-              aria-label="Фильтр по смещению UTC"
+              aria-label={tr("Фильтр по смещению UTC")}
               className="appearance-none bg-slate-50 border border-slate-200 rounded-xl pl-3 pr-8 py-2 text-xs font-semibold text-slate-700 hover:border-slate-300 focus:outline-hidden cursor-pointer transition-colors shadow-2xs"
             >
               {utcOptions.map((u) => (
                 <option key={u} value={u}>
-                  {u}
+                  {u === 'Все UTC' ? tr("Все UTC") : u}
                 </option>
               ))}
             </select>
@@ -234,7 +236,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Поиск города, страны..."
+              placeholder={tr("Поиск города, страны...")}
               className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all shadow-2xs"
             />
             {searchQuery && (
@@ -254,12 +256,12 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
         <table className="w-full text-left border-collapse">
           <thead className="bg-slate-50/90 text-[11px] font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200">
             <tr>
-              <th className="py-3.5 px-4 w-[22%]">Город</th>
-              <th className="py-3.5 px-4 w-[16%]">Страна и континент</th>
-              <th className="py-3.5 px-4 w-[18%]">Часовой пояс (IANA)</th>
-              <th className="py-3.5 px-4 w-[12%]">Смещение UTC</th>
-              <th className="py-3.5 px-4 w-[16%]">Текущее время</th>
-              <th className="py-3.5 px-4 w-[16%] text-right">Действия</th>
+              <th className="py-3.5 px-4 w-[22%]">{tr("Город")}</th>
+              <th className="py-3.5 px-4 w-[16%]">{tr("Страна и континент")}</th>
+              <th className="py-3.5 px-4 w-[18%]">{tr("Часовой пояс (IANA)")}</th>
+              <th className="py-3.5 px-4 w-[12%]">{tr("Смещение UTC")}</th>
+              <th className="py-3.5 px-4 w-[16%]">{tr("Текущее время")}</th>
+              <th className="py-3.5 px-4 w-[16%] text-right">{tr("Действия")}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-xs">
@@ -268,8 +270,8 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                 <td colSpan={6} className="py-12 text-center text-slate-400">
                   <div className="flex flex-col items-center justify-center gap-2">
                     <Search className="w-6 h-6 text-slate-300" />
-                    <span className="font-medium text-slate-600">Города не найдены</span>
-                    <span className="text-xs text-slate-400">Попробуйте изменить поисковый запрос или сбросить фильтры</span>
+                    <span className="font-medium text-slate-600">{tr("Города не найдены")}</span>
+                    <span className="text-xs text-slate-400">{tr("Попробуйте изменить поисковый запрос или сбросить фильтры")}</span>
                   </div>
                 </td>
               </tr>
@@ -283,19 +285,19 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                 const seg = getHourSegmentType(time.hour);
 
                 let statusBadge = {
-                  label: 'Рабочие часы',
+                  label: tr("Рабочие часы"),
                   icon: Briefcase,
                   bg: 'bg-emerald-50 text-emerald-700 border-emerald-200',
                 };
                 if (seg === 'night') {
                   statusBadge = {
-                    label: 'Ночь (отдых)',
+                    label: tr("Ночь (отдых)"),
                     icon: Moon,
                     bg: 'bg-slate-100 text-slate-700 border-slate-200',
                   };
                 } else if (seg === 'day') {
                   statusBadge = {
-                    label: 'Утро / Вечер',
+                    label: tr("Утро / Вечер"),
                     icon: Sun,
                     bg: 'bg-sky-50 text-sky-700 border-sky-200',
                   };
@@ -314,7 +316,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                         <FlagIcon countryCode={city.countryCode} size="md" />
                         <div>
                           <div className="font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
-                            {city.cityRu}
+                            {cityName(city)}
                           </div>
                           <div className="text-[11px] text-slate-400 font-medium">
                             {city.city}
@@ -325,8 +327,8 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
 
                     {/* Country & Continent */}
                     <td className="py-3 px-4">
-                      <div className="text-slate-800 font-medium">{city.countryRu}</div>
-                      <div className="text-[10px] text-slate-400">{city.continent}</div>
+                      <div className="text-slate-800 font-medium">{countryName(city)}</div>
+                      <div className="text-[10px] text-slate-400">{tr(city.continent)}</div>
                     </td>
 
                     {/* Timezone */}
@@ -364,7 +366,7 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                         {/* Favorite button */}
                         <button
                           onClick={() => onToggleFavorite(city.id)}
-                          title={isFavorite ? 'В избранном' : 'Добавить в избранное'}
+                          title={isFavorite ? tr("В избранном") : tr("Добавить в избранное")}
                           className={`p-1.5 rounded-lg border transition-all ${
                             isFavorite
                               ? 'bg-amber-50 text-amber-500 border-amber-200 shadow-2xs'
@@ -378,10 +380,10 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                         {onSelectForConverter && (
                           <button
                             onClick={() => onSelectForConverter(city)}
-                            title="Сравнить в конвертере времени"
+                            title={tr("Сравнить в конвертере времени")}
                             className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-2xs"
                           >
-                            <span>В конвертер</span>
+                            <span>{tr("В конвертер")}</span>
                             <ArrowUpRight className="w-3.5 h-3.5" />
                           </button>
                         )}
@@ -390,14 +392,14 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
                         {!isInTimeline ? (
                           <button
                             onClick={() => onAddToTimeline(city)}
-                            title="Добавить в планировщик встречи"
+                            title={tr("Добавить в планировщик встречи")}
                             className="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition-colors border border-slate-200"
                           >
-                            <span>+ Встреча</span>
+                            <span>{tr("+ Встреча")}</span>
                           </button>
                         ) : (
                           <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 text-[11px] font-semibold px-2 py-1 rounded-lg">
-                            ✓ Добавлен
+                            ✓ {tr("Добавлен")}
                           </span>
                         )}
                       </div>
@@ -414,12 +416,12 @@ export const TimezoneDirectory: React.FC<TimezoneDirectoryProps> = ({
       {totalPages > 1 && (
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <div>
-            Показаны города{' '}
+            {tr("Показаны города")}{' '}
             <strong className="text-slate-800">
               {(currentPage - 1) * itemsPerPage + 1}–
               {Math.min(currentPage * itemsPerPage, filteredCities.length)}
             </strong>{' '}
-            из <strong className="text-slate-800">{filteredCities.length}</strong>
+            {tr("из")} <strong className="text-slate-800">{filteredCities.length}</strong>
           </div>
 
           <div className="flex items-center gap-1">

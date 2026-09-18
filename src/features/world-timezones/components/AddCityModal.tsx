@@ -3,6 +3,7 @@ import { Search, X, Plus, Check } from 'lucide-react';
 import { CityTimezone } from '../types';
 import { getTimeInTimezone, getUtcOffsetString } from '../utils/timezone';
 import { FlagIcon } from './FlagIcon';
+import { useWorldTimezonesI18n } from '../i18n';
 
 interface AddCityModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
   timelineCityIds,
   onAddCity,
 }) => {
+  const { t, tr, cityName, countryName } = useWorldTimezonesI18n();
   const [search, setSearch] = useState('');
   if (!isOpen) return null;
 
@@ -27,9 +29,9 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
     const q = search.toLowerCase().trim();
     if (!q) return true;
     return (
-      c.cityRu.toLowerCase().includes(q) ||
+      cityName(c).toLowerCase().includes(q) ||
       c.city.toLowerCase().includes(q) ||
-      c.countryRu.toLowerCase().includes(q) ||
+      countryName(c).toLowerCase().includes(q) ||
       c.country.toLowerCase().includes(q) ||
       c.timezone.toLowerCase().includes(q)
     );
@@ -41,9 +43,9 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
         {/* Header */}
         <div className="p-4 border-b border-slate-200 flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Добавить город или страну</h3>
+            <h3 className="text-base font-bold text-slate-900">{t("worldTime.addCityTitle")}</h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Выберите город для добавления на временную шкалу
+              {t("worldTime.addCitySubtitle")}
             </p>
           </div>
           <button
@@ -63,7 +65,7 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
               autoFocus
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Введите название города, страны или пояса..."
+              placeholder={t("worldTime.addCityPlaceholder")}
               className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-500 transition-colors shadow-2xs"
             />
           </div>
@@ -73,7 +75,7 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
         <div className="overflow-y-auto divide-y divide-slate-100 flex-1 p-2">
           {filtered.length === 0 ? (
             <div className="py-12 text-center text-sm text-slate-400">
-              Город не найден. Попробуйте другой запрос.
+              {t("worldTime.cityNotFound")}
             </div>
           ) : (
             filtered.map((city) => {
@@ -90,9 +92,9 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
                   <div className="flex items-center gap-3">
                     <FlagIcon countryCode={city.countryCode} size="md" />
                     <div>
-                      <div className="text-sm font-bold text-slate-900">{city.cityRu}</div>
+                      <div className="text-sm font-bold text-slate-900">{cityName(city)}</div>
                       <div className="text-xs text-slate-500">
-                        {city.countryRu} • <span className="font-mono">{utcStr}</span>
+                        {countryName(city)} • <span className="font-mono">{utcStr}</span>
                       </div>
                     </div>
                   </div>
@@ -105,7 +107,7 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
                     {isAdded ? (
                       <span className="flex items-center gap-1 text-xs font-medium text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
                         <Check className="w-3.5 h-3.5" />
-                        Добавлен
+                        {tr("Добавлен")}
                       </span>
                     ) : (
                       <button
@@ -113,7 +115,7 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
                         className="flex items-center gap-1 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-lg transition-colors shadow-2xs"
                       >
                         <Plus className="w-3.5 h-3.5" />
-                        Добавить
+                        {tr("Добавить")}
                       </button>
                     )}
                   </div>
@@ -129,7 +131,7 @@ export const AddCityModal: React.FC<AddCityModalProps> = ({
             onClick={onClose}
             className="px-4 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-200 rounded-lg transition-colors"
           >
-            Закрыть
+            {t("common.close")}
           </button>
         </div>
       </div>

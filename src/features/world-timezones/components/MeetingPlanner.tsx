@@ -16,6 +16,7 @@ import {
   getHourSegmentType
 } from '../utils/timezone';
 import { FlagIcon } from './FlagIcon';
+import { useWorldTimezonesI18n } from '../i18n';
 
 interface MeetingPlannerProps {
   allCities: CityTimezone[];
@@ -32,6 +33,7 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
   onRemoveCity,
   onOpenAddModal,
 }) => {
+  const { t, tr, cityName } = useWorldTimezonesI18n();
   const [copied, setCopied] = useState(false);
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
 
@@ -52,6 +54,10 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
   };
 
   const recommendation = calculateBestMeetingTime(selectedCities, referenceCity);
+  const translatedRecommendationCity = (name: string) => {
+    const city = allCities.find((item) => item.cityRu === name || item.city === name);
+    return city ? cityName(city) : name;
+  };
 
   // Remaining cities not yet in selected
   const availableToAdd = allCities.filter(
@@ -61,10 +67,10 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
   // Copy meeting details
   const handleCopy = () => {
     const textLines = [
-      `📅 Встреча: ${recommendation.startTime}:00 – ${recommendation.endTime}:00 (${recommendation.referenceCityName})`,
-      'Разбивка по городам:',
-      ...recommendation.breakdown.map((b) => `• ${b.cityRu}: ${b.timeRange}`),
-      '\nСоздано в сервисе «Часовые пояса мира»',
+      `📅 ${t("worldTime.meeting")}: ${recommendation.startTime}:00 – ${recommendation.endTime}:00 (${translatedRecommendationCity(recommendation.referenceCityName)})`,
+      t("worldTime.breakdown"),
+      ...recommendation.breakdown.map((b) => `• ${translatedRecommendationCity(b.cityRu)}: ${b.timeRange}`),
+      `\n${t("worldTime.createdWith")}`,
     ];
     navigator.clipboard.writeText(textLines.join('\n'));
     setCopied(true);
@@ -82,10 +88,10 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
     const eH = recommendation.endTime.toString().padStart(2, '0');
     
     const details = encodeURIComponent(
-      `Международная онлайн-встреча\n\n` +
-      recommendation.breakdown.map((b) => `${b.cityRu}: ${b.timeRange}`).join('\n')
+      `${t("worldTime.internationalMeeting")}\n\n` +
+      recommendation.breakdown.map((b) => `${translatedRecommendationCity(b.cityRu)}: ${b.timeRange}`).join('\n')
     );
-    const title = encodeURIComponent(`Международная встреча (${selectedCities.map(c => c.cityRu).join(', ')})`);
+    const title = encodeURIComponent(`${t("worldTime.internationalMeeting")} (${selectedCities.map(c => cityName(c)).join(', ')})`);
     const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${y}${m}${d}T${sH}0000/${y}${m}${d}T${eH}0000`;
     window.open(calUrl, '_blank');
   };
@@ -98,9 +104,9 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
           <Users className="w-5 h-5" />
         </div>
         <div>
-          <h2 className="text-base font-bold text-slate-900">Удобное время для встречи</h2>
+          <h2 className="text-base font-bold text-slate-900">{tr("Удобное время для встречи")}</h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Выберите города и найдите общее удобное время
+            {tr("Выберите города и найдите общее удобное время")}
           </p>
         </div>
       </div>
@@ -113,12 +119,12 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-medium text-slate-800 transition-colors shadow-2xs"
           >
             <FlagIcon countryCode={city.countryCode} size="xs" />
-            <span>{city.cityRu}</span>
+            <span>{cityName(city)}</span>
             {selectedCities.length > 1 && (
               <button
                 onClick={() => onRemoveCity(city.id)}
                 className="text-slate-400 hover:text-rose-600 p-0.5 transition-colors ml-0.5"
-                title="Убрать город"
+                title={tr("Убрать город")}
               >
                 <X className="w-3 h-3" />
               </button>
@@ -133,14 +139,14 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
             className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-dashed border-slate-300 hover:border-blue-400 text-xs font-medium text-blue-600 hover:bg-blue-50 transition-colors"
           >
             <Plus className="w-3 h-3" />
-            <span>Добавить</span>
+            <span>{tr("Добавить")}</span>
             <ChevronDown className="w-3 h-3 text-slate-400" />
           </button>
 
           {isCityDropdownOpen && (
             <div className="absolute left-0 mt-1 w-52 max-h-56 overflow-y-auto bg-white rounded-xl shadow-lg border border-slate-200 py-1 z-40">
               {availableToAdd.length === 0 ? (
-                <div className="px-3 py-2 text-xs text-slate-400">Все города уже добавлены</div>
+                <div className="px-3 py-2 text-xs text-slate-400">{tr("Все города уже добавлены")}</div>
               ) : (
                 availableToAdd.slice(0, 10).map((city) => (
                   <button
@@ -153,7 +159,7 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
                   >
                     <div className="flex items-center gap-2">
                       <FlagIcon countryCode={city.countryCode} size="xs" />
-                      <span>{city.cityRu}</span>
+                      <span>{cityName(city)}</span>
                     </div>
                     <span className="text-slate-400 text-[10px] font-mono">{city.countryCode.toUpperCase()}</span>
                   </button>
@@ -173,10 +179,10 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
               <div
                 key={city.id}
                 className="h-4 flex items-center gap-1.5 text-[11px] font-bold text-slate-700 truncate"
-                title={city.cityRu}
+                title={cityName(city)}
               >
                 <FlagIcon countryCode={city.countryCode} size="xs" />
-                <span className="truncate">{city.cityRu}</span>
+                <span className="truncate">{cityName(city)}</span>
               </div>
             ))}
           </div>
@@ -239,18 +245,18 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
           </div>
           <div>
             <div className="text-xs font-semibold text-emerald-800">
-              Рекомендуемое время
+              {tr("Рекомендуемое время")}
             </div>
             <div className="text-base font-extrabold text-slate-900 mt-0.5 font-mono">
               {recommendation.startTime.toString().padStart(2, '0')}:00 –{' '}
-              {recommendation.endTime.toString().padStart(2, '0')}:00 ({recommendation.referenceCityName})
+              {recommendation.endTime.toString().padStart(2, '0')}:00 ({translatedRecommendationCity(recommendation.referenceCityName)})
             </div>
             
             {/* Breakdown per city */}
             <div className="mt-2 text-[11px] text-slate-600 leading-relaxed font-mono">
               {recommendation.breakdown.map((b, idx) => (
                 <span key={b.cityRu}>
-                  {b.timeRange} ({b.cityRu})
+                  {b.timeRange} ({translatedRecommendationCity(b.cityRu)})
                   {idx < recommendation.breakdown.length - 1 && ' | '}
                 </span>
               ))}
@@ -266,12 +272,12 @@ export const MeetingPlanner: React.FC<MeetingPlannerProps> = ({
           className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl text-xs transition-all shadow-xs active:scale-[0.98]"
         >
           {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-          <span>{copied ? 'Скопировано!' : 'Скопировать время'}</span>
+          <span>{copied ? tr("Скопировано!") : tr("Скопировать время")}</span>
         </button>
 
         <button
           onClick={handleAddToCalendar}
-          title="Открыть в Google Календаре"
+          title={tr("Открыть в Google Календаре")}
           className="flex items-center justify-center px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors"
         >
           <CalendarIcon className="w-4 h-4 text-slate-600" />

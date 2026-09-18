@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { CityTimezone } from '../types';
 import { getTimeInTimezone, getUtcOffsetString } from '../utils/timezone';
+import { useWorldTimezonesI18n } from '../i18n';
 
 interface TimezoneMapProps {
   cities: CityTimezone[];
@@ -34,6 +35,7 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
   isExpanded,
   onToggleExpand,
 }) => {
+  const { t, tr, cityName, countryName } = useWorldTimezonesI18n();
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<Leaflet.Map | null>(null);
   const markersLayerRef = useRef<Leaflet.LayerGroup | null>(null);
@@ -184,7 +186,7 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
         }
       );
 
-      polygon.bindTooltip(`Часовой пояс UTC ${utcOffset}`, {
+      polygon.bindTooltip(`${tr("Часовой пояс UTC")} ${utcOffset}`, {
         sticky: true,
         direction: 'top',
         className: 'custom-tz-tooltip',
@@ -192,7 +194,7 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
 
       layer.addLayer(polygon);
     }
-  }, [showTimezones, mapReady]);
+  }, [showTimezones, mapReady, tr]);
 
   // Render City Markers
   useEffect(() => {
@@ -219,7 +221,7 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
           <div class="relative flex flex-col items-center group cursor-pointer">
             <div class="bg-slate-900 text-white font-bold text-[10px] px-2 py-0.5 rounded-md shadow-lg whitespace-nowrap -mt-8 flex items-center gap-1 border border-slate-700">
               <span class="text-blue-400 font-mono">${utcStr}</span>
-              <span>${city.cityRu}</span>
+              <span>${cityName(city)}</span>
             </div>
             <div class="w-4 h-4 rounded-full bg-blue-600 border-2 border-white shadow-md flex items-center justify-center animate-pulse">
               <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
@@ -235,7 +237,7 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
               <div class="w-1 h-1 rounded-full bg-white"></div>
             </div>
             <div class="bg-white/95 text-slate-800 text-[10px] font-bold px-1.5 py-0.2 rounded shadow-xs border border-slate-200 whitespace-nowrap mt-0.5">
-              ${city.cityRu} ${timeStr}
+              ${cityName(city)} ${timeStr}
             </div>
           </div>
         `;
@@ -262,19 +264,19 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
       const popupContent = `
         <div style="font-family: inherit; padding: 4px; min-width: 200px;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <img src="https://flagcdn.com/${city.countryCode.toLowerCase()}.svg" alt="${city.countryRu}" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.1);" />
+            <img src="https://flagcdn.com/${city.countryCode.toLowerCase()}.svg" alt="${countryName(city)}" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.1);" />
             <div>
-              <strong style="font-size: 14px; color: #0f172a; display: block;">${city.cityRu}</strong>
-              <div style="font-size: 11px; color: #64748b;">${city.countryRu} • ${city.continent}</div>
+              <strong style="font-size: 14px; color: #0f172a; display: block;">${cityName(city)}</strong>
+              <div style="font-size: 11px; color: #64748b;">${countryName(city)} • ${tr(city.continent)}</div>
             </div>
           </div>
           <div style="margin-top: 6px; padding: 8px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 11px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-              <span style="color: #64748b;">Текущее время:</span>
+              <span style="color: #64748b;">${tr("Текущее время:")}</span>
               <strong style="font-family: monospace; color: #2563eb; font-size: 13px;">${timeStr}</strong>
             </div>
             <div style="display: flex; justify-content: space-between;">
-              <span style="color: #64748b;">Часовой пояс:</span>
+              <span style="color: #64748b;">${tr("Часовой пояс:")}</span>
               <strong style="font-family: monospace; color: #0f172a;">${utcStr}</strong>
             </div>
           </div>
@@ -283,13 +285,13 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
               id="popup-conv-btn-${city.id}"
               style="flex: 1; padding: 6px 8px; background: #2563eb; color: white; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;"
             >
-              <span>В конвертер ↗</span>
+              <span>${tr("В конвертер")} ↗</span>
             </button>
             <button
               id="popup-meet-btn-${city.id}"
               style="flex: 1; padding: 6px 8px; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;"
             >
-              <span>+ Встреча</span>
+              <span>${tr("+ Встреча")}</span>
             </button>
           </div>
         </div>
@@ -317,7 +319,7 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
 
       layer.addLayer(marker);
     });
-  }, [allCities, timelineCityIds, onSelectCity, onSelectForConverter, mapReady]);
+  }, [allCities, timelineCityIds, onSelectCity, onSelectForConverter, mapReady, tr, cityName, countryName]);
 
   // Zoom controls
   const handleZoomIn = () => {
@@ -341,9 +343,9 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
             <Globe2 className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-slate-900">Интерактивная карта часовых поясов</h3>
+            <h3 className="text-base font-bold text-slate-900">{tr("Интерактивная карта часовых поясов")}</h3>
             <p className="text-xs text-slate-500">
-              Географическая панорама поясов UTC, меридианов и городов мира
+              {tr("Географическая панорама поясов UTC, меридианов и городов мира")}
             </p>
           </div>
         </div>
@@ -352,31 +354,31 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowTimezones(!showTimezones)}
-            title="Показать или скрыть границы поясов"
+            title={tr("Показать или скрыть границы поясов")}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
               showTimezones
                 ? 'bg-blue-50 text-blue-700 border-blue-200 shadow-2xs'
                 : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
             }`}
           >
-            Пояса UTC
+            {tr("Пояса UTC")}
           </button>
 
           <select
             value={activeLayer}
             onChange={(e) => setActiveLayer(e.target.value as any)}
-            aria-label="Стиль карты"
+            aria-label={tr("Стиль карты")}
             className="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-slate-700 hover:border-slate-300 cursor-pointer focus:outline-hidden shadow-2xs"
           >
-            <option value="osm">OpenStreetMap (Четкая)</option>
-            <option value="light">Светлая (Минимализм)</option>
-            <option value="streets">Топографическая</option>
+            <option value="osm">OpenStreetMap ({tr("Четкая")})</option>
+            <option value="light">{tr("Светлая (Минимализм)")}</option>
+            <option value="streets">{tr("Топографическая")}</option>
           </select>
 
           {onToggleExpand && (
             <button
               onClick={onToggleExpand}
-              title={isExpanded ? 'Свернуть' : 'Развернуть на весь экран'}
+              title={isExpanded ? t("worldTime.collapseMap") : t("worldTime.expandMap")}
               className="p-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 transition-colors shadow-2xs"
             >
               <Maximize2 className="w-4 h-4" />
@@ -393,21 +395,21 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
         <div className="absolute bottom-4 left-4 flex flex-col bg-white rounded-xl border border-slate-200 shadow-md overflow-hidden z-400">
           <button
             onClick={handleZoomIn}
-            title="Приблизить карту"
+            title={tr("Приблизить карту")}
             className="p-2.5 hover:bg-slate-50 text-slate-700 transition-colors border-b border-slate-100"
           >
             <Plus className="w-4 h-4" />
           </button>
           <button
             onClick={handleZoomOut}
-            title="Отдалить карту"
+            title={tr("Отдалить карту")}
             className="p-2.5 hover:bg-slate-50 text-slate-700 transition-colors border-b border-slate-100"
           >
             <Minus className="w-4 h-4" />
           </button>
           <button
             onClick={handleResetView}
-            title="Сбросить масштаб (Весь мир)"
+            title={tr("Сбросить масштаб (Весь мир)")}
             className="p-2.5 hover:bg-slate-50 text-slate-700 transition-colors"
           >
             <RotateCcw className="w-4 h-4" />
@@ -418,14 +420,14 @@ export const TimezoneMap: React.FC<TimezoneMapProps> = ({
         <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-xs border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-700 shadow-md z-400 flex items-center gap-3">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-600 border border-white"></span>
-            <span className="font-medium text-[11px]">На встрече / в фокусе</span>
+            <span className="font-medium text-[11px]">{tr("На встрече / в фокусе")}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-slate-500 border border-white"></span>
-            <span className="font-medium text-[11px]">Города мира</span>
+            <span className="font-medium text-[11px]">{tr("Города мира")}</span>
           </div>
           <div className="flex items-center gap-1.5 text-slate-400 text-[10px]">
-            <span>• Кликните на любой город для действий</span>
+            <span>• {tr("Кликните на любой город для действий")}</span>
           </div>
         </div>
       </div>

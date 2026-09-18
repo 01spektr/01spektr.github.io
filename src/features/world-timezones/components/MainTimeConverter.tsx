@@ -18,6 +18,7 @@ import {
 import { CityTimezone } from '../types';
 import { getTimeInTimezone, getUtcOffsetString, getHourSegmentType } from '../utils/timezone';
 import { FlagIcon } from './FlagIcon';
+import { useWorldTimezonesI18n } from '../i18n';
 
 interface MainTimeConverterProps {
   allCities: CityTimezone[];
@@ -29,6 +30,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
   allCities,
   externalToCityId,
 }) => {
+  const { locale, t, tr, cityName, countryName } = useWorldTimezonesI18n();
   // Primary pair of cities
   const [fromCityId, setFromCityId] = useState<string>('tashkent');
   const [toCityId, setToCityId] = useState<string>('london');
@@ -83,8 +85,11 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
     const srcCurrent = getTimeInTimezone(fromCity.timezone, now);
     const targetCurrent = getTimeInTimezone(targetCity.timezone, now);
     
-    // Difference in hours
-    const diffHours = (targetCurrent.hour + targetCurrent.minute / 60) - (srcCurrent.hour + srcCurrent.minute / 60);
+    // Compare complete local date-time values so crossing midnight does not
+    // turn a -4 hour offset into +20 hours.
+    const srcWallClock = Date.UTC(srcCurrent.year, srcCurrent.month - 1, srcCurrent.day, srcCurrent.hour, srcCurrent.minute);
+    const targetWallClock = Date.UTC(targetCurrent.year, targetCurrent.month - 1, targetCurrent.day, targetCurrent.hour, targetCurrent.minute);
+    const diffHours = (targetWallClock - srcWallClock) / (60 * 60 * 1000);
 
     const totalSrcMinutes = srcHour * 60 + srcMinute;
     const totalTargetMinutes = Math.round(totalSrcMinutes + diffHours * 60);
@@ -141,18 +146,18 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
     const formatH = (h: number, m: number) =>
       `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
 
-    const fromText = `${formatH(selectedHour, selectedMinute)} (${fromCity.cityRu})`;
-    const toText = `${formatH(toResult.hour, toResult.minute)} (${toCity.cityRu})${
-      toResult.dayShift !== 0 ? ` [${toResult.dayShift > 0 ? '+1 день' : '-1 день'}]` : ''
+    const fromText = `${formatH(selectedHour, selectedMinute)} (${cityName(fromCity)})`;
+    const toText = `${formatH(toResult.hour, toResult.minute)} (${cityName(toCity)})${
+      toResult.dayShift !== 0 ? ` [${toResult.dayShift > 0 ? `+1 ${tr("день")}` : `-1 ${tr("день")}`}]` : ''
     }`;
 
-    let fullText = `Конвертация времени: ${fromText} = ${toText}`;
+    let fullText = `${t("worldTime.conversion")}: ${fromText} = ${toText}`;
     if (extraCityIds.length > 0) {
       const extras = extraCityIds.map((id) => {
         const c = allCities.find((item) => item.id === id);
         if (!c) return '';
         const res = convertTime(c, selectedHour, selectedMinute);
-        return ` • ${formatH(res.hour, res.minute)} (${c.cityRu})`;
+        return ` • ${formatH(res.hour, res.minute)} (${cityName(c)})`;
       }).filter(Boolean).join('');
       fullText += extras;
     }
@@ -177,9 +182,9 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
     const startISO = `${startYear}${startMonth}${startDay}T${startHourStr}${startMinStr}00`;
     const endISO = `${startYear}${startMonth}${startDay}T${endHourStr}${startMinStr}00`;
 
-    const title = encodeURIComponent(`Встреча (${fromCity.cityRu} - ${toCity.cityRu})`);
+    const title = encodeURIComponent(`${t("worldTime.meeting")} (${cityName(fromCity)} - ${cityName(toCity)})`);
     const details = encodeURIComponent(
-      `Время в ${fromCity.cityRu}: ${selectedHour}:${selectedMinute.toString().padStart(2, '0')}\nВремя в ${toCity.cityRu}: ${toResult.hour}:${toResult.minute.toString().padStart(2, '0')}`
+      `${t("worldTime.timeIn")} ${cityName(fromCity)}: ${selectedHour}:${selectedMinute.toString().padStart(2, '0')}\n${t("worldTime.timeIn")} ${cityName(toCity)}: ${toResult.hour}:${toResult.minute.toString().padStart(2, '0')}`
     );
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startISO}/${endISO}&details=${details}`;
@@ -212,20 +217,26 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
   // Verbal time difference phrase
   const getVerbalDifference = () => {
     const diff = toResult.diffHours;
-    if (diff === 0) return 'Города находятся в одном часовом поясе';
-    if (diff > 0) {
-      return `${toCity.cityRu} опережает ${fromCity.cityRu} на ${diff} ${diff === 1 ? 'час' : diff < 5 ? 'часа' : 'часов'}`;
-    }
+    if (diff === 0) return tr("Города находятся в одном часовом поясе");
     const absDiff = Math.abs(diff);
-    return `${toCity.cityRu} отстает от ${fromCity.cityRu} на ${absDiff} ${absDiff === 1 ? 'час' : absDiff < 5 ? 'часа' : 'часов'}`;
+    const unitKey = absDiff === 1
+      ? "worldTime.hourOne"
+      : locale === "ru" && absDiff >= 2 && absDiff <= 4
+        ? "worldTime.hourFew"
+        : "worldTime.hourMany";
+    const unit = t(unitKey);
+    if (diff > 0) {
+      return t("worldTime.ahead", { to: cityName(toCity), from: cityName(fromCity), hours: `${diff} ${unit}` });
+    }
+    return t("worldTime.behind", { to: cityName(toCity), from: cityName(fromCity), hours: `${absDiff} ${unit}` });
   };
 
   // Available cities to add as extra
   const filteredAvailableCities = allCities
     .filter((c) => c.id !== fromCityId && c.id !== toCityId && !extraCityIds.includes(c.id))
     .filter((c) => 
-      c.cityRu.toLowerCase().includes(extraCitySearch.toLowerCase()) ||
-      c.countryRu.toLowerCase().includes(extraCitySearch.toLowerCase())
+      cityName(c).toLowerCase().includes(extraCitySearch.toLowerCase()) ||
+      countryName(c).toLowerCase().includes(extraCitySearch.toLowerCase())
     );
 
   return (
@@ -238,9 +249,9 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             <ArrowLeftRight className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Конвертер времени</h2>
+            <h2 className="text-lg font-bold text-slate-900">{tr("Конвертер времени")}</h2>
             <p className="text-xs text-slate-500">
-              Точный расчет времени между городами и часовыми поясами мира
+              {tr("Точный расчет времени между городами и часовыми поясами мира")}
             </p>
           </div>
         </div>
@@ -255,7 +266,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                 is24h ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800'
               }`}
             >
-              24 часа
+              {tr("24 часа")}
             </button>
             <button
               onClick={() => setIs24h(false)}
@@ -263,14 +274,14 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                 !is24h ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800'
               }`}
             >
-              12 часов
+              {tr("12 часов")}
             </button>
           </div>
 
           {/* Reset to current live time */}
           <button
             onClick={handleResetNow}
-            title="Перейти к текущему времени"
+            title={tr("Перейти к текущему времени")}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
               isLive
                 ? 'bg-blue-50 border-blue-200 text-blue-700 font-semibold'
@@ -278,7 +289,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             }`}
           >
             <Clock className={`w-3.5 h-3.5 ${isLive ? 'animate-spin' : ''}`} style={{ animationDuration: '6s' }} />
-            <span>{isLive ? 'Сейчас (живое)' : 'Текущее время'}</span>
+            <span>{isLive ? tr("Сейчас (живое)") : tr("Текущее время")}</span>
           </button>
         </div>
       </div>
@@ -291,7 +302,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
           {/* Label Header */}
           <div className="h-6 flex items-center justify-between">
             <span className="font-accent text-[11px] font-bold uppercase tracking-wider text-slate-500">
-              Исходный город (Из)
+              {tr("Исходный город")} {tr("(Из)")}
             </span>
             <span className="px-2 py-0.5 rounded-md bg-white border border-slate-200 font-mono text-[11px] text-slate-600 font-semibold leading-normal">
               {getUtcOffsetString(fromCity.timezone, now)}
@@ -307,12 +318,12 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                 setFromCityId(e.target.value);
                 setIsLive(false);
               }}
-              aria-label="Исходный город"
+              aria-label={tr("Исходный город")}
               className="w-full bg-transparent font-bold text-sm text-slate-900 focus:outline-hidden cursor-pointer truncate"
             >
               {allCities.map((city) => (
                 <option key={city.id} value={city.id}>
-                  {city.cityRu} ({city.countryRu})
+                  {cityName(city)} ({countryName(city)})
                 </option>
               ))}
             </select>
@@ -321,7 +332,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
           {/* Time Picker & Display */}
           <div className="h-[76px] flex items-center justify-between bg-white border border-slate-200 rounded-xl p-3 shadow-2xs">
             <div className="flex flex-col justify-center">
-              <div className="text-[10px] text-slate-400 font-medium mb-1 leading-none">Задайте время:</div>
+              <div className="text-[10px] text-slate-400 font-medium mb-1 leading-none">{tr("Задайте время:")}</div>
               <div className="flex items-center gap-1.5 font-mono">
                 <div className="relative">
                   <input
@@ -343,7 +354,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                         setIsLive(false);
                       }
                     }}
-                    aria-label="Часы"
+                    aria-label={tr("Часы")}
                     className="w-13 h-10 text-center font-mono text-2xl sm:text-3xl font-black text-slate-900 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-hidden transition-all shadow-2xs leading-none"
                   />
                 </div>
@@ -368,7 +379,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                         setIsLive(false);
                       }
                     }}
-                    aria-label="Минуты"
+                    aria-label={tr("Минуты")}
                     className="w-13 h-10 text-center font-mono text-2xl sm:text-3xl font-black text-slate-900 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-lg focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 focus:outline-hidden transition-all shadow-2xs leading-none"
                   />
                 </div>
@@ -379,21 +390,21 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             <div className="text-right flex flex-col justify-center items-end">
               {getHourSegmentType(selectedHour) === 'work' && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <Briefcase className="w-3 h-3" /> Рабочее
+                  <Briefcase className="w-3 h-3" /> {tr("Рабочее")}
                 </span>
               )}
               {getHourSegmentType(selectedHour) === 'day' && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">
-                  <Sun className="w-3 h-3 text-amber-500" /> День
+                  <Sun className="w-3 h-3 text-amber-500" /> {tr("День")}
                 </span>
               )}
               {getHourSegmentType(selectedHour) === 'night' && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
-                  <Moon className="w-3 h-3" /> Ночь
+                  <Moon className="w-3 h-3" /> {tr("Ночь")}
                 </span>
               )}
               <div className="text-[11px] text-slate-400 mt-1.5 font-mono">
-                {now.toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'short' })}
+                {now.toLocaleDateString(locale === "ru" ? "ru-RU" : locale === "uz" ? "uz-UZ" : "en-US", { weekday: 'short', day: 'numeric', month: 'short' })}
               </div>
             </div>
           </div>
@@ -403,13 +414,13 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
         <div className="md:col-span-1 flex flex-col items-center justify-center gap-2 py-2">
           <button
             onClick={handleSwap}
-            title="Поменять местами"
+            title={tr("Поменять местами")}
             className="w-11 h-11 rounded-full bg-white hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-400 text-slate-600 hover:text-blue-600 flex items-center justify-center transition-all shadow-2xs hover:scale-110 active:scale-95"
           >
             <ArrowLeftRight className="w-5 h-5" />
           </button>
           <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">
-            {toResult.diffHours > 0 ? `+${toResult.diffHours}ч` : `${toResult.diffHours}ч`}
+            {toResult.diffHours > 0 ? `+${toResult.diffHours}h` : `${toResult.diffHours}h`}
           </span>
         </div>
 
@@ -418,14 +429,14 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
           {/* Label Header */}
           <div className="h-6 flex items-center justify-between">
             <span className="font-accent text-[11px] font-bold uppercase tracking-wider text-blue-900">
-              Целевой город (В)
+              {tr("Целевой город")} {tr("(В)")}
             </span>
             <div className="flex items-center gap-1.5">
               {toResult.dayShift !== 0 && (
                 <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold leading-normal ${
                   toResult.dayShift > 0 ? 'bg-amber-100 text-amber-800' : 'bg-purple-100 text-purple-800'
                 }`}>
-                  {toResult.dayShift > 0 ? '+1 день' : '-1 день'}
+                  {toResult.dayShift > 0 ? `+1 ${tr("день")}` : `-1 ${tr("день")}`}
                 </span>
               )}
               <span className="px-2 py-0.5 rounded-md bg-white border border-blue-200 font-mono text-[11px] text-blue-700 font-semibold leading-normal">
@@ -440,12 +451,12 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             <select
               value={toCityId}
               onChange={(e) => setToCityId(e.target.value)}
-              aria-label="Целевой город"
+              aria-label={tr("Целевой город")}
               className="w-full bg-transparent font-bold text-sm text-slate-900 focus:outline-hidden cursor-pointer truncate"
             >
               {allCities.map((city) => (
                 <option key={city.id} value={city.id}>
-                  {city.cityRu} ({city.countryRu})
+                  {cityName(city)} ({countryName(city)})
                 </option>
               ))}
             </select>
@@ -454,7 +465,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
           {/* Result Converted Display */}
           <div className="h-[76px] flex items-center justify-between bg-white border border-blue-200 rounded-xl p-3 shadow-2xs">
             <div className="flex flex-col justify-center">
-              <div className="text-[10px] text-blue-600 font-medium mb-1 leading-none">Точное время:</div>
+              <div className="text-[10px] text-blue-600 font-medium mb-1 leading-none">{tr("Точное время:")}</div>
               <div className="h-10 flex items-center">
                 <span className="font-mono text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-none">
                   {formatTimeDisplay(toResult.hour, toResult.minute)}
@@ -466,25 +477,25 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             <div className="text-right flex flex-col justify-center items-end">
               {toResult.segment === 'work' && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  <Briefcase className="w-3 h-3" /> Рабочее
+                  <Briefcase className="w-3 h-3" /> {tr("Рабочее")}
                 </span>
               )}
               {toResult.segment === 'day' && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-800 border border-sky-200">
-                  <Sun className="w-3 h-3 text-amber-500" /> День
+                  <Sun className="w-3 h-3 text-amber-500" /> {tr("День")}
                 </span>
               )}
               {toResult.segment === 'night' && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-200 text-slate-700">
-                  <Moon className="w-3 h-3" /> Ночь
+                  <Moon className="w-3 h-3" /> {tr("Ночь")}
                 </span>
               )}
               <div className="text-[11px] text-slate-500 mt-1.5 font-medium">
                 {toResult.dayShift > 0
-                  ? 'Завтра'
+                  ? tr("Завтра")
                   : toResult.dayShift < 0
-                  ? 'Вчера'
-                  : 'Сегодня'}
+                  ? tr("Вчера")
+                  : tr("Сегодня")}
               </div>
             </div>
           </div>
@@ -507,13 +518,13 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
       <div className="flex flex-col gap-2 bg-slate-50/80 border border-slate-200 rounded-xl p-4">
         <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
           <span className="flex items-center gap-1.5">
-            <span>Интерактивная шкала 24 часов:</span>
+            <span>{tr("Интерактивная шкала 24 часов:")}</span>
             <strong className="text-blue-600 font-mono">
               {formatTimeDisplay(selectedHour, selectedMinute)}
             </strong>
           </span>
           <span className="text-[11px] text-slate-400">
-            Перетащите ползунок для быстрого подбора
+            {tr("Перетащите ползунок для быстрого подбора")}
           </span>
         </div>
 
@@ -527,7 +538,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             setSelectedHour(parseInt(e.target.value, 10));
             setIsLive(false);
           }}
-          aria-label="24-часовая шкала времени"
+          aria-label={tr("24-часовая шкала времени")}
           className="w-full accent-blue-600 cursor-pointer h-2 bg-slate-200 rounded-lg"
         />
 
@@ -549,15 +560,15 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             <div className="flex items-center gap-3">
               <span className="flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-xs bg-slate-300"></span>
-                <span>Ночь (00-07)</span>
+                <span>{tr("Ночь (00-07)")}</span>
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-xs bg-sky-200"></span>
-                <span>Утро/Вечер</span>
+                <span>{tr("Утро/Вечер")}</span>
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-xs bg-emerald-300"></span>
-                <span>Рабочие часы (09-18)</span>
+                <span>{tr("Рабочие часы (09-18)")}</span>
               </span>
             </div>
           </div>
@@ -566,31 +577,31 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
         {/* Quick Presets Buttons */}
         <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-200/60 mt-1">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">
-            Пресеты:
+            {tr("Пресеты:")}
           </span>
           <button
             onClick={() => handleSelectPreset(9, 0)}
             className="px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-xs font-medium text-slate-700 transition-colors shadow-2xs"
           >
-            09:00 (Начало дня)
+            09:00 ({tr("Начало дня")})
           </button>
           <button
             onClick={() => handleSelectPreset(12, 0)}
             className="px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-xs font-medium text-slate-700 transition-colors shadow-2xs"
           >
-            12:00 (Обед)
+            12:00 ({tr("Обед")})
           </button>
           <button
             onClick={() => handleSelectPreset(15, 0)}
             className="px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-xs font-medium text-slate-700 transition-colors shadow-2xs"
           >
-            15:00 (Встреча)
+            15:00 ({tr("Встреча")})
           </button>
           <button
             onClick={() => handleSelectPreset(18, 0)}
             className="px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-xs font-medium text-slate-700 transition-colors shadow-2xs"
           >
-            18:00 (Конец дня)
+            18:00 ({tr("Конец дня")})
           </button>
         </div>
       </div>
@@ -600,7 +611,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-700">
-              Дополнительные города ({extraCityIds.length}):
+              {tr("Дополнительные города")} ({extraCityIds.length}):
             </span>
           </div>
 
@@ -618,9 +629,9 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                   <div className="flex items-center gap-2.5">
                     <FlagIcon countryCode={city.countryCode} size="sm" />
                     <div>
-                      <div className="text-xs font-bold text-slate-900">{city.cityRu}</div>
+                      <div className="text-xs font-bold text-slate-900">{cityName(city)}</div>
                       <div className="text-[10px] text-slate-500 font-mono">
-                        {getUtcOffsetString(city.timezone, now)} • {res.diffHours > 0 ? `+${res.diffHours}ч` : `${res.diffHours}ч`}
+                        {getUtcOffsetString(city.timezone, now)} • {res.diffHours > 0 ? `+${res.diffHours}h` : `${res.diffHours}h`}
                       </div>
                     </div>
                   </div>
@@ -631,12 +642,12 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                         {formatTimeDisplay(res.hour, res.minute)}
                       </div>
                       <div className="text-[10px] text-slate-400">
-                        {res.dayShift > 0 ? '+1 день' : res.dayShift < 0 ? '-1 день' : 'сегодня'}
+                        {res.dayShift > 0 ? `+1 ${tr("день")}` : res.dayShift < 0 ? `-1 ${tr("день")}` : tr("сегодня")}
                       </div>
                     </div>
                     <button
                       onClick={() => handleRemoveExtraCity(city.id)}
-                      title="Удалить город из сравнения"
+                      title={tr("Удалить город из сравнения")}
                       className="p-1 rounded-lg text-slate-400 hover:text-red-500 hover:bg-white transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -657,17 +668,17 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Сравнить с еще одним городом</span>
+            <span>+ {tr("Сравнить с еще одним городом")}</span>
           </button>
         ) : (
           <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-700">Выберите город для добавления:</span>
+              <span className="text-xs font-bold text-slate-700">{tr("Выберите город для добавления:")}</span>
               <button
                 onClick={() => setIsAddingExtraCity(false)}
                 className="text-xs text-slate-400 hover:text-slate-600"
               >
-                Отмена
+                {tr("Отмена")}
               </button>
             </div>
             <div className="relative">
@@ -676,7 +687,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                 type="text"
                 value={extraCitySearch}
                 onChange={(e) => setExtraCitySearch(e.target.value)}
-                placeholder="Поиск города..."
+                placeholder={tr("Поиск города...")}
                 className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:outline-hidden focus:border-blue-400"
               />
             </div>
@@ -689,8 +700,8 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
                 >
                   <div className="flex items-center gap-2">
                     <FlagIcon countryCode={city.countryCode} size="xs" />
-                    <span className="text-xs font-medium text-slate-800">{city.cityRu}</span>
-                    <span className="text-[10px] text-slate-400 font-mono">({city.countryRu})</span>
+                    <span className="text-xs font-medium text-slate-800">{cityName(city)}</span>
+                    <span className="text-[10px] text-slate-400 font-mono">({countryName(city)})</span>
                   </div>
                   <span className="text-[10px] font-mono text-blue-600">
                     {getUtcOffsetString(city.timezone, now)}
@@ -710,7 +721,7 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition-all shadow-xs active:scale-98"
           >
             {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            <span>{copied ? 'Скопировано в буфер!' : 'Скопировать результат'}</span>
+            <span>{copied ? tr("Скопировано в буфер!") : tr("Скопировать результат")}</span>
           </button>
 
           <a
@@ -720,13 +731,13 @@ export const MainTimeConverter: React.FC<MainTimeConverterProps> = ({
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition-all"
           >
             <CalendarIcon className="w-4 h-4" />
-            <span>Календарь</span>
+            <span>{tr("Календарь")}</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </a>
         </div>
 
         <div className="text-[11px] text-slate-400 font-mono">
-          Время автоматически обновляется
+          {tr("Время автоматически обновляется")}
         </div>
       </div>
 
