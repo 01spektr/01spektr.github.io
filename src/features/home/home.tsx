@@ -126,7 +126,7 @@ const shortNames: Record<string, [string, string]> = {
   construction: ["Строительство", "Construction"],
 };
 export function Home({ language }: { language: Locale }) {
-  const c = copy[language],
+  const c = copy[language === "uz" ? "en" : language],
     { setLocale } = useI18n(),
     navigate = useNavigate();
   useEffect(() => {
@@ -450,7 +450,7 @@ function ToolCard({
   onFavorite: () => void;
 }) {
   const Icon = iconByName(tool.icon),
-    c = copy[language];
+    c = copy[language === "uz" ? "en" : language];
   const accents: Record<string, string> = {
     "qr-generator": "blue",
     "image-resize": "green",
@@ -498,21 +498,34 @@ function ToolCard({
   );
 }
 export function homeHead(language: Locale) {
-  const title =
-    language === "ru"
-      ? "Toolboxi.uz — бесплатные инструменты для работы и жизни"
-      : "Toolboxi.uz — free tools for work and everyday life";
-  const description =
-    language === "ru"
-      ? "Создавайте QR-коды, меняйте размер изображений, генерируйте UUID и рассчитывайте кровлю. Бесплатно, прямо в браузере."
-      : "Create QR codes, resize images, generate UUIDs and calculate roof materials. Free browser-based tools, no account required.";
-  const head = seoHead({ title, description, path: language === "en" ? "/en" : "/" });
+  const metadata: Record<Locale, { title: string; description: string; path: string }> = {
+    ru: {
+      title: "Toolboxi.uz — бесплатные инструменты для работы и жизни",
+      description:
+        "Создавайте QR-коды, меняйте размер изображений, генерируйте UUID и рассчитывайте кровлю. Бесплатно, прямо в браузере.",
+      path: "/",
+    },
+    en: {
+      title: "Toolboxi.uz — free tools for work and everyday life",
+      description:
+        "Create QR codes, resize images, generate UUIDs and calculate roof materials. Free browser-based tools, no account required.",
+      path: "/en",
+    },
+    uz: {
+      title: "Toolboxi.uz — ish va kundalik hayot uchun bepul vositalar",
+      description:
+        "QR-kodlar yarating, rasmlar o‘lchamini o‘zgartiring, UUID hosil qiling va tom materiallarini hisoblang. Bepul va bevosita brauzerda.",
+      path: "/uz",
+    },
+  };
+  const head = seoHead(metadata[language]);
   return {
     ...head,
     links: [
       ...head.links,
       { rel: "alternate", hrefLang: "ru", href: "https://toolboxi.uz/" },
       { rel: "alternate", hrefLang: "en", href: "https://toolboxi.uz/en/" },
+      { rel: "alternate", hrefLang: "uz", href: "https://toolboxi.uz/uz/" },
       { rel: "alternate", hrefLang: "x-default", href: "https://toolboxi.uz/" },
     ],
   };

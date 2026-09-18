@@ -21,6 +21,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { ToolIcon } from "@/components/tool-icon";
 import { useI18n } from "@/lib/i18n";
+import { LOCALES, type Locale } from "@/lib/i18n/config";
 import { recordHistory } from "@/lib/tools/history";
 import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
@@ -157,6 +158,56 @@ const copy = {
     copied: "Loan link copied",
     updated: "Calculation updated",
   },
+  uz: {
+    home: "Bosh sahifa",
+    category: "Moliya va investitsiyalar",
+    title: "Kredit kalkulyatori",
+    subtitle: "Oylik to‘lov, ortiqcha to‘lov va kreditning umumiy qiymatini hisoblang.",
+    tipTitle: "Moliyangizni oqilona rejalashtiring",
+    tipBody: "Shartlarni solishtiring va eng yaxshi variantni tanlang",
+    favorite: "Sevimlilarga qo‘shish",
+    share: "Ulashish",
+    settings: "Kredit parametrlari",
+    reset: "Tiklash",
+    amount: "Kredit summasi",
+    term: "Kredit muddati",
+    months: "oy",
+    years: "yil",
+    rate: "Yillik foiz stavkasi",
+    paymentType: "To‘lov turi",
+    annuity: "Annuitet",
+    annuityHint: "Har oy teng to‘lov",
+    differentiated: "Differensial",
+    differentiatedHint: "To‘lov vaqt o‘tishi bilan kamayadi",
+    extra: "Qo‘shimcha parametrlar",
+    downPayment: "Boshlang‘ich to‘lov",
+    fees: "Bir martalik komissiyalar",
+    insurance: "Yillik sug‘urta",
+    calculate: "Hisoblash",
+    result: "Natija",
+    schedule: "To‘lovlar jadvali",
+    details: "Tafsilotlar",
+    monthly: "Oylik to‘lov",
+    from: "dan",
+    total: "Umumiy to‘lov summasi",
+    overpay: "Ortiqcha to‘lov",
+    loanAmount: "Kredit summasi",
+    annualRate: "Foiz stavkasi",
+    duration: "Muddat",
+    shareOverpay: "Ortiqcha to‘lov ulushi",
+    principal: "Asosiy qarz",
+    interest: "Foizlar",
+    showTable: "To‘lovlar jadvalini ko‘rsatish",
+    month: "Oy",
+    payment: "To‘lov",
+    debt: "Kredit tanasi",
+    balance: "Qoldiq",
+    structure: "Umumiy qiymat tarkibi",
+    included: "Komissiya va sug‘urta hisobga olingan",
+    noExtra: "Qo‘shimcha xarajatlarsiz",
+    copied: "Hisob-kitob havolasi nusxalandi",
+    updated: "Hisob-kitob yangilandi",
+  },
 } as const;
 
 function calculate(params: Params) {
@@ -206,9 +257,9 @@ function createLoanPdfPages({
 }: {
   params: Params;
   result: ReturnType<typeof calculate>;
-  locale: "ru" | "en";
+  locale: Locale;
   currency: string;
-  t: (typeof copy)["ru"] | (typeof copy)["en"];
+  t: (typeof copy)[Locale];
 }) {
   const canvas = document.createElement("canvas");
   canvas.width = 1240;
@@ -234,7 +285,7 @@ function createLoanPdfPages({
       23,
       "#62718b",
     );
-    drawText(`${locale === "en" ? "Page" : "Страница"} ${index}`, 1040, 1690, 20, "#62718b");
+    drawText(`${locale === "ru" ? "Страница" : locale === "uz" ? "Sahifa" : "Page"} ${index}`, 1040, 1690, 20, "#62718b");
   };
   page(1);
   drawText(t.monthly, 72, 300, 24, "#62718b");
@@ -370,12 +421,12 @@ function createImagePdf(images: Uint8Array[]) {
   return output;
 }
 
-const number = (value: number, locale: "ru" | "en", digits = 0) =>
-  new Intl.NumberFormat(locale === "en" ? "en-US" : "ru-RU", {
+const number = (value: number, locale: Locale, digits = 0) =>
+  new Intl.NumberFormat(LOCALES[locale].numberLocale, {
     maximumFractionDigits: digits,
   }).format(Number.isFinite(value) ? value : 0);
 
-const moneyText = (value: number, locale: "ru" | "en", currency = activeCurrency) =>
+const moneyText = (value: number, locale: Locale, currency = activeCurrency) =>
   currency === "сум" ? `${number(value, locale)} сум` : `${currency}${number(value, locale)}`;
 
 function Money({
@@ -384,7 +435,7 @@ function Money({
   className,
 }: {
   value: number;
-  locale: "ru" | "en";
+  locale: Locale;
   className?: string;
 }) {
   return <span className={className}>{moneyText(value, locale)}</span>;
@@ -512,7 +563,7 @@ export function LoanCalculatorPage() {
           <button
             className="loan-currency-button"
             type="button"
-            aria-label={locale === "en" ? "Currency" : "Валюта"}
+            aria-label={locale === "uz" ? "Valyuta" : locale === "en" ? "Currency" : "Валюта"}
             onClick={() => setCurrencyOpen((open) => !open)}
           >
             <CircleDollarSign />
@@ -774,7 +825,7 @@ export function LoanCalculatorPage() {
                 </button>
                 <button className="loan-pdf-button" type="button" onClick={downloadPdf}>
                   <Printer />
-                  {locale === "en" ? "Save as PDF" : "Сохранить в PDF"}
+                  {locale === "uz" ? "PDF sifatida saqlash" : locale === "en" ? "Save as PDF" : "Сохранить в PDF"}
                 </button>
               </div>
             </>
@@ -884,8 +935,8 @@ function Schedule({
 }: {
   tableOpen: boolean;
   rows: Payment[];
-  locale: "ru" | "en";
-  t: (typeof copy)["ru"] | (typeof copy)["en"];
+  locale: Locale;
+  t: (typeof copy)[Locale];
   onPdf: () => void;
 }) {
   return (
@@ -894,14 +945,16 @@ function Schedule({
         <div>
           <h2>{t.schedule}</h2>
           <p>
-            {locale === "en"
-              ? "Principal, interest and remaining balance for every month."
-              : "Основной долг, проценты и остаток по каждому месяцу."}
+            {locale === "uz"
+              ? "Har oy uchun asosiy qarz, foizlar va qolgan summa."
+              : locale === "en"
+                ? "Principal, interest and remaining balance for every month."
+                : "Основной долг, проценты и остаток по каждому месяцу."}
           </p>
         </div>
         <button type="button" onClick={onPdf}>
           <Printer />
-          {locale === "en" ? "Save as PDF" : "Сохранить в PDF"}
+          {locale === "uz" ? "PDF sifatida saqlash" : locale === "en" ? "Save as PDF" : "Сохранить в PDF"}
         </button>
       </div>
       <div className="loan-table-wrap">
@@ -945,8 +998,8 @@ function Details({
   t,
 }: {
   result: ReturnType<typeof calculate>;
-  locale: "ru" | "en";
-  t: (typeof copy)["ru"] | (typeof copy)["en"];
+  locale: Locale;
+  t: (typeof copy)[Locale];
 }) {
   const interest = Math.max(0, result.overpay - result.extras);
   const parts = [
@@ -977,9 +1030,17 @@ function Details({
   );
 }
 
-function LoanInfo({ locale }: { locale: "ru" | "en" }) {
+function LoanInfo({ locale }: { locale: Locale }) {
   const en = locale === "en";
-  const steps = en
+  const uz = locale === "uz";
+  const steps = uz
+    ? [
+        "Kredit summasini kiriting",
+        "Muddat va foiz stavkasini belgilang",
+        "To‘lov turini tanlang",
+        "Natija va jadvalni ko‘rib chiqing",
+      ]
+    : en
     ? [
         "Enter the loan amount",
         "Set the term and interest rate",
@@ -992,7 +1053,14 @@ function LoanInfo({ locale }: { locale: "ru" | "en" }) {
         "Выберите тип платежей",
         "Ознакомьтесь с результатом и графиком",
       ];
-  const tips = en
+  const tips = uz
+    ? [
+        "Kattaroq boshlang‘ich to‘lov umumiy foizni kamaytiradi.",
+        "Bir nechta bank takliflarini solishtiring.",
+        "Komissiyalar va yillik sug‘urtani hisobga oling.",
+        "Muddatidan oldin to‘lash shartlarini tekshiring.",
+      ]
+    : en
     ? [
         "A larger down payment reduces total interest.",
         "Compare offers from several lenders.",
@@ -1005,7 +1073,13 @@ function LoanInfo({ locale }: { locale: "ru" | "en" }) {
         "Учитывайте комиссии и ежегодную страховку.",
         "Проверьте условия досрочного погашения.",
       ];
-  const questions = en
+  const questions = uz
+    ? [
+        "Annuitet to‘lovi nima?",
+        "Oylik to‘lov qanday hisoblanadi?",
+        "Muddatidan oldin to‘lashni hisobga olish mumkinmi?",
+      ]
+    : en
     ? [
         "What is an annuity payment?",
         "How is the monthly payment calculated?",
@@ -1021,7 +1095,7 @@ function LoanInfo({ locale }: { locale: "ru" | "en" }) {
       <article>
         <div className="loan-info-title">
           <ListOrdered />
-          <h2>{en ? "How to use" : "Как пользоваться"}</h2>
+          <h2>{uz ? "Qanday foydalaniladi" : en ? "How to use" : "Как пользоваться"}</h2>
         </div>
         <ol>
           {steps.map((step, index) => (
@@ -1035,7 +1109,7 @@ function LoanInfo({ locale }: { locale: "ru" | "en" }) {
       <article>
         <div className="loan-info-title">
           <Check />
-          <h2>{en ? "Useful tips" : "Полезные советы"}</h2>
+          <h2>{uz ? "Foydali maslahatlar" : en ? "Useful tips" : "Полезные советы"}</h2>
         </div>
         <ul>
           {tips.map((tip) => (
@@ -1049,7 +1123,7 @@ function LoanInfo({ locale }: { locale: "ru" | "en" }) {
       <article>
         <div className="loan-info-title">
           <CircleDollarSign />
-          <h2>{en ? "Frequently asked questions" : "Частые вопросы"}</h2>
+          <h2>{uz ? "Ko‘p so‘raladigan savollar" : en ? "Frequently asked questions" : "Частые вопросы"}</h2>
         </div>
         <div className="loan-faq">
           {questions.map((question) => (
@@ -1059,9 +1133,11 @@ function LoanInfo({ locale }: { locale: "ru" | "en" }) {
                 <ChevronDown />
               </summary>
               <p>
-                {en
-                  ? "The calculator updates the schedule immediately when you change the loan settings."
-                  : "Калькулятор сразу пересчитывает график при изменении параметров кредита."}
+                {uz
+                  ? "Kredit sozlamalari o‘zgartirilganda kalkulyator jadvalni darhol qayta hisoblaydi."
+                  : en
+                    ? "The calculator updates the schedule immediately when you change the loan settings."
+                    : "Калькулятор сразу пересчитывает график при изменении параметров кредита."}
               </p>
             </details>
           ))}

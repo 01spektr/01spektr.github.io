@@ -11,6 +11,7 @@ import { useRouterState } from "@tanstack/react-router";
 import {
   detectBrowserLocale,
   isLocale,
+  localeFromHomePath,
   type Locale,
 } from "@/lib/i18n/config";
 import { messages, type MessageKey } from "@/lib/i18n/messages";
@@ -24,7 +25,11 @@ const listeners = new Set<() => void>();
 
 function readLocale(): Locale {
   if (typeof window === "undefined") return locale;
-  if (window.location.pathname.replace(/\/$/, "") === "/en") return "en";
+  const normalizedPath = window.location.pathname.replace(/\/$/, "");
+  const pathLocale = normalizedPath === "/en" || normalizedPath === "/uz"
+    ? localeFromHomePath(normalizedPath)
+    : null;
+  if (pathLocale) return pathLocale;
   let stored: string | null = null;
   try {
     stored = window.localStorage.getItem(STORAGE_KEY);
@@ -79,12 +84,11 @@ const I18nContext = createContext<{
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname.replace(/\/$/, "") });
-  const snapshot = useSyncExternalStore(subscribe, getLocale, () =>
-    path === "/en" ? ("en" as Locale) : ("ru" as Locale),
-  );
-  const current = path === "/en" ? "en" : snapshot;
+  const routeLocale = path === "/" ? null : localeFromHomePath(path);
+  const snapshot = useSyncExternalStore(subscribe, getLocale, () => routeLocale ?? ("ru" as Locale));
+  const current = routeLocale ?? snapshot;
   useEffect(() => {
-    const preferred = path === "/en" ? "en" : readLocale();
+    const preferred = routeLocale ?? readLocale();
     if (preferred !== current) {
       locale = preferred;
       emit();

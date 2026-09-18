@@ -12,6 +12,7 @@ import {
 import { ToolIcon } from "@/components/tool-icon";
 import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/config";
 import { getCategoryBySlug, toolsByCategory } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
 import { seoHead } from "@/lib/seo";
@@ -83,13 +84,18 @@ function ConstructionCategory({
   locale,
 }: {
   tools: ReturnType<typeof toolsByCategory>;
-  locale: "ru" | "en";
+  locale: Locale;
 }) {
   const en = locale === "en";
-  const topics = en
+  const uz = locale === "uz";
+  const topics = uz
+    ? ["Barcha vositalar", "Xonalar", "Pardozlash", "Materiallar", "Tom", "Yer va devor"]
+    : en
     ? ["All tools", "Rooms", "Finishing", "Materials", "Roofing", "Plot & fence"]
     : ["Все инструменты", "Помещения", "Отделка", "Материалы", "Крыша и кровля", "Участок и забор"];
-  const benefits = en
+  const benefits = uz
+    ? [["Tez", "Natija bir zumda"], ["Tushunarli", "Qulay vositalar"], ["Amaliy", "Uy va ish uchun"]]
+    : en
     ? [
         ["Fast", "Instant results"],
         ["Clear", "Easy-to-use tools"],
@@ -100,7 +106,13 @@ function ConstructionCategory({
         ["Понятно", "Простые инструменты"],
         ["Практично", "Для дома и работы"],
       ];
-  const collections = en
+  const collections = uz
+    ? [
+        { title: "Xonani ta’mirlash", text: "Maydon, devorlar va pardoz", Icon: Square },
+        { title: "Tom va qoplama", text: "Tom geometriyasi va materiallar", Icon: House },
+        { title: "Rejalar va chizmalar", text: "Masshtab va o‘lchovlar", Icon: Ruler },
+      ]
+    : en
     ? [
         { title: "Room renovation", text: "Area, walls and finishes", Icon: Square },
         { title: "Roofing", text: "Roof geometry and materials", Icon: House },
@@ -115,11 +127,11 @@ function ConstructionCategory({
   return (
     <div className="construction-page pb-10">
       <nav aria-label="Breadcrumb" className="construction-breadcrumb">
-        <Link to="/">{en ? "Home" : "Главная"}</Link>
+        <Link to="/">{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
         <ChevronRight />
-        <Link to="/tools">{en ? "Categories" : "Категории"}</Link>
+        <Link to="/tools">{uz ? "Toifalar" : en ? "Categories" : "Категории"}</Link>
         <ChevronRight />
-        <span>{en ? "Construction & measures" : "Строительство и замеры"}</span>
+        <span>{uz ? "Qurilish va o‘lchovlar" : en ? "Construction & measures" : "Строительство и замеры"}</span>
       </nav>
       <section className="construction-hero">
         <div className="construction-intro">
@@ -127,9 +139,11 @@ function ConstructionCategory({
             <Hammer />
           </span>
           <div>
-            <h1>{en ? "Construction & renovation" : "Строительство и ремонт"}</h1>
+            <h1>{uz ? "Qurilish va ta’mirlash" : en ? "Construction & renovation" : "Строительство и ремонт"}</h1>
             <p>
-              {en
+              {uz
+                ? "Maydon, o‘lcham, materiallar va tom uchun kalkulyatorlar. Loyiha uchun kerakli hamma narsa bir joyda."
+                : en
                 ? "Calculators and tools for areas, dimensions, materials and roofing. Everything you need for a project in one place."
                 : "Калькуляторы и инструменты для площади, размеров, материалов и кровли. Всё нужное для проекта — в одном месте."}
             </p>
@@ -158,15 +172,17 @@ function ConstructionCategory({
       <section>
         <div className="construction-section-heading">
           <div>
-            <h2>{en ? "Tools" : "Инструменты"}</h2>
+            <h2>{uz ? "Vositalar" : en ? "Tools" : "Инструменты"}</h2>
             <p>
-              {en
+              {uz
+                ? "Hozir mavjud va rejalashtirilgan yo‘nalishlar"
+                : en
                 ? "Available now and planned directions"
                 : "Доступные сейчас и запланированные направления"}
             </p>
           </div>
           <span>
-            {tools.length} {en ? "tools" : "инструмента"}
+            {tools.length} {uz ? "vosita" : en ? "tools" : "инструмента"}
           </span>
         </div>
         <div className="construction-tool-grid">
@@ -182,7 +198,7 @@ function ConstructionCategory({
               <span>
                 <Layers />
               </span>
-              <h2>{en ? "Popular collections" : "Популярные подборки"}</h2>
+              <h2>{uz ? "Ommabop to‘plamlar" : en ? "Popular collections" : "Популярные подборки"}</h2>
             </div>
           </div>
           <div>
@@ -205,14 +221,16 @@ function ConstructionCategory({
             <Hammer />
           </span>
           <div>
-            <h2>{en ? "More tools are coming" : "Новые инструменты уже в работе"}</h2>
+            <h2>{uz ? "Yangi vositalar tayyorlanmoqda" : en ? "More tools are coming" : "Новые инструменты уже в работе"}</h2>
             <p>
-              {en
+              {uz
+                ? "Pardozlash va qurilish materiallari kalkulyatorlarini bosqichma-bosqich qo‘shmoqdamiz."
+                : en
                 ? "We are adding calculators for finishes and materials step by step."
                 : "Постепенно добавляем калькуляторы отделки и строительных материалов."}
             </p>
             <Link to="/tools">
-              {en ? "View all tools" : "Все инструменты"} <ArrowRight />
+              {uz ? "Barcha vositalar" : en ? "View all tools" : "Все инструменты"} <ArrowRight />
             </Link>
           </div>
         </section>
@@ -226,9 +244,10 @@ function ConstructionTool({
   locale,
 }: {
   tool: ReturnType<typeof toolsByCategory>[number];
-  locale: "ru" | "en";
+  locale: Locale;
 }) {
   const en = locale === "en";
+  const uz = locale === "uz";
   return (
     <Link to="/tools/$slug" params={{ slug: tool.slug }} className="construction-tool">
       <ToolIcon tool={tool} />
@@ -237,12 +256,8 @@ function ConstructionTool({
         <p>{tool.description[locale]}</p>
         <small>
           {tool.available
-            ? en
-              ? "Open tool"
-              : "Открыть инструмент"
-            : en
-              ? "Coming soon"
-              : "Скоро"}
+            ? uz ? "Vositani ochish" : en ? "Open tool" : "Открыть инструмент"
+            : uz ? "Tez orada" : en ? "Coming soon" : "Скоро"}
         </small>
       </div>
       <ArrowRight />

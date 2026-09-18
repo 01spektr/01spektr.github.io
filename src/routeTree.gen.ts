@@ -16,6 +16,7 @@ import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as UzRouteImport } from './routes/uz'
 import { Route as CategoriesIdRouteImport } from './routes/categories.$id'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsSlugRouteImport } from './routes/tools/$slug'
@@ -55,6 +56,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UzRoute = UzRouteImport.update({
+  id: '/uz',
+  path: '/uz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesIdRoute = CategoriesIdRouteImport.update({
   id: '/categories/$id',
   path: '/categories/$id',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools/': typeof ToolsIndexRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools': typeof ToolsIndexRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools/': typeof ToolsIndexRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/privacy'
     | '/terms'
+    | '/uz'
     | '/categories/$id'
     | '/tools/$slug'
     | '/tools/'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/privacy'
     | '/terms'
+    | '/uz'
     | '/categories/$id'
     | '/tools/$slug'
     | '/tools'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/privacy'
     | '/terms'
+    | '/uz'
     | '/categories/$id'
     | '/tools/$slug'
     | '/tools/'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
+  UzRoute: typeof UzRoute
   CategoriesIdRoute: typeof CategoriesIdRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz': {
+      id: '/uz'
+      path: '/uz'
+      fullPath: '/uz'
+      preLoaderRoute: typeof UzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categories/$id': {
       id: '/categories/$id'
       path: '/categories/$id'
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
+  UzRoute: UzRoute,
   CategoriesIdRoute: CategoriesIdRoute,
   ToolsSlugRoute: ToolsSlugRoute,
   ToolsIndexRoute: ToolsIndexRoute,

@@ -2,23 +2,23 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Heart, History, Menu, Search } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useState } from "react";
-import { LOCALES, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/config";
+import { LOCALES, SUPPORTED_LOCALES, localeFromHomePath, localeHomePath, type Locale } from "@/lib/i18n/config";
 import "@/features/home/home.css";
 export function SiteHeader({ onSearch }: { onSearch: () => void }) {
   const { locale, setLocale, t } = useI18n(),
     navigate = useNavigate();
-  const en = locale === "en";
+  const homePath = localeHomePath(locale);
   const [menu, setMenu] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
   return (
     <header className="tc-header">
       <div className="tc-header-inner">
-        <Link to={en ? "/en" : "/"} className="tc-brand">
+        <Link to={homePath} className="tc-brand">
           <img src="/toolboxi_uz_logo.svg" alt="Toolboxi.uz" />
         </Link>
         <nav className="tc-nav">
           <Link to="/tools">{t("nav.tools")}</Link>
-          <a href={en ? "/en/#categories" : "/#categories"}>{t("nav.categories")}</a>
+          <a href={`${homePath}#categories`}>{t("nav.categories")}</a>
           <Link to="/about">{t("nav.about")}</Link>
         </nav>
         <div className="tc-header-actions">
@@ -44,8 +44,7 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
               onChange={(e) => {
                 const next = e.target.value as Locale;
                 setLocale(next);
-                if (path === "/" || path.replace(/\/$/, "") === "/en")
-                  void navigate({ to: next === "en" ? "/en" : "/" });
+                if (localeFromHomePath(path) !== null) void navigate({ to: localeHomePath(next) });
               }}
             >
               {SUPPORTED_LOCALES.map((code) => (
@@ -67,7 +66,7 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
       {menu && (
         <nav className="tc-mobile-nav" onClick={() => setMenu(false)}>
           <Link to="/tools">{t("nav.all")}</Link>
-          <a href={en ? "/en/#categories" : "/#categories"}>{t("nav.categories")}</a>
+          <a href={`${homePath}#categories`}>{t("nav.categories")}</a>
           <Link to="/favorites">{t("nav.favorites")}</Link>
           <Link to="/history">{t("nav.history")}</Link>
           <Link to="/about">{t("nav.about")}</Link>
@@ -77,13 +76,12 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
   );
 }
 export function SiteFooter() {
-  const { locale, t } = useI18n(),
-    en = locale === "en";
+  const { locale, t } = useI18n();
   return (
     <footer className="tc-footer">
       <div className="tc-footer-top">
         <div>
-          <Link to={en ? "/en" : "/"} className="tc-brand">
+          <Link to={localeHomePath(locale)} className="tc-brand">
             <img src="/toolboxi_uz_logo.svg" alt="Toolboxi.uz" />
           </Link>
           <p>{t("footer.tagline")}</p>

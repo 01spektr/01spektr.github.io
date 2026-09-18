@@ -1,12 +1,24 @@
 export const LOCALES = {
   ru: { label: "Русский", shortLabel: "RU", htmlLang: "ru", numberLocale: "ru-RU" },
   en: { label: "English", shortLabel: "EN", htmlLang: "en", numberLocale: "en-US" },
+  uz: { label: "O‘zbekcha", shortLabel: "UZ", htmlLang: "uz", numberLocale: "uz-UZ" },
 } as const;
 
 export type Locale = keyof typeof LOCALES;
 
 export const SUPPORTED_LOCALES = Object.keys(LOCALES) as Locale[];
 export const DEFAULT_LOCALE: Locale = "en";
+
+export function localeHomePath(locale: Locale): "/" | "/en" | "/uz" {
+  return locale === "ru" ? "/" : `/${locale}`;
+}
+
+export function localeFromHomePath(path: string): Locale | null {
+  const normalized = path.replace(/\/$/, "") || "/";
+  if (normalized === "/") return "ru";
+  const code = normalized.slice(1);
+  return isLocale(code) ? code : null;
+}
 
 export function isLocale(value: string | null | undefined): value is Locale {
   return Boolean(value && value in LOCALES);

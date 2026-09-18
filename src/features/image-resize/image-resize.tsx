@@ -28,6 +28,7 @@ import { isFavorite, subscribeFavorites, toggleFavorite } from "@/lib/tools/favo
 import { recordHistory } from "@/lib/tools/history";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
 import { useI18n } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n/config";
 import "./image-resize.css";
 
 type OutputFormat = "image/jpeg" | "image/png" | "image/webp" | "image/avif";
@@ -41,7 +42,7 @@ const FORMAT_OPTIONS: { type: OutputFormat; label: string; accent: string }[] = 
   { type: "image/avif", label: "AVIF", accent: "#22b970" },
 ];
 
-function formatBytes(value: number, locale: "ru" | "en") {
+function formatBytes(value: number, locale: Locale) {
   const kb = locale === "en" ? "KB" : "КБ";
   const mb = locale === "en" ? "MB" : "МБ";
   if (!value) return `0 ${kb}`;

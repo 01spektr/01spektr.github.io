@@ -23,6 +23,7 @@ export const Route = createFileRoute("/")({
         ...head.links,
         { rel: "alternate", hrefLang: "ru", href: "https://toolboxi.uz/" },
         { rel: "alternate", hrefLang: "en", href: "https://toolboxi.uz/en/" },
+        { rel: "alternate", hrefLang: "uz", href: "https://toolboxi.uz/uz/" },
         { rel: "alternate", hrefLang: "x-default", href: "https://toolboxi.uz/" },
       ],
     };
@@ -47,6 +48,13 @@ const QUICK_LINKS = {
     ["barcode", "barcode-generator"],
     ["loan", "loan-calculator"],
     ["converter", "unit-converter"],
+    ["json", "json-formatter"],
+  ],
+  uz: [
+    ["qr", "qr-generator"],
+    ["shtrix-kod", "barcode-generator"],
+    ["kredit", "loan-calculator"],
+    ["konverter", "unit-converter"],
     ["json", "json-formatter"],
   ],
 } as const;
@@ -132,6 +140,36 @@ const HOME_COPY = {
     newTools: "New tools",
     popularBadge: "Popular",
     newBadge: "NEW",
+  },
+  uz: {
+    kickerTools: "vosita",
+    kickerFree: "100% bepul",
+    title: "Bir servis.",
+    titleAccent: "Ko‘plab vositalar.",
+    lead: "Hisoblang, konvertatsiya qiling, yarating va tahlil qiling. Tez. Qulay. Bepul.",
+    search: "Masalan: QR-kod, kredit, shtrix-kod, dpi…",
+    popularQueries: "Ommabop qidiruvlar:",
+    trust: [
+      ["100% maxfiy", "Ma’lumotlaringiz brauzerda qoladi"],
+      ["Tez ishlaydi", "Natija bir zumda"],
+      ["To‘liq bepul", "Ro‘yxatdan o‘tish va to‘lov talab qilinmaydi"],
+    ],
+    statTools: "vosita",
+    statCategories: "toifa",
+    statBrowser: "brauzerda",
+    statFree: "bepul",
+    categories: "Toifalar",
+    allCategories: "Barcha toifalarni ko‘rish",
+    popular: "Ommabop vositalar",
+    viewAll: "Barchasini ko‘rish",
+    recent: "Yaqinda ishlatilgan",
+    recentEmpty: "Siz foydalangan vositalar shu yerda ko‘rinadi.",
+    privacyTitle: "Ma’lumotlaringiz\nsiz bilan qoladi",
+    privacyText: "Barcha vositalar bevosita brauzeringizda ishlaydi. Ma’lumotlar serverga yuborilmaydi.",
+    privacyItems: ["100% maxfiylik", "Mahalliy ishlash", "Ro‘yxatdan o‘tmasdan", "Doimo bepul"],
+    newTools: "Yangi vositalar",
+    popularBadge: "Ommabop",
+    newBadge: "YANGI",
   },
 } as const;
 
@@ -306,6 +344,7 @@ export function HomePage({ language }: { language: Locale }) {
 
 function toolLabel(count: number, language: Locale) {
   if (language === "en") return `${count} ${count === 1 ? "tool" : "tools"}`;
+  if (language === "uz") return `${count} vosita`;
   return `${count} ${count % 10 === 1 && count % 100 !== 11 ? "инструмент" : count % 10 > 1 && count % 10 < 5 && (count % 100 < 10 || count % 100 > 20) ? "инструмента" : "инструментов"}`;
 }
 function Trust({ title, text }: { title: string; text: string }) {

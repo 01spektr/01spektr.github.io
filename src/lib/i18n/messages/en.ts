@@ -55,6 +55,7 @@ export const en = {
   "coming.qr": "Open QR generator",
   "lang.ru": "Русский",
   "lang.en": "English",
+  "lang.uz": "O‘zbekcha",
   "breadcrumb.home": "Home",
   "common.close": "Close",
   "common.menu": "Menu",

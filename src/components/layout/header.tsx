@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
-import { LOCALES, SUPPORTED_LOCALES, type Locale } from "@/lib/i18n/config";
+import { LOCALES, SUPPORTED_LOCALES, localeFromHomePath, localeHomePath, type Locale } from "@/lib/i18n/config";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 interface Props {
@@ -21,10 +21,10 @@ export function Header({ onMenu, onSearch }: Props) {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (state) => state.location.pathname.replace(/\/$/, "") });
-  const isHome = pathname === "" || pathname === "/en";
+  const isHome = localeFromHomePath(pathname) !== null;
   const changeLocale = (next: Locale) => {
     setLocale(next);
-    if (isHome) void navigate({ to: next === "en" ? "/en" : "/" });
+    if (isHome) void navigate({ to: localeHomePath(next) });
   };
 
   return (
@@ -57,7 +57,7 @@ export function Header({ onMenu, onSearch }: Props) {
           <Button
             variant="ghost"
             className="gap-1.5 px-2.5"
-            aria-label={t(locale === "en" ? "lang.en" : "lang.ru")}
+            aria-label={LOCALES[locale].label}
           >
             <Globe className="size-4" />
             <span className="hidden sm:inline">{locale.toUpperCase()}</span>

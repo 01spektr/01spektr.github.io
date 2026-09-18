@@ -53,6 +53,7 @@ export const ru = {
   "coming.qr": "Открыть QR-генератор",
   "lang.ru": "Русский",
   "lang.en": "English",
+  "lang.uz": "O‘zbekcha",
   "breadcrumb.home": "Главная",
   "common.close": "Закрыть",
   "common.menu": "Меню",

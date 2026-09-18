@@ -17,6 +17,7 @@ import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { CATEGORIES } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
+import { localeHomePath } from "@/lib/i18n/config";
 
 const NAV = [
   { to: "/", icon: Home, key: "nav.home" as const, exact: true },
@@ -29,7 +30,7 @@ export function Sidebar({ onNavigate, compact = false, onToggle }: { onNavigate?
   const { t, locale } = useI18n();
   const { theme, toggleTheme } = useTheme();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const homePath = locale === "en" ? "/en" : "/";
+  const homePath = localeHomePath(locale);
 
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">

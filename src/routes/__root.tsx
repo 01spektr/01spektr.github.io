@@ -12,6 +12,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { I18nProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
+import { localeFromHomePath } from "@/lib/i18n/config";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Toolboxi.uz";
@@ -50,11 +51,11 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const english = useRouterState({
-    select: (s) => s.location.pathname.replace(/\/$/, "") === "/en",
+  const routeLocale = useRouterState({
+    select: (s) => localeFromHomePath(s.location.pathname) ?? "ru",
   });
   return (
-    <html lang={english ? "en" : "ru"} suppressHydrationWarning>
+    <html lang={routeLocale} suppressHydrationWarning>
       <head>
         <HeadContent />
         <script
@@ -65,7 +66,7 @@ function RootComponent() {
               "@type": "WebSite",
               name: "Toolboxi.uz",
               url: "https://toolboxi.uz/",
-              inLanguage: ["ru", "en"],
+              inLanguage: ["ru", "en", "uz"],
               description:
                 "Бесплатные калькуляторы, генераторы и конвертеры прямо в браузере.",
             }).replace(/</g, "\\u003c"),
