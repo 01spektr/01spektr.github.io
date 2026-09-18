@@ -9,3 +9,5 @@ artifacts/
 .project_id
 /.review-backups/
 /*.png
+
+.vite-*.log

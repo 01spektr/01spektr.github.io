@@ -58,7 +58,7 @@ export function WorldTimezonesPage() {
       </div>
     </section>
     <section className="wt-summary"><div><Globe2 /><b>{ALL_WORLD_CITIES.length}+</b><span>{locale === "ru" ? "городов" : locale === "uz" ? "shahar" : "cities"}</span></div><p>{copy.footer}</p></section>
-    <TimezoneLocaleBoundary locale={locale}><section className="wt-main-grid">
+    <TimezoneLocaleBoundary key={locale} locale={locale}><section className="wt-main-grid">
       <div id="time-converter-section"><MainTimeConverter allCities={ALL_WORLD_CITIES} externalToCityId={converterToCityId} onOpenAddModal={() => setIsAddCityOpen(true)} /></div>
       <div className="wt-planner"><MeetingPlanner allCities={ALL_WORLD_CITIES} selectedCities={meetingCities} onAddCity={(city) => setMeetingCities((p) => p.some((c) => c.id === city.id) ? p : [...p, city])} onRemoveCity={(id) => setMeetingCities((p) => p.length > 1 ? p.filter((c) => c.id !== id) : p)} onOpenAddModal={() => setIsAddCityOpen(true)} /></div>
     </section>
