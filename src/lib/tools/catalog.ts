@@ -164,7 +164,8 @@ export const TOOLS: ToolDef[] = [
     },
     keywords: ["цвет", "палитра", "hex", "color"],
     icon: "Palette",
-    available: false,
+    available: true,
+    featured: true,
   },
   {
     id: "image-resize",

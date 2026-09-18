@@ -1,0 +1,80 @@
+.palette-tool {
+  color: var(--foreground);
+  overflow-x: clip;
+}
+
+.palette-tool :is(button, input, select, textarea) {
+  font: inherit;
+}
+
+.palette-tool .bg-white {
+  background-color: var(--card);
+}
+
+.palette-tool .bg-slate-50,
+.palette-tool .bg-slate-50\/80,
+.palette-tool .bg-slate-100 {
+  background-color: var(--muted);
+}
+
+.palette-tool :is(.text-slate-900, .text-slate-800, .text-slate-700) {
+  color: var(--foreground);
+}
+
+.palette-tool :is(.text-slate-600, .text-slate-500, .text-slate-400) {
+  color: var(--muted-foreground);
+}
+
+.palette-tool :is(.border-slate-100, .border-slate-200, .border-slate-200\/60, .border-slate-200\/80, .border-slate-300) {
+  border-color: var(--border);
+}
+
+.palette-tool input,
+.palette-tool select,
+.palette-tool textarea {
+  color: var(--foreground);
+}
+
+.dark .palette-tool .shadow-xs,
+.dark .palette-tool .shadow-2xs,
+.dark .palette-tool .shadow-md,
+.dark .palette-tool .shadow-lg,
+.dark .palette-tool .shadow-xl,
+.dark .palette-tool .shadow-2xl {
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.dark .palette-tool :is(.hover\:bg-white:hover, .hover\:bg-slate-50:hover) {
+  background-color: var(--accent);
+}
+
+.dark .palette-tool :is(.bg-blue-50, .bg-blue-50\/50, .bg-blue-50\/80) {
+  background-color: color-mix(in srgb, var(--primary) 14%, var(--card));
+}
+
+.dark .palette-tool .text-blue-900,
+.dark .palette-tool .text-blue-700 {
+  color: var(--primary);
+}
+
+.palette-tool button:focus-visible,
+.palette-tool input:focus-visible,
+.palette-tool select:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .palette-site-header .button-row {
+    width: 100%;
+  }
+
+  .palette-tool main {
+    min-width: 0;
+  }
+
+  .palette-tool .overflow-x-auto {
+    scrollbar-width: thin;
+  }
+}
+

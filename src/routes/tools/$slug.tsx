@@ -29,6 +29,9 @@ const CmykConverterPage = lazy(() =>
 const BarcodeGeneratorPage = lazy(() =>
   import("@/features/barcode-generator").then((m) => ({ default: m.BarcodeGeneratorPage })),
 );
+const ColorPalettePage = lazy(() =>
+  import("@/features/color-palette").then((m) => ({ default: m.ColorPalettePage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -47,6 +50,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "Переводите RGB и HEX в CMYK, сравнивайте экранный и печатный цвет, проверяйте покрытие краской и подбирайте Pantone.",
       "barcode-generator":
         "Создавайте штрихкоды EAN, Code 128 и других форматов, настраивайте оформление и экспортируйте результат.",
+      "color-palette":
+        "Создавайте гармоничные цветовые палитры, проверяйте контраст, извлекайте цвета из изображений и экспортируйте HEX, RGB, HSL и CMYK.",
     };
     if (!tool) {
       return seoHead({
@@ -113,6 +118,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <BarcodeGeneratorPage />
+      </Suspense>
+    );
+  }
+  if (slug === "color-palette") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <ColorPalettePage />
       </Suspense>
     );
   }
