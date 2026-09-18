@@ -32,6 +32,9 @@ const BarcodeGeneratorPage = lazy(() =>
 const ColorPalettePage = lazy(() =>
   import("@/features/color-palette").then((m) => ({ default: m.ColorPalettePage })),
 );
+const WorldTimezonesPage = lazy(() =>
+  import("@/features/world-timezones").then((m) => ({ default: m.WorldTimezonesPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -52,6 +55,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "Создавайте штрихкоды EAN, Code 128 и других форматов, настраивайте оформление и экспортируйте результат.",
       "color-palette":
         "Создавайте гармоничные цветовые палитры, проверяйте контраст, извлекайте цвета из изображений и экспортируйте HEX, RGB, HSL и CMYK.",
+      "world-timezones":
+        "Сравнивайте время в городах мира, конвертируйте даты и планируйте международные встречи.",
     };
     if (!tool) {
       return seoHead({
@@ -125,6 +130,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <ColorPalettePage />
+      </Suspense>
+    );
+  }
+  if (slug === "world-timezones") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <WorldTimezonesPage />
       </Suspense>
     );
   }

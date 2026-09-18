@@ -13,6 +13,7 @@ export const TOOL_ACCENTS: Record<string, string> = {
   "case-converter": "#b25be5",
   "password-generator": "#e94f66",
   "unit-converter": "#f39a24",
+  "world-timezones": "#f59e0b",
   "json-formatter": "#15a5c9",
   base64: "#3078ea",
   "roof-calculator": "#f68b28",

@@ -344,6 +344,21 @@ export const TOOLS: ToolDef[] = [
     available: false,
   },
   {
+    id: "world-timezones",
+    slug: "world-timezones",
+    category: "everyday",
+    name: { ru: "Часовые пояса мира", en: "World time zones", uz: "Dunyo vaqt mintaqalari" },
+    description: {
+      ru: "Конвертер времени, мировые часы и планировщик встреч.",
+      en: "Time converter, world clock and meeting planner.",
+      uz: "Vaqt konverteri, dunyo soati va uchrashuv rejalashtiruvchisi.",
+    },
+    keywords: ["время", "часовой пояс", "мировые часы", "timezone", "world clock", "vaqt", "uchrashuv"],
+    icon: "Clock3",
+    available: true,
+    featured: true,
+  },
+  {
     id: "json-formatter",
     slug: "json-formatter",
     category: "developers",
