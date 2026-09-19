@@ -5,8 +5,13 @@ import {
   ChevronRight,
   Hammer,
   House,
+  Image as ImageIcon,
   Layers,
+  Palette,
+  Printer,
+  QrCode,
   Ruler,
+  Sparkles,
   Square,
 } from "lucide-react";
 import { ToolIcon } from "@/components/tool-icon";
@@ -54,6 +59,10 @@ function CategoryPage() {
     return <ConstructionCategory tools={tools} locale={locale} />;
   }
 
+  if (category.id === "design-print") {
+    return <DesignPrintCategory tools={tools} locale={locale} />;
+  }
+
   return (
     <div className="mx-auto max-w-6xl pb-10">
       <div className="mb-6 flex items-center gap-3">
@@ -74,6 +83,126 @@ function CategoryPage() {
         {tools.map((tool) => (
           <ToolCard key={tool.id} tool={tool} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function DesignPrintCategory({
+  tools,
+  locale,
+}: {
+  tools: ReturnType<typeof toolsByCategory>;
+  locale: Locale;
+}) {
+  const en = locale === "en";
+  const uz = locale === "uz";
+  const topics = uz
+    ? ["Barcha vositalar", "Ranglar", "Tasvirlar", "Kodlar", "Bosmaga tayyorlash"]
+    : en
+      ? ["All tools", "Colors", "Images", "Codes", "Print preparation"]
+      : ["Все инструменты", "Цвета", "Изображения", "Коды", "Подготовка к печати"];
+  const benefits = uz
+    ? [["Aniq", "Rang va o‘lcham nazorati"], ["Qulay", "Brauzerda ishlaydi"], ["Tayyor", "Raqamli va bosma uchun"]]
+    : en
+      ? [["Precise", "Color and size control"], ["Convenient", "Works in your browser"], ["Ready", "For digital and print"]]
+      : [["Точно", "Контроль цвета и размера"], ["Удобно", "Работает в браузере"], ["Готово", "Для экрана и печати"]];
+  const collections = uz
+    ? [
+        { title: "Brend ranglari", text: "Palitra va CMYK", Icon: Palette, slug: "color-palette" },
+        { title: "Kodlar va belgilar", text: "QR va shtrix-kodlar", Icon: QrCode, slug: "qr-generator" },
+        { title: "Tasvirlarni tayyorlash", text: "O‘lcham va eksport", Icon: ImageIcon, slug: "image-resize" },
+      ]
+    : en
+      ? [
+          { title: "Brand colors", text: "Palettes and CMYK", Icon: Palette, slug: "color-palette" },
+          { title: "Codes & labels", text: "QR codes and barcodes", Icon: QrCode, slug: "qr-generator" },
+          { title: "Image preparation", text: "Resize and export", Icon: ImageIcon, slug: "image-resize" },
+        ]
+      : [
+          { title: "Цвета бренда", text: "Палитры и CMYK", Icon: Palette, slug: "color-palette" },
+          { title: "Коды и маркировка", text: "QR-коды и штрихкоды", Icon: QrCode, slug: "qr-generator" },
+          { title: "Подготовка изображений", text: "Размер и экспорт", Icon: ImageIcon, slug: "image-resize" },
+        ];
+
+  return (
+    <div className="construction-page design-category-page pb-10">
+      <nav aria-label="Breadcrumb" className="construction-breadcrumb">
+        <Link to="/">{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
+        <ChevronRight />
+        <Link to="/tools">{uz ? "Toifalar" : en ? "Categories" : "Категории"}</Link>
+        <ChevronRight />
+        <span>{uz ? "Dizayn va poligrafiya" : en ? "Design & print" : "Дизайн и полиграфия"}</span>
+      </nav>
+
+      <section className="construction-hero design-category-hero">
+        <div className="construction-intro">
+          <span className="construction-icon design-category-icon"><Palette /></span>
+          <div>
+            <h1>{uz ? "Dizayn va poligrafiya" : en ? "Design & print" : "Дизайн и полиграфия"}</h1>
+            <p>
+              {uz
+                ? "Ranglar, tasvirlar, QR va shtrix-kodlar bilan ishlash vositalari. Ekran va bosma uchun hammasi bir joyda."
+                : en
+                  ? "Tools for colors, images, QR codes and barcodes. Everything for screen and print in one place."
+                  : "Инструменты для работы с цветом, изображениями, QR-кодами и штрихкодами. Всё для экрана и печати — в одном месте."}
+            </p>
+          </div>
+        </div>
+        <div className="design-category-art" aria-hidden="true">
+          <span className="design-art-card design-art-palette"><Palette /></span>
+          <span className="design-art-card design-art-image"><ImageIcon /></span>
+          <span className="design-art-card design-art-qr"><QrCode /></span>
+          <i className="design-art-swatch design-art-swatch-one" />
+          <i className="design-art-swatch design-art-swatch-two" />
+          <i className="design-art-swatch design-art-swatch-three" />
+        </div>
+        <div className="construction-benefits">
+          {benefits.map(([title, text], index) => (
+            <div key={title}>
+              <span>{index === 0 ? <Sparkles /> : index === 1 ? <Check /> : <Printer />}</span>
+              <p><b>{title}</b><small>{text}</small></p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="construction-topics">
+        {topics.map((topic, index) => <button type="button" className={index === 0 ? "is-active" : ""} key={topic}>{topic}</button>)}
+      </div>
+
+      <section>
+        <div className="construction-section-heading">
+          <div>
+            <h2>{uz ? "Vositalar" : en ? "Tools" : "Инструменты"}</h2>
+            <p>{uz ? "Dizayn va bosma uchun tayyor vositalar" : en ? "Ready-to-use tools for design and print" : "Готовые инструменты для дизайна и печати"}</p>
+          </div>
+          <span>{tools.length} {uz ? "vosita" : en ? "tools" : "инструментов"}</span>
+        </div>
+        <div className="construction-tool-grid">
+          {tools.map((tool) => <ConstructionTool key={tool.id} tool={tool} locale={locale} />)}
+        </div>
+      </section>
+
+      <div className="construction-bottom">
+        <section className="construction-collections">
+          <div className="construction-panel-heading"><div><span><Layers /></span><h2>{uz ? "Ommabop to‘plamlar" : en ? "Popular collections" : "Популярные подборки"}</h2></div></div>
+          <div>
+            {collections.map(({ title, text, Icon: CollectionIcon, slug }) => (
+              <Link to="/tools/$slug" params={{ slug }} key={title}>
+                <span><CollectionIcon /></span><p><b>{title}</b><small>{text}</small></p><ChevronRight />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className="construction-note design-category-note">
+          <span><Printer /></span>
+          <div>
+            <h2>{uz ? "Yangi dizayn vositalari tayyorlanmoqda" : en ? "More design tools are coming" : "Новые инструменты уже в работе"}</h2>
+            <p>{uz ? "Maket, rang va bosmaga tayyorlash vositalarini qo‘shib boramiz." : en ? "We are adding more tools for layouts, color and print preparation." : "Добавляем новые инструменты для макетов, цвета и подготовки к печати."}</p>
+            <Link to="/tools">{uz ? "Barcha vositalar" : en ? "View all tools" : "Все инструменты"} <ArrowRight /></Link>
+          </div>
+        </section>
       </div>
     </div>
   );
