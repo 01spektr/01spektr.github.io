@@ -58,6 +58,9 @@ const ColorPalettePage = lazyWithDeployRecovery(() =>
 const WorldTimezonesPage = lazyWithDeployRecovery(() =>
   import("@/features/world-timezones").then((m) => ({ default: m.WorldTimezonesPage })),
 );
+const CurrencyRatesPage = lazyWithDeployRecovery(() =>
+  import("@/features/currency-rates").then((m) => ({ default: m.CurrencyRatesPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -80,6 +83,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "Создавайте гармоничные цветовые палитры, проверяйте контраст, извлекайте цвета из изображений и экспортируйте HEX, RGB, HSL и CMYK.",
       "world-timezones":
         "Сравнивайте время в городах мира, конвертируйте даты и планируйте международные встречи.",
+      "currency-rates":
+        "Смотрите актуальные официальные курсы валют ЦБ Узбекистана, конвертируйте суммы и сравнивайте изменения курса.",
     };
     if (!tool) {
       return seoHead({
@@ -160,6 +165,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <WorldTimezonesPage />
+      </Suspense>
+    );
+  }
+  if (slug === "currency-rates") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <CurrencyRatesPage />
       </Suspense>
     );
   }

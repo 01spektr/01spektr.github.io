@@ -274,6 +274,21 @@ export const TOOLS: ToolDef[] = [
     available: true,
   },
   {
+    id: "currency-rates",
+    slug: "currency-rates",
+    category: "finance",
+    name: { ru: "Курсы валют", en: "Exchange rates", uz: "Valyuta kurslari" },
+    description: {
+      ru: "Официальные курсы ЦБ Узбекистана, конвертер валют и график изменений.",
+      en: "Official Central Bank of Uzbekistan rates, currency converter and change chart.",
+      uz: "O‘zbekiston Markaziy bankining rasmiy kurslari, valyuta konverteri va o‘zgarishlar grafigi.",
+    },
+    keywords: ["курс валют", "валюта", "конвертер", "доллар", "евро", "cbu", "exchange rates", "valyuta kursi"],
+    icon: "ArrowLeftRight",
+    available: true,
+    featured: true,
+  },
+  {
     id: "invoice-number",
     slug: "invoice-number",
     category: "business",

@@ -1,0 +1,54 @@
+.currency-rates-page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  color: var(--foreground);
+}
+
+.currency-rates-content {
+  width: 100%;
+  padding-bottom: 3rem;
+}
+
+.currency-rates-page :is(button, a, input, select) {
+  font-family: inherit;
+}
+
+.dark .currency-rates-page :is(.bg-white, .bg-slate-50, .bg-\[\#f4f7fb\]) {
+  background-color: var(--card) !important;
+}
+
+.dark .currency-rates-page :is(.bg-slate-100, .bg-slate-50\/60) {
+  background-color: color-mix(in srgb, var(--muted) 78%, var(--card)) !important;
+}
+
+.dark .currency-rates-page :is(.text-slate-900, .text-slate-800, .text-slate-700) {
+  color: var(--foreground) !important;
+}
+
+.dark .currency-rates-page :is(.text-slate-600, .text-slate-500, .text-slate-400) {
+  color: var(--muted-foreground) !important;
+}
+
+.dark .currency-rates-page :is(.border-slate-100, .border-slate-200, .border-slate-200\/80, .border-slate-200\/90) {
+  border-color: var(--border) !important;
+}
+
+.dark .currency-rates-page input,
+.dark .currency-rates-page select {
+  color: var(--foreground);
+}
+
+.dark .currency-rates-page svg text.fill-slate-400 {
+  fill: var(--muted-foreground) !important;
+}
+
+.dark .currency-rates-page svg text.fill-slate-900 {
+  fill: var(--foreground) !important;
+}
+
+@media (max-width: 640px) {
+  .currency-rates-content {
+    padding-bottom: 2rem;
+  }
+}

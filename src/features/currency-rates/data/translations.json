@@ -1,0 +1,617 @@
+{
+  "ru": {
+    "header": {
+      "tools": "Инструменты",
+      "categories": "Категории",
+      "about": "О проекте",
+      "searchPlaceholder": "Что вы хотите сделать?",
+      "favorites": "Избранное",
+      "history": "История",
+      "profile": "Профиль"
+    },
+    "hero": {
+      "home": "Главная",
+      "finance": "Финансы и бизнес",
+      "currencyRates": "Курсы валют",
+      "title": "Курсы валют",
+      "description": "Официальные курсы валют ЦБ Узбекистана, графики и удобные инструменты для конвертации.",
+      "badge1Title": "Актуальные данные",
+      "badge1Desc": "Ежедневное обновление ЦБ",
+      "badge2Title": "Исторические графики",
+      "badge2Desc": "Анализ динамики курсов",
+      "badge3Title": "Удобные инструменты",
+      "badge3Desc": "Конвертер, сравнение, алерты"
+    },
+    "converter": {
+      "title": "Конвертер валют",
+      "autoCalculate": "Автопересчет",
+      "modeConvert": "Конвертация",
+      "modeReverse": "Обратный",
+      "modeMulti": "Мульти",
+      "youGive": "Отдаю",
+      "youGet": "Получаю",
+      "officialCbuRate": "Официальный курс ЦБ РУз",
+      "calcOnInput": "Автоматический расчет при вводе",
+      "copyResult": "Скопировать результат",
+      "copied": "Скопировано",
+      "savePair": "Сохранить пару",
+      "saved": "Сохранено",
+      "searchCurrency": "Поиск валюты...",
+      "notFound": "Ничего не найдено",
+      "multiSelectPrompt": "Выберите до 4 валют для одновременной конвертации:"
+    },
+    "chart": {
+      "title": "Динамика курса",
+      "to": "к",
+      "timeframes": {
+        "1D": "1Д",
+        "1W": "1Н",
+        "1M": "1М",
+        "3M": "3М",
+        "1Y": "1Г",
+        "5Y": "5Л",
+        "All": "Все"
+      },
+      "averageRate": "Средний курс",
+      "currentRate": "Текущий курс",
+      "minRate": "Минимум за период",
+      "maxRate": "Максимум за период",
+      "change": "Изменение за период",
+      "downloadPng": "Скачать график (PNG)",
+      "swap": "Поменять валюты местами",
+      "searchCurrency": "Поиск валюты..."
+    },
+    "table": {
+      "title": "Официальные курсы валют ЦБ РУз",
+      "today": "Сегодня",
+      "searchPlaceholder": "Поиск валюты по названию или коду (напр. USD, Юань)...",
+      "categories": {
+        "all": "Все валюты",
+        "popular": "Популярные",
+        "favorites": "Избранные",
+        "cis": "СНГ и ЦА",
+        "mideast": "Ближний Восток",
+        "asia": "Азия",
+        "west": "Европа и Запад"
+      },
+      "columns": {
+        "currency": "Валюта",
+        "code": "Код",
+        "rate": "Курс к UZS",
+        "change": "Изм. 24ч",
+        "chart": "График 7д",
+        "action": "Действие"
+      },
+      "convertAction": "Конвертировать",
+      "show": "Показывать по",
+      "records": "записей",
+      "page": "Страница",
+      "of": "из",
+      "noCurrencies": "Валюты не найдены"
+    },
+    "alerts": {
+      "title": "Уведомления о курсе",
+      "addButton": "Добавить",
+      "description": "Получайте уведомления, когда курс валюты достигает нужного значения.",
+      "noAlerts": "Нет активных уведомлений",
+      "whenRate": "Когда курс",
+      "manageAll": "Управление всеми уведомлениями",
+      "editTitle": "Редактировать уведомление",
+      "newTitle": "Новое уведомление о курсе",
+      "baseCurrency": "Базовая валюта",
+      "targetCurrency": "Целевая валюта",
+      "condition": "Условие",
+      "conditionGreater": "Курс выше или равен (>=)",
+      "conditionLower": "Курс ниже или равен (<=)",
+      "targetRateValue": "Значение курса",
+      "enabled": "Уведомление активно",
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "create": "Создать уведомление"
+    },
+    "tools": {
+      "title": "Полезные инструменты",
+      "open": "Открыть",
+      "close": "Закрыть",
+      "items": {
+        "converter": {
+          "title": "Конвертер валют",
+          "description": "Быстрая конвертация по курсу ЦБ",
+          "category": "Финансы"
+        },
+        "history": {
+          "title": "Исторические данные",
+          "description": "Скачать архив курсов в CSV / Excel",
+          "category": "Аналитика"
+        },
+        "compare": {
+          "title": "Сравнение валют",
+          "description": "Сравнить динамику двух или трех валют",
+          "category": "Анализ"
+        },
+        "salary": {
+          "title": "Калькулятор заработка",
+          "description": "Пересчёт зарплаты в валюте с налогами",
+          "category": "Инструменты"
+        },
+        "crypto": {
+          "title": "Курсы криптовалют",
+          "description": "BTC, ETH, USDT к узбекскому суму",
+          "category": "Крипта"
+        },
+        "metals": {
+          "title": "Курсы драгоценных металлов",
+          "description": "Золото, серебро, платина от ЦБ РУз",
+          "category": "Инвестиции"
+        }
+      }
+    },
+    "dataSource": {
+      "title": "Источник данных",
+      "officialBadge": "Официально ЦБ РУз",
+      "description": "Все курсы и котировки обновляются ежедневно в соответствии с официальными данными Центрального банка Республики Узбекистан.",
+      "goToCbu": "Перейти на сайт cbu.uz",
+      "updatedAt": "Обновлено 15.09.2026 14:32 (Ташкент)",
+      "disclaimer": "Курсы носят информационный характер. Для проведения коммерческих операций уточняйте условия в банках."
+    },
+    "modals": {
+      "search": {
+        "title": "Поиск по сайту",
+        "placeholder": "Введите название валюты, код или инструмент...",
+        "currencies": "Валюты",
+        "tools": "Инструменты",
+        "noResults": "Ничего не найдено"
+      },
+      "favorites": {
+        "title": "Избранные валюты",
+        "empty": "У вас пока нет избранных валют. Нажмите на звёздочку рядом с любой валютой, чтобы добавить её сюда."
+      },
+      "history": {
+        "title": "История конвертаций",
+        "empty": "История операций пуста. Сделайте несколько расчётов в конвертере, чтобы они отобразились здесь.",
+        "clear": "Очистить историю"
+      }
+    },
+    "currencyNames": {
+      "USD": "Доллар США",
+      "EUR": "Евро",
+      "RUB": "Российский рубль",
+      "CNY": "Китайский юань",
+      "AED": "Дирхам ОАЭ",
+      "TRY": "Турецкая лира",
+      "GBP": "Фунт стерлингов",
+      "CHF": "Швейцарский франк",
+      "JPY": "Японская иена",
+      "KZT": "Казахстанский тенге",
+      "KRW": "Южнокорейская вона",
+      "SAR": "Саудовский риял",
+      "CAD": "Канадский доллар",
+      "AUD": "Австралийский доллар",
+      "SGD": "Сингапурский доллар",
+      "KGS": "Киргизский сом",
+      "TJS": "Таджикский сомони",
+      "BYN": "Белорусский рубль",
+      "AZN": "Азербайджанский манат",
+      "GEL": "Грузинский лари",
+      "INR": "Индийская рупия",
+      "MYR": "Малайзийский ринггит",
+      "THB": "Тайский бат",
+      "QAR": "Катарский риал",
+      "KWD": "Кувейтский динар",
+      "EGP": "Египетский фунт",
+      "PLN": "Польский злотый",
+      "SEK": "Шведская крона",
+      "UZS": "Узбекский сум"
+    }
+  },
+  "en": {
+    "header": {
+      "tools": "Tools",
+      "categories": "Categories",
+      "about": "About",
+      "searchPlaceholder": "What would you like to do?",
+      "favorites": "Favorites",
+      "history": "History",
+      "profile": "Profile"
+    },
+    "hero": {
+      "home": "Home",
+      "finance": "Finance & Business",
+      "currencyRates": "Exchange Rates",
+      "title": "Exchange Rates",
+      "description": "Official Central Bank of Uzbekistan exchange rates, charts and convenient conversion tools.",
+      "badge1Title": "Live Data",
+      "badge1Desc": "Daily Central Bank update",
+      "badge2Title": "Historical Charts",
+      "badge2Desc": "Analyze exchange trends",
+      "badge3Title": "Convenient Tools",
+      "badge3Desc": "Converter, comparison, alerts"
+    },
+    "converter": {
+      "title": "Currency Converter",
+      "autoCalculate": "Auto-recalculate",
+      "modeConvert": "Convert",
+      "modeReverse": "Reverse",
+      "modeMulti": "Multi",
+      "youGive": "You send",
+      "youGet": "You receive",
+      "officialCbuRate": "Official CBU Rate",
+      "calcOnInput": "Instant calculation on input",
+      "copyResult": "Copy result",
+      "copied": "Copied",
+      "savePair": "Save pair",
+      "saved": "Saved",
+      "searchCurrency": "Search currency...",
+      "notFound": "No currencies found",
+      "multiSelectPrompt": "Select up to 4 currencies for simultaneous conversion:"
+    },
+    "chart": {
+      "title": "Exchange Rate History",
+      "to": "to",
+      "timeframes": {
+        "1D": "1D",
+        "1W": "1W",
+        "1M": "1M",
+        "3M": "3M",
+        "1Y": "1Y",
+        "5Y": "5Y",
+        "All": "All"
+      },
+      "averageRate": "Average rate",
+      "currentRate": "Current rate",
+      "minRate": "Period minimum",
+      "maxRate": "Period maximum",
+      "change": "Period change",
+      "downloadPng": "Download chart (PNG)",
+      "swap": "Swap currencies",
+      "searchCurrency": "Search currency..."
+    },
+    "table": {
+      "title": "Official Exchange Rates of the Central Bank of Uzbekistan",
+      "today": "Today",
+      "searchPlaceholder": "Search currency by name or code (e.g. USD, Yuan)...",
+      "categories": {
+        "all": "All Currencies",
+        "popular": "Popular",
+        "favorites": "Favorites",
+        "cis": "CIS & Central Asia",
+        "mideast": "Middle East",
+        "asia": "Asia",
+        "west": "Europe & West"
+      },
+      "columns": {
+        "currency": "Currency",
+        "code": "Code",
+        "rate": "Rate to UZS",
+        "change": "24h Chg",
+        "chart": "7d Chart",
+        "action": "Action"
+      },
+      "convertAction": "Convert",
+      "show": "Show",
+      "records": "rows",
+      "page": "Page",
+      "of": "of",
+      "noCurrencies": "No currencies found"
+    },
+    "alerts": {
+      "title": "Rate Alerts",
+      "addButton": "Add Alert",
+      "description": "Get notified when an exchange rate reaches your desired threshold.",
+      "noAlerts": "No active alerts",
+      "whenRate": "When rate is",
+      "manageAll": "Manage all rate alerts",
+      "editTitle": "Edit Rate Alert",
+      "newTitle": "New Rate Alert",
+      "baseCurrency": "Base currency",
+      "targetCurrency": "Target currency",
+      "condition": "Condition",
+      "conditionGreater": "Rate is greater or equal (>=)",
+      "conditionLower": "Rate is less or equal (<=)",
+      "targetRateValue": "Threshold value",
+      "enabled": "Alert is active",
+      "cancel": "Cancel",
+      "save": "Save",
+      "create": "Create Alert"
+    },
+    "tools": {
+      "title": "Useful Tools",
+      "open": "Open",
+      "close": "Close",
+      "items": {
+        "converter": {
+          "title": "Currency Converter",
+          "description": "Quick conversion by Central Bank rates",
+          "category": "Finance"
+        },
+        "history": {
+          "title": "Historical Rates",
+          "description": "Download archive in CSV / Excel format",
+          "category": "Analytics"
+        },
+        "compare": {
+          "title": "Currency Comparison",
+          "description": "Compare trends of multiple currencies",
+          "category": "Analysis"
+        },
+        "salary": {
+          "title": "Salary Calculator",
+          "description": "Convert salary across currencies with taxes",
+          "category": "Tools"
+        },
+        "crypto": {
+          "title": "Crypto Rates",
+          "description": "BTC, ETH, USDT to Uzbek Som",
+          "category": "Crypto"
+        },
+        "metals": {
+          "title": "Precious Metals",
+          "description": "Gold, silver, platinum from Central Bank",
+          "category": "Investments"
+        }
+      }
+    },
+    "dataSource": {
+      "title": "Data Source",
+      "officialBadge": "Official CBU Data",
+      "description": "All exchange rates and quotes are updated daily according to official data published by the Central Bank of the Republic of Uzbekistan.",
+      "goToCbu": "Visit cbu.uz website",
+      "updatedAt": "Updated: 15.09.2026 14:32 (Tashkent)",
+      "disclaimer": "Rates are for informational purposes only. For commercial transactions, please verify terms with licensed commercial banks."
+    },
+    "modals": {
+      "search": {
+        "title": "Search Site",
+        "placeholder": "Enter currency name, code, or tool name...",
+        "currencies": "Currencies",
+        "tools": "Tools",
+        "noResults": "No results found"
+      },
+      "favorites": {
+        "title": "Favorite Currencies",
+        "empty": "You have no favorite currencies yet. Click the star icon next to any currency to add it here."
+      },
+      "history": {
+        "title": "Conversion History",
+        "empty": "No recent conversions. Perform a few calculations in the converter to see your history here.",
+        "clear": "Clear History"
+      }
+    },
+    "currencyNames": {
+      "USD": "US Dollar",
+      "EUR": "Euro",
+      "RUB": "Russian Ruble",
+      "CNY": "Chinese Yuan",
+      "AED": "UAE Dirham",
+      "TRY": "Turkish Lira",
+      "GBP": "British Pound",
+      "CHF": "Swiss Franc",
+      "JPY": "Japanese Yen",
+      "KZT": "Kazakhstani Tenge",
+      "KRW": "South Korean Won",
+      "SAR": "Saudi Riyal",
+      "CAD": "Canadian Dollar",
+      "AUD": "Australian Dollar",
+      "SGD": "Singapore Dollar",
+      "KGS": "Kyrgyzstani Som",
+      "TJS": "Tajikistani Somoni",
+      "BYN": "Belarusian Ruble",
+      "AZN": "Azerbaijani Manat",
+      "GEL": "Georgian Lari",
+      "INR": "Indian Rupee",
+      "MYR": "Malaysian Ringgit",
+      "THB": "Thai Baht",
+      "QAR": "Qatari Riyal",
+      "KWD": "Kuwaiti Dinar",
+      "EGP": "Egyptian Pound",
+      "PLN": "Polish Zloty",
+      "SEK": "Swedish Krona",
+      "UZS": "Uzbek Som"
+    }
+  },
+  "uz": {
+    "header": {
+      "tools": "Asboblar",
+      "categories": "Kategoriyalar",
+      "about": "Loyiha haqida",
+      "searchPlaceholder": "Nima qilmoqchisiz?",
+      "favorites": "Tanlanganlar",
+      "history": "Tarix",
+      "profile": "Profil"
+    },
+    "hero": {
+      "home": "Bosh sahifa",
+      "finance": "Moliya va biznes",
+      "currencyRates": "Valyuta kurslari",
+      "title": "Valyuta kurslari",
+      "description": "O‘zbekiston Markaziy bankining rasmiy valyuta kurslari, grafiklar va qulay konvertatsiya vositalari.",
+      "badge1Title": "Dolzarb ma'lumotlar",
+      "badge1Desc": "Markaziy bank ma’lumotlari har kuni yangilanadi",
+      "badge2Title": "Tarixiy grafiklar",
+      "badge2Desc": "Kurslar dinamikasini tahlil qilish",
+      "badge3Title": "Qulay vositalar",
+      "badge3Desc": "Konverter, taqqoslash, ogohlantirishlar"
+    },
+    "converter": {
+      "title": "Valyuta konverteri",
+      "autoCalculate": "Avtohisoblash",
+      "modeConvert": "Konvertatsiya",
+      "modeReverse": "Teskari",
+      "modeMulti": "Multi",
+      "youGive": "Beraman",
+      "youGet": "Olaman",
+      "officialCbuRate": "O'zbekiston Respublikasi Markaziy banki kursi",
+      "calcOnInput": "Kiritish paytida avtomatik hisoblash",
+      "copyResult": "Natijani nusxalash",
+      "copied": "Nusxalandi",
+      "savePair": "Juftlikni saqlash",
+      "saved": "Saqlandi",
+      "searchCurrency": "Valyutani qidirish...",
+      "notFound": "Hech narsa topilmadi",
+      "multiSelectPrompt": "Bir vaqtning o'zida hisoblash uchun 4 tagacha valyutani tanlang:"
+    },
+    "chart": {
+      "title": "Kurs dinamikasi",
+      "to": "ga nisbatan",
+      "timeframes": {
+        "1D": "1K",
+        "1W": "1H",
+        "1M": "1O",
+        "3M": "3O",
+        "1Y": "1Y",
+        "5Y": "5Y",
+        "All": "Barchasi"
+      },
+      "averageRate": "O'rtacha kurs",
+      "currentRate": "Joriy kurs",
+      "minRate": "Davr minimumi",
+      "maxRate": "Davr maksimumi",
+      "change": "Davrdagi o'zgarish",
+      "downloadPng": "Grafikni yuklab olish (PNG)",
+      "swap": "Valyutalar o'rnini almashtirish",
+      "searchCurrency": "Valyutani qidirish..."
+    },
+    "table": {
+      "title": "O'zbekiston Markaziy bankining rasmiy valyuta kurslari",
+      "today": "Bugun",
+      "searchPlaceholder": "Valyutani nomi yoki kodi bo'yicha qidirish (masalan, USD, Yuan)...",
+      "categories": {
+        "all": "Barcha valyutalar",
+        "popular": "Ommabop",
+        "favorites": "Tanlanganlar",
+        "cis": "MDH va Markaziy Osiyo",
+        "mideast": "Yaqin Sharq",
+        "asia": "Osiyo",
+        "west": "Yevropa va G'arb"
+      },
+      "columns": {
+        "currency": "Valyuta",
+        "code": "Kodi",
+        "rate": "So'mga nisbatan kurs",
+        "change": "24s o'zg.",
+        "chart": "7 kunlik grafik",
+        "action": "Amal"
+      },
+      "convertAction": "Konvertatsiya qilish",
+      "show": "Ko'rsatish",
+      "records": "qator",
+      "page": "Sahifa",
+      "of": "dan",
+      "noCurrencies": "Valyutalar topilmadi"
+    },
+    "alerts": {
+      "title": "Kurs ogohlantirishlari",
+      "addButton": "Qo'shish",
+      "description": "Valyuta kursi belgilangan darajaga yetganda xabardor bo'ling.",
+      "noAlerts": "Faol ogohlantirishlar yo'q",
+      "whenRate": "Kurs",
+      "manageAll": "Barcha ogohlantirishlarni boshqarish",
+      "editTitle": "Ogohlantirishni tahrirlash",
+      "newTitle": "Yangi kurs ogohlantirishi",
+      "baseCurrency": "Asosiy valyuta",
+      "targetCurrency": "Maqsadli valyuta",
+      "condition": "Shart",
+      "conditionGreater": "Kurs katta yoki teng (>=)",
+      "conditionLower": "Kurs kichik yoki teng (<=)",
+      "targetRateValue": "Kurs qiymati",
+      "enabled": "Ogohlantirish faol",
+      "cancel": "Bekor qilish",
+      "save": "Saqlash",
+      "create": "Ogohlantirish yaratish"
+    },
+    "tools": {
+      "title": "Foydali asboblar",
+      "open": "Ochish",
+      "close": "Yopish",
+      "items": {
+        "converter": {
+          "title": "Valyuta konverteri",
+          "description": "MB kursi bo'yicha tezkor hisoblash",
+          "category": "Moliya"
+        },
+        "history": {
+          "title": "Tarixiy ma'lumotlar",
+          "description": "Arxivni CSV / Excel formatida yuklab olish",
+          "category": "Tahlil"
+        },
+        "compare": {
+          "title": "Valyutalarni taqqoslash",
+          "description": "Bir nechta valyuta dinamikasini solishtirish",
+          "category": "Tahlil"
+        },
+        "salary": {
+          "title": "Maosh kalkulyatori",
+          "description": "Maoshni soliqlar bilan xorijiy valyutada hisoblash",
+          "category": "Asboblar"
+        },
+        "crypto": {
+          "title": "Kriptovalyuta kurslari",
+          "description": "BTC, ETH, USDT so'mga nisbatan",
+          "category": "Kripto"
+        },
+        "metals": {
+          "title": "Qimmatbaho metallar",
+          "description": "Oltin, kumush, platina MB narxlari",
+          "category": "Investitsiyalar"
+        }
+      }
+    },
+    "dataSource": {
+      "title": "Ma'lumotlar manbasi",
+      "officialBadge": "Rasmiy O'zbekiston MB",
+      "description": "Barcha kurslar va kotirovkalar O'zbekiston Respublikasi Markaziy bankining rasmiy ma'lumotlariga muvofiq har kuni yangilanadi.",
+      "goToCbu": "cbu.uz saytiga o'tish",
+      "updatedAt": "Yangilangan: 15.09.2026 14:32 (Toshkent)",
+      "disclaimer": "Kurslar ma'lumot berish xarakteriga ega. Tijoriy amaliyotlar uchun banklar shartlari bilan tanishing."
+    },
+    "modals": {
+      "search": {
+        "title": "Saytdan qidirish",
+        "placeholder": "Valyuta nomi, kodi yoki asbob nomini kiriting...",
+        "currencies": "Valyutalar",
+        "tools": "Asboblar",
+        "noResults": "Hech narsa topilmadi"
+      },
+      "favorites": {
+        "title": "Tanlangan valyutalar",
+        "empty": "Hozircha tanlangan valyutalar yo'q. Istalgan valyuta yonidagi yulduzchani bosing."
+      },
+      "history": {
+        "title": "Konvertatsiya tarixi",
+        "empty": "Amallar tarixi bo'sh. Tarixni ko'rish uchun konverterda bir nechta hisob-kitob qiling.",
+        "clear": "Tarixni tozalash"
+      }
+    },
+    "currencyNames": {
+      "USD": "AQSH dollari",
+      "EUR": "Yevro",
+      "RUB": "Rossiya rubli",
+      "CNY": "Xitoy yuani",
+      "AED": "BAA dirhami",
+      "TRY": "Turkiya lirasi",
+      "GBP": "Buyuk Britaniya funti",
+      "CHF": "Shveytsariya franki",
+      "JPY": "Yaponiya iyenasi",
+      "KZT": "Qozog'iston tengesi",
+      "KRW": "Janubiy Koreya voni",
+      "SAR": "Saudiya riyoli",
+      "CAD": "Kanada dollari",
+      "AUD": "Avstraliya dollari",
+      "SGD": "Singapur dollari",
+      "KGS": "Qirg'iziston somi",
+      "TJS": "Tojikiston somoniysi",
+      "BYN": "Belarus rubli",
+      "AZN": "Ozarbayjon manati",
+      "GEL": "Gruziya larisi",
+      "INR": "Hindiston rupiyasi",
+      "MYR": "Malayziya ringgiti",
+      "THB": "Tailand bati",
+      "QAR": "Qatar riyoli",
+      "KWD": "Quvayt dinori",
+      "EGP": "Misr funti",
+      "PLN": "Polsha zlotiyi",
+      "SEK": "Shvetsiya kronasi",
+      "UZS": "O'zbekiston so'mi"
+    }
+  }
+}
