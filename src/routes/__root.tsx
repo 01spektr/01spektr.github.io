@@ -59,6 +59,11 @@ function RootComponent() {
       <head>
         <HeadContent />
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var key="toolboxi:preload-recovery";window.addEventListener("vite:preloadError",function(event){event.preventDefault();if(!sessionStorage.getItem(key)){sessionStorage.setItem(key,"1");window.location.reload();}});window.addEventListener("load",function(){window.setTimeout(function(){sessionStorage.removeItem(key);},3000);});})();`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
