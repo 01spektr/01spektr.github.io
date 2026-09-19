@@ -124,6 +124,33 @@ function DesignPrintCategory({
           { title: "Коды и маркировка", text: "QR-коды и штрихкоды", Icon: QrCode, slug: "qr-generator" },
           { title: "Подготовка изображений", text: "Размер и экспорт", Icon: ImageIcon, slug: "image-resize" },
         ];
+  const extendedDescriptions: Record<string, string> = {
+    "qr-generator": uz
+      ? "Havolalar, matn, Wi‑Fi, kontaktlar, email va telefon uchun QR-kod yarating. Rang, shakl va logotipni sozlab, tayyor kodni PNG, SVG yoki PDF formatida yuklab oling."
+      : en
+        ? "Create QR codes for links, text, Wi-Fi, contacts, email and phone numbers. Customize colors, shapes and a logo, then download the result as PNG, SVG or PDF."
+        : "Создавайте QR-коды для ссылок, текста, Wi‑Fi, контактов, email и телефона. Настраивайте цвета, форму и логотип, затем скачивайте готовый код в PNG, SVG или PDF.",
+    "color-palette": uz
+      ? "Brend, sayt, illyustratsiya yoki bosma maket uchun uyg‘un ranglar palitrasini tanlang. HEX, RGB va boshqa qiymatlarni nusxalab, tayyor kombinatsiyalarni saqlang."
+      : en
+        ? "Build a harmonious color palette for a brand, website, illustration or print layout. Copy HEX and RGB values and save ready-made color combinations."
+        : "Подбирайте гармоничную палитру для бренда, сайта, иллюстрации или печатного макета. Копируйте значения HEX и RGB и сохраняйте готовые сочетания цветов.",
+    "image-resize": uz
+      ? "Rasm o‘lchamini aniq piksellarda o‘zgartiring, nisbatlarni saqlang va kerakli joyni kesib oling. JPG, PNG, WebP yoki AVIF formatiga sifat va fayl hajmini nazorat qilib eksport qiling."
+      : en
+        ? "Resize images to exact pixel dimensions, preserve proportions and crop the required area. Export to JPG, PNG, WebP or AVIF while controlling quality and file size."
+        : "Изменяйте размер изображения в точных пикселях, сохраняйте пропорции и обрезайте нужную область. Экспортируйте в JPG, PNG, WebP или AVIF с контролем качества и веса файла.",
+    "barcode-generator": uz
+      ? "Mahsulot, ombor, hujjat va yorliqlar uchun EAN-13, EAN-8, Code 128 va boshqa shtrix-kodlarni yarating. O‘lcham va yozuvlarni sozlab, kodni bosma uchun yuklab oling."
+      : en
+        ? "Generate EAN-13, EAN-8, Code 128 and other barcodes for products, inventory, documents and labels. Adjust dimensions and captions, then download a print-ready code."
+        : "Генерируйте EAN-13, EAN-8, Code 128 и другие штрихкоды для товаров, склада, документов и этикеток. Настраивайте размеры и подписи и скачивайте код для печати.",
+    "cmyk-convert": uz
+      ? "Ekrandagi RGB va HEX ranglarini bosma CMYK modeliga o‘tkazing. Bo‘yoq qoplamasini tekshiring, ekran va bosma natijani solishtiring hamda yaqin Pantone rangini toping."
+      : en
+        ? "Convert on-screen RGB and HEX colors to a print-ready CMYK model. Check ink coverage, compare screen and print previews and find the nearest Pantone color."
+        : "Переводите экранные цвета RGB и HEX в печатную модель CMYK. Проверяйте покрытие краской, сравнивайте цвет на экране и в печати и находите ближайший Pantone.",
+  };
 
   return (
     <div className="construction-page design-category-page pb-10">
@@ -180,7 +207,14 @@ function DesignPrintCategory({
           <span>{tools.length} {uz ? "vosita" : en ? "tools" : "инструментов"}</span>
         </div>
         <div className="construction-tool-grid">
-          {tools.map((tool) => <ConstructionTool key={tool.id} tool={tool} locale={locale} />)}
+          {tools.map((tool) => (
+            <ConstructionTool
+              key={tool.id}
+              tool={tool}
+              locale={locale}
+              description={extendedDescriptions[tool.slug]}
+            />
+          ))}
         </div>
       </section>
 
@@ -371,9 +405,11 @@ function ConstructionCategory({
 function ConstructionTool({
   tool,
   locale,
+  description,
 }: {
   tool: ReturnType<typeof toolsByCategory>[number];
   locale: Locale;
+  description?: string;
 }) {
   const en = locale === "en";
   const uz = locale === "uz";
@@ -382,7 +418,7 @@ function ConstructionTool({
       <ToolIcon tool={tool} />
       <div>
         <h3>{tool.name[locale]}</h3>
-        <p>{tool.description[locale]}</p>
+        <p>{description ?? tool.description[locale]}</p>
         <small>
           {tool.available
             ? uz ? "Vositani ochish" : en ? "Open tool" : "Открыть инструмент"

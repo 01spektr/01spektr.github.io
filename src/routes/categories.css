@@ -423,6 +423,14 @@
   color: #7954ee;
   background: #eee9ff;
 }
+.design-category-page .construction-tool {
+  min-height: 13rem;
+}
+.design-category-page .construction-tool p {
+  max-width: calc(100% - 0.5rem);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
 .design-category-note > span {
   color: #7954ee;
   background: #ece7ff;
@@ -567,6 +575,9 @@
   }
   .construction-tool {
     min-height: 8.8rem;
+  }
+  .design-category-page .construction-tool {
+    min-height: 12.5rem;
   }
   .construction-bottom {
     margin-top: 0.75rem;
