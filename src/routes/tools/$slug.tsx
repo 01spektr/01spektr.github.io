@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
+import type { ComponentType } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -8,31 +9,53 @@ import { ToolIcon } from "@/components/tool-icon";
 import { getToolBySlug } from "@/lib/tools/catalog";
 import { seoHead } from "@/lib/seo";
 
-const QrGeneratorPage = lazy(() =>
+type LazyModule<T extends ComponentType> = { default: T };
+
+function lazyWithDeployRecovery<T extends ComponentType>(
+  load: () => Promise<LazyModule<T>>,
+) {
+  return lazy(async () => {
+    const recoveryKey = "toolboxi:chunk-recovery";
+    try {
+      const module = await load();
+      if (typeof window !== "undefined") sessionStorage.removeItem(recoveryKey);
+      return module;
+    } catch (error) {
+      if (typeof window !== "undefined" && !sessionStorage.getItem(recoveryKey)) {
+        sessionStorage.setItem(recoveryKey, "1");
+        window.location.reload();
+        return new Promise<LazyModule<T>>(() => undefined);
+      }
+      throw error;
+    }
+  });
+}
+
+const QrGeneratorPage = lazyWithDeployRecovery(() =>
   import("@/features/qr-generator").then((m) => ({ default: m.QrGeneratorPage })),
 );
-const UuidGeneratorPage = lazy(() =>
+const UuidGeneratorPage = lazyWithDeployRecovery(() =>
   import("@/features/uuid-generator").then((m) => ({ default: m.UuidGeneratorPage })),
 );
-const ImageResizePage = lazy(() =>
+const ImageResizePage = lazyWithDeployRecovery(() =>
   import("@/features/image-resize").then((m) => ({ default: m.ImageResizePage })),
 );
-const RoofCalculatorPage = lazy(() =>
+const RoofCalculatorPage = lazyWithDeployRecovery(() =>
   import("@/features/roof-calculator").then((m) => ({ default: m.RoofCalculatorPage })),
 );
-const LoanCalculatorPage = lazy(() =>
+const LoanCalculatorPage = lazyWithDeployRecovery(() =>
   import("@/features/loan-calculator").then((m) => ({ default: m.LoanCalculatorPage })),
 );
-const CmykConverterPage = lazy(() =>
+const CmykConverterPage = lazyWithDeployRecovery(() =>
   import("@/features/cmyk-converter").then((m) => ({ default: m.CmykConverterPage })),
 );
-const BarcodeGeneratorPage = lazy(() =>
+const BarcodeGeneratorPage = lazyWithDeployRecovery(() =>
   import("@/features/barcode-generator").then((m) => ({ default: m.BarcodeGeneratorPage })),
 );
-const ColorPalettePage = lazy(() =>
+const ColorPalettePage = lazyWithDeployRecovery(() =>
   import("@/features/color-palette").then((m) => ({ default: m.ColorPalettePage })),
 );
-const WorldTimezonesPage = lazy(() =>
+const WorldTimezonesPage = lazyWithDeployRecovery(() =>
   import("@/features/world-timezones").then((m) => ({ default: m.WorldTimezonesPage })),
 );
 
