@@ -11,6 +11,7 @@ export const TOOL_ACCENTS: Record<string, string> = {
   "invoice-number": "#2b78e9",
   "word-counter": "#d94eaa",
   "case-converter": "#b25be5",
+  "text-symbol-generator": "#8b5cf6",
   "password-generator": "#e94f66",
   "unit-converter": "#f39a24",
   "world-timezones": "#f59e0b",

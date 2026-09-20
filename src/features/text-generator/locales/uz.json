@@ -1,0 +1,205 @@
+{
+  "lang": {
+    "name": "O'zbekcha",
+    "code": "uz",
+    "flag": "🇺🇿"
+  },
+  "nav": {
+    "title": "Toolboxi",
+    "domain": ".uz",
+    "badge": "Shriftlar",
+    "tagline": "Chiroyli matn va belgilar generatori",
+    "search": "Qidiruv",
+    "searchShortcut": "⌘K",
+    "searchTooltip": "Tezkor qidiruv (Ctrl + K)",
+    "favorites": "Sevimlilar",
+    "favoritesTooltip": "Saqlangan matnlar",
+    "history": "Tarix",
+    "historyTooltip": "Nusxalash tarixi",
+    "language": "Til",
+    "themeToggle": "Mavzuni o‘zgartirish",
+    "themeDark": "Tungi rejim",
+    "themeLight": "Kunduzgi rejim"
+  },
+  "hero": {
+    "home": "Bosh sahifa",
+    "currentPage": "Chiroyli shriftlar",
+    "badge": "30+ uslub & 800+ belgi",
+    "title": "Chiroyli matn va zamonaviy shriftlar generatori",
+    "subtitle": "Oddiy matnni Instagram, Telegram, TikTok, Discord va o'yinlar uchun chiroyli shriftlar, belgilar va emojilarga 1 bosishda aylantiring.",
+    "features": {
+      "noRegistration": "Ro'yxatdan o'tish shart emas",
+      "instantCopy": "1 marta bosishda nusxalash",
+      "worksEverywhere": "Barcha tarmoqlarda ishlaydi"
+    }
+  },
+  "input": {
+    "title": "Matningizni kiriting",
+    "subtitle": "Matningiz darhol quyidagi barcha uslublarda aks etadi",
+    "placeholder": "So'z, ibora yoki nikneym yozing...",
+    "defaultText": "✦ ✦ «« 亗 Toolboxi.uz 亗 »» ✦ ✦",
+    "actions": {
+      "clear": "Tozalash",
+      "paste": "Qo'yish",
+      "copyAll": "Nusxalash",
+      "random": "Tasodifiy matn"
+    },
+    "stats": {
+      "chars": "belgi",
+      "words": "so'z"
+    },
+    "decorations": {
+      "stars": "Yulduzlar",
+      "crown": "Toj",
+      "sparkles": "Yaltiroq",
+      "wings": "Qanotlar",
+      "hearts": "Yuraklar",
+      "cross": "Xoch"
+    }
+  },
+  "symbols": {
+    "title": "Belgilar va emojilar",
+    "totalCount": "Jami 800+",
+    "subtitle": "Belgini matnga qo'shish uchun ustiga bosing",
+    "searchPlaceholder": "Belgini qidirish...",
+    "randomBtn": "Tasodifiy",
+    "inserted": "Qo'shildi",
+    "noResultsTitle": "Hech narsa topilmadi",
+    "noResultsDesc": "So'rovni o'zgartiring yoki filtrni tozalang",
+    "resetSearch": "Qidiruvni tozalash",
+    "footerNotice": "Istalgan belgini bossangiz, u darhol yuqoridagi matnga qo'shiladi",
+    "quickAccents": "Tezkor aksentlar:",
+    "tabs": {
+      "popular": "Ommabop",
+      "emoji": "Emojilar",
+      "arrows": "Strelkalar",
+      "hearts": "Yuraklar",
+      "stars": "Yulduzlar",
+      "gaming": "Niklar & O'yinlar",
+      "gamer": "Niklar & O'yinlar",
+      "special": "Maxsus belgilar",
+      "dividers": "Ajratgichlar",
+      "kaomoji": "Kaomoji"
+    }
+  },
+  "styles": {
+    "title": "Yaratilgan uslublar",
+    "subtitle": "O'zingizga yoqqan shrift yonidagi «Nusxalash» tugmasini bosing",
+    "searchStylesPlaceholder": "Uslubni qidirish...",
+    "copyBtn": "Nusxalash",
+    "copiedBtn": "Nusxalandi!",
+    "favoriteAdd": "Sevimlilarga qo'shish",
+    "favoriteRemove": "Sevimlilardan o'chirish",
+    "previewInSocial": "Tarmoqlarda ko'rish",
+    "emptyStateTitle": "Uslublar topilmadi",
+    "emptyStateDesc": "Boshqa toifani tanlang yoki qidiruvni tozalang",
+    "categories": {
+      "all": "Barcha uslublar",
+      "popular": "Ommabop",
+      "bold": "Qalin (Bold)",
+      "italic": "Kursiv",
+      "underline": "Ostiga chizilgan",
+      "strikethrough": "Ustidan chizilgan",
+      "monospace": "Monospace",
+      "aesthetic": "Estetik",
+      "bubbles": "Aylana ichida",
+      "decorative": "Dekorativ",
+      "gothic": "Gotika",
+      "script": "Yozma shrift"
+    }
+  },
+  "social": {
+    "title": "Ijtimoiy tarmoqlarda ko'rinishi",
+    "subtitle": "Chiroyli matningiz turli platformalarda qanday ko'rinishini tekshiring",
+    "mobileTabStyles": "Matn uslublari",
+    "mobileTabSocial": "Ijtimoiy tarmoqlar",
+    "selectedStyleLabel": "Tanlangan uslub:",
+    "platforms": {
+      "instagram": "Instagram",
+      "telegram": "Telegram",
+      "tiktok": "TikTok",
+      "discord": "Discord",
+      "facebook": "Facebook",
+      "twitter": "X (Twitter)"
+    },
+    "mockup": {
+      "editProfile": "Tahrirlash",
+      "shareProfile": "Ulashish",
+      "posts": "postlar",
+      "followers": "obunachilar",
+      "following": "obunalar",
+      "defaultBio": "✨ Sifatli kontent va ajoyib dizayn\n📍 Toshkent / Online\n🔗 toolboxi.uz",
+      "follow": "Obuna bo'lish",
+      "message": "Xabar",
+      "telegramChannel": "Kanal",
+      "subscribers": "obunachilar",
+      "online": "tarmoqda",
+      "discordStatus": "Toolboxi.uz o'ynamoqda"
+    }
+  },
+  "modals": {
+    "favorites": {
+      "title": "Sevimlilar ro'yxati",
+      "emptyTitle": "Sevimlilar bo'sh",
+      "emptyDesc": "Istalgan uslub yonidagi yurakcha belgisini bosib, uni bu yerga saqlab qo'yishingiz mumkin.",
+      "clearAll": "Hammasini tozalash",
+      "copy": "Nusxalash",
+      "remove": "O'chirish"
+    },
+    "history": {
+      "title": "Nusxalash tarixi",
+      "emptyTitle": "Tarix bo'sh",
+      "emptyDesc": "Nusxa olgan matnlaringiz avtomatik tarzda shu yerda saqlanib boradi.",
+      "clearAll": "Tarixni tozalash",
+      "copy": "Nusxalash"
+    },
+    "search": {
+      "title": "Tezkor qidiruv",
+      "placeholder": "Shriftlar, uslublar va belgilarni qidirish...",
+      "noResults": "So'rov bo'yicha hech narsa topilmadi",
+      "escHint": "Yopish uchun ESC tugmasini bosing"
+    }
+  },
+  "mobileNav": {
+    "input": "Matn",
+    "symbols": "Belgilar",
+    "styles": "Uslublar",
+    "social": "Tarmoqlar",
+    "favorites": "Sevimlilar"
+  },
+  "faq": {
+    "howItWorksTitle": "Shriftlar generatoridan qanday foydalaniladi?",
+    "step1Title": "1. Matnni kiriting",
+    "step1Desc": "O'zbekcha, ruscha yoki inglizcha matningizni yuqoridagi kiritish maydoniga yozing yoki qo'ying.",
+    "step2Title": "2. Uslub va belgilarni tanlang",
+    "step2Desc": "Hosil bo'lgan o'nlab uslublarni ko'rib chiqing, o'zingizga yoqqan emojilar yoki belgilarni qo'shing.",
+    "step3Title": "3. Nusxa oling va ishlating",
+    "step3Desc": "«Nusxalash» tugmasini bosing va natijani Instagram bio, Telegram xabar, TikTok yoki o'yin nikiga qo'ying.",
+    "sectionTitle": "Ko'p beriladigan savollar (FAQ)",
+    "q1": "Bu chiroyli shriftlar barcha ijtimoiy tarmoqlarda ko'rinadimi?",
+    "a1": "Ha! Bizning generator matnni universal Unicode belgilariga o'zgartiradi. Ular Instagram, Telegram, TikTok, WhatsApp, Facebook, Discord, X (Twitter) va PUBG, Free Fire, Brawl Stars kabi o'yinlarda to'liq qo'llab-quvvatlanadi.",
+    "q2": "Biror shrift yoki dasturni yuklab olish kerakmi?",
+    "a2": "Yo'q, hech qanday dastur yoki shrift yuklab olish shart emas. Har qanday telefon yoki kompyuter buni o'z-o'zidan to'g'ri ko'rsatadi.",
+    "q3": "O'zbekcha, ruscha va inglizcha harflar ishlaydimi?",
+    "a3": "Ha, servis lotin va kirill harflarini, shuningdek maxsus dekorativ hoshiyalar, belgilar va ajratgichlarni to'liq qo'llab-quvvatlaydi.",
+    "q4": "Toolboxi.uz xizmati bepulmi?",
+    "a4": "Ha, xizmatimiz mutlaqo bepul va hech qanday ro'yxatdan o'tishni talab qilmaydi. Cheklovlarsiz foydalanishingiz mumkin.",
+    "q5": "O'yinlar uchun qanday qilib chiroyli nik yaratish mumkin?",
+    "a5": "Nikneymingizni yozing, «Niklar & O'yinlar» toifasiga o'ting, toj 亗, qilichlar ⚔️ yoki qanotlar ꧁ ꧂ kabi belgilarni tanlab, «Nusxalash»ni bosing.",
+    "q6": "Kiritilgan matnlarim xavfsiz saqlanadimi?",
+    "a6": "Barcha amallar faqat sizning qurilmangizdagi brauzerda amalga oshiriladi. Biz sizning shaxsiy matnlaringizni serverga jo'natmaymiz va saqlamaymiz."
+  },
+  "toast": {
+    "copied": "Nusxalandi",
+    "favoriteAdded": "Sevimlilarga qo'shildi",
+    "favoriteRemoved": "Sevimlilardan o'chirildi",
+    "historyCleared": "Tarix tozalandi",
+    "favoritesCleared": "Sevimlilar tozalandi"
+  },
+  "footer": {
+    "copyright": "© 2026 Toolboxi.uz — Chiroyli matnlar, Unicode shriftlar va belgilar generatori. Barcha huquqlar himoyalangan.",
+    "privacy": "Maxfiylik siyosati",
+    "terms": "Foydalanish shartlari",
+    "feedback": "Aloqa"
+  }
+}

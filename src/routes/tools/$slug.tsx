@@ -11,9 +11,7 @@ import { seoHead } from "@/lib/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
-function lazyWithDeployRecovery<T extends ComponentType>(
-  load: () => Promise<LazyModule<T>>,
-) {
+function lazyWithDeployRecovery<T extends ComponentType>(load: () => Promise<LazyModule<T>>) {
   return lazy(async () => {
     const recoveryKey = "toolboxi:chunk-recovery";
     try {
@@ -61,6 +59,9 @@ const WorldTimezonesPage = lazyWithDeployRecovery(() =>
 const CurrencyRatesPage = lazyWithDeployRecovery(() =>
   import("@/features/currency-rates").then((m) => ({ default: m.CurrencyRatesPage })),
 );
+const TextGeneratorPage = lazyWithDeployRecovery(() =>
+  import("@/features/text-generator").then((m) => ({ default: m.TextGeneratorPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -85,6 +86,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "Сравнивайте время в городах мира, конвертируйте даты и планируйте международные встречи.",
       "currency-rates":
         "Смотрите актуальные официальные курсы валют ЦБ Узбекистана, конвертируйте суммы и сравнивайте изменения курса.",
+      "text-symbol-generator":
+        "Создавайте красивый Unicode-текст, необычные шрифты, никнеймы, символы и эмодзи для Instagram, Telegram, TikTok и других сервисов.",
     };
     if (!tool) {
       return seoHead({
@@ -172,6 +175,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <CurrencyRatesPage />
+      </Suspense>
+    );
+  }
+  if (slug === "text-symbol-generator") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <TextGeneratorPage />
       </Suspense>
     );
   }

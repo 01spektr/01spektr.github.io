@@ -1,0 +1,12 @@
+.text-generator-page .no-scrollbar {
+  scrollbar-width: none;
+}
+
+.text-generator-page .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.text-generator-page .custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(148 163 184 / 55%) transparent;
+}

@@ -1,0 +1,205 @@
+{
+  "lang": {
+    "name": "English",
+    "code": "en",
+    "flag": "🇬🇧"
+  },
+  "nav": {
+    "title": "Toolboxi",
+    "domain": ".uz",
+    "badge": "Fonts",
+    "tagline": "Fancy text & stylish fonts generator",
+    "search": "Search",
+    "searchShortcut": "⌘K",
+    "searchTooltip": "Quick search (Ctrl + K)",
+    "favorites": "Favorites",
+    "favoritesTooltip": "Saved favorites",
+    "history": "History",
+    "historyTooltip": "Copy history",
+    "language": "Language",
+    "themeToggle": "Toggle theme",
+    "themeDark": "Dark theme",
+    "themeLight": "Light theme"
+  },
+  "hero": {
+    "home": "Home",
+    "currentPage": "Fancy Fonts",
+    "badge": "30+ styles & 800+ symbols",
+    "title": "Fancy Font Generator & Stylish Text Maker",
+    "subtitle": "Convert normal text into cool stylish fonts, unicode symbols, and emojis for Instagram, Telegram, TikTok, Discord, and gaming in 1 click.",
+    "features": {
+      "noRegistration": "No registration required",
+      "instantCopy": "1-click copy",
+      "worksEverywhere": "Works on all social networks"
+    }
+  },
+  "input": {
+    "title": "Enter your text",
+    "subtitle": "Your text transforms instantly into all available styles below",
+    "placeholder": "Type words, phrases, or nicknames...",
+    "defaultText": "✦ ✦ «« 亗 Toolboxi.uz 亗 »» ✦ ✦",
+    "actions": {
+      "clear": "Clear",
+      "paste": "Paste",
+      "copyAll": "Copy",
+      "random": "Random text"
+    },
+    "stats": {
+      "chars": "characters",
+      "words": "words"
+    },
+    "decorations": {
+      "stars": "Stars",
+      "crown": "Crown",
+      "sparkles": "Sparkles",
+      "wings": "Wings",
+      "hearts": "Hearts",
+      "cross": "Cross"
+    }
+  },
+  "symbols": {
+    "title": "Symbols & Emojis",
+    "totalCount": "800+ total",
+    "subtitle": "Click any symbol to instantly insert it into the text above",
+    "searchPlaceholder": "Search symbols...",
+    "randomBtn": "Random",
+    "inserted": "Inserted",
+    "noResultsTitle": "No symbols found",
+    "noResultsDesc": "Try a different search query or clear the filter",
+    "resetSearch": "Reset search",
+    "footerNotice": "Clicking any symbol directly inserts it into the text field",
+    "quickAccents": "Quick accents:",
+    "tabs": {
+      "popular": "Popular",
+      "emoji": "Emojis",
+      "arrows": "Arrows",
+      "hearts": "Hearts",
+      "stars": "Stars",
+      "gaming": "Nicknames & Gaming",
+      "gamer": "Nicknames & Gaming",
+      "special": "Special Symbols",
+      "dividers": "Dividers",
+      "kaomoji": "Kaomoji"
+    }
+  },
+  "styles": {
+    "title": "Generated Styles",
+    "subtitle": "Click \"Copy\" next to any font style you like",
+    "searchStylesPlaceholder": "Search styles...",
+    "copyBtn": "Copy",
+    "copiedBtn": "Copied!",
+    "favoriteAdd": "Add to favorites",
+    "favoriteRemove": "Remove from favorites",
+    "previewInSocial": "Preview in Socials",
+    "emptyStateTitle": "No styles found",
+    "emptyStateDesc": "Try choosing another category or clearing your search",
+    "categories": {
+      "all": "All styles",
+      "popular": "Popular",
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "strikethrough": "Strikethrough",
+      "monospace": "Monospace",
+      "aesthetic": "Aesthetic",
+      "bubbles": "Bubbles",
+      "decorative": "Decorative",
+      "gothic": "Gothic",
+      "script": "Script / Cursive"
+    }
+  },
+  "social": {
+    "title": "Social Media Preview",
+    "subtitle": "See exactly how your stylish text looks on realistic platform interfaces",
+    "mobileTabStyles": "Text Styles",
+    "mobileTabSocial": "Socials",
+    "selectedStyleLabel": "Selected style:",
+    "platforms": {
+      "instagram": "Instagram",
+      "telegram": "Telegram",
+      "tiktok": "TikTok",
+      "discord": "Discord",
+      "facebook": "Facebook",
+      "twitter": "X (Twitter)"
+    },
+    "mockup": {
+      "editProfile": "Edit Profile",
+      "shareProfile": "Share Profile",
+      "posts": "posts",
+      "followers": "followers",
+      "following": "following",
+      "defaultBio": "✨ Creating cool content & design\n📍 Tashkent / Global\n🔗 toolboxi.uz",
+      "follow": "Follow",
+      "message": "Message",
+      "telegramChannel": "Channel",
+      "subscribers": "subscribers",
+      "online": "online",
+      "discordStatus": "Playing Toolboxi.uz"
+    }
+  },
+  "modals": {
+    "favorites": {
+      "title": "Saved Favorites",
+      "emptyTitle": "Your favorites list is empty",
+      "emptyDesc": "Click the heart icon next to any style to save it here for fast access.",
+      "clearAll": "Clear all",
+      "copy": "Copy",
+      "remove": "Remove"
+    },
+    "history": {
+      "title": "Copy History",
+      "emptyTitle": "History is empty",
+      "emptyDesc": "Whenever you copy any styled text, it will be automatically saved here.",
+      "clearAll": "Clear history",
+      "copy": "Copy"
+    },
+    "search": {
+      "title": "Quick Search",
+      "placeholder": "Search fonts, styles, symbols and categories...",
+      "noResults": "No results found for query",
+      "escHint": "Press ESC to close"
+    }
+  },
+  "mobileNav": {
+    "input": "Input",
+    "symbols": "Symbols",
+    "styles": "Styles",
+    "social": "Socials",
+    "favorites": "Favorites"
+  },
+  "faq": {
+    "howItWorksTitle": "How to use the Font Generator?",
+    "step1Title": "1. Enter your text",
+    "step1Desc": "Type or paste any text in English, Russian, or Uzbek into the input box above.",
+    "step2Title": "2. Pick a style & symbols",
+    "step2Desc": "Browse through dozens of generated styles and add fancy emojis or gaming symbols.",
+    "step3Title": "3. Copy and paste",
+    "step3Desc": "Click the Copy button and paste the result into your Instagram bio, Telegram post, TikTok bio, or gaming nickname.",
+    "sectionTitle": "Frequently Asked Questions (FAQ)",
+    "q1": "Will these fancy fonts work across all social networks?",
+    "a1": "Yes! Our generator converts your text into universal Unicode characters. They are natively supported by Instagram, Telegram, TikTok, WhatsApp, Facebook, Discord, X (Twitter), and games like Free Fire, PUBG, CS, and Brawl Stars.",
+    "q2": "Do I need to install or download any fonts?",
+    "a2": "No installation is required. Everything runs in the browser using Unicode symbols, so anyone on any device or computer can see them without installing anything.",
+    "q3": "Does it support Uzbek, Russian, and English characters?",
+    "a3": "Yes, our styles and decorations support Latin, Cyrillic, and universal special symbols, frames, and accents.",
+    "q4": "Is Toolboxi.uz completely free to use?",
+    "a4": "Yes, our service is 100% free with no registration or subscriptions. You can format unlimited texts and nicknames.",
+    "q5": "How can I make a cool nickname for games (PUBG, Free Fire)?",
+    "a5": "Type your nickname, scroll to the Nicknames & Gaming category in the symbols widget, pick a crown 亗, swords ⚔️, or wings ꧁ ꧂ and click Copy.",
+    "q6": "Is my text private and secure?",
+    "a6": "All text processing happens directly inside your web browser. We never store or transmit your personal text to any server."
+  },
+  "toast": {
+    "copied": "Copied",
+    "favoriteAdded": "Added to favorites",
+    "favoriteRemoved": "Removed from favorites",
+    "historyCleared": "History cleared",
+    "favoritesCleared": "Favorites cleared"
+  },
+  "footer": {
+    "copyright": "© 2026 Toolboxi.uz — Fancy text, Unicode fonts & symbols generator. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "feedback": "Feedback"
+  }
+}

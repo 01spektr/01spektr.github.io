@@ -38,7 +38,11 @@ export const CATEGORIES: ToolCategory[] = [
   {
     id: "logistics",
     slug: "logistics",
-    name: { ru: "Логистика и грузоперевозки", en: "Logistics & shipping", uz: "Logistika va yuk tashish" },
+    name: {
+      ru: "Логистика и грузоперевозки",
+      en: "Logistics & shipping",
+      uz: "Logistika va yuk tashish",
+    },
     description: {
       ru: "Расчёты груза, объёма и маршрутов",
       en: "Cargo, volume and route calculations",
@@ -50,7 +54,11 @@ export const CATEGORIES: ToolCategory[] = [
   {
     id: "finance",
     slug: "finance",
-    name: { ru: "Финансы и инвестиции", en: "Finance & investing", uz: "Moliya va investitsiyalar" },
+    name: {
+      ru: "Финансы и инвестиции",
+      en: "Finance & investing",
+      uz: "Moliya va investitsiyalar",
+    },
     description: {
       ru: "Проценты, НДС, кредиты и валюта",
       en: "Interest, VAT, loans and currency",
@@ -122,7 +130,11 @@ export const CATEGORIES: ToolCategory[] = [
   {
     id: "construction",
     slug: "construction",
-    name: { ru: "Строительство и замеры", en: "Construction & measures", uz: "Qurilish va o‘lchovlar" },
+    name: {
+      ru: "Строительство и замеры",
+      en: "Construction & measures",
+      uz: "Qurilish va o‘lchovlar",
+    },
     description: {
       ru: "Площадь, объём, масштаб и единицы",
       en: "Area, volume, scale and units",
@@ -283,7 +295,16 @@ export const TOOLS: ToolDef[] = [
       en: "Official Central Bank of Uzbekistan rates, currency converter and change chart.",
       uz: "O‘zbekiston Markaziy bankining rasmiy kurslari, valyuta konverteri va o‘zgarishlar grafigi.",
     },
-    keywords: ["курс валют", "валюта", "конвертер", "доллар", "евро", "cbu", "exchange rates", "valyuta kursi"],
+    keywords: [
+      "курс валют",
+      "валюта",
+      "конвертер",
+      "доллар",
+      "евро",
+      "cbu",
+      "exchange rates",
+      "valyuta kursi",
+    ],
     icon: "ArrowLeftRight",
     available: true,
     featured: true,
@@ -301,6 +322,36 @@ export const TOOLS: ToolDef[] = [
     keywords: ["счёт", "invoice"],
     icon: "FileText",
     available: false,
+  },
+  {
+    id: "text-symbol-generator",
+    slug: "text-symbol-generator",
+    category: "ai-text",
+    name: {
+      ru: "Генератор текста и символов",
+      en: "Fancy text & symbols",
+      uz: "Matn va belgilar generatori",
+    },
+    description: {
+      ru: "Преобразуйте обычный текст в 30+ красивых Unicode-стилей, добавляйте символы и эмодзи для соцсетей, никнеймов и сообщений.",
+      en: "Turn regular text into 30+ stylish Unicode variants and add symbols or emojis for social posts, usernames and messages.",
+      uz: "Oddiy matnni 30 dan ortiq chiroyli Unicode uslubiga aylantiring, ijtimoiy tarmoqlar va niklar uchun belgilar hamda emojilar qo‘shing.",
+    },
+    keywords: [
+      "генератор текста",
+      "красивый шрифт",
+      "символы",
+      "эмодзи",
+      "никнейм",
+      "unicode",
+      "fancy text",
+      "stylish fonts",
+      "matn generatori",
+      "belgilar",
+    ],
+    icon: "Type",
+    available: true,
+    featured: true,
   },
   {
     id: "word-counter",
@@ -368,7 +419,15 @@ export const TOOLS: ToolDef[] = [
       en: "Time converter, world clock and meeting planner.",
       uz: "Vaqt konverteri, dunyo soati va uchrashuv rejalashtiruvchisi.",
     },
-    keywords: ["время", "часовой пояс", "мировые часы", "timezone", "world clock", "vaqt", "uchrashuv"],
+    keywords: [
+      "время",
+      "часовой пояс",
+      "мировые часы",
+      "timezone",
+      "world clock",
+      "vaqt",
+      "uchrashuv",
+    ],
     icon: "Clock3",
     available: true,
     featured: true,
