@@ -1,6 +1,5 @@
-import React, { useState, useRef, useMemo } from 'react';
-import { Timeframe, ChartDataPoint, Currency } from '../types';
-import { TIMEFRAME_DATA } from '../data/currencies';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { Timeframe, ChartDataPoint, Currency, Language } from '../types';
 import { FlagIcon } from './FlagIcon';
 import {
   TrendingUp,
@@ -15,6 +14,8 @@ import {
 
 interface ChartCardProps {
   currencies: Currency[];
+  locale: Language;
+  latestRateDate?: string;
   baseCurrency: string;
   targetCurrency: string;
   showAverage: boolean;
@@ -27,8 +28,57 @@ interface ChartCardProps {
   getCurrencyName?: (code: string, fallback: string) => string;
 }
 
+type CbuRateRow = { Ccy: string; Nominal: string; Rate: string };
+const cbuDayCache = new Map<string, Promise<Map<string, number>>>();
+
+function isoDate(date: Date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function sampledDates(timeframe: Timeframe, latestRateDate?: string) {
+  const match = latestRateDate?.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+  const today = match
+    ? new Date(Date.UTC(Number(match[3]), Number(match[2]) - 1, Number(match[1]), 12))
+    : new Date();
+  today.setUTCHours(12, 0, 0, 0);
+  const settings: Record<Timeframe, { count: number; step: number }> = {
+    '1Д': { count: 2, step: 1 },
+    '1Н': { count: 8, step: 1 },
+    '1М': { count: 11, step: 3 },
+    '3М': { count: 16, step: 6 },
+    '1Г': { count: 13, step: 30 },
+    '5Л': { count: 21, step: 91 },
+    'Все': { count: 16, step: 365 },
+  };
+  const { count, step } = settings[timeframe];
+  return Array.from({ length: count }, (_, index) => {
+    const date = new Date(today);
+    date.setUTCDate(today.getUTCDate() - (count - index - 1) * step);
+    return isoDate(date);
+  });
+}
+
+function fetchCbuDay(date: string) {
+  const existing = cbuDayCache.get(date);
+  if (existing) return existing;
+  const request = fetch(`https://cbu.uz/ru/arkhiv-kursov-valyut/json/all/${date}/`)
+    .then((response) => {
+      if (!response.ok) throw new Error(`CBU history ${response.status}`);
+      return response.json() as Promise<CbuRateRow[]>;
+    })
+    .then((rows) => new Map(rows.map((row) => {
+      const nominal = Number(String(row.Nominal).replace(',', '.')) || 1;
+      return [row.Ccy, Number(String(row.Rate).replace(',', '.')) / nominal] as const;
+    })));
+  cbuDayCache.set(date, request);
+  request.catch(() => cbuDayCache.delete(date));
+  return request;
+}
+
 export const ChartCard: React.FC<ChartCardProps> = ({
   currencies,
+  locale,
+  latestRateDate,
   baseCurrency,
   targetCurrency,
   showAverage,
@@ -41,14 +91,12 @@ export const ChartCard: React.FC<ChartCardProps> = ({
   getCurrencyName,
 }) => {
   const [timeframe, setTimeframe] = useState<Timeframe>('3М');
-  const [hoverIndex, setHoverIndex] = useState<number | null>(6); // Default 6 is '23 июл' in 3M data
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [showBaseDropdown, setShowBaseDropdown] = useState(false);
   const [showTargetDropdown, setShowTargetDropdown] = useState(false);
   const [baseSearch, setBaseSearch] = useState('');
   const [targetSearch, setTargetSearch] = useState('');
   const chartRef = useRef<SVGSVGElement | null>(null);
-
-  const rawData: ChartDataPoint[] = TIMEFRAME_DATA[timeframe] || TIMEFRAME_DATA['3М'];
 
   const availableCurrencies = [
     ...currencies.filter((c) => c.code !== 'UZS'),
@@ -74,43 +122,60 @@ export const ChartCard: React.FC<ChartCardProps> = ({
     return found ? found.rate : 1;
   };
 
-  // Compute actual rate for any base and target at each historical data point
-  const { data, isSmallScale } = useMemo(() => {
-    const usdCurrentRate = getRateToUzs('USD') || 12650;
-    const baseCurrentRate = getRateToUzs(baseCurrency);
-    const targetCurrentRate = getRateToUzs(targetCurrency);
+  const currentPairRate = getRateToUzs(baseCurrency) / getRateToUzs(targetCurrency);
+  const localeCode = locale === 'ru' ? 'ru-RU' : locale === 'uz' ? 'uz-Latn-UZ' : 'en-US';
+  const makeFallbackData = (): ChartDataPoint[] => {
+    const dates = sampledDates(timeframe, latestRateDate);
+    return dates.map((date) => ({
+      date: new Intl.DateTimeFormat(localeCode, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T12:00:00Z`)),
+      displayDate: new Intl.DateTimeFormat(localeCode, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${date}T12:00:00Z`)),
+      rate: currentPairRate,
+    }));
+  };
+  const [rawData, setRawData] = useState<ChartDataPoint[]>(makeFallbackData);
+  const [historyLoading, setHistoryLoading] = useState(true);
 
-    // Scaling ratio for base and target relative to USD
-    const baseFactor = baseCurrentRate / usdCurrentRate;
-    const targetFactor = targetCurrentRate / usdCurrentRate;
-
-    const computed = rawData.map((d) => {
-      let rateValue = 1;
-      if (baseCurrency === targetCurrency) {
-        rateValue = 1;
-      } else if (targetCurrency === 'UZS') {
-        rateValue = d.rate * baseFactor;
-      } else if (baseCurrency === 'UZS') {
-        const targetRate = d.rate * targetFactor;
-        rateValue = targetRate > 0 ? 1 / targetRate : 0;
-      } else {
-        const baseRate = d.rate * baseFactor;
-        const targetRate = d.rate * targetFactor;
-        rateValue = targetRate > 0 ? baseRate / targetRate : 1;
+  useEffect(() => {
+    let active = true;
+    const dates = sampledDates(timeframe, latestRateDate);
+    setHistoryLoading(true);
+    Promise.all(dates.map(async (date, index) => {
+      if (index === dates.length - 1) {
+        return { date, rate: currentPairRate };
       }
+      if (baseCurrency === targetCurrency) return { date, rate: 1 };
+      const rates = await fetchCbuDay(date);
+      const baseRate = baseCurrency === 'UZS' ? 1 : rates.get(baseCurrency);
+      const targetRate = targetCurrency === 'UZS' ? 1 : rates.get(targetCurrency);
+      if (!baseRate || !targetRate) throw new Error(`Missing CBU rate for ${date}`);
+      return { date, rate: baseRate / targetRate };
+    }))
+      .then((points) => {
+        if (!active) return;
+        setRawData(points.map(({ date, rate }) => {
+          const value = new Date(`${date}T12:00:00Z`);
+          return {
+            date: new Intl.DateTimeFormat(localeCode, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(value),
+            displayDate: new Intl.DateTimeFormat(localeCode, { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(value),
+            rate,
+          };
+        }));
+      })
+      .catch((error) => {
+        console.warn('Unable to load official CBU history', error);
+        if (active) setRawData(makeFallbackData());
+      })
+      .finally(() => {
+        if (active) setHistoryLoading(false);
+      });
+    return () => { active = false; };
+  }, [baseCurrency, targetCurrency, timeframe, currentPairRate, localeCode, latestRateDate]);
 
-      return {
-        date: d.date,
-        displayDate: d.displayDate,
-        rate: rateValue,
-      };
-    });
-
-    const maxVal = Math.max(...computed.map((d) => d.rate));
+  const { data, isSmallScale } = useMemo(() => {
+    const maxVal = Math.max(...rawData.map((d) => d.rate));
     const small = maxVal < 1;
-
-    return { data: computed, isSmallScale: small };
-  }, [rawData, baseCurrency, targetCurrency, currencies]);
+    return { data: rawData, isSmallScale: small };
+  }, [rawData]);
 
   // Statistics calculation
   const minRate = Math.min(...data.map((d) => d.rate));
@@ -125,19 +190,19 @@ export const ChartCard: React.FC<ChartCardProps> = ({
   const formatRate = (val: number) => {
     if (val === 0) return '0';
     if (val >= 1000) {
-      return Math.round(val).toLocaleString('ru-RU');
+      return val.toLocaleString(localeCode, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     if (val >= 100) {
-      return val.toLocaleString('ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+      return val.toLocaleString(localeCode, { minimumFractionDigits: 1, maximumFractionDigits: 2 });
     }
     if (val >= 1) {
-      return val.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+      return val.toLocaleString(localeCode, { minimumFractionDigits: 2, maximumFractionDigits: 4 });
     }
     if (val >= 0.001) {
-      return val.toLocaleString('ru-RU', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      return val.toLocaleString(localeCode, { minimumFractionDigits: 4, maximumFractionDigits: 6 });
     }
     // Very small numbers like 0.000079
-    return val.toLocaleString('ru-RU', { minimumFractionDigits: 6, maximumFractionDigits: 8 });
+    return val.toLocaleString(localeCode, { minimumFractionDigits: 6, maximumFractionDigits: 8 });
   };
 
   // SVG Coordinate mapping
@@ -196,7 +261,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
   }, [curvePath, points, height, padding.bottom]);
 
   // Active hover point
-  const activePoint = hoverIndex !== null && points[hoverIndex] ? points[hoverIndex] : points[Math.floor(points.length / 2)];
+  const activePoint = hoverIndex !== null && points[hoverIndex] ? points[hoverIndex] : points[points.length - 1];
 
   // Average line Y coordinate
   const avgY = padding.top + ((maxY - averageRate) / yRange) * (height - padding.top - padding.bottom);
@@ -649,15 +714,17 @@ export const ChartCard: React.FC<ChartCardProps> = ({
 
       {/* SVG Chart */}
       <div className="relative w-full aspect-[2.4/1] min-h-[220px]">
+        {historyLoading && (
+          <div className="absolute right-2 top-1 z-10 rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold text-blue-700">
+            {locale === 'en' ? 'Loading official history…' : locale === 'uz' ? 'Rasmiy tarix yuklanmoqda…' : 'Загружается официальная история…'}
+          </div>
+        )}
         <svg
           ref={chartRef}
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-full overflow-visible select-none cursor-crosshair"
           onMouseMove={handleMouseMove}
-          onMouseLeave={() => {
-            // If in 3M mode, reset back to July 23 (idx 6) matching screenshot
-            if (timeframe === '3М') setHoverIndex(6);
-          }}
+          onMouseLeave={() => setHoverIndex(null)}
         >
           <defs>
             <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">

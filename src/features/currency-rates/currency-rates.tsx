@@ -230,6 +230,8 @@ export default function App() {
             <div className="w-full">
               <ChartCard
                 currencies={currencies}
+                locale={currentLang}
+                latestRateDate={ratesUpdatedAt}
                 baseCurrency={chartBaseCurrency}
                 targetCurrency={chartTargetCurrency}
                 showAverage={showAverage}
