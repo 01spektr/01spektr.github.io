@@ -6,6 +6,7 @@ import { iconByName } from "@/lib/icons";
 import { useI18n } from "@/lib/i18n";
 import { CATEGORIES, type Locale, type ToolDef, TOOLS, toolsByCategory } from "@/lib/tools/catalog";
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
+import { getToolUsage, subscribeToolUsage, type ToolUsage } from "@/lib/tools/usage";
 import { seoHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -65,14 +66,6 @@ const POPULAR_SLUGS = [
   "cmyk-convert",
   "image-resize",
 ];
-const DEMO_RECENT_SLUGS = [
-  "uuid-generator",
-  "qr-generator",
-  "barcode-generator",
-  "cmyk-convert",
-  "image-resize",
-];
-
 const HOME_COPY = {
   ru: {
     kickerTools: "инструментов",
@@ -174,25 +167,30 @@ const HOME_COPY = {
 } as const;
 
 const EMPTY_HISTORY: ReturnType<typeof getHistory> = [];
+const EMPTY_USAGE: ToolUsage = {};
 
 export function HomePage({ language }: { language: Locale }) {
   const { locale } = useI18n();
   const copy = HOME_COPY[language];
   const history = useSyncExternalStore(subscribeHistory, getHistory, () => EMPTY_HISTORY);
-  const popular = POPULAR_SLUGS.map((slug) => TOOLS.find((tool) => tool.slug === slug)).filter(
-    (tool): tool is ToolDef => Boolean(tool),
-  );
+  const usage = useSyncExternalStore(subscribeToolUsage, getToolUsage, () => EMPTY_USAGE);
+  const defaultPopularRank = new Map(POPULAR_SLUGS.map((slug, index) => [slug, index]));
+  const popular = TOOLS.filter((tool) => tool.available)
+    .sort((a, b) => {
+      const aUsage = usage[a.id];
+      const bUsage = usage[b.id];
+      const countDifference = (bUsage?.count ?? 0) - (aUsage?.count ?? 0);
+      if (countDifference) return countDifference;
+      const recencyDifference = (bUsage?.lastAt ?? 0) - (aUsage?.lastAt ?? 0);
+      if (recencyDifference) return recencyDifference;
+      return (defaultPopularRank.get(a.slug) ?? 999) - (defaultPopularRank.get(b.slug) ?? 999);
+    })
+    .slice(0, 5);
   const newTools = TOOLS.filter((tool) => !POPULAR_SLUGS.includes(tool.slug)).slice(0, 5);
   const actualRecent = [...new Set(history.map((entry) => entry.toolId))]
     .map((id) => TOOLS.find((tool) => tool.id === id))
     .filter((tool): tool is ToolDef => Boolean(tool));
-  const demoRecent = DEMO_RECENT_SLUGS.map((slug) =>
-    TOOLS.find((tool) => tool.slug === slug),
-  ).filter((tool): tool is ToolDef => Boolean(tool));
-  const recent = [
-    ...actualRecent,
-    ...demoRecent.filter((tool) => !actualRecent.some((item) => item.id === tool.id)),
-  ].slice(0, 5);
+  const recent = actualRecent.slice(0, 5);
 
   return (
     <div className="home-page -mx-4 -mt-5 pb-12 lg:-mx-8 lg:-mt-6">

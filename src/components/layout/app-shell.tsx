@@ -1,13 +1,18 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { useRouterState } from "@tanstack/react-router";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { CommandPalette } from "./command-palette";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { Sidebar } from "./sidebar";
 import { useI18n } from "@/lib/i18n";
+import { getToolBySlug } from "@/lib/tools/catalog";
+import { recordHistory } from "@/lib/tools/history";
+import { recordToolVisit } from "@/lib/tools/usage";
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
   const [sidebarCompact, setSidebarCompact] = useState(false);
@@ -19,6 +24,15 @@ export function AppShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem("toolbox-sidebar", sidebarCompact ? "compact" : "full");
   }, [sidebarCompact]);
+
+  useEffect(() => {
+    const match = pathname.match(/^\/tools\/([^/]+)\/?$/);
+    if (!match) return;
+    const tool = getToolBySlug(decodeURIComponent(match[1]));
+    if (!tool?.available) return;
+    recordHistory({ toolId: tool.id, title: tool.name[locale], params: {} });
+    recordToolVisit(tool.id);
+  }, [locale, pathname]);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
