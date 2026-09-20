@@ -202,6 +202,76 @@
       "PLN": "Польский злотый",
       "SEK": "Шведская крона",
       "UZS": "Узбекский сум"
+    },
+    "content": {
+      "sectionLabel": "Справка по инструменту",
+      "sectionTitle": "Как пользоваться курсами валют",
+      "sectionDescription": "Краткая инструкция, практические рекомендации и ответы о курсах Центрального банка Узбекистана.",
+      "how": {
+        "title": "Как это работает",
+        "summary": "Конвертация, график и официальные данные — по шагам",
+        "steps": [
+          {
+            "title": "Выберите валютную пару",
+            "description": "Укажите исходную и целевую валюты. Выбор синхронизируется между конвертером и графиком."
+          },
+          {
+            "title": "Введите сумму",
+            "description": "Конвертер автоматически рассчитает результат по последнему доступному официальному курсу."
+          },
+          {
+            "title": "Изучите динамику",
+            "description": "Выберите период на графике, чтобы сравнить текущий курс с историческими значениями."
+          },
+          {
+            "title": "Сохраните нужное",
+            "description": "Добавляйте валюты в избранное и создавайте уведомления для выбранных значений курса."
+          }
+        ],
+        "methodologyTitle": "Источник и методика",
+        "methodology": "Текущие и исторические значения загружаются из открытого API Центрального банка Республики Узбекистан. Для пар без UZS кросс-курс рассчитывается через официальный курс обеих валют к узбекскому суму."
+      },
+      "tips": {
+        "title": "Полезные советы",
+        "summary": "Что учитывать перед обменом или переводом денег",
+        "items": [
+          "Проверяйте дату обновления: официальный курс обычно меняется один раз в рабочий день.",
+          "Сравнивайте курсы покупки и продажи в нескольких банках перед обменом крупной суммы.",
+          "Учитывайте комиссии за перевод, конвертацию и снятие наличных — они не входят в официальный курс.",
+          "В выходные и праздники может продолжать действовать последнее опубликованное значение.",
+          "Используйте расчёт как ориентир и подтверждайте итоговые условия непосредственно в выбранном банке."
+        ]
+      },
+      "faq": {
+        "title": "Частые вопросы",
+        "summary": "Ответы о курсах ЦБ, банках, графике и обновлениях",
+        "items": [
+          {
+            "question": "Как часто обновляются курсы валют?",
+            "answer": "Инструмент запрашивает последние опубликованные данные Центрального банка Узбекистана. Обычно официальный курс обновляется один раз в рабочий день."
+          },
+          {
+            "question": "Почему курс в банке отличается от официального?",
+            "answer": "Центральный банк публикует официальный ориентир. Коммерческие банки отдельно устанавливают курсы покупки и продажи с учётом спроса, маржи, вида операции и возможных комиссий."
+          },
+          {
+            "question": "Откуда берутся значения на графике?",
+            "answer": "График запрашивает архивные курсы из API Центрального банка по датам выбранного периода. Последняя точка соответствует актуальному курсу, загруженному на странице."
+          },
+          {
+            "question": "Как рассчитывается курс одной иностранной валюты к другой?",
+            "answer": "Если в паре нет узбекского сума, инструмент делит официальный курс исходной валюты к UZS на официальный курс целевой валюты к UZS."
+          },
+          {
+            "question": "Почему курс может не измениться в выходной день?",
+            "answer": "Если Центральный банк не опубликовал новое значение, продолжает отображаться последний доступный официальный курс."
+          },
+          {
+            "question": "Можно ли использовать результат для банковского перевода?",
+            "answer": "Результат носит справочный характер. Перед переводом или обменом проверьте фактический курс и комиссии в банке или платёжном сервисе."
+          }
+        ]
+      }
     }
   },
   "en": {
@@ -407,6 +477,76 @@
       "PLN": "Polish Zloty",
       "SEK": "Swedish Krona",
       "UZS": "Uzbek Som"
+    },
+    "content": {
+      "sectionLabel": "Tool guide",
+      "sectionTitle": "How to use exchange rates",
+      "sectionDescription": "A quick guide, practical tips and answers about the Central Bank of Uzbekistan exchange rates.",
+      "how": {
+        "title": "How it works",
+        "summary": "Conversion, charts and official data explained step by step",
+        "steps": [
+          {
+            "title": "Choose a currency pair",
+            "description": "Select the source and target currencies. Your choice stays synchronized between the converter and chart."
+          },
+          {
+            "title": "Enter an amount",
+            "description": "The converter instantly calculates the result using the latest available official rate."
+          },
+          {
+            "title": "Explore the trend",
+            "description": "Choose a chart period to compare the current rate with historical values."
+          },
+          {
+            "title": "Save what matters",
+            "description": "Add currencies to favorites and create alerts for the rate levels you follow."
+          }
+        ],
+        "methodologyTitle": "Source and methodology",
+        "methodology": "Current and historical values are loaded from the public API of the Central Bank of the Republic of Uzbekistan. For pairs that do not include UZS, the cross rate is calculated through both currencies’ official rates against the Uzbek som."
+      },
+      "tips": {
+        "title": "Useful tips",
+        "summary": "What to consider before exchanging or transferring money",
+        "items": [
+          "Check the update date: the official rate is normally revised once per business day.",
+          "Compare buy and sell rates at several banks before exchanging a large amount.",
+          "Account for transfer, conversion and cash withdrawal fees; they are not included in the official rate.",
+          "On weekends and holidays, the most recently published value may remain in effect.",
+          "Use the calculation as a reference and confirm final terms directly with your bank."
+        ]
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "summary": "Answers about CBU rates, banks, charts and updates",
+        "items": [
+          {
+            "question": "How often are exchange rates updated?",
+            "answer": "The tool requests the latest data published by the Central Bank of Uzbekistan. The official rate is normally updated once per business day."
+          },
+          {
+            "question": "Why is my bank’s rate different from the official rate?",
+            "answer": "The Central Bank publishes an official reference rate. Commercial banks set their own buy and sell rates based on demand, margin, transaction type and possible fees."
+          },
+          {
+            "question": "Where do the chart values come from?",
+            "answer": "The chart requests archived rates from the Central Bank API for dates within the selected period. The final point uses the latest rate loaded on the page."
+          },
+          {
+            "question": "How is a rate between two foreign currencies calculated?",
+            "answer": "When a pair does not include the Uzbek som, the tool divides the source currency’s official UZS rate by the target currency’s official UZS rate."
+          },
+          {
+            "question": "Why might the rate remain unchanged on a weekend?",
+            "answer": "If the Central Bank has not published a new value, the last available official rate remains visible."
+          },
+          {
+            "question": "Can I use the result for a bank transfer?",
+            "answer": "The result is for reference only. Before transferring or exchanging money, check the actual rate and fees with your bank or payment provider."
+          }
+        ]
+      }
     }
   },
   "uz": {
@@ -612,6 +752,76 @@
       "PLN": "Polsha zlotiyi",
       "SEK": "Shvetsiya kronasi",
       "UZS": "O'zbekiston so'mi"
+    },
+    "content": {
+      "sectionLabel": "Vosita bo‘yicha qo‘llanma",
+      "sectionTitle": "Valyuta kurslaridan qanday foydalaniladi",
+      "sectionDescription": "O‘zbekiston Markaziy banki kurslari bo‘yicha qisqa yo‘riqnoma, foydali maslahatlar va savollarga javoblar.",
+      "how": {
+        "title": "Bu qanday ishlaydi",
+        "summary": "Konvertatsiya, grafik va rasmiy ma’lumotlar bosqichma-bosqich",
+        "steps": [
+          {
+            "title": "Valyuta juftligini tanlang",
+            "description": "Boshlang‘ich va maqsadli valyutani belgilang. Tanlov konverter va grafik o‘rtasida sinxronlashadi."
+          },
+          {
+            "title": "Summani kiriting",
+            "description": "Konverter oxirgi mavjud rasmiy kurs bo‘yicha natijani avtomatik hisoblaydi."
+          },
+          {
+            "title": "Dinamikani ko‘ring",
+            "description": "Joriy kursni tarixiy qiymatlar bilan solishtirish uchun grafik davrini tanlang."
+          },
+          {
+            "title": "Kerakli ma’lumotni saqlang",
+            "description": "Valyutalarni tanlanganlarga qo‘shing va kuzatiladigan kurs qiymatlari uchun ogohlantirish yarating."
+          }
+        ],
+        "methodologyTitle": "Manba va hisoblash usuli",
+        "methodology": "Joriy va tarixiy qiymatlar O‘zbekiston Respublikasi Markaziy bankining ochiq API xizmatidan olinadi. UZS qatnashmagan juftliklarda kross-kurs ikkala valyutaning o‘zbek so‘miga nisbatan rasmiy kurslari orqali hisoblanadi."
+      },
+      "tips": {
+        "title": "Foydali maslahatlar",
+        "summary": "Pul almashtirish yoki o‘tkazishdan oldin nimalarni hisobga olish kerak",
+        "items": [
+          "Yangilanish sanasini tekshiring: rasmiy kurs odatda har ish kunida bir marta yangilanadi.",
+          "Katta summani almashtirishdan oldin bir nechta bankning sotib olish va sotish kurslarini solishtiring.",
+          "O‘tkazma, konvertatsiya va naqd pul yechish komissiyalarini hisobga oling; ular rasmiy kursga kirmaydi.",
+          "Dam olish va bayram kunlari oxirgi e’lon qilingan qiymat amal qilishi mumkin.",
+          "Hisob-kitobdan ma’lumot sifatida foydalaning va yakuniy shartlarni tanlangan bankda tekshiring."
+        ]
+      },
+      "faq": {
+        "title": "Ko‘p so‘raladigan savollar",
+        "summary": "Markaziy bank kurslari, banklar, grafik va yangilanishlar haqida javoblar",
+        "items": [
+          {
+            "question": "Valyuta kurslari qanchalik tez-tez yangilanadi?",
+            "answer": "Vosita O‘zbekiston Markaziy banki e’lon qilgan eng so‘nggi ma’lumotlarni oladi. Rasmiy kurs odatda har ish kunida bir marta yangilanadi."
+          },
+          {
+            "question": "Nega bankdagi kurs rasmiy kursdan farq qiladi?",
+            "answer": "Markaziy bank rasmiy mo‘ljal kursini e’lon qiladi. Tijorat banklari talab, marja, operatsiya turi va komissiyalarni hisobga olib sotib olish va sotish kurslarini mustaqil belgilaydi."
+          },
+          {
+            "question": "Grafikdagi qiymatlar qayerdan olinadi?",
+            "answer": "Grafik tanlangan davr sanalari bo‘yicha Markaziy bank API xizmatidan arxiv kurslarini oladi. Oxirgi nuqta sahifaga yuklangan joriy kursga mos keladi."
+          },
+          {
+            "question": "Ikki xorijiy valyuta o‘rtasidagi kurs qanday hisoblanadi?",
+            "answer": "Agar juftlikda o‘zbek so‘mi bo‘lmasa, vosita boshlang‘ich valyutaning UZS kursini maqsadli valyutaning UZS kursiga bo‘ladi."
+          },
+          {
+            "question": "Nega dam olish kunlari kurs o‘zgarmasligi mumkin?",
+            "answer": "Markaziy bank yangi qiymat e’lon qilmagan bo‘lsa, oxirgi mavjud rasmiy kurs ko‘rsatiladi."
+          },
+          {
+            "question": "Natijadan bank o‘tkazmasi uchun foydalanish mumkinmi?",
+            "answer": "Natija ma’lumot uchun beriladi. Pul o‘tkazish yoki almashtirishdan oldin haqiqiy kurs va komissiyalarni bank yoki to‘lov xizmatida tekshiring."
+          }
+        ]
+      }
     }
   }
 }

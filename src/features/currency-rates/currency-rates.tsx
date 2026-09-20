@@ -11,6 +11,7 @@ import { AlertsCard, DataSourceCard } from './components/RightSidebarCards';
 import { CurrenciesTable } from './components/CurrenciesTable';
 import { ToolsList } from './components/ToolsList';
 import { AlertModal, SearchModal, ToolModal } from './components/Modals';
+import { InfoSections } from './components/InfoSections';
 
 export default function App() {
   const { locale: currentLang } = useI18n();
@@ -275,6 +276,8 @@ export default function App() {
             <DataSourceCard t={t} updatedAt={ratesUpdatedAt} />
           </div>
         </div>
+
+        <InfoSections content={t.content} />
       </main>
 
       {/* Global Modals with Translations */}
