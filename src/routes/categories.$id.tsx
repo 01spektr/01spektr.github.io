@@ -7,17 +7,22 @@ import {
   House,
   Image as ImageIcon,
   Layers,
+  Landmark,
   Palette,
+  Percent,
   Printer,
   QrCode,
   Ruler,
+  ShieldCheck,
   Sparkles,
   Square,
+  TrendingUp,
+  Wallet,
 } from "lucide-react";
 import { ToolIcon } from "@/components/tool-icon";
 import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
-import { localizedToolPath, type Locale } from "@/lib/i18n/config";
+import { localeHomePath, localizedToolPath, type Locale } from "@/lib/i18n/config";
 import { getCategoryBySlug, toolsByCategory } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
 import { seoHead } from "@/lib/seo";
@@ -63,6 +68,10 @@ function CategoryPage() {
     return <DesignPrintCategory tools={tools} locale={locale} />;
   }
 
+  if (category.id === "finance") {
+    return <FinanceCategory tools={tools} locale={locale} />;
+  }
+
   return (
     <div className="mx-auto max-w-6xl pb-10">
       <div className="mb-6 flex items-center gap-3">
@@ -83,6 +92,138 @@ function CategoryPage() {
         {tools.map((tool) => (
           <ToolCard key={tool.id} tool={tool} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function FinanceCategory({
+  tools,
+  locale,
+}: {
+  tools: ReturnType<typeof toolsByCategory>;
+  locale: Locale;
+}) {
+  const en = locale === "en";
+  const uz = locale === "uz";
+  const topics = uz
+    ? ["Barcha vositalar", "Valyuta", "Kreditlar", "Soliqlar", "Investitsiyalar"]
+    : en
+      ? ["All tools", "Currency", "Loans", "Taxes", "Investments"]
+      : ["Все инструменты", "Валюта", "Кредиты", "Налоги", "Инвестиции"];
+  const benefits = uz
+    ? [["Aniq", "Tushunarli hisob-kitob"], ["Dolzarb", "Rasmiy kurslar"], ["Xavfsiz", "Ma’lumotlar brauzerda"]]
+    : en
+      ? [["Accurate", "Clear calculations"], ["Up to date", "Official exchange rates"], ["Private", "Data stays in your browser"]]
+      : [["Точно", "Понятные расчёты"], ["Актуально", "Официальные курсы"], ["Безопасно", "Данные остаются в браузере"]];
+  const collections = uz
+    ? [
+        { title: "Valyuta va safarlar", text: "Kurslar va konvertatsiya", Icon: TrendingUp, slug: "currency-rates" },
+        { title: "Kredit va to‘lovlar", text: "To‘lov va ortiqcha to‘lov", Icon: Landmark, slug: "loan-calculator" },
+        { title: "Soliqlar va QQS", text: "QQSni qo‘shish va ajratish", Icon: Percent, slug: "vat-calculator" },
+      ]
+    : en
+      ? [
+          { title: "Currency & travel", text: "Rates and conversion", Icon: TrendingUp, slug: "currency-rates" },
+          { title: "Loans & payments", text: "Payments and total interest", Icon: Landmark, slug: "loan-calculator" },
+          { title: "Taxes & VAT", text: "Add or extract VAT", Icon: Percent, slug: "vat-calculator" },
+        ]
+      : [
+          { title: "Валюта и поездки", text: "Курсы и конвертация", Icon: TrendingUp, slug: "currency-rates" },
+          { title: "Кредиты и платежи", text: "Платёж и переплата", Icon: Landmark, slug: "loan-calculator" },
+          { title: "Налоги и НДС", text: "Начисление и выделение НДС", Icon: Percent, slug: "vat-calculator" },
+        ];
+  const extendedDescriptions: Record<string, string> = {
+    "loan-calculator": uz
+      ? "Kredit summasi, muddati va foiz stavkasi bo‘yicha oylik to‘lovni hisoblang. Annuitet va differensial usullarni solishtiring, ortiqcha to‘lov va batafsil to‘lov jadvalini ko‘ring."
+      : en
+        ? "Calculate a monthly payment from the loan amount, term and interest rate. Compare annuity and differentiated methods, review total interest and open a detailed repayment schedule."
+        : "Рассчитайте ежемесячный платёж по сумме, сроку и процентной ставке. Сравните аннуитетную и дифференцированную схемы, посмотрите переплату и подробный график платежей.",
+    "currency-rates": uz
+      ? "O‘zbekiston Markaziy bankining rasmiy kurslarini kuzating, summalarni bir valyutadan boshqasiga o‘tkazing va tarixiy grafik orqali kurslar o‘zgarishini tahlil qiling."
+      : en
+        ? "Track official Central Bank of Uzbekistan rates, convert amounts between currencies and study historical changes on an interactive chart."
+        : "Следите за официальными курсами Центрального банка Узбекистана, переводите суммы между валютами и анализируйте изменения на историческом графике.",
+    "vat-calculator": uz
+      ? "Summaga QQS qo‘shing yoki umumiy summadan soliqni ajrating. Stavka, soliq summasi va yakuniy qiymatni bir hisob-kitobda oling."
+      : en
+        ? "Add VAT to an amount or extract the tax from a gross total. See the tax rate, VAT amount and final value in one calculation."
+        : "Начисляйте НДС на сумму или выделяйте налог из общей стоимости. Получайте ставку, сумму налога и итоговое значение в одном расчёте.",
+  };
+
+  return (
+    <div className="construction-page finance-category-page pb-10">
+      <nav aria-label="Breadcrumb" className="construction-breadcrumb">
+        <Link to={localeHomePath(locale)}>{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
+        <ChevronRight />
+        <Link to="/tools">{uz ? "Toifalar" : en ? "Categories" : "Категории"}</Link>
+        <ChevronRight />
+        <span>{uz ? "Moliya va investitsiyalar" : en ? "Finance & investing" : "Финансы и инвестиции"}</span>
+      </nav>
+
+      <section className="construction-hero finance-category-hero">
+        <div className="construction-intro">
+          <span className="construction-icon finance-category-icon"><Wallet /></span>
+          <div>
+            <h1>{uz ? "Moliya va investitsiyalar" : en ? "Finance & investing" : "Финансы и инвестиции"}</h1>
+            <p>
+              {uz
+                ? "Valyuta, kreditlar, soliqlar va shaxsiy budjet uchun aniq moliyaviy vositalar. Muhim hisob-kitoblar bir joyda."
+                : en
+                  ? "Accurate tools for currency, loans, taxes and personal budgeting. Essential financial calculations in one place."
+                  : "Точные инструменты для валюты, кредитов, налогов и личного бюджета. Важные финансовые расчёты — в одном месте."}
+            </p>
+          </div>
+        </div>
+        <img src="/visuals/finance-hero-v1.png" alt="" className="construction-hero-image finance-category-hero-image" />
+        <div className="construction-benefits">
+          {benefits.map(([title, text], index) => (
+            <div key={title}>
+              <span>{index === 0 ? <TrendingUp /> : index === 1 ? <Check /> : <ShieldCheck />}</span>
+              <p><b>{title}</b><small>{text}</small></p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="construction-topics">
+        {topics.map((topic, index) => <button type="button" className={index === 0 ? "is-active" : ""} key={topic}>{topic}</button>)}
+      </div>
+
+      <section>
+        <div className="construction-section-heading">
+          <div>
+            <h2>{uz ? "Vositalar" : en ? "Tools" : "Инструменты"}</h2>
+            <p>{uz ? "Hisob-kitob va tahlil uchun moliyaviy vositalar" : en ? "Financial tools for calculations and analysis" : "Финансовые инструменты для расчётов и анализа"}</p>
+          </div>
+          <span>{tools.length} {uz ? "vosita" : en ? "tools" : "инструмента"}</span>
+        </div>
+        <div className="construction-tool-grid">
+          {tools.map((tool) => (
+            <ConstructionTool key={tool.id} tool={tool} locale={locale} description={extendedDescriptions[tool.slug]} />
+          ))}
+        </div>
+      </section>
+
+      <div className="construction-bottom">
+        <section className="construction-collections">
+          <div className="construction-panel-heading"><div><span><TrendingUp /></span><h2>{uz ? "Ommabop to‘plamlar" : en ? "Popular collections" : "Популярные подборки"}</h2></div></div>
+          <div>
+            {collections.map(({ title, text, Icon: CollectionIcon, slug }) => (
+              <Link to={localizedToolPath(slug, locale)} key={title}>
+                <span><CollectionIcon /></span><p><b>{title}</b><small>{text}</small></p><ChevronRight />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className="construction-note finance-category-note">
+          <span><ShieldCheck /></span>
+          <div>
+            <h2>{uz ? "Hisob-kitoblar sizning nazoratingizda" : en ? "Your calculations stay under your control" : "Расчёты остаются под вашим контролем"}</h2>
+            <p>{uz ? "Moliyaviy ma’lumotlar brauzeringizda qayta ishlanadi. Yangi kalkulyatorlar bosqichma-bosqich qo‘shiladi." : en ? "Financial data is processed in your browser. We are adding new calculators step by step." : "Финансовые данные обрабатываются в браузере. Новые калькуляторы добавляются постепенно."}</p>
+            <Link to="/tools">{uz ? "Barcha vositalar" : en ? "View all tools" : "Все инструменты"} <ArrowRight /></Link>
+          </div>
+        </section>
       </div>
     </div>
   );

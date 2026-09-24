@@ -441,6 +441,54 @@
 }
 .design-category-note p { color: #746b8b; }
 .design-category-note a { color: #704bea; }
+.finance-category-hero {
+  background:
+    radial-gradient(circle at 74% 24%, #ffffffd9 0 6%, transparent 31%),
+    linear-gradient(118deg, #fcfffd 0%, #effaf5 53%, #e2f5ec 100%);
+}
+.finance-category-hero:after {
+  right: 16%;
+  bottom: -70%;
+  width: 52%;
+  background: #b9ebd280;
+}
+.finance-category-icon {
+  background: linear-gradient(135deg, #49d79d, #1dac70);
+  box-shadow: 0 12px 26px #20a96b38;
+}
+.finance-category-hero-image {
+  right: -0.3rem;
+  bottom: -5.1rem;
+  width: min(52%, 35rem);
+  max-height: 148%;
+}
+.finance-category-page .construction-topics button.is-active {
+  background: #20aa6d;
+  box-shadow: 0 5px 12px #20aa6d38;
+}
+.finance-category-page .construction-panel-heading span,
+.finance-category-page .construction-collections a > span {
+  color: #15945d;
+  background: #e1f7ec;
+}
+.finance-category-page .construction-tool {
+  min-height: 13rem;
+}
+.finance-category-page .construction-tool p {
+  max-width: calc(100% - 0.5rem);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+.finance-category-note {
+  border-color: #d5eee1;
+  background: linear-gradient(135deg, #eefaf4, #fff);
+}
+.finance-category-note > span {
+  color: #15945d;
+  background: #d9f5e7;
+}
+.finance-category-note p { color: #627b70; }
+.finance-category-note a { color: #148751; }
 .dark .construction-page {
   color: #edf3ff;
 }
@@ -503,6 +551,19 @@
   background: #211b36;
 }
 .dark .design-category-note p { color: #b6abc9; }
+.dark .finance-category-hero {
+  border-color: #285243;
+  background: linear-gradient(120deg, #122b25, #173a30 58%, #102721);
+}
+.dark .finance-category-page .construction-panel-heading span,
+.dark .finance-category-page .construction-collections a > span {
+  background: #173c31;
+}
+.dark .finance-category-note {
+  border-color: #285444;
+  background: #122b27;
+}
+.dark .finance-category-note p { color: #9dc2b3; }
 @media (max-width: 900px) {
   .construction-tool-grid {
     grid-template-columns: 1fr 1fr;
@@ -577,6 +638,9 @@
     min-height: 8.8rem;
   }
   .design-category-page .construction-tool {
+    min-height: 12.5rem;
+  }
+  .finance-category-page .construction-tool {
     min-height: 12.5rem;
   }
   .construction-bottom {
