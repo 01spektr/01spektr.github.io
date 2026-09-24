@@ -1,0 +1,174 @@
+{
+  "header": {
+    "title": "VAT & Tax Calculator",
+    "subtitle": "Universal Value-Added Tax and Sales Tax calculator (VAT, GST, Sales Tax). Add, extract or calculate tax with full support for global currencies and country rates.",
+    "fast": "Fast",
+    "fastDesc": "Instant calculation",
+    "accurate": "Accurate",
+    "accurateDesc": "Accounting precision",
+    "global": "Global",
+    "globalDesc": "All countries & currencies"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "modes": {
+    "stepTitle": "1. Select Calculation Mode",
+    "add": "Add VAT",
+    "addDesc": "To net price",
+    "extract": "Extract VAT",
+    "extractDesc": "From gross price",
+    "calculateVatOnly": "Calculate VAT",
+    "calculateVatOnlyDesc": "VAT amount only"
+  },
+  "form": {
+    "stepTitle": "2. Enter Details",
+    "amountLabelAdd": "Net Amount (without VAT)",
+    "amountLabelExtract": "Gross Amount (with VAT)",
+    "amountLabelCalculate": "Base Amount",
+    "quick": "Quick:",
+    "thousandShort": "k",
+    "millionShort": "M",
+    "rateLabel": "VAT / Tax Rate (VAT, Tax)",
+    "worldRates": "World Rates",
+    "ratePresets": {
+      "standard20": "20% (Global Standard / EU / UK)",
+      "de19": "19% (Germany)",
+      "uzkz12": "12% (Uzbekistan / Kazakhstan)",
+      "jpau10": "10% (Japan / Australia / Reduced)",
+      "us7": "7% (US Sales Tax average)",
+      "ae5": "5% (UAE / Canada GST / Reduced)",
+      "zero": "0% (Export / 0% Tax Free)",
+      "custom": "Other / Custom rate..."
+    },
+    "customRateLabel": "Custom Rate (%)",
+    "roundTwoDecimals": "Round to 2 decimal places"
+  },
+  "additional": {
+    "stepTitle": "3. Additional Details (optional)",
+    "itemName": "Product or Service Name",
+    "itemNamePlaceholder": "e.g. Website development or Goods supply...",
+    "note": "Calculation Note / Memo",
+    "notePlaceholder": "Invoice number or contract reference...",
+    "reset": "Reset",
+    "calculate": "Calculate"
+  },
+  "result": {
+    "title": "Result",
+    "success": "Calculation completed successfully!",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "download": "Download",
+    "downloadPdf": "Download PDF",
+    "exportCsv": "Export to Excel (CSV)",
+    "generatingPdf": "Generating PDF...",
+    "netAmount": "Net Amount",
+    "vatAmount": "VAT Amount",
+    "grossTotal": "Gross Total",
+    "detailsTitle": "CALCULATION BREAKDOWN",
+    "metric": "Metric",
+    "value": "Value",
+    "vatRate": "VAT Rate",
+    "formula": "Calculation Formula",
+    "item": "Item / Service:",
+    "noteLabel": "Note:",
+    "inWordsTitle": "AMOUNT IN WORDS:",
+    "formulaBlockTitle": "APPLIED FORMULA:",
+    "defaultItemName": "Goods and services"
+  },
+  "sidebar": {
+    "title": "Global VAT & Tax Rates",
+    "other": "Other",
+    "allCountries": "All countries...",
+    "standard": "Standard",
+    "modalTitle": "Global VAT and Tax Rates by Country",
+    "searchPlaceholder": "Search country...",
+    "noCountriesFound": "No countries found",
+    "close": "Close",
+    "apply": "Apply"
+  },
+  "examples": {
+    "title": "Calculation Examples",
+    "tabAdd": "Add VAT",
+    "tabExtract": "Extract",
+    "tabOnly": "VAT Only",
+    "colBase": "Base Amount",
+    "colVat": "VAT",
+    "colTotal": "Total",
+    "colAction": "Action",
+    "btnApply": "Apply"
+  },
+  "info": {
+    "helpfulTitle": "Useful Information",
+    "faqTitle": "Frequently Asked Questions",
+    "tipsTitle": "Tips & Best Practices",
+    "helpfulItems": [
+      {
+        "bold": "VAT and Sales Tax",
+        "text": "are key indirect taxes applied to goods and services across more than 160 countries worldwide."
+      },
+      {
+        "bold": "In Europe and the UK,",
+        "text": "standard rates range from 19% to 21%, in the US state Sales Tax ranges from 0% to 10%, and in the UAE it is 5%."
+      },
+      {
+        "bold": "Extract VAT mode",
+        "text": "is designed for receipts and invoices where the tax is already included in the final checkout price."
+      },
+      {
+        "bold": "Global Application:",
+        "text": "results are fully compliant for international billing, invoices, purchase orders, and tax reconciliation."
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "What is the difference between adding and extracting VAT (Net vs Gross)?",
+        "answer": "Adding VAT applies the rate on top of the net base: Base × (1 + Rate/100). Extracting VAT separates the tax already built into the invoice: Total × Rate / (100 + Rate), automatically determining the net base."
+      },
+      {
+        "question": "How does US Sales Tax work?",
+        "answer": "The United States does not have a federal VAT. Instead, sales tax is levied on state, county, and municipal levels (ranging from 0% in Oregon or Delaware up to 7.25%–10% in California, New York, and Texas). Select an average or enter your exact zip code rate."
+      },
+      {
+        "question": "What are standard VAT rates around the world?",
+        "answer": "EU countries standard rates average 19–22% (Germany 19%, France 20%, Italy 22%), the UK is 20%, Japan is 10%, UAE is 5%, Uzbekistan and Kazakhstan are 12%, and Switzerland is 8.1%."
+      },
+      {
+        "question": "How is cross-border B2B export tax handled?",
+        "answer": "International export of goods and cross-border services typically qualify for 0% zero-rated VAT or the Reverse Charge Mechanism, whereby the customer accounts for VAT in their domestic territory."
+      },
+      {
+        "question": "Can I use custom rates and decimal percentages?",
+        "answer": "Yes, you can enter any custom rate with decimals (e.g. 7.25%, 8.1%, or 19.5%) and the calculator will accurately compute every metric."
+      },
+      {
+        "question": "How can I export the calculation for my accounting team?",
+        "answer": "Click 'Download PDF' to instantly receive a formal tax summary document, export the full figures to Excel (CSV), or copy values to your clipboard."
+      }
+    ],
+    "tipsItems": [
+      {
+        "title": "Clear commercial pricing:",
+        "text": "always specify whether quotation figures are VAT inclusive (Gross) or VAT exclusive (Net) to avoid contract disputes."
+      },
+      {
+        "title": "Accounting rounding:",
+        "text": "standard accounting rules round amounts to 2 decimal places using half-up arithmetic (0.005 rounds to 0.01)."
+      },
+      {
+        "title": "Amount in words:",
+        "text": "use the generated words string directly in invoice descriptions, commercial contracts, and official payment orders."
+      },
+      {
+        "title": "Instant PDF export:",
+        "text": "generate timestamped, formal calculation certificates with full audit formulas for filing with primary accounting records."
+      }
+    ]
+  },
+  "footer": {
+    "disclaimer": "Universal financial tool for accountants, businesses, and individuals.",
+    "privacy": "All calculations are processed strictly locally in your browser."
+  }
+}

@@ -63,6 +63,9 @@ const CurrencyRatesPage = lazyWithDeployRecovery(() =>
 const TextGeneratorPage = lazyWithDeployRecovery(() =>
   import("@/features/text-generator").then((m) => ({ default: m.TextGeneratorPage })),
 );
+const VatCalculatorPage = lazyWithDeployRecovery(() =>
+  import("@/features/vat-calculator").then((m) => ({ default: m.VatCalculatorPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -91,6 +94,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "View official Central Bank of Uzbekistan exchange rates, convert amounts and compare rate changes.",
       "text-symbol-generator":
         "Create stylish Unicode text, usernames, symbols and emoji for Instagram, Telegram, TikTok and other services.",
+      "vat-calculator":
+        "Add VAT to an amount, extract VAT from a gross total, compare international tax rates and export a detailed calculation.",
     };
     if (!tool) {
       return seoHead({
@@ -185,6 +190,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <TextGeneratorPage />
+      </Suspense>
+    );
+  }
+  if (slug === "vat-calculator") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <VatCalculatorPage />
       </Suspense>
     );
   }

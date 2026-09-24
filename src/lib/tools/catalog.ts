@@ -269,7 +269,7 @@ export const TOOLS: ToolDef[] = [
     },
     keywords: ["ндс", "vat", "налог"],
     icon: "Percent",
-    available: false,
+    available: true,
   },
   {
     id: "loan-calculator",

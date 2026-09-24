@@ -1,0 +1,174 @@
+{
+  "header": {
+    "title": "QQS Kalkulyatori",
+    "subtitle": "Qo'shilgan qiymat solig'i (QQS) va sotuv solig'ini universal hisoblash (VAT, GST, Sales Tax). Soliqni qo'shish, summadan ajratish, barcha jahon valyutalari va davlat stavkalarini qo'llab-quvvatlash.",
+    "fast": "Tezkor",
+    "fastDesc": "Bir zumda hisoblash",
+    "accurate": "Aniq",
+    "accurateDesc": "Buxgalteriya formulalari",
+    "global": "Global",
+    "globalDesc": "Barcha davlatlar va valyutalar"
+  },
+  "theme": {
+    "toggle": "Mavzuni almashtirish",
+    "light": "Yorug'",
+    "dark": "Qorong'i"
+  },
+  "modes": {
+    "stepTitle": "1. Hisoblash rejimini tanlang",
+    "add": "QQS qo'shish",
+    "addDesc": "QQSsiz narxga",
+    "extract": "QQSni ajratish",
+    "extractDesc": "QQSli narxdan",
+    "calculateVatOnly": "QQSni hisoblash",
+    "calculateVatOnlyDesc": "Faqat QQS summasi"
+  },
+  "form": {
+    "stepTitle": "2. Ma'lumotlarni kiriting",
+    "amountLabelAdd": "QQSsiz summa",
+    "amountLabelExtract": "QQSli summa",
+    "amountLabelCalculate": "Asosiy summa",
+    "quick": "Tezkor:",
+    "thousandShort": "ming",
+    "millionShort": "mln",
+    "rateLabel": "QQS / Soliq stavkasi (VAT, Tax)",
+    "worldRates": "Dunyo stavkalari",
+    "ratePresets": {
+      "standard20": "20% (Jahon standarti / YI / Buyuk Britaniya)",
+      "de19": "19% (Germaniya / Germany)",
+      "uzkz12": "12% (O'zbekiston / Qozog'iston)",
+      "jpau10": "10% (Yaponiya / Avstraliya / Imtiyozli)",
+      "us7": "7% (AQSh Sales Tax o'rtacha)",
+      "ae5": "5% (BAA / Kanada GST / Imtiyozli)",
+      "zero": "0% (Eksport / 0% Bojsiz)",
+      "custom": "Boshqa / Maxsus stavka..."
+    },
+    "customRateLabel": "O'z stavkangiz (%)",
+    "roundTwoDecimals": "2 ta belgiga yaxlitlash"
+  },
+  "additional": {
+    "stepTitle": "3. Qo'shimcha (ixtiyoriy)",
+    "itemName": "Mahsulot yoki xizmat nomi",
+    "itemNamePlaceholder": "Masalan: Sayt ishlab chiqish yoki Mahsulot yetkazib berish...",
+    "note": "Hisob-kitob izohi",
+    "notePlaceholder": "Hisob-faktura yoki shartnoma raqami...",
+    "reset": "Tozalash",
+    "calculate": "Hisoblash"
+  },
+  "result": {
+    "title": "Natija",
+    "success": "Hisoblash muvaffaqiyatli bajarildi!",
+    "copy": "Nusxalash",
+    "copied": "Nusxalandi!",
+    "download": "Yuklab olish",
+    "downloadPdf": "PDF yuklab olish",
+    "exportCsv": "Excel (CSV) eksport",
+    "generatingPdf": "PDF yaratilmoqda...",
+    "netAmount": "QQSsiz summa",
+    "vatAmount": "QQS summasi",
+    "grossTotal": "QQS bilan jami",
+    "detailsTitle": "HISOBLASH TAFSILOTLARI",
+    "metric": "Ko'rsatkich",
+    "value": "Qiymat",
+    "vatRate": "QQS stavkasi",
+    "formula": "Hisoblash formulasi",
+    "item": "Mahsulot / xizmat nomi:",
+    "noteLabel": "Izoh:",
+    "inWordsTitle": "SUMMA SO'Z BILAN:",
+    "formulaBlockTitle": "QO'LLANILGAN FORMULA:",
+    "defaultItemName": "Xizmatlar va tovarlar"
+  },
+  "sidebar": {
+    "title": "Dunyo bo'yicha QQS va soliq stavkalari",
+    "other": "Boshqa",
+    "allCountries": "Barcha davlatlar...",
+    "standard": "Standart",
+    "modalTitle": "Dunyo davlatlari bo'yicha QQS va soliq stavkalari",
+    "searchPlaceholder": "Davlatni qidirish...",
+    "noCountriesFound": "Davlatlar topilmadi",
+    "close": "Yopish",
+    "apply": "Qo'llash"
+  },
+  "examples": {
+    "title": "Hisoblash namunalari",
+    "tabAdd": "Qo'shish",
+    "tabExtract": "Ajratish",
+    "tabOnly": "Faqat QQS",
+    "colBase": "Asosiy summa",
+    "colVat": "QQS",
+    "colTotal": "Jami",
+    "colAction": "Harakat",
+    "btnApply": "Qo'llash"
+  },
+  "info": {
+    "helpfulTitle": "Foydali ma'lumotlar",
+    "faqTitle": "Ko'p beriladigan savollar",
+    "tipsTitle": "Maslahatlar",
+    "helpfulItems": [
+      {
+        "bold": "QQS va Sales Tax",
+        "text": "— 160 dan ortiq davlatda tovar va xizmatlar aylanmasiga qo'llaniladigan asosiy egri soliqlardir."
+      },
+      {
+        "bold": "Yevropa va Buyuk Britaniyada",
+        "text": "standart stavka 19%–21%, AQShda shtat solig'i 0%–10%, BAAda esa 5% ni tashkil qiladi."
+      },
+      {
+        "bold": "«QQSni ajratish» rejimi",
+        "text": "soliq umumiy to'lov yoki chek summasiga kiritilgan hollarda ishlatiladi."
+      },
+      {
+        "bold": "Universal foydalanish:",
+        "text": "hisob-kitob natijalari xalqaro invoyslar, shartnomalar, aktlar va hisob-fakturalar uchun mos keladi."
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "QQS qo'shish va QQSni ajratish (Net vs Gross) o'rtasidagi farq nima?",
+        "answer": "QQS qo'shishda (Add VAT) soliq sof narx ustiga hisoblanadi: Summa × (1 + Stavka/100). QQSni ajratishda esa (Extract VAT) soliq to'liq narxdan ajratib olinadi: Summa × Stavka / (100 + Stavka)."
+      },
+      {
+        "question": "AQShda sotuv solig'i (Sales Tax) qanday hisoblanadi?",
+        "answer": "AQShda yagona federal QQS yo'q. Sotuv solig'i har bir shtat va shahar darajasida belgilanadi (Oregon yoki Delaverda 0% dan Kaliforniya va Nyu-Yorkda 7.25%–10% gacha). O'rtacha stavkani tanlang yoki o'zingiz kiriting."
+      },
+      {
+        "question": "Dunyo davlatlarida asosiy QQS stavkalari qanday?",
+        "answer": "Yevropa Ittifoqida o'rtacha 19–22% (Germaniya 19%, Fransiya 20%, Italiya 22%), Buyuk Britaniyada 20%, Yaponiyada 10%, BAAda 5%, O'zbekiston va Qozog'istonda 12%, Shveytsariyada esa 8.1%."
+      },
+      {
+        "question": "Xalqaro tovar va xizmatlar eksportida soliq qanday olinadi?",
+        "answer": "Eksport operatsiyalarida ko'pincha 0% nol stavka (Zero-rated) yoki xaridor soliqni o'z hududida hisobga oladigan Reverse Charge qoidasi qo'llaniladi."
+      },
+      {
+        "question": "Ixtiyoriy va o'nlik kasrli stavkalarni kiritish mumkinmi?",
+        "answer": "Ha, kalkulyator istalgan kasrli stavkalarni (masalan, 7.25%, 8.1% yoki 19.5%) cheklovlarsiz hisoblaydi."
+      },
+      {
+        "question": "Hisoblash natijalarini buxgalteriya uchun qanday saqlash mumkin?",
+        "answer": "«PDF yuklab olish» tugmasini bosib rasmiy ma'lumotnomani yuklab olishingiz, Excel (CSV) jadvalini eksport qilishingiz yoki ma'lumotlarni nusxalashingiz mumkin."
+      }
+    ],
+    "tipsItems": [
+      {
+        "title": "Tijorat takliflarida narxni aniq ko'rsating:",
+        "text": "narx QQSni o'z ichiga oladimi (Gross) yoki soliq ustiga qo'shiladimi (Net) har doim shartnomada aniq qayd eting."
+      },
+      {
+        "title": "Buxgalteriya hisobida yaxlitlash:",
+        "text": "standart qoidalar bo'yicha soliq summasi arifmetik qoidaga muvofiq 2 ta o'nlik belgiga yaxlitlanadi."
+      },
+      {
+        "title": "Summa so'z bilan:",
+        "text": "shartnomalar, to'lov topshirig'i va bajarilgan ishlar dalolatnomalariga joylashtirish uchun so'z bilan yozilgan satrdan foydalaning."
+      },
+      {
+        "title": "Tezkor PDF eksport:",
+        "text": "birlamchi buxgalteriya hujjatlariga ilova qilish uchun formulasi va vaqti ko'rsatilgan rasmiy hisobotni saqlab oling."
+      }
+    ]
+  },
+  "footer": {
+    "disclaimer": "Buxgalterlar, tadbirkorlar va jismoniy shaxslar uchun universal moliyaviy vosita.",
+    "privacy": "Barcha hisob-kitoblar faqatgina brauzerda xavfsiz amalga oshiriladi."
+  }
+}
