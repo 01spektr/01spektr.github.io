@@ -1,14 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Check, Clock3, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useSyncExternalStore } from "react";
 import { ToolIcon } from "@/components/tool-icon";
 import { iconByName } from "@/lib/icons";
-import { useI18n } from "@/lib/i18n";
+import { getPreferredLocale, useI18n } from "@/lib/i18n";
 import { CATEGORIES, type Locale, type ToolDef, TOOLS, toolsByCategory } from "@/lib/tools/catalog";
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { getToolUsage, subscribeToolUsage, type ToolUsage } from "@/lib/tools/usage";
 import { HOME_METADATA, homeHead } from "@/features/home/home";
-import { localizedToolPath } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, localeHomePath, localizedToolPath } from "@/lib/i18n/config";
 
 export const Route = createFileRoute("/")({
   component: HomeRoute,
@@ -17,6 +17,13 @@ export const Route = createFileRoute("/")({
 
 function HomeRoute() {
   const { locale } = useI18n();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const preferredLocale = getPreferredLocale();
+    if (preferredLocale !== DEFAULT_LOCALE) {
+      void navigate({ to: localeHomePath(preferredLocale), replace: true });
+    }
+  }, [navigate]);
   useEffect(() => {
     const metadata = HOME_METADATA[locale];
     document.title = metadata.title;

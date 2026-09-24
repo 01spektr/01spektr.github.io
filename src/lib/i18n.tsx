@@ -24,11 +24,8 @@ const DICTS = messages;
 let locale: Locale = DEFAULT_LOCALE;
 const listeners = new Set<() => void>();
 
-function readLocale(): Locale {
-  if (typeof window === "undefined") return locale;
-  const normalizedPath = window.location.pathname.replace(/\/$/, "");
-  const pathLocale = localeFromPath(normalizedPath);
-  if (pathLocale) return pathLocale;
+export function getPreferredLocale(): Locale {
+  if (typeof window === "undefined") return DEFAULT_LOCALE;
   let stored: string | null = null;
   try {
     stored = window.localStorage.getItem(STORAGE_KEY);
@@ -38,6 +35,14 @@ function readLocale(): Locale {
   if (isLocale(stored)) return stored;
   const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
   return detectBrowserLocale(browserLanguages);
+}
+
+function readLocale(): Locale {
+  if (typeof window === "undefined") return locale;
+  const normalizedPath = window.location.pathname.replace(/\/$/, "");
+  const pathLocale = localeFromPath(normalizedPath);
+  if (pathLocale) return pathLocale;
+  return getPreferredLocale();
 }
 
 locale = typeof window === "undefined" ? DEFAULT_LOCALE : readLocale();
