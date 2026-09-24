@@ -8,6 +8,7 @@ import { CATEGORIES, type Locale, type ToolDef, TOOLS, toolsByCategory } from "@
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { getToolUsage, subscribeToolUsage, type ToolUsage } from "@/lib/tools/usage";
 import { HOME_METADATA, homeHead } from "@/features/home/home";
+import { localizedToolPath } from "@/lib/i18n/config";
 
 export const Route = createFileRoute("/")({
   component: HomeRoute,
@@ -206,7 +207,7 @@ export function HomePage({ language }: { language: Locale }) {
             <div className="home-query-list">
               <span>{copy.popularQueries}</span>
               {QUICK_LINKS[language].map(([label, slug]) => (
-                <Link key={slug} to="/tools/$slug" params={{ slug }}>
+                <Link key={slug} to={localizedToolPath(slug, language)}>
                   {label}
                 </Link>
               ))}
@@ -374,7 +375,7 @@ function HomeToolCard({
 }) {
   const { locale } = useI18n();
   return (
-    <Link to="/tools/$slug" params={{ slug: tool.slug }} className="home-tool-card">
+    <Link to={localizedToolPath(tool.slug, locale)} className="home-tool-card">
       <ToolIcon tool={tool} />
       {badge && <em>{badge}</em>}
       <b>{tool.name[locale]}</b>
@@ -386,7 +387,7 @@ function HomeToolCard({
 function RecentItem({ tool }: { tool: ToolDef }) {
   const { locale } = useI18n();
   return (
-    <Link to="/tools/$slug" params={{ slug: tool.slug }}>
+    <Link to={localizedToolPath(tool.slug, locale)}>
       <ToolIcon tool={tool} size="compact" />
       <b>{tool.name[locale]}</b>
       <ArrowRight className="size-4 text-muted-foreground" />

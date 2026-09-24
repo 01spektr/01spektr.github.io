@@ -203,6 +203,7 @@ export default function App() {
         {/* Currency Cards Carousel Row */}
         <CurrencyCardsRow
           currencies={currencies}
+          locale={currentLang}
           selectedCurrency={chartBaseCurrency}
           onSelectCurrency={handleSelectCurrency}
           getCurrencyName={getCurrencyName}

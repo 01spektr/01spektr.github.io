@@ -782,7 +782,7 @@ export const ChartCard: React.FC<ChartCardProps> = ({
                 textAnchor="end"
                 className="fill-blue-600 text-[10px] font-semibold"
               >
-                Среднее: {formatRate(averageRate)}
+                {t?.chart?.averageRate || 'Средний курс'}: {formatRate(averageRate)}
               </text>
             </g>
           )}

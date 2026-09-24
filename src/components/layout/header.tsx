@@ -8,7 +8,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
-import { LOCALES, SUPPORTED_LOCALES, localeFromHomePath, localeHomePath, type Locale } from "@/lib/i18n/config";
+import {
+  LOCALES,
+  SUPPORTED_LOCALES,
+  localeFromHomePath,
+  localizedPathForLocale,
+  type Locale,
+} from "@/lib/i18n/config";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 interface Props {
@@ -24,7 +30,8 @@ export function Header({ onMenu, onSearch }: Props) {
   const isHome = localeFromHomePath(pathname) !== null;
   const changeLocale = (next: Locale) => {
     setLocale(next);
-    if (isHome) void navigate({ to: localeHomePath(next) });
+    const destination = localizedPathForLocale(pathname, next);
+    if (destination) void navigate({ to: destination });
   };
 
   return (

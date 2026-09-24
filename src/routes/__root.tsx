@@ -12,7 +12,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { I18nProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
-import { DEFAULT_LOCALE, localeFromHomePath } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, localeFromPath } from "@/lib/i18n/config";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Toolboxi.uz";
@@ -52,7 +52,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const routeLocale = useRouterState({
-    select: (s) => localeFromHomePath(s.location.pathname) ?? DEFAULT_LOCALE,
+    select: (s) => localeFromPath(s.location.pathname) ?? DEFAULT_LOCALE,
   });
   return (
     <html lang={routeLocale} suppressHydrationWarning>

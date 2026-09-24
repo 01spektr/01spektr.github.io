@@ -6,6 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { TOOLS } from "@/lib/tools/catalog";
 import { clearHistory, getHistory, subscribeHistory } from "@/lib/tools/history";
 import { seoHead } from "@/lib/seo";
+import { localizedToolPath } from "@/lib/i18n/config";
 
 export const Route = createFileRoute("/history")({
   component: HistoryPage,
@@ -41,7 +42,9 @@ function HistoryPage() {
           {entries.map((entry) => {
             const tool = TOOLS.find((item) => item.id === entry.toolId);
             const qs = new URLSearchParams(entry.params).toString();
-            const href = tool ? `/tools/${tool.slug}${qs ? `?${qs}` : ""}` : "/tools";
+            const href = tool
+              ? `${localizedToolPath(tool.slug, locale)}${qs ? `?${qs}` : ""}`
+              : "/tools";
             return (
               <li key={entry.id}>
                 <a

@@ -303,7 +303,7 @@ export const ConverterCard: React.FC<ConverterCardProps> = ({
             type="button"
             onClick={handleSwap}
             className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-2xs text-blue-600 hover:text-blue-700 hover:bg-blue-50 flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95"
-            title="Поменять местами"
+            title={t?.chart?.swap || 'Поменять местами'}
           >
             <ArrowUpDown className="w-4 h-4" />
           </button>

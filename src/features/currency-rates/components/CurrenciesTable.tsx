@@ -430,7 +430,19 @@ export const CurrenciesTable: React.FC<CurrenciesTableProps> = ({
                         type="button"
                         onClick={() => onToggleFavorite(curr.code)}
                         className="p-1 hover:scale-110 transition-transform cursor-pointer"
-                        title={curr.isFavorite ? 'Удалить из избранного' : 'В избранное'}
+                        title={
+                          curr.isFavorite
+                            ? locale === 'en'
+                              ? 'Remove from favorites'
+                              : locale === 'uz'
+                                ? 'Tanlanganlardan olib tashlash'
+                                : 'Удалить из избранного'
+                            : locale === 'en'
+                              ? 'Add to favorites'
+                              : locale === 'uz'
+                                ? 'Tanlanganlarga qo‘shish'
+                                : 'В избранное'
+                        }
                       >
                         <Star
                           className={`w-4 h-4 ${

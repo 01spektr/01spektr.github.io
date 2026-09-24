@@ -26,7 +26,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [sidebarCompact]);
 
   useEffect(() => {
-    const match = pathname.match(/^\/tools\/([^/]+)\/?$/);
+    const match = pathname.match(/^\/(?:(?:ru|uz)\/)?tools\/([^/]+)\/?$/);
     if (!match) return;
     const tool = getToolBySlug(decodeURIComponent(match[1]));
     if (!tool?.available) return;

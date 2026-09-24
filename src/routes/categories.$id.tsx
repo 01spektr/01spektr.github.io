@@ -17,7 +17,7 @@ import {
 import { ToolIcon } from "@/components/tool-icon";
 import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
-import type { Locale } from "@/lib/i18n/config";
+import { localizedToolPath, type Locale } from "@/lib/i18n/config";
 import { getCategoryBySlug, toolsByCategory } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
 import { seoHead } from "@/lib/seo";
@@ -223,7 +223,7 @@ function DesignPrintCategory({
           <div className="construction-panel-heading"><div><span><Layers /></span><h2>{uz ? "Ommabop to‘plamlar" : en ? "Popular collections" : "Популярные подборки"}</h2></div></div>
           <div>
             {collections.map(({ title, text, Icon: CollectionIcon, slug }) => (
-              <Link to="/tools/$slug" params={{ slug }} key={title}>
+              <Link to={localizedToolPath(slug, locale)} key={title}>
                 <span><CollectionIcon /></span><p><b>{title}</b><small>{text}</small></p><ChevronRight />
               </Link>
             ))}
@@ -414,7 +414,7 @@ function ConstructionTool({
   const en = locale === "en";
   const uz = locale === "uz";
   return (
-    <Link to="/tools/$slug" params={{ slug: tool.slug }} className="construction-tool">
+    <Link to={localizedToolPath(tool.slug, locale)} className="construction-tool">
       <ToolIcon tool={tool} />
       <div>
         <h3>{tool.name[locale]}</h3>

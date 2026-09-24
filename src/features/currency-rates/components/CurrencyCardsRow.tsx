@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
-import { Currency } from '../types';
+import { Currency, Language } from '../types';
 import { FlagIcon } from './FlagIcon';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface CurrencyCardsRowProps {
   currencies: Currency[];
+  locale: Language;
   selectedCurrency: string;
   onSelectCurrency: (code: string) => void;
   getCurrencyName?: (code: string, fallback: string) => string;
@@ -12,6 +13,7 @@ interface CurrencyCardsRowProps {
 
 export const CurrencyCardsRow: React.FC<CurrencyCardsRowProps> = ({
   currencies,
+  locale,
   selectedCurrency,
   onSelectCurrency,
   getCurrencyName,
@@ -47,7 +49,7 @@ export const CurrencyCardsRow: React.FC<CurrencyCardsRowProps> = ({
         type="button"
         onClick={() => scroll('left')}
         className="hidden sm:flex absolute -left-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-slate-200 shadow-md text-slate-600 hover:text-blue-600 hover:scale-105 items-center justify-center transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100"
-        title="Назад"
+        title={locale === 'en' ? 'Back' : locale === 'uz' ? 'Orqaga' : 'Назад'}
       >
         <ChevronLeft className="w-4 h-4" />
       </button>
@@ -158,7 +160,7 @@ export const CurrencyCardsRow: React.FC<CurrencyCardsRowProps> = ({
         type="button"
         onClick={() => scroll('right')}
         className="hidden sm:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white border border-slate-200 shadow-md text-slate-600 hover:text-blue-600 hover:scale-105 items-center justify-center transition-all cursor-pointer opacity-0 group-hover/carousel:opacity-100"
-        title="Вперёд"
+        title={locale === 'en' ? 'Next' : locale === 'uz' ? 'Keyingi' : 'Вперёд'}
       >
         <ChevronRight className="w-4 h-4" />
       </button>

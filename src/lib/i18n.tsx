@@ -12,7 +12,7 @@ import {
   detectBrowserLocale,
   DEFAULT_LOCALE,
   isLocale,
-  localeFromHomePath,
+  localeFromPath,
   type Locale,
 } from "@/lib/i18n/config";
 import { messages, type MessageKey } from "@/lib/i18n/messages";
@@ -27,10 +27,7 @@ const listeners = new Set<() => void>();
 function readLocale(): Locale {
   if (typeof window === "undefined") return locale;
   const normalizedPath = window.location.pathname.replace(/\/$/, "");
-  const pathLocale =
-    normalizedPath === "/en" || normalizedPath === "/ru" || normalizedPath === "/uz"
-      ? localeFromHomePath(normalizedPath)
-      : null;
+  const pathLocale = localeFromPath(normalizedPath);
   if (pathLocale) return pathLocale;
   let stored: string | null = null;
   try {
@@ -43,7 +40,7 @@ function readLocale(): Locale {
   return detectBrowserLocale(browserLanguages);
 }
 
-locale = typeof window === "undefined" ? "ru" : readLocale();
+locale = typeof window === "undefined" ? DEFAULT_LOCALE : readLocale();
 
 function emit() {
   for (const l of listeners) l();
@@ -88,7 +85,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const path = useRouterState({
     select: (s) => s.location.pathname.replace(/\/$/, "") || "/",
   });
-  const routeLocale = path === "/" ? null : localeFromHomePath(path);
+  const routeLocale = localeFromPath(path);
   const snapshot = useSyncExternalStore(subscribe, getLocale, () => routeLocale ?? DEFAULT_LOCALE);
   const current = routeLocale ?? snapshot;
   useEffect(() => {
@@ -104,7 +101,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const t = useCallback(
     (key: MessageKey, vars?: Record<string, string>) => {
       const dict = DICTS[current] as Record<string, string>;
-      const fallback = DICTS.ru as Record<string, string>;
+      const fallback = DICTS.en as Record<string, string>;
       return interpolate(dict[key] ?? fallback[key] ?? key, vars);
     },
     [current],

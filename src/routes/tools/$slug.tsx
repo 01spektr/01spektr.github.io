@@ -8,6 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { ToolIcon } from "@/components/tool-icon";
 import { getToolBySlug } from "@/lib/tools/catalog";
 import { seoHead } from "@/lib/seo";
+import { currencyRatesHead } from "@/features/currency-rates/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
@@ -66,6 +67,7 @@ const TextGeneratorPage = lazyWithDeployRecovery(() =>
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
   head: ({ params }) => {
+    if (params.slug === "currency-rates") return currencyRatesHead("en");
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
       "qr-generator":

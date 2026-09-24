@@ -12,11 +12,13 @@ export function seoHead({
   description,
   path,
   noIndex = false,
+  alternates = [],
 }: {
   title: string;
   description: string;
   path: string;
   noIndex?: boolean;
+  alternates?: Array<{ hrefLang: string; href: string }>;
 }) {
   const canonical = canonicalUrl(path);
   return {
@@ -35,7 +37,9 @@ export function seoHead({
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: SOCIAL_IMAGE },
     ],
-    links: [{ rel: "canonical", href: canonical }],
+    links: [
+      { rel: "canonical", href: canonical },
+      ...alternates.map(({ hrefLang, href }) => ({ rel: "alternate", hrefLang, href })),
+    ],
   };
 }
-

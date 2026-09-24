@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { useI18n } from "@/lib/i18n";
 import { ToolIcon } from "@/components/tool-icon";
 import { searchTools } from "@/lib/tools/catalog";
+import { localizedToolPath } from "@/lib/i18n/config";
 
 interface Props {
   open: boolean;
@@ -69,7 +70,7 @@ export function CommandPalette({ open, onOpenChange }: Props) {
                     className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left hover:bg-muted"
                     onClick={() => {
                       onOpenChange(false);
-                      void navigate({ to: "/tools/$slug", params: { slug: tool.slug } });
+                      void navigate({ to: localizedToolPath(tool.slug, locale) });
                     }}
                   >
                     <ToolIcon tool={tool} size="compact" />

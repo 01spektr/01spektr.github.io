@@ -2,7 +2,13 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { ChevronDown, Heart, History, Menu, Search } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useState } from "react";
-import { LOCALES, SUPPORTED_LOCALES, localeFromHomePath, localeHomePath, type Locale } from "@/lib/i18n/config";
+import {
+  LOCALES,
+  SUPPORTED_LOCALES,
+  localeHomePath,
+  localizedPathForLocale,
+  type Locale,
+} from "@/lib/i18n/config";
 import "@/features/home/home.css";
 export function SiteHeader({ onSearch }: { onSearch: () => void }) {
   const { locale, setLocale, t } = useI18n(),
@@ -44,7 +50,8 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
               onChange={(e) => {
                 const next = e.target.value as Locale;
                 setLocale(next);
-                if (localeFromHomePath(path) !== null) void navigate({ to: localeHomePath(next) });
+                const destination = localizedPathForLocale(path, next);
+                if (destination) void navigate({ to: destination });
               }}
             >
               {SUPPORTED_LOCALES.map((code) => (

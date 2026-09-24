@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from '@tanstack/react-router';
 import { Home, ChevronRight, Zap, BarChart2, Calculator } from 'lucide-react';
 import { ToolIcon } from '@/components/tool-icon';
+import { useI18n } from '@/lib/i18n';
+import { localeHomePath } from '@/lib/i18n/config';
 
 interface HeroSectionProps {
   t: {
@@ -20,6 +22,7 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ t }) => {
+  const { locale } = useI18n();
   return (
     <section className="relative pt-4 sm:pt-6 pb-2 sm:pb-4">
       {/* Subtle world map background watermark */}
@@ -29,7 +32,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ t }) => {
 
       {/* Breadcrumbs */}
       <nav className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-500 mb-3 sm:mb-5 font-normal overflow-x-auto whitespace-nowrap scrollbar-none pb-1">
-        <Link to="/" className="hover:text-blue-600 flex items-center gap-1 transition-colors">
+        <Link to={localeHomePath(locale)} className="hover:text-blue-600 flex items-center gap-1 transition-colors">
           <Home className="w-3.5 h-3.5 text-slate-400" />
           <span>{t.home}</span>
         </Link>

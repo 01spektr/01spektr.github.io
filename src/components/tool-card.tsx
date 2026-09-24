@@ -3,13 +3,13 @@ import { Badge } from "@/components/ui/badge";
 import { ToolIcon } from "@/components/tool-icon";
 import { useI18n } from "@/lib/i18n";
 import { type ToolDef } from "@/lib/tools/catalog";
+import { localizedToolPath } from "@/lib/i18n/config";
 
 export function ToolCard({ tool }: { tool: ToolDef }) {
   const { locale, t } = useI18n();
   return (
     <Link
-      to="/tools/$slug"
-      params={{ slug: tool.slug }}
+      to={localizedToolPath(tool.slug, locale)}
       className="surface-card surface-card-hover flex min-h-36 flex-col gap-3 p-4"
     >
       <ToolIcon tool={tool} />

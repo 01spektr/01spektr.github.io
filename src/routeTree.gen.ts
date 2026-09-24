@@ -21,6 +21,8 @@ import { Route as UzRouteImport } from './routes/uz'
 import { Route as CategoriesIdRouteImport } from './routes/categories.$id'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsSlugRouteImport } from './routes/tools/$slug'
+import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
+import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +84,16 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
   path: '/tools/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsCurrencyRatesRoute = RuToolsCurrencyRatesRouteImport.update({
+  id: '/ru_/tools/currency-rates',
+  path: '/ru/tools/currency-rates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzToolsCurrencyRatesRoute = UzToolsCurrencyRatesRouteImport.update({
+  id: '/uz_/tools/currency-rates',
+  path: '/uz/tools/currency-rates',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -96,6 +108,8 @@ export interface FileRoutesByFullPath {
   '/categories/$id': typeof CategoriesIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools/': typeof ToolsIndexRoute
+  '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
+  '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,8 @@ export interface FileRoutesByTo {
   '/categories/$id': typeof CategoriesIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools': typeof ToolsIndexRoute
+  '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
+  '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +141,8 @@ export interface FileRoutesById {
   '/categories/$id': typeof CategoriesIdRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools/': typeof ToolsIndexRoute
+  '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
+  '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +159,8 @@ export interface FileRouteTypes {
     | '/categories/$id'
     | '/tools/$slug'
     | '/tools/'
+    | '/ru/tools/currency-rates'
+    | '/uz/tools/currency-rates'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +175,8 @@ export interface FileRouteTypes {
     | '/categories/$id'
     | '/tools/$slug'
     | '/tools'
+    | '/ru/tools/currency-rates'
+    | '/uz/tools/currency-rates'
   id:
     | '__root__'
     | '/'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/categories/$id'
     | '/tools/$slug'
     | '/tools/'
+    | '/ru_/tools/currency-rates'
+    | '/uz_/tools/currency-rates'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +208,8 @@ export interface RootRouteChildren {
   CategoriesIdRoute: typeof CategoriesIdRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
+  RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
+  UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -272,6 +298,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/currency-rates': {
+      id: '/ru_/tools/currency-rates'
+      path: '/ru/tools/currency-rates'
+      fullPath: '/ru/tools/currency-rates'
+      preLoaderRoute: typeof RuToolsCurrencyRatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/currency-rates': {
+      id: '/uz_/tools/currency-rates'
+      path: '/uz/tools/currency-rates'
+      fullPath: '/uz/tools/currency-rates'
+      preLoaderRoute: typeof UzToolsCurrencyRatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -288,6 +328,8 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesIdRoute: CategoriesIdRoute,
   ToolsSlugRoute: ToolsSlugRoute,
   ToolsIndexRoute: ToolsIndexRoute,
+  RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
+  UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
