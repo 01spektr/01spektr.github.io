@@ -9,13 +9,13 @@ export type Locale = keyof typeof LOCALES;
 export const SUPPORTED_LOCALES = Object.keys(LOCALES) as Locale[];
 export const DEFAULT_LOCALE: Locale = "en";
 
-export function localeHomePath(locale: Locale): "/" | "/en" | "/uz" {
-  return locale === "ru" ? "/" : `/${locale}`;
+export function localeHomePath(locale: Locale): "/" | "/ru" | "/uz" {
+  return locale === "en" ? "/" : `/${locale}`;
 }
 
 export function localeFromHomePath(path: string): Locale | null {
   const normalized = path.replace(/\/$/, "") || "/";
-  if (normalized === "/") return "ru";
+  if (normalized === "/") return DEFAULT_LOCALE;
   const code = normalized.slice(1);
   return isLocale(code) ? code : null;
 }

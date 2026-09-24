@@ -12,7 +12,7 @@ import { AppShell } from "@/components/layout/app-shell";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { I18nProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
-import { localeFromHomePath } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, localeFromHomePath } from "@/lib/i18n/config";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Toolboxi.uz";
@@ -26,7 +26,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Toolboxi.uz — универсальный набор онлайн-инструментов. Генератор QR-кодов и другие утилиты прямо в браузере.",
+          "Toolboxi.uz is a collection of free online calculators, generators and converters that work directly in your browser.",
       },
       { name: "theme-color", content: "#f3f5fa" },
       {
@@ -52,7 +52,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const routeLocale = useRouterState({
-    select: (s) => localeFromHomePath(s.location.pathname) ?? "ru",
+    select: (s) => localeFromHomePath(s.location.pathname) ?? DEFAULT_LOCALE,
   });
   return (
     <html lang={routeLocale} suppressHydrationWarning>
@@ -73,7 +73,7 @@ function RootComponent() {
               url: "https://toolboxi.uz/",
               inLanguage: ["ru", "en", "uz"],
               description:
-                "Бесплатные калькуляторы, генераторы и конвертеры прямо в браузере.",
+                "Free calculators, generators and converters that work directly in your browser.",
             }).replace(/</g, "\\u003c"),
           }}
         />

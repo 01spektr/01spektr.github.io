@@ -1,38 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Clock3, Search, ShieldCheck, Sparkles } from "lucide-react";
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { ToolIcon } from "@/components/tool-icon";
 import { iconByName } from "@/lib/icons";
 import { useI18n } from "@/lib/i18n";
 import { CATEGORIES, type Locale, type ToolDef, TOOLS, toolsByCategory } from "@/lib/tools/catalog";
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { getToolUsage, subscribeToolUsage, type ToolUsage } from "@/lib/tools/usage";
-import { seoHead } from "@/lib/seo";
+import { HOME_METADATA, homeHead } from "@/features/home/home";
 
 export const Route = createFileRoute("/")({
   component: HomeRoute,
-  head: () => {
-    const head = seoHead({
-      title: "Toolboxi.uz — бесплатные инструменты для работы и жизни",
-      description:
-        "Создавайте QR-коды и штрихкоды, меняйте размер изображений, конвертируйте цвета, генерируйте UUID и выполняйте расчёты прямо в браузере.",
-      path: "/",
-    });
-    return {
-      ...head,
-      links: [
-        ...head.links,
-        { rel: "alternate", hrefLang: "ru", href: "https://toolboxi.uz/" },
-        { rel: "alternate", hrefLang: "en", href: "https://toolboxi.uz/en/" },
-        { rel: "alternate", hrefLang: "uz", href: "https://toolboxi.uz/uz/" },
-        { rel: "alternate", hrefLang: "x-default", href: "https://toolboxi.uz/" },
-      ],
-    };
-  },
+  head: () => homeHead("en"),
 });
 
 function HomeRoute() {
   const { locale } = useI18n();
+  useEffect(() => {
+    const metadata = HOME_METADATA[locale];
+    document.title = metadata.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", metadata.description);
+  }, [locale]);
   return <HomePage language={locale} />;
 }
 

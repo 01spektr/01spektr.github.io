@@ -69,37 +69,38 @@ export const Route = createFileRoute("/tools/$slug")({
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
       "qr-generator":
-        "Создавайте QR-коды для ссылок, текста, контактов, Wi-Fi, email и телефона. Бесплатно и полностью в браузере.",
-      "uuid-generator": "Безопасно создавайте UUID v4 пакетами прямо в браузере.",
-      "image-resize": "Меняйте размер и формат JPG, PNG и WebP прямо в браузере.",
+        "Create QR codes for links, text, contacts, Wi-Fi, email and phone numbers. Free and entirely in your browser.",
+      "uuid-generator":
+        "Securely generate UUID v4 identifiers in batches directly in your browser.",
+      "image-resize": "Resize and convert JPG, PNG and WebP images directly in your browser.",
       "roof-calculator":
-        "Рассчитайте площадь крыши, количество кровельных листов и предварительную стоимость материалов.",
+        "Calculate roof area, roofing sheet quantities and an estimated material cost.",
       "loan-calculator":
-        "Рассчитайте ежемесячный платёж, переплату и подробный график погашения кредита.",
+        "Calculate monthly payments, total interest and a detailed loan repayment schedule.",
       "cmyk-convert":
-        "Переводите RGB и HEX в CMYK, сравнивайте экранный и печатный цвет, проверяйте покрытие краской и подбирайте Pantone.",
+        "Convert RGB and HEX to CMYK, compare screen and print colors, check ink coverage and find Pantone matches.",
       "barcode-generator":
-        "Создавайте штрихкоды EAN, Code 128 и других форматов, настраивайте оформление и экспортируйте результат.",
+        "Create EAN, Code 128 and other barcode formats, customize their appearance and export the result.",
       "color-palette":
-        "Создавайте гармоничные цветовые палитры, проверяйте контраст, извлекайте цвета из изображений и экспортируйте HEX, RGB, HSL и CMYK.",
+        "Build harmonious color palettes, check contrast, extract colors from images and export HEX, RGB, HSL and CMYK.",
       "world-timezones":
-        "Сравнивайте время в городах мира, конвертируйте даты и планируйте международные встречи.",
+        "Compare local times worldwide, convert dates and plan international meetings.",
       "currency-rates":
-        "Смотрите актуальные официальные курсы валют ЦБ Узбекистана, конвертируйте суммы и сравнивайте изменения курса.",
+        "View official Central Bank of Uzbekistan exchange rates, convert amounts and compare rate changes.",
       "text-symbol-generator":
-        "Создавайте красивый Unicode-текст, необычные шрифты, никнеймы, символы и эмодзи для Instagram, Telegram, TikTok и других сервисов.",
+        "Create stylish Unicode text, usernames, symbols and emoji for Instagram, Telegram, TikTok and other services.",
     };
     if (!tool) {
       return seoHead({
-        title: "Инструмент не найден — Toolboxi.uz",
-        description: "Запрошенный инструмент не найден.",
+        title: "Tool not found — Toolboxi.uz",
+        description: "The requested tool could not be found.",
         path: `/tools/${params.slug}`,
         noIndex: true,
       });
     }
     return seoHead({
-      title: `${tool.name.ru} — Toolboxi.uz`,
-      description: customDescriptions[tool.slug] ?? tool.description.ru,
+      title: `${tool.name.en} — Toolboxi.uz`,
+      description: customDescriptions[tool.slug] ?? tool.description.en,
       path: `/tools/${tool.slug}`,
       noIndex: !tool.available,
     });

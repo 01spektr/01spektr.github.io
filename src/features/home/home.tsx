@@ -497,34 +497,35 @@ function ToolCard({
     </article>
   );
 }
+export const HOME_METADATA: Record<Locale, { title: string; description: string; path: string }> = {
+  ru: {
+    title: "Toolboxi.uz — бесплатные инструменты для работы и жизни",
+    description:
+      "Создавайте QR-коды, меняйте размер изображений, генерируйте UUID и рассчитывайте кровлю. Бесплатно, прямо в браузере.",
+    path: "/ru",
+  },
+  en: {
+    title: "Toolboxi.uz — free tools for work and everyday life",
+    description:
+      "Create QR codes, resize images, generate UUIDs and calculate roof materials. Free browser-based tools, no account required.",
+    path: "/",
+  },
+  uz: {
+    title: "Toolboxi.uz — ish va kundalik hayot uchun bepul vositalar",
+    description:
+      "QR-kodlar yarating, rasmlar o‘lchamini o‘zgartiring, UUID hosil qiling va tom materiallarini hisoblang. Bepul va bevosita brauzerda.",
+    path: "/uz",
+  },
+};
+
 export function homeHead(language: Locale) {
-  const metadata: Record<Locale, { title: string; description: string; path: string }> = {
-    ru: {
-      title: "Toolboxi.uz — бесплатные инструменты для работы и жизни",
-      description:
-        "Создавайте QR-коды, меняйте размер изображений, генерируйте UUID и рассчитывайте кровлю. Бесплатно, прямо в браузере.",
-      path: "/",
-    },
-    en: {
-      title: "Toolboxi.uz — free tools for work and everyday life",
-      description:
-        "Create QR codes, resize images, generate UUIDs and calculate roof materials. Free browser-based tools, no account required.",
-      path: "/en",
-    },
-    uz: {
-      title: "Toolboxi.uz — ish va kundalik hayot uchun bepul vositalar",
-      description:
-        "QR-kodlar yarating, rasmlar o‘lchamini o‘zgartiring, UUID hosil qiling va tom materiallarini hisoblang. Bepul va bevosita brauzerda.",
-      path: "/uz",
-    },
-  };
-  const head = seoHead(metadata[language]);
+  const head = seoHead(HOME_METADATA[language]);
   return {
     ...head,
     links: [
       ...head.links,
-      { rel: "alternate", hrefLang: "ru", href: "https://toolboxi.uz/" },
-      { rel: "alternate", hrefLang: "en", href: "https://toolboxi.uz/en/" },
+      { rel: "alternate", hrefLang: "ru", href: "https://toolboxi.uz/ru/" },
+      { rel: "alternate", hrefLang: "en", href: "https://toolboxi.uz/" },
       { rel: "alternate", hrefLang: "uz", href: "https://toolboxi.uz/uz/" },
       { rel: "alternate", hrefLang: "x-default", href: "https://toolboxi.uz/" },
     ],

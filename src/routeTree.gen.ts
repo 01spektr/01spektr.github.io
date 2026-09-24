@@ -15,6 +15,7 @@ import { Route as EnRouteImport } from './routes/en'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RuRouteImport } from './routes/ru'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UzRouteImport } from './routes/uz'
 import { Route as CategoriesIdRouteImport } from './routes/categories.$id'
@@ -51,6 +52,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuRoute = RuRouteImport.update({
+  id: '/ru',
+  path: '/ru',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/favorites': typeof FavoritesRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
+  '/ru': typeof RuRoute
   '/terms': typeof TermsRoute
   '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/favorites': typeof FavoritesRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
+  '/ru': typeof RuRoute
   '/terms': typeof TermsRoute
   '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/favorites': typeof FavoritesRoute
   '/history': typeof HistoryRoute
   '/privacy': typeof PrivacyRoute
+  '/ru': typeof RuRoute
   '/terms': typeof TermsRoute
   '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/favorites'
     | '/history'
     | '/privacy'
+    | '/ru'
     | '/terms'
     | '/uz'
     | '/categories/$id'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/favorites'
     | '/history'
     | '/privacy'
+    | '/ru'
     | '/terms'
     | '/uz'
     | '/categories/$id'
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/favorites'
     | '/history'
     | '/privacy'
+    | '/ru'
     | '/terms'
     | '/uz'
     | '/categories/$id'
@@ -166,6 +178,7 @@ export interface RootRouteChildren {
   FavoritesRoute: typeof FavoritesRoute
   HistoryRoute: typeof HistoryRoute
   PrivacyRoute: typeof PrivacyRoute
+  RuRoute: typeof RuRoute
   TermsRoute: typeof TermsRoute
   UzRoute: typeof UzRoute
   CategoriesIdRoute: typeof CategoriesIdRoute
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru': {
+      id: '/ru'
+      path: '/ru'
+      fullPath: '/ru'
+      preLoaderRoute: typeof RuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -262,6 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   FavoritesRoute: FavoritesRoute,
   HistoryRoute: HistoryRoute,
   PrivacyRoute: PrivacyRoute,
+  RuRoute: RuRoute,
   TermsRoute: TermsRoute,
   UzRoute: UzRoute,
   CategoriesIdRoute: CategoriesIdRoute,
