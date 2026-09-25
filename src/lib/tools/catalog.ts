@@ -258,6 +258,24 @@ export const TOOLS: ToolDef[] = [
     available: false,
   },
   {
+    id: "route-planner",
+    slug: "route-planner",
+    category: "logistics",
+    name: {
+      ru: "Планировщик маршрута",
+      en: "Route planner",
+      uz: "Yo‘nalish rejalashtirgichi",
+    },
+    description: {
+      ru: "Планирование маршрутов между точками доставки.",
+      en: "Plan routes between delivery points.",
+      uz: "Yetkazib berish nuqtalari orasidagi yo‘nalishlarni rejalang.",
+    },
+    keywords: ["маршрут", "доставка", "точки", "route"],
+    icon: "MapPinned",
+    available: false,
+  },
+  {
     id: "vat-calculator",
     slug: "vat-calculator",
     category: "finance",
