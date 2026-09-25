@@ -1,4 +1,5 @@
 import { ROOF_CALCULATOR_EN } from "@/lib/i18n/legacy/roof-calculator.en";
+import { ROOF_CALCULATOR_UZ } from "@/lib/i18n/legacy/roof-calculator.uz";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import {
@@ -40,6 +41,31 @@ import { deserialize, readProjects, serialize, writeProjects, type SavedRoof } f
 import { RoofView } from "./roof-view";
 import "./roof-calculator.css";
 type Tab = "result" | "drawing" | "materials" | "estimate";
+
+function translateValidationError(error: string, locale: "ru" | "en" | "uz") {
+  if (locale === "ru") return error;
+  const range = error.match(/^Введите число от (.+) до (.+)$/);
+  if (range) {
+    return locale === "en"
+      ? `Enter a number from ${range[1]} to ${range[2]}`
+      : `${range[1]} dan ${range[2]} gacha son kiriting`;
+  }
+  const copy: Record<string, { en: string; uz: string }> = {
+    "Для вальмовой крыши A должно быть не меньше B": {
+      en: "For a hip roof, A must be at least B",
+      uz: "Valmali tom uchun A qiymati B dan kichik bo‘lmasligi kerak",
+    },
+    "Нижний скат должен быть круче верхнего": {
+      en: "The lower slope must be steeper than the upper slope",
+      uz: "Pastki nishab yuqori nishabdan tikroq bo‘lishi kerak",
+    },
+    "Получается угол вне диапазона 5–75°. Измените высоту или ширину.": {
+      en: "The resulting pitch is outside 5–75°. Change the height or width.",
+      uz: "Hosil bo‘lgan burchak 5–75° oralig‘idan tashqarida. Balandlik yoki kenglikni o‘zgartiring.",
+    },
+  };
+  return copy[error]?.[locale] ?? error;
+}
 
 const ROOF_GUIDE_COPY = {
   ru: {
@@ -168,7 +194,7 @@ const ROOF_GUIDE_COPY = {
     howSteps: [
       "Ikki nishabli, valmali, bir nishabli yoki mansard tom turini tanlang.",
       "Tom chiqindilarini qo‘shmasdan binoning uzunligi va kengligini kiriting.",
-      "Nishab burchagi yoki devordan konьok balandligini belgilang — ikkinchi qiymat avtomatik hisoblanadi.",
+      "Nishab burchagi yoki devordan tom qirrasi balandligini belgilang — ikkinchi qiymat avtomatik hisoblanadi.",
       "Karniz va fronton chiqindilarini, so‘ng tom listining ishchi o‘lchamlarini tekshiring.",
       "Ishlab chiqaruvchi tavsiyasiga ko‘ra ustma-ust tushish, zaxira va mahkamlagich sarfini kiriting.",
       "Chizma, Materiallar va Smeta bo‘limlarida natijani tekshirib, yetkazib beruvchi narxlarini kiriting.",
@@ -178,10 +204,10 @@ const ROOF_GUIDE_COPY = {
     methodTitle: "Tom qanday hisoblanadi",
     methodSubtitle: "Geometriya, material va zaxira",
     methodParagraphs: [
-      "Tom maydoni gorizontal chiqindilarni hisobga olgan barcha nishablar maydoni yig‘indisidir. Ikki nishabli tomda nishab uzunligi burchak yoki konьok balandligidan olinadi.",
+      "Tom maydoni gorizontal chiqindilarni hisobga olgan barcha nishablar maydoni yig‘indisidir. Ikki nishabli tomda nishab uzunligi burchak yoki tom qirrasi balandligidan olinadi.",
       "Bir nishabli, valmali va mansard tomlar uchun alohida geometrik modellar ishlatiladi. Mansard tomining yuqori va pastki qismlari alohida hisoblanadi.",
       "Listlar soni ishchi kenglik, uzunlik bo‘yicha ustma-ust tushish va tanlangan zaxira asosida butun songa yuqoriga yaxlitlanadi.",
-      "Konьok va valma plankalari 2 metrlik qismlar va 0,1 metr ustma-ust tushish bilan, mahkamlagichlar esa qoplama maydoni bo‘yicha hisoblanadi.",
+      "Tom qirrasi va valma plankalari 2 metrlik qismlar va 0,1 metr ustma-ust tushish bilan, mahkamlagichlar esa qoplama maydoni bo‘yicha hisoblanadi.",
     ],
     formulaLead: "Ikki nishabli tom maydonining soddalashtirilgan formulasi:",
     formulaNote:
@@ -207,7 +233,7 @@ const ROOF_GUIDE_COPY = {
       ],
       [
         "Smetaga nimalar kirmaydi?",
-        "Stropila, obreshetka, membrana, issiqlik izolyatsiyasi, suv oqimi, murakkab qo‘shimcha elementlar, yetkazish va montaj ishlari kirmaydi.",
+        "Tom karkasi, panjara, membrana, issiqlik izolyatsiyasi, suv oqimi, murakkab qo‘shimcha elementlar, yetkazish va montaj ishlari kirmaydi.",
       ],
       [
         "Hisobni saqlash yoki ulashish mumkinmi?",
@@ -223,9 +249,14 @@ const ROOF_GUIDE_COPY = {
 
 export function RoofCalculatorPage() {
   const { locale } = useI18n();
-  const tr = (value: string) => (locale === "en" ? (ROOF_CALCULATOR_EN[value] ?? value) : value);
+  const tr = (value: string) =>
+    locale === "en"
+      ? (ROOF_CALCULATOR_EN[value] ?? value)
+      : locale === "uz"
+        ? (ROOF_CALCULATOR_UZ[value] ?? value)
+        : value;
   const f = (value: number, digits = 2) =>
-    new Intl.NumberFormat(locale === "en" ? "en-US" : "ru-RU", {
+    new Intl.NumberFormat(locale === "en" ? "en-US" : locale === "uz" ? "uz-UZ" : "ru-RU", {
       maximumFractionDigits: digits,
     }).format(value);
   const [input, setInput] = useState<RoofInput>({ ...DEFAULTS });
@@ -240,7 +271,8 @@ export function RoofCalculatorPage() {
     const params = new URLSearchParams(location.search);
     const restored = deserialize(params);
     if (restored) setInput(restored);
-    else if (params.has("type")) toast.error("В ссылке некорректные параметры. Загружен пример.");
+    else if (params.has("type"))
+      toast.error(tr("В ссылке некорректные параметры. Загружен пример."));
   }, []);
   const errors = validate(input),
     valid = Object.keys(errors).length === 0;
@@ -282,7 +314,7 @@ export function RoofCalculatorPage() {
   function field(
     key: keyof RoofInput,
     label: string,
-    unit = locale === "en" ? "m" : "м",
+    unit = locale === "ru" ? "м" : "m",
     hint?: string,
   ) {
     const slider = sliderConfig(key);
@@ -321,7 +353,7 @@ export function RoofCalculatorPage() {
         )}
         {errors[key] ? (
           <small className="rc-error" id={`roof-error-${key}`}>
-            {errors[key]}
+            {translateValidationError(errors[key], locale)}
           </small>
         ) : hint ? (
           <small>{hint}</small>
@@ -351,31 +383,31 @@ export function RoofCalculatorPage() {
       setSaved(next);
       recordHistory({
         toolId: "roof-calculator",
-        title: `${tr(ROOF_NAMES[input.type])} · ${f(result.g.area)} м²`,
+        title: `${tr(ROOF_NAMES[input.type])} · ${f(result.g.area)} ${locale === "ru" ? "м²" : "m²"}`,
         params: serialize(input),
       });
       toast.success(
-        favorite ? "Расчёт добавлен в избранное" : "Расчёт сохранён на этом устройстве",
+        tr(favorite ? "Расчёт добавлен в избранное" : "Расчёт сохранён на этом устройстве"),
       );
     } catch {
-      toast.error("Браузер не разрешил сохранить данные. Можно скопировать ссылку.");
+      toast.error(tr("Браузер не разрешил сохранить данные. Можно скопировать ссылку."));
     }
   }
   async function share() {
     if (!valid) return;
     const status = await shareUrl(
       buildShareUrl("/tools/roof-calculator", new URLSearchParams(serialize(input))),
-      "Расчёт крыши · Toolboxi",
+      tr("Расчёт крыши · Toolboxi"),
     );
-    if (status === "copied") toast.success("Ссылка на этот расчёт скопирована");
-    if (status === "failed") toast.error("Не удалось поделиться ссылкой");
+    if (status === "copied") toast.success(tr("Ссылка на этот расчёт скопирована"));
+    if (status === "failed") toast.error(tr("Не удалось поделиться ссылкой"));
   }
   function changeSaved(next: SavedRoof[]) {
     try {
       writeProjects(next);
       setSaved(next);
     } catch {
-      toast.error("Не удалось изменить сохранённые расчёты");
+      toast.error(tr("Не удалось изменить сохранённые расчёты"));
     }
   }
   function download() {
@@ -386,18 +418,14 @@ export function RoofCalculatorPage() {
       [tr("Площадь крыши"), f(result.g.area), "m²"],
       [
         tr("Материал"),
-        locale === "en" ? "Quantity" : "Количество",
-        locale === "en" ? "Unit" : "Ед.",
-        locale === "en" ? "Unit price, USD" : "Цена за единицу, USD",
-        locale === "en" ? "Total, USD" : "Стоимость, USD",
+        tr("Количество"),
+        tr("Ед."),
+        tr("Цена за единицу, USD"),
+        tr("Стоимость, USD"),
       ],
-      ...result.rows.map((r) => [r.name, r.quantity, r.unit, r.price, r.total]),
-      [locale === "en" ? "Total" : "Итого", result.rows.reduce((s, r) => s + r.total, 0)],
-      [
-        locale === "en"
-          ? "Excludes labor, delivery, drainage and structural work"
-          : "Без работ, доставки, водостока и несущих конструкций",
-      ],
+      ...result.rows.map((r) => [tr(r.name), r.quantity, tr(r.unit), r.price, r.total]),
+      [tr("Итого"), result.rows.reduce((s, r) => s + r.total, 0)],
+      [tr("Без работ, доставки, водостока и несущих конструкций")],
     ];
     const csv =
       "\uFEFF" +
@@ -407,14 +435,19 @@ export function RoofCalculatorPage() {
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = "Toolboxi-смета-кровли.csv";
+    a.download =
+      locale === "ru"
+        ? "Toolboxi-smeta-kryshi.csv"
+        : locale === "uz"
+          ? "Toolboxi-tom-smetasi.csv"
+          : "Toolboxi-roof-estimate.csv";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return (
     <div className="roof-shell">
       <div className="rc-app">
-        <nav className="rc-breadcrumb" aria-label="Навигация">
+        <nav className="rc-breadcrumb" aria-label={tr("Навигация")}>
           <Link to="/">
             <House size={15} />
             {tr("Главная")}
@@ -424,7 +457,7 @@ export function RoofCalculatorPage() {
             {tr("Строительство и ремонт")}
           </Link>
           <ChevronRight />
-          <span>{tr("Калькулятор крыши")}</span>
+          <span>{tr("Калькулятор кровли")}</span>
         </nav>
         <header className="rc-heading">
           <ToolIcon
@@ -434,7 +467,7 @@ export function RoofCalculatorPage() {
           />
           <div>
             <div className="rc-eyebrow">{tr("ПЛАНИРУЙТЕ С УВЕРЕННОСТЬЮ")}</div>
-            <h1>{tr("Калькулятор крыши")}</h1>
+            <h1>{tr("Калькулятор кровли")}</h1>
             <p>{tr("От размеров здания — к площади, материалам и смете.")}</p>
           </div>
           <div className="rc-heading-actions">
@@ -579,7 +612,11 @@ export function RoofCalculatorPage() {
                 <div className="rc-fields">
                   {field("overlap", tr("Продольный нахлёст"), "m")}
                   {field("waste", tr("Дополнительный запас"), "%")}
-                  {field("screws", tr("Саморезов на м²"), locale === "en" ? "pcs" : "шт.")}
+                  {field(
+                    "screws",
+                    tr("Саморезов на м²"),
+                    locale === "en" ? "pcs" : locale === "uz" ? "dona" : "шт.",
+                  )}
                 </div>
                 <p className="rc-help">
                   {tr("Параметры материала — пример. Уточните их у поставщика.")}
@@ -614,14 +651,10 @@ export function RoofCalculatorPage() {
           <section
             className="rc-result rc-card"
             ref={resultRef}
-            aria-label={locale === "en" ? "Calculation results" : "Результаты расчёта"}
+            aria-label={tr("Результаты расчёта")}
           >
             <div className="rc-result-top">
-              <div
-                className="rc-tabs"
-                role="tablist"
-                aria-label={locale === "en" ? "Results" : "Результаты"}
-              >
+              <div className="rc-tabs" role="tablist" aria-label={tr("Результаты")}>
                 {(
                   [
                     ["result", tr("Результат")],
@@ -652,10 +685,10 @@ export function RoofCalculatorPage() {
                   role="tabpanel"
                   aria-label={
                     {
-                      result: "Результат",
-                      drawing: "Чертёж",
-                      materials: "Материалы",
-                      estimate: "Смета",
+                      result: tr("Результат"),
+                      drawing: tr("Чертёж"),
+                      materials: tr("Материалы"),
+                      estimate: tr("Смета"),
                     }[tab]
                   }
                 >
@@ -695,6 +728,7 @@ export function RoofCalculatorPage() {
                         <RoofView
                           input={input}
                           geometry={result.g}
+                          locale={locale}
                           flat={flat || tab === "drawing"}
                           rotate={rotate}
                         />
@@ -731,13 +765,14 @@ export function RoofCalculatorPage() {
                         <div className="rc-panel-list">
                           {result.g.panels.map((p) => (
                             <div key={p.name}>
-                              <span>{p.name}</span>
+                              <span>{tr(p.name)}</span>
                               <b>{f(polygonArea(p.points))} m²</b>
                             </div>
                           ))}
                           <p>
-                            Контур строится по введённым размерам. Это геометрическая схема, не
-                            расчёт несущей способности.
+                            {tr(
+                              "Контур строится по введённым размерам. Это геометрическая схема, не расчёт несущей способности.",
+                            )}
                           </p>
                         </div>
                       )}
@@ -768,7 +803,7 @@ export function RoofCalculatorPage() {
                           icon={<Box />}
                           title={tr("Саморезы")}
                           value={`${result.m.screws} ${tr("шт.")}`}
-                          note={`${input.screws} ${locale === "en" ? "pcs/m² + allowance" : "шт./м² + запас"}`}
+                          note={`${input.screws} ${locale === "ru" ? "шт./м² + запас" : locale === "uz" ? "dona/m² + zaxira" : "pcs/m² + allowance"}`}
                         />
                       </div>
                       {tab === "materials" && (
@@ -777,16 +812,18 @@ export function RoofCalculatorPage() {
                             {result.m.layout.map((p) => (
                               <div key={p.name}>
                                 <span>
-                                  {p.name} · {p.columns} полос
+                                  {tr(p.name)} · {p.columns} {tr("полос")}
                                 </span>
-                                <b>{p.sheets} листов</b>
+                                <b>
+                                  {p.sheets} {tr("листов")}
+                                </b>
                               </div>
                             ))}
                           </div>
                           <p className="rc-help">
-                            Каждая полоса покрывается целыми листами по её максимальной длине.
-                            Обрезки между скатами не используются повторно. Для вальм итог
-                            консервативный, без оптимизации раскроя.
+                            {tr(
+                              "Каждая полоса покрывается целыми листами по её максимальной длине. Обрезки между скатами не используются повторно. Для вальм итог консервативный, без оптимизации раскроя.",
+                            )}
                           </p>
                           <p className="rc-help">
                             {tr("Площадь покрытия с запасом:")} {f(result.m.materialArea)} m².{" "}
@@ -841,9 +878,9 @@ export function RoofCalculatorPage() {
                 <div className="rc-notice">
                   <ShieldCheck />
                   <p>
-                    <b>Геометрия и ориентировочный заказ материалов.</b> Без стропил, обрешётки,
-                    утепления, водостока, работ и доставки.
-                    {input.type === "mansard" ? " Планки излома также не включены." : ""}
+                    <b>{tr("Геометрия и ориентировочный заказ материалов.")}</b>{" "}
+                    {tr("Без стропил, обрешётки, утепления, водостока, работ и доставки.")}
+                    {input.type === "mansard" ? ` ${tr("Планки излома также не включены.")}` : ""}
                   </p>
                 </div>
                 <div className="rc-result-actions">
@@ -884,7 +921,7 @@ export function RoofCalculatorPage() {
                       onClick={() => {
                         setInput(p.input);
                         setTab("result");
-                        toast.success("Параметры восстановлены");
+                        toast.success(tr("Параметры восстановлены"));
                       }}
                     >
                       <b>
@@ -892,14 +929,16 @@ export function RoofCalculatorPage() {
                       </b>
                       <span>
                         {f(p.input.length)} × {f(p.input.width)} m ·{" "}
-                        {new Date(p.at).toLocaleDateString(locale === "en" ? "en-US" : "ru-RU")}
+                        {new Date(p.at).toLocaleDateString(
+                          locale === "en" ? "en-US" : locale === "uz" ? "uz-UZ" : "ru-RU",
+                        )}
                       </span>
                       <ArrowUpRight />
                     </button>
                     <button
-                      aria-label={
-                        p.favorite ? "Убрать расчёт из избранного" : "Добавить расчёт в избранное"
-                      }
+                      aria-label={tr(
+                        p.favorite ? "Убрать расчёт из избранного" : "Добавить расчёт в избранное",
+                      )}
                       onClick={() =>
                         changeSaved(
                           saved.map((s) => (s.id === p.id ? { ...s, favorite: !s.favorite } : s)),
@@ -909,7 +948,7 @@ export function RoofCalculatorPage() {
                       <Star fill={p.favorite ? "currentColor" : "none"} />
                     </button>
                     <button
-                      aria-label="Удалить сохранённый расчёт"
+                      aria-label={tr("Удалить сохранённый расчёт")}
                       onClick={() => changeSaved(saved.filter((s) => s.id !== p.id))}
                     >
                       <Trash2 />

@@ -1,7 +1,7 @@
 export const ROOF_CALCULATOR_EN: Record<string, string> = {
   Главная: "Home",
   "Строительство и ремонт": "Construction & repair",
-  "Калькулятор крыши": "Roof calculator",
+  "Калькулятор кровли": "Roof calculator",
   "ПЛАНИРУЙТЕ С УВЕРЕННОСТЬЮ": "PLAN WITH CONFIDENCE",
   "От размеров здания — к площади, материалам и смете.":
     "From building dimensions to area, materials and an estimate.",
@@ -107,4 +107,47 @@ export const ROOF_CALCULATOR_EN: Record<string, string> = {
   "Это точная смета?": "Is this an exact estimate?",
   "Что сохраняется по ссылке?": "What is saved in the link?",
   "Куда отправляются данные?": "Where does the data go?",
+  "В ссылке некорректные параметры. Загружен пример.":
+    "The link contains invalid settings. An example has been loaded.",
+  "Расчёт добавлен в избранное": "Calculation added to favorites",
+  "Расчёт сохранён на этом устройстве": "Calculation saved on this device",
+  "Браузер не разрешил сохранить данные. Можно скопировать ссылку.":
+    "The browser did not allow the data to be saved. You can copy the link instead.",
+  "Расчёт крыши · Toolboxi": "Roof calculation · Toolboxi",
+  "Ссылка на этот расчёт скопирована": "Calculation link copied",
+  "Не удалось поделиться ссылкой": "Could not share the link",
+  "Не удалось изменить сохранённые расчёты": "Could not update saved calculations",
+  Количество: "Quantity",
+  "Ед.": "Unit",
+  "Цена за единицу, USD": "Unit price, USD",
+  "Стоимость, USD": "Cost, USD",
+  Итого: "Total",
+  "Без работ, доставки, водостока и несущих конструкций":
+    "Excludes labor, delivery, drainage and load-bearing structures",
+  Навигация: "Navigation",
+  "Результаты расчёта": "Calculation results",
+  Результаты: "Results",
+  "Геометрия и ориентировочный заказ материалов.": "Geometry and an indicative material order.",
+  "Без стропил, обрешётки, утепления, водостока, работ и доставки.":
+    "Excludes rafters, battens, insulation, drainage, labor and delivery.",
+  "Планки излома также не включены.": "Mansard break trims are also excluded.",
+  "Параметры восстановлены": "Settings restored",
+  "Убрать расчёт из избранного": "Remove calculation from favorites",
+  "Добавить расчёт в избранное": "Add calculation to favorites",
+  "Удалить сохранённый расчёт": "Delete saved calculation",
+  "Скат 1": "Slope 1",
+  "Скат 2": "Slope 2",
+  Скат: "Slope",
+  "Трапеция 1": "Trapezoid 1",
+  "Трапеция 2": "Trapezoid 2",
+  "Вальма 1": "Hip 1",
+  "Вальма 2": "Hip 2",
+  "Нижний скат 1": "Lower slope 1",
+  "Верхний скат 1": "Upper slope 1",
+  "Верхний скат 2": "Upper slope 2",
+  "Нижний скат 2": "Lower slope 2",
+  "Контур строится по введённым размерам. Это геометрическая схема, не расчёт несущей способности.":
+    "The outline uses the entered dimensions. It is a geometry drawing, not a structural capacity calculation.",
+  "Каждая полоса покрывается целыми листами по её максимальной длине. Обрезки между скатами не используются повторно. Для вальм итог консервативный, без оптимизации раскроя.":
+    "Each strip uses whole sheets based on its maximum length. Offcuts are not reused between slopes. The hip-roof result is conservative and does not optimize the cutting layout.",
 };

@@ -3,14 +3,51 @@ import { fmt, type Geometry, type Point, type RoofInput } from "./model";
 export function RoofView({
   input: i,
   geometry: g,
+  locale,
   flat = false,
   rotate = false,
 }: {
   input: RoofInput;
   geometry: Geometry;
+  locale: "ru" | "en" | "uz";
   flat?: boolean;
   rotate?: boolean;
 }) {
+  const copy = {
+    ru: {
+      section: "Разрез",
+      drawing: "Аксонометрическая схема",
+      roof: "крыши",
+      area: "площадь",
+      height: "высота",
+      angle: "Угол",
+      sectionCaption: "Поперечный разрез · H от верха стен",
+      drawingCaption: "Схема в масштабе · условная высота стен 2,6 м",
+      metre: "м",
+    },
+    en: {
+      section: "Cross-section",
+      drawing: "Axonometric drawing",
+      roof: "of the roof",
+      area: "area",
+      height: "height",
+      angle: "Pitch",
+      sectionCaption: "Cross-section · H above the wall top",
+      drawingCaption: "Scale drawing · indicative wall height 2.6 m",
+      metre: "m",
+    },
+    uz: {
+      section: "Ko‘ndalang kesim",
+      drawing: "Aksonometrik chizma",
+      roof: "tom",
+      area: "maydon",
+      height: "balandlik",
+      angle: "Burchak",
+      sectionCaption: "Ko‘ndalang kesim · H devor tepasidan",
+      drawingCaption: "Masshtabli chizma · devorning shartli balandligi 2,6 m",
+      metre: "m",
+    },
+  }[locale];
   const uid = useId().replace(/:/g, "");
   const wall = 2.6;
   const project = (p: Point): [number, number] => {
@@ -92,7 +129,7 @@ export function RoofView({
       className="rv-svg"
       viewBox="0 0 520 370"
       role="img"
-      aria-label={`${flat ? "Разрез" : "Аксонометрическая схема"} крыши: площадь ${fmt(g.area)} м², высота ${fmt(g.height)} м`}
+      aria-label={`${flat ? copy.section : copy.drawing} ${copy.roof}: ${copy.area} ${fmt(g.area)} ${copy.metre}², ${copy.height} ${fmt(g.height)} ${copy.metre}`}
     >
       <defs>
         <pattern id={`${uid}-grid`} width="24" height="24" patternUnits="userSpaceOnUse">
@@ -128,10 +165,10 @@ export function RoofView({
             y={p([0, 0, g.height / 2])[1]}
             className="rv-label"
           >
-            H {fmt(g.height)} м
+            H {fmt(g.height)} {copy.metre}
           </text>
           <text x="32" y="36" className="rv-label">
-            Угол {fmt(g.angle, 1)}°{i.type === "mansard" ? ` / ${i.lowerAngle}°` : ""}
+            {copy.angle} {fmt(g.angle, 1)}°{i.type === "mansard" ? ` / ${i.lowerAngle}°` : ""}
           </text>
         </>
       ) : (
@@ -149,22 +186,20 @@ export function RoofView({
           </g>
         ))
       )}
-      {dim(ground[0], ground[1], `B · ${fmt(i.width)} м`)}
-      {!flat && dim(ground[1], ground[2], `A · ${fmt(i.length)} м`, 27)}
+      {dim(ground[0], ground[1], `B · ${fmt(i.width)} ${copy.metre}`)}
+      {!flat && dim(ground[1], ground[2], `A · ${fmt(i.length)} ${copy.metre}`, 27)}
       {!flat && (
         <g className="rv-height-note">
           <text x="28" y="34">
-            H · {fmt(g.height)} м
+            H · {fmt(g.height)} {copy.metre}
           </text>
           <text x="28" y="54">
-            Угол · {fmt(g.angle, 1)}°
+            {copy.angle} · {fmt(g.angle, 1)}°
           </text>
         </g>
       )}
       <text x="260" y="359" textAnchor="middle" className="rv-caption">
-        {flat
-          ? "Поперечный разрез · H от верха стен"
-          : "Схема в масштабе · условная высота стен 2,6 м"}
+        {flat ? copy.sectionCaption : copy.drawingCaption}
       </text>
     </svg>
   );

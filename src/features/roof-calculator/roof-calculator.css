@@ -106,8 +106,7 @@
   width: 66px;
   height: 66px;
   border-radius: 17px;
-  background: #fff0df;
-  color: #d47b25;
+  color: #fff;
   display: grid;
   place-items: center;
   flex-shrink: 0;
