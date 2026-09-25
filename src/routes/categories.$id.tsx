@@ -154,6 +154,11 @@ function LogisticsCategory({
           { title: "Планирование маршрута", text: "Адреса и направления", Icon: MapPinned },
         ];
   const extendedDescriptions: Record<string, string> = {
+    "customs-calculator": uz
+      ? "Tovar kodi, qiymati, og‘irligi va yetkazib berish mamlakati bo‘yicha boj, QQS, bojxona yig‘imlari va importning yakuniy qiymatini hisoblang."
+      : en
+        ? "Calculate duty, VAT, customs fees and the final import cost from the product code, value, weight and destination country."
+        : "Рассчитывайте пошлину, НДС, таможенные сборы и итоговую стоимость импорта по коду товара, цене, весу и стране назначения.",
     "cargo-volume": uz
       ? "Qutilar va tagliklarning umumiy hajmini hisoblang, yuk egallaydigan joyni baholang va transport yoki ombor sig‘imini oldindan rejalashtiring."
       : en
@@ -254,14 +259,16 @@ function LogisticsCategory({
           </span>
         </div>
         <div className="construction-tool-grid">
-          {tools.map((tool) => (
-            <ConstructionTool
-              key={tool.id}
-              tool={tool}
-              locale={locale}
-              description={extendedDescriptions[tool.slug]}
-            />
-          ))}
+          {[...tools]
+            .sort((a, b) => Number(b.available) - Number(a.available))
+            .map((tool) => (
+              <ConstructionTool
+                key={tool.id}
+                tool={tool}
+                locale={locale}
+                description={extendedDescriptions[tool.slug]}
+              />
+            ))}
         </div>
       </section>
 

@@ -1,0 +1,24 @@
+.customs-calculator-page {
+  width: 100%;
+  color: #0f172a;
+}
+
+.customs-calculator-page .font-secondary,
+.customs-calculator-page .font-inter {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.dark .customs-calculator-page {
+  color: #f8fafc;
+}
+
+@media (max-width: 640px) {
+  .customs-calculator-page h1 {
+    white-space: normal;
+  }
+}

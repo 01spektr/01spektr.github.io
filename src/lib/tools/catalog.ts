@@ -276,6 +276,25 @@ export const TOOLS: ToolDef[] = [
     available: false,
   },
   {
+    id: "customs-calculator",
+    slug: "customs-calculator",
+    category: "logistics",
+    name: {
+      ru: "Таможенный калькулятор",
+      en: "Customs calculator",
+      uz: "Bojxona kalkulyatori",
+    },
+    description: {
+      ru: "Расчёт пошлины, НДС, сборов и полной стоимости импорта.",
+      en: "Calculate duties, VAT, fees and the total import cost.",
+      uz: "Boj, QQS, yig‘imlar va importning umumiy qiymatini hisoblang.",
+    },
+    keywords: ["таможня", "пошлина", "импорт", "тн вэд", "customs", "duty", "bojxona"],
+    icon: "Ship",
+    available: true,
+    featured: true,
+  },
+  {
     id: "vat-calculator",
     slug: "vat-calculator",
     category: "finance",

@@ -7,6 +7,7 @@ export const TOOL_ACCENTS: Record<string, string> = {
   "barcode-generator": "#6549dd",
   "cmyk-convert": "#e85e92",
   "shipping-cost": "#1f9fe8",
+  "customs-calculator": "#16a8c7",
   "vat-calculator": "#0bad77",
   "invoice-number": "#2b78e9",
   "word-counter": "#d94eaa",

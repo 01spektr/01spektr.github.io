@@ -66,6 +66,9 @@ const TextGeneratorPage = lazyWithDeployRecovery(() =>
 const VatCalculatorPage = lazyWithDeployRecovery(() =>
   import("@/features/vat-calculator").then((m) => ({ default: m.VatCalculatorPage })),
 );
+const CustomsCalculatorPage = lazyWithDeployRecovery(() =>
+  import("@/features/customs-calculator").then((m) => ({ default: m.CustomsCalculatorPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -96,6 +99,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "Create stylish Unicode text, usernames, symbols and emoji for Instagram, Telegram, TikTok and other services.",
       "vat-calculator":
         "Add VAT to an amount, extract VAT from a gross total, compare international tax rates and export a detailed calculation.",
+      "customs-calculator":
+        "Calculate customs duties, VAT, processing fees and total import costs by HS code, destination country and declarant type.",
     };
     if (!tool) {
       return seoHead({
@@ -197,6 +202,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <VatCalculatorPage />
+      </Suspense>
+    );
+  }
+  if (slug === "customs-calculator") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <CustomsCalculatorPage />
       </Suspense>
     );
   }
