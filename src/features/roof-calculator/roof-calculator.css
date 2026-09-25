@@ -262,7 +262,7 @@
   color: var(--rc-muted);
   min-width: 0;
 }
-.rc-field > div {
+.rc-field > div:not(.rc-slider-row) {
   display: flex;
   align-items: center;
   border: 1px solid #d8e1ef;
@@ -282,11 +282,11 @@
   font-variant-numeric: tabular-nums;
   background: transparent;
 }
-.rc-field > div:focus-within {
+.rc-field > div:not(.rc-slider-row):focus-within {
   border-color: var(--rc-blue);
   box-shadow: 0 0 0 3px #2463eb12;
 }
-.rc-field > div > span {
+.rc-field > div:not(.rc-slider-row) > span {
   border-left: 1px solid var(--rc-line);
   padding: 0 12px;
   flex: none;
@@ -298,6 +298,61 @@
 .rc-field small {
   font-size: 12px;
   line-height: 1.4;
+}
+.rc-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 22px;
+}
+.rc-slider-row small {
+  min-width: 58px;
+  color: var(--rc-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.rc-field .rc-field-slider {
+  width: 100%;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  accent-color: var(--rc-blue);
+  cursor: pointer;
+  appearance: none;
+}
+.rc-field .rc-field-slider::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #94b8ff, #dce7fa);
+}
+.rc-field .rc-field-slider::-webkit-slider-thumb {
+  width: 17px;
+  height: 17px;
+  margin-top: -6px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--rc-blue);
+  box-shadow: 0 1px 5px #1d4ed04d;
+  appearance: none;
+}
+.rc-field .rc-field-slider::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: #dce7fa;
+}
+.rc-field .rc-field-slider::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: #4f86f7;
+}
+.rc-field .rc-field-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--rc-blue);
+  box-shadow: 0 1px 5px #1d4ed04d;
 }
 .rc-error {
   color: #b42318 !important;
@@ -909,63 +964,159 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
   margin-top: 22px;
+  align-items: start;
 }
-.rc-guide article {
-  padding: 22px;
+.rc-guide-card {
+  overflow: hidden;
 }
-.rc-guide h2 {
+.rc-guide-card > summary {
   display: flex;
-  gap: 9px;
   align-items: center;
-  font-size: 15px;
-  font-weight: 650;
-  margin-bottom: 15px;
+  gap: 11px;
+  min-height: 76px;
+  padding: 14px 16px;
+  cursor: pointer;
+  list-style: none;
+  transition: background 160ms ease;
 }
-.rc-guide h2 svg {
-  color: var(--rc-blue);
-  width: 18px;
+.rc-guide-card > summary::-webkit-details-marker {
+  display: none;
 }
-.rc-guide p,
-.rc-guide ol {
-  font-size: 13px;
-  line-height: 1.75;
+.rc-guide-card > summary:hover {
+  background: var(--rc-soft);
+}
+.rc-guide-card > summary > span:nth-child(2) {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.rc-guide-card > summary b {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.rc-guide-card > summary small {
   color: var(--rc-muted);
+  font-size: 11px;
+  line-height: 1.35;
 }
-.rc-guide ol {
-  padding-left: 20px;
+.rc-guide-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 10px;
+  color: var(--rc-blue);
+  background: #eaf2ff;
+}
+.rc-guide-icon svg {
+  width: 17px;
+  height: 17px;
+}
+.rc-guide-chevron {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  color: var(--rc-muted);
+  transition: transform 180ms ease;
+}
+.rc-guide-card[open] > summary .rc-guide-chevron {
+  transform: rotate(180deg);
+}
+.rc-guide-card[open] > summary {
+  border-bottom: 1px solid var(--rc-line);
+}
+.rc-guide-body {
+  padding: 17px 18px 20px;
+}
+.rc-guide-body > * + * {
+  margin-top: 12px;
+}
+.rc-guide-body p,
+.rc-guide-body ol {
+  color: var(--rc-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.rc-guide-body ol {
+  padding-left: 22px;
   list-style: decimal;
 }
-.rc-guide li {
+.rc-guide-body li {
   padding-left: 3px;
-  margin: 5px 0;
+  margin: 7px 0;
 }
-.rc-guide code {
+.rc-guide-body code {
   display: block;
-  font-size: 11px;
+  padding: 11px 12px;
+  border-radius: 8px;
   color: var(--rc-blue);
   background: var(--rc-soft);
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.5;
   white-space: normal;
 }
-.rc-guide summary {
-  font-size: 13px;
-  cursor: pointer;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--rc-line);
-  list-style: none;
+.rc-guide-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 11px 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 9px;
+  color: #31537e !important;
+  background: #eff6ff;
 }
-.rc-guide summary::after {
-  content: "+";
-  float: right;
+.rc-guide-note svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  flex: none;
   color: var(--rc-blue);
 }
-.rc-guide details[open] summary::after {
-  content: "−";
+.rc-guide-faq > details {
+  border: 1px solid var(--rc-line);
+  border-radius: 9px;
+  overflow: hidden;
 }
-.rc-guide details p {
+.rc-guide-faq > details + details {
   margin-top: 8px;
+}
+.rc-guide-faq > details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  list-style: none;
+  cursor: pointer;
+  color: var(--rc-ink);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+.rc-guide-faq > details > summary::-webkit-details-marker {
+  display: none;
+}
+.rc-guide-faq > details > summary svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--rc-blue);
+  transition: transform 160ms ease;
+}
+.rc-guide-faq > details[open] > summary svg {
+  transform: rotate(180deg);
+}
+.rc-guide-faq > details[open] > summary {
+  background: var(--rc-soft);
+}
+.rc-guide-faq > details > p {
+  margin: 0;
+  padding: 11px 12px 13px;
+  border-top: 1px solid var(--rc-line);
 }
 .roof-shell-footer {
   max-width: 1384px;
@@ -1331,7 +1482,7 @@
 .dark .roof-shell .rc-card,
 .dark .roof-shell .rc-app button[data-variant="outline"],
 .dark .roof-shell .rc-app button.bg-card,
-.dark .roof-shell .rc-field > div,
+.dark .roof-shell .rc-field > div:not(.rc-slider-row),
 .dark .roof-shell .rc-material-label select,
 .dark .roof-shell .rc-mode .selected,
 .dark .roof-shell .rc-preview-toolbar button.selected,
@@ -1354,7 +1505,7 @@
   background: #152b50;
 }
 .dark .roof-shell .rc-material-grid > div,
-.dark .roof-shell .rc-field > div,
+.dark .roof-shell .rc-field > div:not(.rc-slider-row),
 .dark .roof-shell .rc-panel-list > div,
 .dark .roof-shell .rc-price-row,
 .dark .roof-shell .rc-saved-list > div {
@@ -1363,6 +1514,14 @@
 .dark .roof-shell .rc-notice {
   background: #142b26;
   color: #b8d8ca;
+}
+.dark .roof-shell .rc-guide-icon {
+  background: #152b50;
+}
+.dark .roof-shell .rc-guide-note {
+  color: #b8cbea !important;
+  background: #132640;
+  border-color: #315689;
 }
 .dark .roof-shell .rv-grid {
   color: #56749d;

@@ -41,6 +41,186 @@ import { RoofView } from "./roof-view";
 import "./roof-calculator.css";
 type Tab = "result" | "drawing" | "materials" | "estimate";
 
+const ROOF_GUIDE_COPY = {
+  ru: {
+    howTitle: "Как пользоваться калькулятором крыши",
+    howSubtitle: "От замеров здания до списка материалов",
+    howIntro:
+      "Калькулятор помогает предварительно оценить геометрию крыши, площадь покрытия и количество основных кровельных материалов. Для надёжного результата используйте размеры по наружным стенам.",
+    howSteps: [
+      "Выберите тип крыши: двускатную, вальмовую, односкатную или мансардную.",
+      "Введите длину и ширину здания. Свесы в эти размеры включать не нужно.",
+      "Задайте угол наклона либо высоту конька над стенами. Второе значение рассчитается автоматически.",
+      "Укажите карнизные и фронтонные свесы, затем проверьте рабочие размеры кровельного листа.",
+      "Настройте нахлёст, запас и расход саморезов по рекомендациям производителя материала.",
+      "Откройте вкладки «Чертёж», «Материалы» и «Смета», чтобы проверить результат и добавить цены поставщика.",
+    ],
+    howNote:
+      "Перед заказом перепроверьте размеры на объекте и согласуйте раскрой с поставщиком кровли.",
+    methodTitle: "Как рассчитывается крыша",
+    methodSubtitle: "Геометрия, материал и запас",
+    methodParagraphs: [
+      "Площадь крыши определяется как сумма площадей всех скатов с учётом горизонтальных свесов. Для двускатной крыши длина ската рассчитывается по углу наклона или высоте конька, после чего умножается на длину здания с фронтонными свесами.",
+      "Для односкатной, вальмовой и мансардной крыш используются отдельные геометрические модели. У мансардной крыши верхняя и нижняя части ската рассчитываются раздельно по их углам и точке излома.",
+      "Количество листов считается по рабочей ширине и длине листа с учётом продольного нахлёста. Результат округляется вверх до целого листа, затем добавляется выбранный процент запаса.",
+      "Коньковые и вальмовые планки считаются стандартными отрезками по 2 метра с нахлёстом 0,1 метра. Саморезы рассчитываются по площади покрытия и указанному расходу на квадратный метр.",
+    ],
+    formulaLead: "Упрощённая формула площади двускатной крыши:",
+    formulaNote:
+      "A — длина здания, B — ширина, e — карнизный свес, g — фронтонный свес, α — угол наклона. Промежуточные значения не округляются.",
+    faqTitle: "Частые вопросы о расчёте крыши",
+    faqSubtitle: "Точность, материалы и ограничения",
+    faqs: [
+      [
+        "Насколько точен онлайн-калькулятор крыши?",
+        "Геометрическая часть подходит для предварительной оценки при правильных исходных размерах. Фактический заказ зависит от профиля листа, схемы раскроя, сложных примыканий и требований производителя.",
+      ],
+      [
+        "Входят ли свесы в длину и ширину здания?",
+        "Нет. Длина и ширина вводятся по наружным стенам. Карнизные и фронтонные свесы задаются в отдельных полях и добавляются к геометрии автоматически.",
+      ],
+      [
+        "Какой запас материала выбрать?",
+        "Для простой прямоугольной двускатной крыши часто используют 7–10%. Для вальмовой, мансардной крыши, диагонального раскроя и большого числа примыканий запас обычно увеличивают до 12–20% после консультации с поставщиком.",
+      ],
+      [
+        "Учитывает ли расчёт повторное использование обрезков?",
+        "Нет. Калькулятор использует консервативную схему и не переносит обрезки между скатами. Точную оптимизацию раскроя выполняют по монтажной схеме конкретного материала.",
+      ],
+      [
+        "Что не входит в предварительную смету?",
+        "В неё не входят стропила, мауэрлат, обрешётка, мембраны, утепление, водосток, доборные элементы сложных примыканий, доставка и монтажные работы.",
+      ],
+      [
+        "Можно ли сохранить или передать расчёт?",
+        "Да. Сохранённые расчёты остаются в браузере на текущем устройстве, а кнопка «Поделиться» создаёт ссылку с параметрами, которую можно открыть на другом устройстве.",
+      ],
+      [
+        "Заменяет ли калькулятор проект крыши?",
+        "Нет. Он рассчитывает геометрию покрытия и ориентировочные материалы, но не проверяет снеговую и ветровую нагрузку, сечения стропил и несущую способность. Эти параметры определяет проектировщик.",
+      ],
+    ],
+  },
+  en: {
+    howTitle: "How to use the roof calculator",
+    howSubtitle: "From building measurements to a material list",
+    howIntro:
+      "The calculator provides a preliminary estimate of roof geometry, coverage area and key roofing materials. Use dimensions measured along the outside of the walls.",
+    howSteps: [
+      "Choose a gable, hip, shed or mansard roof.",
+      "Enter the building length and width without roof overhangs.",
+      "Set the pitch or ridge height. The corresponding value is calculated automatically.",
+      "Enter eave and gable overhangs, then confirm the usable dimensions of the roofing sheet.",
+      "Set overlap, allowance and screw consumption according to the manufacturer's guidance.",
+      "Review the Drawing, Materials and Estimate tabs and add your supplier prices.",
+    ],
+    howNote:
+      "Measure the building again and confirm the cutting plan with your supplier before ordering.",
+    methodTitle: "How the roof is calculated",
+    methodSubtitle: "Geometry, materials and allowance",
+    methodParagraphs: [
+      "Roof area is the sum of all slope areas, including horizontal overhangs. For a gable roof, slope length is derived from the pitch or ridge height and multiplied by the building length plus gable overhangs.",
+      "Shed, hip and mansard roofs use separate geometry models. The upper and lower sections of a mansard slope are calculated independently from their pitches and break point.",
+      "Sheet quantity uses the usable sheet width and lengthwise overlap. The result is rounded up to whole sheets before the selected allowance is added.",
+      "Ridge and hip trims use 2 metre sections with a 0.1 metre overlap. Screw quantity is based on covered area and the selected consumption per square metre.",
+    ],
+    formulaLead: "Simplified gable-roof area formula:",
+    formulaNote:
+      "A is building length, B is width, e is eave overhang, g is gable overhang and α is roof pitch. Intermediate values are not rounded.",
+    faqTitle: "Roof calculation FAQ",
+    faqSubtitle: "Accuracy, materials and limitations",
+    faqs: [
+      [
+        "How accurate is the online roof calculator?",
+        "The geometry is suitable for preliminary estimates when the input measurements are correct. The final order depends on sheet profile, cutting layout, junctions and manufacturer requirements.",
+      ],
+      [
+        "Are overhangs included in building length and width?",
+        "No. Enter dimensions along the outside walls. Eave and gable overhangs are separate inputs and are added automatically.",
+      ],
+      [
+        "How much material allowance should I use?",
+        "A simple rectangular gable roof often needs 7–10%. Hip and mansard roofs, diagonal cuts and many junctions may require 12–20% after consultation with the supplier.",
+      ],
+      [
+        "Does the calculation reuse offcuts?",
+        "No. It uses a conservative layout and does not transfer offcuts between slopes. Exact optimization requires a cutting plan for the selected product.",
+      ],
+      [
+        "What is excluded from the estimate?",
+        "Rafters, battens, membranes, insulation, drainage, complex flashing, delivery and installation work are excluded.",
+      ],
+      [
+        "Can I save or share a calculation?",
+        "Yes. Saved calculations remain in this browser, while Share creates a URL containing the parameters for another device.",
+      ],
+      [
+        "Does this replace a structural roof design?",
+        "No. It estimates covering geometry and materials but does not verify snow loads, wind loads, rafter sizes or structural capacity. Consult a qualified designer.",
+      ],
+    ],
+  },
+  uz: {
+    howTitle: "Tom kalkulyatoridan qanday foydalaniladi",
+    howSubtitle: "Bino o‘lchamlaridan materiallar ro‘yxatigacha",
+    howIntro:
+      "Kalkulyator tom geometriyasi, qoplama maydoni va asosiy materiallar miqdorini dastlabki baholashga yordam beradi. Tashqi devorlar bo‘yicha o‘lchangan qiymatlarni kiriting.",
+    howSteps: [
+      "Ikki nishabli, valmali, bir nishabli yoki mansard tom turini tanlang.",
+      "Tom chiqindilarini qo‘shmasdan binoning uzunligi va kengligini kiriting.",
+      "Nishab burchagi yoki devordan konьok balandligini belgilang — ikkinchi qiymat avtomatik hisoblanadi.",
+      "Karniz va fronton chiqindilarini, so‘ng tom listining ishchi o‘lchamlarini tekshiring.",
+      "Ishlab chiqaruvchi tavsiyasiga ko‘ra ustma-ust tushish, zaxira va mahkamlagich sarfini kiriting.",
+      "Chizma, Materiallar va Smeta bo‘limlarida natijani tekshirib, yetkazib beruvchi narxlarini kiriting.",
+    ],
+    howNote:
+      "Buyurtmadan oldin obyektni qayta o‘lchang va kesish rejasini yetkazib beruvchi bilan kelishing.",
+    methodTitle: "Tom qanday hisoblanadi",
+    methodSubtitle: "Geometriya, material va zaxira",
+    methodParagraphs: [
+      "Tom maydoni gorizontal chiqindilarni hisobga olgan barcha nishablar maydoni yig‘indisidir. Ikki nishabli tomda nishab uzunligi burchak yoki konьok balandligidan olinadi.",
+      "Bir nishabli, valmali va mansard tomlar uchun alohida geometrik modellar ishlatiladi. Mansard tomining yuqori va pastki qismlari alohida hisoblanadi.",
+      "Listlar soni ishchi kenglik, uzunlik bo‘yicha ustma-ust tushish va tanlangan zaxira asosida butun songa yuqoriga yaxlitlanadi.",
+      "Konьok va valma plankalari 2 metrlik qismlar va 0,1 metr ustma-ust tushish bilan, mahkamlagichlar esa qoplama maydoni bo‘yicha hisoblanadi.",
+    ],
+    formulaLead: "Ikki nishabli tom maydonining soddalashtirilgan formulasi:",
+    formulaNote:
+      "A — bino uzunligi, B — kengligi, e — karniz chiqindisi, g — fronton chiqindisi, α — nishab burchagi. Oraliq qiymatlar yaxlitlanmaydi.",
+    faqTitle: "Tom hisobiga oid ko‘p so‘raladigan savollar",
+    faqSubtitle: "Aniqlik, materiallar va cheklovlar",
+    faqs: [
+      [
+        "Onlayn tom kalkulyatori qanchalik aniq?",
+        "Boshlang‘ich o‘lchamlar to‘g‘ri bo‘lsa, geometriya dastlabki baholash uchun mos. Yakuniy buyurtma list profili, kesish rejasi va ishlab chiqaruvchi talablariga bog‘liq.",
+      ],
+      [
+        "Tom chiqindilari bino o‘lchamiga kiradimi?",
+        "Yo‘q. Uzunlik va kenglik tashqi devorlar bo‘yicha kiritiladi, karniz va fronton chiqindilari esa alohida qo‘shiladi.",
+      ],
+      [
+        "Qancha material zaxirasi kerak?",
+        "Oddiy ikki nishabli tom uchun ko‘pincha 7–10% yetadi. Valmali yoki mansard tom va murakkab kesishlarda yetkazib beruvchi bilan kelishib 12–20% tanlanadi.",
+      ],
+      [
+        "Kesilgan qoldiqlar qayta ishlatiladimi?",
+        "Yo‘q. Kalkulyator konservativ hisoblaydi va qoldiqlarni nishablar orasida ko‘chirmaydi. Aniq optimallashtirish uchun kesish rejasi kerak.",
+      ],
+      [
+        "Smetaga nimalar kirmaydi?",
+        "Stropila, obreshetka, membrana, issiqlik izolyatsiyasi, suv oqimi, murakkab qo‘shimcha elementlar, yetkazish va montaj ishlari kirmaydi.",
+      ],
+      [
+        "Hisobni saqlash yoki ulashish mumkinmi?",
+        "Ha. Saqlangan hisoblar shu brauzerda qoladi, Ulashish tugmasi esa parametrlar yozilgan havolani yaratadi.",
+      ],
+      [
+        "Kalkulyator tom loyihasini almashtiradimi?",
+        "Yo‘q. U qoplama geometriyasi va materiallarni baholaydi, ammo qor va shamol yuklari hamda konstruksiya mustahkamligini tekshirmaydi.",
+      ],
+    ],
+  },
+} as const;
+
 export function RoofCalculatorPage() {
   const { locale } = useI18n();
   const tr = (value: string) => (locale === "en" ? (ROOF_CALCULATOR_EN[value] ?? value) : value);
@@ -72,12 +252,41 @@ export function RoofCalculatorPage() {
   }, [input]);
   const patch = (p: Partial<RoofInput>) => setInput((i) => ({ ...i, ...p }));
   const update = (k: keyof RoofInput, value: number) => patch({ [k]: value });
+  const sliderConfig = (key: keyof RoofInput) => {
+    const fixed: Partial<Record<keyof RoofInput, { min: number; max: number; step: number }>> = {
+      length: { min: 0.5, max: 100, step: 0.5 },
+      width: { min: 0.5, max: 100, step: 0.5 },
+      angle: { min: 5, max: 75, step: 1 },
+      eaves: { min: 0, max: 2, step: 0.05 },
+      gable: { min: 0, max: 2, step: 0.05 },
+      lowerAngle: { min: 30, max: 80, step: 1 },
+      sheetWidth: { min: 0.3, max: 2, step: 0.01 },
+      sheetLength: { min: 0.5, max: 12, step: 0.1 },
+      overlap: { min: 0, max: 0.5, step: 0.01 },
+      waste: { min: 0, max: 40, step: 1 },
+      screws: { min: 1, max: 20, step: 1 },
+    };
+    if (key === "height") {
+      const run = input.type === "shed" ? input.width : input.width / 2;
+      return {
+        min: 0.1,
+        max: Math.max(0.1, Math.min(30, run * Math.tan((75 * Math.PI) / 180))),
+        step: 0.1,
+      };
+    }
+    if (key === "breakRun") {
+      return { min: 0.1, max: Math.max(0.1, input.width / 2 - 0.1), step: 0.05 };
+    }
+    return fixed[key];
+  };
   function field(
     key: keyof RoofInput,
     label: string,
     unit = locale === "en" ? "m" : "м",
     hint?: string,
   ) {
+    const slider = sliderConfig(key);
+    const numericValue = Number.isFinite(input[key]) ? Number(input[key]) : (slider?.min ?? 0);
     return (
       <label className="rc-field" key={key}>
         <span>{label}</span>
@@ -93,6 +302,23 @@ export function RoofCalculatorPage() {
           />
           <span>{unit}</span>
         </div>
+        {slider && (
+          <div className="rc-slider-row">
+            <input
+              className="rc-field-slider"
+              type="range"
+              min={slider.min}
+              max={slider.max}
+              step={slider.step}
+              value={Math.min(slider.max, Math.max(slider.min, numericValue))}
+              onChange={(e) => update(key, Number(e.target.value))}
+              aria-label={`${label}: ${numericValue} ${unit}`}
+            />
+            <small aria-hidden="true">
+              {f(slider.min)}–{f(slider.max)}
+            </small>
+          </div>
+        )}
         {errors[key] ? (
           <small className="rc-error" id={`roof-error-${key}`}>
             {errors[key]}
@@ -694,56 +920,7 @@ export function RoofCalculatorPage() {
             </div>
           )}
         </section>
-        <section className="rc-guide">
-          <article className="rc-card">
-            <h2>
-              <FileText />
-              {tr("Как пользоваться")}
-            </h2>
-            <ol>
-              <li>{tr("Выберите тип крыши и размеры здания.")}</li>
-              <li>{tr("Задайте угол или высоту и свесы.")}</li>
-              <li>{tr("Уточните размеры листа и нахлёст.")}</li>
-              <li>{tr("Проверьте материалы и введите цены.")}</li>
-            </ol>
-          </article>
-          <article className="rc-card">
-            <h2>
-              <Ruler />
-              {tr("Как мы считаем")}
-            </h2>
-            <p>{tr("Площадь — сумма площадей скатов. Для двускатной крыши:")}</p>
-            <code>S = 2 × (A + 2g) × (B/2 + e) / cos α</code>
-            <p>e — карнизный свес, g — фронтонный. Промежуточные значения не округляются.</p>
-          </article>
-          <article className="rc-card">
-            <h2>
-              <Info />
-              {tr("Частые вопросы")}
-            </h2>
-            <details>
-              <summary>{tr("Это точная смета?")}</summary>
-              <p>
-                Это предварительная оценка по геометрии. Заказ и раскрой уточняются с поставщиком,
-                несущие конструкции — с проектировщиком.
-              </p>
-            </details>
-            <details>
-              <summary>{tr("Что сохраняется по ссылке?")}</summary>
-              <p>
-                Размеры, тип крыши, параметры материала и ваши цены. Получатель увидит тот же
-                расчёт.
-              </p>
-            </details>
-            <details>
-              <summary>{tr("Куда отправляются данные?")}</summary>
-              <p>
-                Вычисления выполняются в браузере. Сохранённые расчёты находятся на этом устройстве;
-                ссылка передаёт параметры только когда вы ею делитесь.
-              </p>
-            </details>
-          </article>
-        </section>
+        <RoofGuide locale={locale} />
       </div>
     </div>
   );
@@ -756,6 +933,82 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
         {title}
       </h2>
       {children}
+    </section>
+  );
+}
+function RoofGuide({ locale }: { locale: keyof typeof ROOF_GUIDE_COPY }) {
+  const copy = ROOF_GUIDE_COPY[locale];
+  return (
+    <section className="rc-guide" aria-label={copy.howTitle}>
+      <details className="rc-card rc-guide-card">
+        <summary>
+          <span className="rc-guide-icon">
+            <FileText />
+          </span>
+          <span>
+            <b>{copy.howTitle}</b>
+            <small>{copy.howSubtitle}</small>
+          </span>
+          <ChevronDown className="rc-guide-chevron" />
+        </summary>
+        <div className="rc-guide-body">
+          <p>{copy.howIntro}</p>
+          <ol>
+            {copy.howSteps.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+          <p className="rc-guide-note">
+            <Info />
+            {copy.howNote}
+          </p>
+        </div>
+      </details>
+
+      <details className="rc-card rc-guide-card">
+        <summary>
+          <span className="rc-guide-icon">
+            <Ruler />
+          </span>
+          <span>
+            <b>{copy.methodTitle}</b>
+            <small>{copy.methodSubtitle}</small>
+          </span>
+          <ChevronDown className="rc-guide-chevron" />
+        </summary>
+        <div className="rc-guide-body">
+          {copy.methodParagraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <p>{copy.formulaLead}</p>
+          <code>S = 2 × (A + 2g) × (B/2 + e) / cos α</code>
+          <p>{copy.formulaNote}</p>
+        </div>
+      </details>
+
+      <details className="rc-card rc-guide-card">
+        <summary>
+          <span className="rc-guide-icon">
+            <Info />
+          </span>
+          <span>
+            <b>{copy.faqTitle}</b>
+            <small>{copy.faqSubtitle}</small>
+          </span>
+          <ChevronDown className="rc-guide-chevron" />
+        </summary>
+        <div className="rc-guide-body rc-guide-faq">
+          {copy.faqs.map(([question, answer]) => (
+            <details key={question}>
+              <summary>
+                <span>{question}</span>
+                <ChevronDown />
+              </summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </details>
     </section>
   );
 }
