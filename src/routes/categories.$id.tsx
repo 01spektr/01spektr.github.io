@@ -1,9 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
+  BarChart3,
   Box,
+  Briefcase,
+  CalendarDays,
   Check,
   ChevronRight,
+  ClipboardCheck,
+  FileText,
   Hammer,
   House,
   Image as ImageIcon,
@@ -70,6 +75,10 @@ function CategoryPage() {
 
   if (category.id === "logistics") {
     return <LogisticsCategory tools={tools} locale={locale} />;
+  }
+
+  if (category.id === "business") {
+    return <BusinessCategory tools={tools} locale={locale} />;
   }
 
   if (category.id === "design-print") {
@@ -317,6 +326,210 @@ function LogisticsCategory({
                 : en
                   ? "We are adding more calculators for cargo, routes and shipping step by step."
                   : "Постепенно добавляем калькуляторы груза, маршрутов и стоимости перевозок."}
+            </p>
+            <Link to="/tools">
+              {uz ? "Barcha vositalar" : en ? "View all tools" : "Все инструменты"} <ArrowRight />
+            </Link>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function BusinessCategory({
+  tools,
+  locale,
+}: {
+  tools: ReturnType<typeof toolsByCategory>;
+  locale: Locale;
+}) {
+  const en = locale === "en";
+  const uz = locale === "uz";
+  const topics = uz
+    ? ["Barcha vositalar", "Hujjatlar", "Hisob-fakturalar", "Hisob-kitoblar", "Rejalashtirish"]
+    : en
+      ? ["All tools", "Documents", "Invoices", "Calculations", "Planning"]
+      : ["Все инструменты", "Документы", "Счета", "Расчёты", "Планирование"];
+  const benefits = uz
+    ? [
+        ["Tartibli", "Hujjatlar va vazifalar"],
+        ["Tez", "Kamroq qo‘lda bajariladigan ish"],
+        ["Xavfsiz", "Ma’lumotlar brauzerda"],
+      ]
+    : en
+      ? [
+          ["Organized", "Documents and tasks"],
+          ["Fast", "Less manual work"],
+          ["Private", "Data stays in your browser"],
+        ]
+      : [
+          ["Организованно", "Документы и задачи"],
+          ["Быстро", "Меньше ручной работы"],
+          ["Надёжно", "Данные остаются в браузере"],
+        ];
+  const collections = uz
+    ? [
+        { title: "Hujjatlar", text: "Raqamlar va shablonlar", Icon: FileText },
+        { title: "Hisob-kitoblar", text: "Ko‘rsatkichlar va natijalar", Icon: BarChart3 },
+        { title: "Ishni rejalash", text: "Muddatlar va ish kunlari", Icon: CalendarDays },
+      ]
+    : en
+      ? [
+          { title: "Documents", text: "Numbers and templates", Icon: FileText },
+          { title: "Business calculations", text: "Metrics and results", Icon: BarChart3 },
+          { title: "Work planning", text: "Deadlines and workdays", Icon: CalendarDays },
+        ]
+      : [
+          { title: "Документы", text: "Номера и шаблоны", Icon: FileText },
+          { title: "Бизнес-расчёты", text: "Показатели и результаты", Icon: BarChart3 },
+          { title: "Планирование работы", text: "Сроки и рабочие дни", Icon: CalendarDays },
+        ];
+  const extendedDescriptions: Record<string, string> = {
+    "invoice-number": uz
+      ? "Hisob-fakturalar, aktlar va boshqa biznes hujjatlari uchun tartibli, takrorlanmaydigan raqamlarni yarating."
+      : en
+        ? "Create orderly, unique numbers for invoices, statements and other business documents."
+        : "Создавайте последовательные уникальные номера для счетов, актов и других деловых документов.",
+    "invoice-generator": uz
+      ? "Tovarlar, xizmatlar, miqdorlar va yakuniy summalar ko‘rsatilgan aniq hisob-fakturani tayyorlang."
+      : en
+        ? "Prepare a clear invoice with goods, services, quantities and final totals."
+        : "Подготавливайте понятный счёт с товарами, услугами, количеством и итоговыми суммами.",
+    "workday-calculator": uz
+      ? "Boshlanish sanasi va ish jadvali bo‘yicha ish kunlari, muddatlar va loyiha tugash sanasini hisoblang."
+      : en
+        ? "Calculate workdays, deadlines and a project completion date from a start date and work schedule."
+        : "Рассчитывайте рабочие дни, сроки и дату завершения проекта с учётом начала и рабочего графика.",
+  };
+
+  return (
+    <div className="construction-page business-category-page pb-10">
+      <nav aria-label="Breadcrumb" className="construction-breadcrumb">
+        <Link to={localeHomePath(locale)}>{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
+        <ChevronRight />
+        <Link to="/tools">{uz ? "Toifalar" : en ? "Categories" : "Категории"}</Link>
+        <ChevronRight />
+        <span>{uz ? "Ish va biznes uchun" : en ? "Work & business" : "Для работы и бизнеса"}</span>
+      </nav>
+
+      <section className="construction-hero business-category-hero">
+        <div className="construction-intro">
+          <span className="construction-icon business-category-icon">
+            <Briefcase />
+          </span>
+          <div>
+            <h1>{uz ? "Ish va biznes uchun" : en ? "Work & business" : "Для работы и бизнеса"}</h1>
+            <p>
+              {uz
+                ? "Hujjatlar, hisob-fakturalar, biznes hisob-kitoblari va kundalik vazifalar uchun qulay vositalar. Ishni bir joyda tartibga soling."
+                : en
+                  ? "Practical tools for documents, invoices, business calculations and everyday tasks. Keep your work organized in one place."
+                  : "Удобные инструменты для документов, счетов, бизнес-расчётов и ежедневных задач. Организуйте работу в одном месте."}
+            </p>
+          </div>
+        </div>
+        <img
+          src="/visuals/business-hero-v1.png"
+          alt=""
+          className="construction-hero-image business-category-hero-image"
+        />
+        <div className="construction-benefits">
+          {benefits.map(([title, text], index) => (
+            <div key={title}>
+              <span>
+                {index === 0 ? <ClipboardCheck /> : index === 1 ? <ArrowRight /> : <ShieldCheck />}
+              </span>
+              <p>
+                <b>{title}</b>
+                <small>{text}</small>
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="construction-topics">
+        {topics.map((topic, index) => (
+          <button type="button" className={index === 0 ? "is-active" : ""} key={topic}>
+            {topic}
+          </button>
+        ))}
+      </div>
+
+      <section>
+        <div className="construction-section-heading">
+          <div>
+            <h2>{uz ? "Vositalar" : en ? "Tools" : "Инструменты"}</h2>
+            <p>
+              {uz
+                ? "Hujjatlar, hisob-kitoblar va ishni rejalashtirish vositalari"
+                : en
+                  ? "Tools for documents, calculations and work planning"
+                  : "Инструменты для документов, расчётов и планирования работы"}
+            </p>
+          </div>
+          <span>
+            {tools.length} {uz ? "vosita" : en ? "tools" : "инструмента"}
+          </span>
+        </div>
+        <div className="construction-tool-grid">
+          {tools.map((tool) => (
+            <ConstructionTool
+              key={tool.id}
+              tool={tool}
+              locale={locale}
+              description={extendedDescriptions[tool.slug]}
+            />
+          ))}
+        </div>
+      </section>
+
+      <div className="construction-bottom">
+        <section className="construction-collections">
+          <div className="construction-panel-heading">
+            <div>
+              <span>
+                <Briefcase />
+              </span>
+              <h2>
+                {uz ? "Ommabop to‘plamlar" : en ? "Popular collections" : "Популярные подборки"}
+              </h2>
+            </div>
+          </div>
+          <div>
+            {collections.map(({ title, text, Icon: CollectionIcon }) => (
+              <Link to="/tools" key={title}>
+                <span>
+                  <CollectionIcon />
+                </span>
+                <p>
+                  <b>{title}</b>
+                  <small>{text}</small>
+                </p>
+                <ChevronRight />
+              </Link>
+            ))}
+          </div>
+        </section>
+        <section className="construction-note business-category-note">
+          <span>
+            <ClipboardCheck />
+          </span>
+          <div>
+            <h2>
+              {uz
+                ? "Kundalik ishlar uchun kamroq vaqt"
+                : en
+                  ? "Spend less time on routine work"
+                  : "Меньше времени на рутинную работу"}
+            </h2>
+            <p>
+              {uz
+                ? "Biznes vositalari ma’lumotlarni brauzerda qayta ishlaydi. Yangi hujjat va rejalash vositalari bosqichma-bosqich qo‘shiladi."
+                : en
+                  ? "Business tools process data in your browser. We are adding more document and planning tools step by step."
+                  : "Бизнес-инструменты обрабатывают данные в браузере. Новые решения для документов и планирования добавляются постепенно."}
             </p>
             <Link to="/tools">
               {uz ? "Barcha vositalar" : en ? "View all tools" : "Все инструменты"} <ArrowRight />

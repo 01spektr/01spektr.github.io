@@ -10,6 +10,8 @@ export const TOOL_ACCENTS: Record<string, string> = {
   "customs-calculator": "#16a8c7",
   "vat-calculator": "#0bad77",
   "invoice-number": "#2b78e9",
+  "invoice-generator": "#2563eb",
+  "workday-calculator": "#3b82f6",
   "word-counter": "#d94eaa",
   "case-converter": "#b25be5",
   "text-symbol-generator": "#8b5cf6",

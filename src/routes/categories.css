@@ -570,6 +570,58 @@
 .logistics-category-note a {
   color: #117da9;
 }
+.business-category-hero {
+  background:
+    radial-gradient(circle at 76% 24%, #ffffffdb 0 6%, transparent 31%),
+    linear-gradient(118deg, #fcfdff 0%, #eef4ff 53%, #e2ecff 100%);
+}
+.business-category-hero:after {
+  right: 15%;
+  bottom: -72%;
+  width: 52%;
+  background: #b6d1ff80;
+}
+.business-category-icon {
+  background: linear-gradient(135deg, #5593ff, #285fd6);
+  box-shadow: 0 12px 26px #2e68db3d;
+}
+.business-category-hero-image {
+  right: -1.1rem;
+  bottom: -4.7rem;
+  width: min(55%, 37rem);
+  max-height: 148%;
+}
+.business-category-page .construction-topics button.is-active {
+  background: #326fe5;
+  box-shadow: 0 5px 12px #326fe538;
+}
+.business-category-page .construction-panel-heading span,
+.business-category-page .construction-collections a > span {
+  color: #2864d8;
+  background: #e5edff;
+}
+.business-category-page .construction-tool {
+  min-height: 13rem;
+}
+.business-category-page .construction-tool p {
+  max-width: calc(100% - 0.5rem);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+.business-category-note {
+  border-color: #d9e5fa;
+  background: linear-gradient(135deg, #f0f5ff, #fff);
+}
+.business-category-note > span {
+  color: #2864d8;
+  background: #e1ebff;
+}
+.business-category-note p {
+  color: #64738d;
+}
+.business-category-note a {
+  color: #245bc5;
+}
 .dark .construction-page {
   color: #edf3ff;
 }
@@ -664,6 +716,21 @@
 .dark .logistics-category-note p {
   color: #9ebdcc;
 }
+.dark .business-category-hero {
+  border-color: #2e436a;
+  background: linear-gradient(120deg, #121f38, #172c50 58%, #101d34);
+}
+.dark .business-category-page .construction-panel-heading span,
+.dark .business-category-page .construction-collections a > span {
+  background: #1b3158;
+}
+.dark .business-category-note {
+  border-color: #2a456f;
+  background: #12223e;
+}
+.dark .business-category-note p {
+  color: #a5b6d1;
+}
 @media (max-width: 900px) {
   .construction-tool-grid {
     grid-template-columns: 1fr 1fr;
@@ -744,6 +811,9 @@
     min-height: 12.5rem;
   }
   .logistics-category-page .construction-tool {
+    min-height: 12.5rem;
+  }
+  .business-category-page .construction-tool {
     min-height: 12.5rem;
   }
   .construction-bottom {

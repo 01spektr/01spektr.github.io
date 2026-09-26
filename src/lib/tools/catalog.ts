@@ -361,6 +361,38 @@ export const TOOLS: ToolDef[] = [
     available: false,
   },
   {
+    id: "invoice-generator",
+    slug: "invoice-generator",
+    category: "business",
+    name: { ru: "Генератор счетов", en: "Invoice generator", uz: "Hisob-faktura generatori" },
+    description: {
+      ru: "Создание аккуратных счетов для товаров и услуг.",
+      en: "Create clear invoices for goods and services.",
+      uz: "Tovar va xizmatlar uchun aniq hisob-fakturalar yarating.",
+    },
+    keywords: ["счёт", "invoice", "документ", "hisob-faktura"],
+    icon: "ReceiptText",
+    available: false,
+  },
+  {
+    id: "workday-calculator",
+    slug: "workday-calculator",
+    category: "business",
+    name: {
+      ru: "Калькулятор рабочих дней",
+      en: "Workday calculator",
+      uz: "Ish kunlari kalkulyatori",
+    },
+    description: {
+      ru: "Расчёт рабочих дней и сроков между датами.",
+      en: "Calculate workdays and deadlines between dates.",
+      uz: "Sanalar orasidagi ish kunlari va muddatlarni hisoblang.",
+    },
+    keywords: ["рабочие дни", "срок", "дата", "workdays", "ish kunlari"],
+    icon: "CalendarDays",
+    available: false,
+  },
+  {
     id: "text-symbol-generator",
     slug: "text-symbol-generator",
     category: "ai-text",
