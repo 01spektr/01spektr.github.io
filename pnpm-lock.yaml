@@ -119,6 +119,9 @@ importers:
       html2canvas:
         specifier: 1.4.1
         version: 1.4.1
+      html2canvas-pro:
+        specifier: 2.4.5
+        version: 2.4.5
       jose:
         specifier: 6.2.9
         version: 6.2.9
@@ -2204,6 +2207,10 @@ packages:
 
   hookable@6.1.1:
     resolution: {integrity: sha512-U9LYDy1CwhMCnprUfeAZWZGByVbhd54hwepegYTK7Pi5NvqEj63ifz5z+xukznehT7i6NIZRu89Ay1AZmRsLEQ==}
+
+  html2canvas-pro@2.4.5:
+    resolution: {integrity: sha512-aeAwXx+Tt+i3ci0PJffMJVyxr0FJzuz44SkB7j/2Mh6Mjb7/+OeMhms56wK4j72zzKlKthoxSMzd883Lr0PcCA==}
+    engines: {node: '>=16.0.0'}
 
   html2canvas@1.4.1:
     resolution: {integrity: sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==}
@@ -5043,6 +5050,11 @@ snapshots:
   has-flag@4.0.0: {}
 
   hookable@6.1.1: {}
+
+  html2canvas-pro@2.4.5:
+    dependencies:
+      css-line-break: 2.1.0
+      text-segmentation: 1.0.3
 
   html2canvas@1.4.1:
     dependencies:

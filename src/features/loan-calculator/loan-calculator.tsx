@@ -1,1148 +1,723 @@
-import { Link } from "@tanstack/react-router";
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState, useMemo, useEffect } from "react";
+import { LoanParams, Currency, ComparisonScenario, PaymentType, ExampleLoanItem } from "./types";
+import { calculateLoan, formatCurrencyNumber } from "./utils/loanCalculations";
+import { HeroBanner } from "./components/HeroBanner";
+import { CalculatorForm } from "./components/CalculatorForm";
+import { ResultPane } from "./components/ResultPane";
+import { RightSidebar } from "./components/RightSidebar";
+import { BottomCards } from "./components/BottomCards";
+import { HistoryModal } from "./components/HistoryModal";
+import { PDFExportModal } from "./components/PDFExportModal";
+import { useLanguage } from "./context/LanguageContext";
 import {
-  BarChart3,
   Calculator,
-  CalendarDays,
-  Check,
-  ChevronDown,
+  BarChart3,
+  Car,
+  HelpCircle,
+  ArrowRight,
+  LayoutGrid,
+  Layers,
+  FileText,
   ChevronRight,
-  CircleDollarSign,
-  Copy,
-  CreditCard,
-  Heart,
-  Landmark,
-  ListOrdered,
-  Percent,
-  Printer,
-  RotateCcw,
-  Share2,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { ToolIcon } from "@/components/tool-icon";
-import { useI18n } from "@/lib/i18n";
-import { LOCALES, type Locale } from "@/lib/i18n/config";
 import { recordHistory } from "@/lib/tools/history";
 import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
 import "./loan-calculator.css";
 
-type PaymentType = "annuity" | "differentiated";
-type Tab = "result" | "schedule" | "details";
-type Params = {
-  amount: number;
-  termMonths: number;
-  interestRate: number;
-  paymentType: PaymentType;
-  downPayment: number;
-  fees: number;
-  insurance: number;
-};
-type Payment = {
-  month: number;
-  payment: number;
-  principal: number;
-  interest: number;
-  balance: number;
-};
-
-const DEFAULTS: Params = {
-  amount: 100_000,
+const DEFAULT_PARAMS: LoanParams = {
+  amount: 50000,
   termMonths: 36,
-  interestRate: 12,
+  interestRate: 6.8,
   paymentType: "annuity",
   downPayment: 0,
-  fees: 0,
-  insurance: 0,
+  oneTimeFees: 0,
+  annualInsurance: 0,
+  currency: "$",
+  roundToInteger: true,
+  purpose: "",
+  notes: "",
 };
-let activeCurrency = "$";
-
-const copy = {
-  ru: {
-    home: "Главная",
-    category: "Финансы и инвестиции",
-    title: "Кредитный калькулятор",
-    subtitle: "Рассчитайте ежемесячный платёж, переплату и полную стоимость кредита.",
-    tipTitle: "Планируйте финансы разумно",
-    tipBody: "Сравнивайте условия и выбирайте лучший вариант",
-    favorite: "В избранное",
-    share: "Поделиться",
-    settings: "Параметры кредита",
-    reset: "Сбросить",
-    amount: "Сумма кредита",
-    term: "Срок кредита",
-    months: "месяцев",
-    years: "лет",
-    rate: "Годовая процентная ставка",
-    paymentType: "Тип платежей",
-    annuity: "Аннуитетные",
-    annuityHint: "Равные платежи каждый месяц",
-    differentiated: "Дифференцированные",
-    differentiatedHint: "Платёж уменьшается со временем",
-    extra: "Дополнительные параметры",
-    downPayment: "Первоначальный взнос",
-    fees: "Единовременные комиссии",
-    insurance: "Страхование в год",
-    calculate: "Рассчитать",
-    result: "Результат",
-    schedule: "График платежей",
-    details: "Детали",
-    monthly: "Ежемесячный платёж",
-    from: "от",
-    total: "Общая сумма выплат",
-    overpay: "Переплата",
-    loanAmount: "Сумма кредита",
-    annualRate: "Процентная ставка",
-    duration: "Срок",
-    shareOverpay: "Доля переплаты",
-    principal: "Основной долг",
-    interest: "Проценты",
-    showTable: "Показать таблицу платежей",
-    month: "Месяц",
-    payment: "Платёж",
-    debt: "Тело кредита",
-    balance: "Остаток",
-    structure: "Структура полной стоимости",
-    included: "Учтены комиссии и страховка",
-    noExtra: "Без дополнительных расходов",
-    copied: "Ссылка на расчёт скопирована",
-    updated: "Расчёт обновлён",
-  },
-  en: {
-    home: "Home",
-    category: "Finance & investing",
-    title: "Loan calculator",
-    subtitle: "Calculate your monthly payment, total interest and total loan cost.",
-    tipTitle: "Plan your finances wisely",
-    tipBody: "Compare terms and choose the best option",
-    favorite: "Favorite",
-    share: "Share",
-    settings: "Loan settings",
-    reset: "Reset",
-    amount: "Loan amount",
-    term: "Loan term",
-    months: "months",
-    years: "years",
-    rate: "Annual interest rate",
-    paymentType: "Payment type",
-    annuity: "Annuity",
-    annuityHint: "The same payment each month",
-    differentiated: "Differentiated",
-    differentiatedHint: "Payment decreases over time",
-    extra: "Additional settings",
-    downPayment: "Down payment",
-    fees: "One-time fees",
-    insurance: "Annual insurance",
-    calculate: "Calculate",
-    result: "Result",
-    schedule: "Payment schedule",
-    details: "Details",
-    monthly: "Monthly payment",
-    from: "from",
-    total: "Total repayment",
-    overpay: "Total interest",
-    loanAmount: "Loan amount",
-    annualRate: "Interest rate",
-    duration: "Term",
-    shareOverpay: "Interest share",
-    principal: "Principal",
-    interest: "Interest",
-    showTable: "Show payment table",
-    month: "Month",
-    payment: "Payment",
-    debt: "Principal",
-    balance: "Balance",
-    structure: "Total cost breakdown",
-    included: "Fees and insurance included",
-    noExtra: "No additional expenses",
-    copied: "Loan link copied",
-    updated: "Calculation updated",
-  },
-  uz: {
-    home: "Bosh sahifa",
-    category: "Moliya va investitsiyalar",
-    title: "Kredit kalkulyatori",
-    subtitle: "Oylik to‘lov, ortiqcha to‘lov va kreditning umumiy qiymatini hisoblang.",
-    tipTitle: "Moliyangizni oqilona rejalashtiring",
-    tipBody: "Shartlarni solishtiring va eng yaxshi variantni tanlang",
-    favorite: "Sevimlilarga qo‘shish",
-    share: "Ulashish",
-    settings: "Kredit parametrlari",
-    reset: "Tiklash",
-    amount: "Kredit summasi",
-    term: "Kredit muddati",
-    months: "oy",
-    years: "yil",
-    rate: "Yillik foiz stavkasi",
-    paymentType: "To‘lov turi",
-    annuity: "Annuitet",
-    annuityHint: "Har oy teng to‘lov",
-    differentiated: "Differensial",
-    differentiatedHint: "To‘lov vaqt o‘tishi bilan kamayadi",
-    extra: "Qo‘shimcha parametrlar",
-    downPayment: "Boshlang‘ich to‘lov",
-    fees: "Bir martalik komissiyalar",
-    insurance: "Yillik sug‘urta",
-    calculate: "Hisoblash",
-    result: "Natija",
-    schedule: "To‘lovlar jadvali",
-    details: "Tafsilotlar",
-    monthly: "Oylik to‘lov",
-    from: "dan",
-    total: "Umumiy to‘lov summasi",
-    overpay: "Ortiqcha to‘lov",
-    loanAmount: "Kredit summasi",
-    annualRate: "Foiz stavkasi",
-    duration: "Muddat",
-    shareOverpay: "Ortiqcha to‘lov ulushi",
-    principal: "Asosiy qarz",
-    interest: "Foizlar",
-    showTable: "To‘lovlar jadvalini ko‘rsatish",
-    month: "Oy",
-    payment: "To‘lov",
-    debt: "Kredit tanasi",
-    balance: "Qoldiq",
-    structure: "Umumiy qiymat tarkibi",
-    included: "Komissiya va sug‘urta hisobga olingan",
-    noExtra: "Qo‘shimcha xarajatlarsiz",
-    copied: "Hisob-kitob havolasi nusxalandi",
-    updated: "Hisob-kitob yangilandi",
-  },
-} as const;
-
-function calculate(params: Params) {
-  const principalAmount = Math.max(0, params.amount - params.downPayment);
-  const months = Math.max(1, Math.round(params.termMonths));
-  const monthlyRate = Math.max(0, params.interestRate) / 1200;
-  const basePayment =
-    monthlyRate === 0
-      ? principalAmount / months
-      : (principalAmount * monthlyRate * (1 + monthlyRate) ** months) /
-        ((1 + monthlyRate) ** months - 1);
-  let balance = principalAmount;
-  const schedule: Payment[] = Array.from({ length: months }, (_, index) => {
-    const interest = balance * monthlyRate;
-    const principal =
-      index === months - 1
-        ? balance
-        : params.paymentType === "annuity"
-          ? Math.max(0, basePayment - interest)
-          : principalAmount / months;
-    const payment = principal + interest;
-    balance = Math.max(0, balance - principal);
-    return { month: index + 1, payment, principal, interest, balance };
-  });
-  const repayments = schedule.reduce((sum, item) => sum + item.payment, 0);
-  const extras = Math.max(0, params.fees) + Math.max(0, params.insurance) * (months / 12);
-  const total = repayments + extras;
-  const overpay = Math.max(0, total - principalAmount);
-  return {
-    principalAmount,
-    schedule,
-    total,
-    overpay,
-    extras,
-    monthly: params.paymentType === "annuity" ? basePayment : (schedule[0]?.payment ?? 0),
-    lastMonthly: schedule.at(-1)?.payment ?? 0,
-    overpayPercent: principalAmount ? (overpay / principalAmount) * 100 : 0,
-  };
-}
-
-function createLoanPdfPages({
-  params,
-  result,
-  locale,
-  currency,
-  t,
-}: {
-  params: Params;
-  result: ReturnType<typeof calculate>;
-  locale: Locale;
-  currency: string;
-  t: (typeof copy)[Locale];
-}) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 1240;
-  canvas.height = 1754;
-  const ctx = canvas.getContext("2d")!;
-  const pages: Uint8Array[] = [];
-  const drawText = (text: string, x: number, y: number, size = 28, color = "#102342") => {
-    ctx.fillStyle = color;
-    ctx.font = `${size}px Inter, Arial, sans-serif`;
-    ctx.fillText(text, x, y);
-  };
-  const page = (index: number) => {
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#2878ed";
-    ctx.fillRect(0, 0, canvas.width, 24);
-    drawText("toolboxi.uz", 72, 92, 30, "#2878ed");
-    drawText(t.title, 72, 165, 46);
-    drawText(
-      `${t.amount}: ${moneyText(params.amount, locale, currency)} · ${t.term}: ${params.termMonths} · ${t.rate}: ${params.interestRate}%`,
-      72,
-      212,
-      23,
-      "#62718b",
-    );
-    drawText(`${locale === "ru" ? "Страница" : locale === "uz" ? "Sahifa" : "Page"} ${index}`, 1040, 1690, 20, "#62718b");
-  };
-  page(1);
-  drawText(t.monthly, 72, 300, 24, "#62718b");
-  drawText(moneyText(result.monthly, locale, currency), 72, 365, 60, "#2878ed");
-  drawText(t.total, 560, 300, 24, "#62718b");
-  drawText(moneyText(result.total, locale, currency), 560, 342, 34);
-  drawText(t.overpay, 900, 300, 24, "#62718b");
-  drawText(moneyText(result.overpay, locale, currency), 900, 342, 34);
-  drawText(t.schedule, 72, 465, 32);
-  const items =
-    result.schedule.length > 24
-      ? result.schedule.filter(
-          (_, i) =>
-            i % Math.ceil(result.schedule.length / 24) === 0 || i === result.schedule.length - 1,
-        )
-      : result.schedule;
-  const max = Math.max(...items.map((item) => item.payment), 1);
-  const x = 105;
-  const y = 1060;
-  const h = 480;
-  const w = 1020 / items.length;
-  ctx.strokeStyle = "#dce5f2";
-  for (let row = 0; row < 5; row++) {
-    const lineY = y - (h / 4) * row;
-    ctx.beginPath();
-    ctx.moveTo(x, lineY);
-    ctx.lineTo(x + 1020, lineY);
-    ctx.stroke();
-  }
-  items.forEach((item, index) => {
-    const principalH = (item.principal / max) * h;
-    const interestH = (item.interest / max) * h;
-    ctx.fillStyle = "#b9d5fb";
-    ctx.fillRect(x + index * w + 3, y - principalH - interestH, Math.max(3, w - 6), interestH);
-    ctx.fillStyle = "#2878ed";
-    ctx.fillRect(x + index * w + 3, y - principalH, Math.max(3, w - 6), principalH);
-  });
-  drawText(t.principal, 72, 1125, 21, "#2878ed");
-  drawText(t.interest, 300, 1125, 21, "#5688c7");
-  pages.push(dataUrlBytes(canvas.toDataURL("image/jpeg", 0.93)));
-  for (let start = 0, pageNumber = 2; start < result.schedule.length; start += 28, pageNumber++) {
-    page(pageNumber);
-    const rows = result.schedule.slice(start, start + 28);
-    const headers = [t.month, t.payment, t.debt, t.interest, t.balance];
-    ctx.fillStyle = "#f2f7ff";
-    ctx.fillRect(72, 270, 1096, 45);
-    headers.forEach((header, index) => drawText(header, 85 + index * 215, 300, 18, "#52719e"));
-    rows.forEach((row, index) => {
-      const yy = 350 + index * 43;
-      ctx.strokeStyle = "#dce5f2";
-      ctx.beginPath();
-      ctx.moveTo(72, yy + 15);
-      ctx.lineTo(1168, yy + 15);
-      ctx.stroke();
-      [
-        String(row.month),
-        moneyText(row.payment, locale, currency),
-        moneyText(row.principal, locale, currency),
-        moneyText(row.interest, locale, currency),
-        moneyText(row.balance, locale, currency),
-      ].forEach((value, col) =>
-        drawText(
-          value,
-          85 + col * 215,
-          yy,
-          18,
-          col === 2 ? "#2878ed" : col === 3 ? "#5688c7" : "#102342",
-        ),
-      );
-    });
-    pages.push(dataUrlBytes(canvas.toDataURL("image/jpeg", 0.93)));
-  }
-  return pages;
-}
-function dataUrlBytes(dataUrl: string) {
-  const raw = atob(dataUrl.split(",")[1]);
-  return Uint8Array.from(raw, (char) => char.charCodeAt(0));
-}
-function createImagePdf(images: Uint8Array[]) {
-  const encoder = new TextEncoder();
-  const chunks: Uint8Array[] = [];
-  const offsets: number[] = [0];
-  let size = 0;
-  const push = (value: string | Uint8Array) => {
-    const bytes = typeof value === "string" ? encoder.encode(value) : value;
-    chunks.push(bytes);
-    size += bytes.length;
-  };
-  const object = (id: number, body: string | Uint8Array) => {
-    offsets[id] = size;
-    push(`${id} 0 obj\n`);
-    if (body instanceof Uint8Array) push(body);
-    else push(body);
-    push("\nendobj\n");
-  };
-  push("%PDF-1.4\n%");
-  push(new Uint8Array([0xe2, 0xe3, 0xcf, 0xd3]));
-  push("\n");
-  const count = images.length;
-  object(1, "<< /Type /Catalog /Pages 2 0 R >>");
-  object(
-    2,
-    `<< /Type /Pages /Kids [${images.map((_, i) => `${3 + i * 3} 0 R`).join(" ")}] /Count ${count} >>`,
-  );
-  images.forEach((image, i) => {
-    const pageId = 3 + i * 3,
-      imageId = pageId + 1,
-      contentId = pageId + 2;
-    object(
-      pageId,
-      `<< /Type /Page /Parent 2 0 R /Resources << /XObject << /Im${i} ${imageId} 0 R >> >> /MediaBox [0 0 595 842] /Contents ${contentId} 0 R >>`,
-    );
-    offsets[imageId] = size;
-    push(
-      `${imageId} 0 obj\n<< /Type /XObject /Subtype /Image /Width 1240 /Height 1754 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${image.length} >>\nstream\n`,
-    );
-    push(image);
-    push("\nendstream\nendobj\n");
-    object(contentId, `<< /Length 30 >>\nstream\nq\n595 0 0 842 0 0 cm\n/Im${i} Do\nQ\nendstream`);
-  });
-  const xref = size;
-  push(`xref\n0 ${offsets.length}\n0000000000 65535 f \n`);
-  for (let i = 1; i < offsets.length; i++)
-    push(`${String(offsets[i]).padStart(10, "0")} 00000 n \n`);
-  push(`trailer\n<< /Size ${offsets.length} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
-  const total = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
-  const output = new Uint8Array(total);
-  let offset = 0;
-  chunks.forEach((chunk) => {
-    output.set(chunk, offset);
-    offset += chunk.length;
-  });
-  return output;
-}
-
-const number = (value: number, locale: Locale, digits = 0) =>
-  new Intl.NumberFormat(LOCALES[locale].numberLocale, {
-    maximumFractionDigits: digits,
-  }).format(Number.isFinite(value) ? value : 0);
-
-const moneyText = (value: number, locale: Locale, currency = activeCurrency) =>
-  currency === "сум" ? `${number(value, locale)} сум` : `${currency}${number(value, locale)}`;
-
-function Money({
-  value,
-  locale,
-  className,
-}: {
-  value: number;
-  locale: Locale;
-  className?: string;
-}) {
-  return <span className={className}>{moneyText(value, locale)}</span>;
-}
 
 export function LoanCalculatorPage() {
-  const { locale } = useI18n();
-  const t = copy[locale];
-  const [params, setParams] = useState<Params>(DEFAULTS);
-  const [tab, setTab] = useState<Tab>("result");
-  const [extraOpen, setExtraOpen] = useState(false);
-  const [tableOpen, setTableOpen] = useState(false);
-  const [favorite, setFavorite] = useState(false);
-  const [currencyOpen, setCurrencyOpen] = useState(false);
-  const [currency, setCurrency] = useState("$");
-  activeCurrency = currency;
-  const result = useMemo(() => calculate(params), [params]);
-  const patch = (next: Partial<Params>) => setParams((current) => ({ ...current, ...next }));
+  const { t, language } = useLanguage();
+  const [params, setParams] = useState<LoanParams>(() => {
+    if (typeof window !== "undefined" && window.location.search) {
+      const search = new URLSearchParams(window.location.search);
+      const amount = Number(search.get("amount"));
+      const term = Number(search.get("term"));
+      const rate = Number(search.get("rate"));
+      const type = search.get("type") as PaymentType;
+      const cur = search.get("currency") as Currency;
+
+      return {
+        ...DEFAULT_PARAMS,
+        amount: !isNaN(amount) && amount > 0 ? amount : DEFAULT_PARAMS.amount,
+        termMonths: !isNaN(term) && term > 0 ? term : DEFAULT_PARAMS.termMonths,
+        interestRate: !isNaN(rate) && rate > 0 ? rate : DEFAULT_PARAMS.interestRate,
+        paymentType: type === "differentiated" ? "differentiated" : "annuity",
+        currency: cur || DEFAULT_PARAMS.currency,
+      };
+    }
+    return DEFAULT_PARAMS;
+  });
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isPDFOpen, setIsPDFOpen] = useState(false);
+  const [isSiteFavorite, setIsSiteFavorite] = useState(false);
+
+  // Mobile navigation state
+  const [mobileTab, setMobileTab] = useState<"calc" | "result" | "rates" | "info">("calc");
+  const [mobileViewMode, setMobileViewMode] = useState<"tabs" | "all">("tabs");
+
+  useEffect(() => setIsSiteFavorite(isFavorite("loan-calculator")), []);
+
+  // Global history
+  const [history, setHistory] = useState<ComparisonScenario[]>(() => {
+    try {
+      const stored = localStorage.getItem("toolboxi_loan_history_v2");
+      if (stored) return JSON.parse(stored);
+    } catch {
+      // fallback
+    }
+    return [
+      {
+        id: "1",
+        name: "Mortgage 30Y (USA)",
+        date: "24.09.2026",
+        params: {
+          ...DEFAULT_PARAMS,
+          amount: 250000,
+          termMonths: 360,
+          interestRate: 6.8,
+          currency: "$",
+        },
+        result: calculateLoan({
+          ...DEFAULT_PARAMS,
+          amount: 250000,
+          termMonths: 360,
+          interestRate: 6.8,
+          currency: "$",
+        }),
+      },
+      {
+        id: "2",
+        name: "Auto Loan (Germany)",
+        date: "23.09.2026",
+        params: {
+          ...DEFAULT_PARAMS,
+          amount: 35000,
+          termMonths: 48,
+          interestRate: 4.9,
+          currency: "€",
+        },
+        result: calculateLoan({
+          ...DEFAULT_PARAMS,
+          amount: 35000,
+          termMonths: 48,
+          interestRate: 4.9,
+          currency: "€",
+        }),
+      },
+      {
+        id: "3",
+        name: "Personal Loan (UK)",
+        date: "22.09.2026",
+        params: {
+          ...DEFAULT_PARAMS,
+          amount: 15000,
+          termMonths: 24,
+          interestRate: 5.5,
+          currency: "$",
+        },
+        result: calculateLoan({
+          ...DEFAULT_PARAMS,
+          amount: 15000,
+          termMonths: 24,
+          interestRate: 5.5,
+          currency: "$",
+        }),
+      },
+      {
+        id: "4",
+        name: "Isteʼmol krediti 100 mln (UZ)",
+        date: "20.09.2026",
+        params: {
+          ...DEFAULT_PARAMS,
+          amount: 100000000,
+          termMonths: 36,
+          interestRate: 19.5,
+          currency: "сум",
+        },
+        result: calculateLoan({
+          ...DEFAULT_PARAMS,
+          amount: 100000000,
+          termMonths: 36,
+          interestRate: 19.5,
+          currency: "сум",
+        }),
+      },
+      {
+        id: "5",
+        name: "Ипотека 5 млн (RU)",
+        date: "18.09.2026",
+        params: {
+          ...DEFAULT_PARAMS,
+          amount: 5000000,
+          termMonths: 180,
+          interestRate: 19.0,
+          currency: "₽",
+        },
+        result: calculateLoan({
+          ...DEFAULT_PARAMS,
+          amount: 5000000,
+          termMonths: 180,
+          interestRate: 19.0,
+          currency: "₽",
+        }),
+      },
+    ];
+  });
 
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const read = (key: string, fallback: number) => {
-      const value = Number(query.get(key));
-      return Number.isFinite(value) && value >= 0 ? value : fallback;
-    };
-    if (query.has("amount") || query.has("term") || query.has("rate")) {
-      setParams((current) => ({
-        ...current,
-        amount: read("amount", current.amount),
-        termMonths: Math.max(1, read("term", current.termMonths)),
-        interestRate: read("rate", current.interestRate),
-        paymentType:
-          query.get("type") === "differentiated" ? "differentiated" : current.paymentType,
-      }));
+    try {
+      localStorage.setItem("toolboxi_loan_history_v2", JSON.stringify(history));
+    } catch {
+      // ignore
     }
-  }, []);
-  useEffect(() => setFavorite(isFavorite("loan-calculator")), []);
+  }, [history]);
 
-  function setMoney(key: "amount" | "downPayment" | "fees" | "insurance", value: string) {
-    const parsed = Number(value.replace(/[^0-9.]/g, ""));
-    patch({ [key]: Number.isFinite(parsed) ? Math.max(0, parsed) : 0 });
-  }
-  function reset() {
-    setParams(DEFAULTS);
-    setExtraOpen(false);
-  }
-  function showCalculation() {
+  // Recalculate
+  const result = useMemo(() => {
+    return calculateLoan(params);
+  }, [params]);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleParamChange = (updated: Partial<LoanParams>) => {
+    setParams((prev) => ({ ...prev, ...updated }));
+  };
+
+  const handleReset = () => {
+    setParams(DEFAULT_PARAMS);
+    showToast(t.toasts.paramsReset);
+  };
+
+  const handleCalculate = () => {
+    const localeDateStr = language === "ru" ? "ru-RU" : language === "uz" ? "uz-UZ" : "en-US";
+    const fallbackName = `${t.result.detailsTitle}: ${formatCurrencyNumber(params.amount)} ${params.currency}`;
+    const newRecord: ComparisonScenario = {
+      id: Date.now().toString(),
+      name: params.purpose || fallbackName,
+      date: new Date().toLocaleDateString(localeDateStr),
+      params: { ...params },
+      result,
+    };
+
+    setHistory((prev) => [newRecord, ...prev.slice(0, 19)]);
     recordHistory({
       toolId: "loan-calculator",
-      title: `${number(params.amount, locale)} $ · ${params.interestRate}%`,
+      title: `${formatCurrencyNumber(params.amount)} ${params.currency} · ${params.interestRate}%`,
       params: {
         amount: String(params.amount),
         term: String(params.termMonths),
         rate: String(params.interestRate),
         type: params.paymentType,
+        currency: params.currency,
       },
     });
-    toast.success(t.updated);
-    document.getElementById("loan-results")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-  async function share() {
-    const parameters = new URLSearchParams({
+    showToast(t.toasts.calcSaved);
+
+    if (window.innerWidth < 1024) {
+      setMobileTab("result");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handleCopySummary = () => {
+    const pTypeStr = params.paymentType === "annuity" ? t.result.annuityFull : t.result.diffFull;
+    const summaryText =
+      `Toolboxi.uz - ${t.result.title}:\n` +
+      `${t.result.loanAmount}: ${formatCurrencyNumber(params.amount)} ${params.currency}\n` +
+      `${t.result.loanTerm}: ${params.termMonths} ${t.result.monthsWord}\n` +
+      `${t.result.ratePerAnnum}: ${params.interestRate}%\n` +
+      `${t.result.paymentType}: ${pTypeStr}\n` +
+      `${t.result.monthlyPayment}: ${formatCurrencyNumber(result.monthlyPayment)} ${params.currency}\n` +
+      `${t.result.overpayment}: ${formatCurrencyNumber(result.overpayment)} ${params.currency}\n` +
+      `${t.result.totalToRepay}: ${formatCurrencyNumber(result.totalPayment)} ${params.currency}`;
+
+    navigator.clipboard.writeText(summaryText);
+    showToast(t.toasts.copiedClipboard);
+  };
+
+  const handleShare = async () => {
+    const query = new URLSearchParams({
       amount: String(params.amount),
       term: String(params.termMonths),
       rate: String(params.interestRate),
       type: params.paymentType,
+      currency: params.currency,
     });
-    const status = await shareUrl(buildShareUrl("/tools/loan-calculator", parameters), t.title);
-    if (status === "copied" || status === "shared") toast.success(t.copied);
-  }
-  function downloadPdf() {
-    const pages = createLoanPdfPages({ params, result, locale, currency, t });
-    const url = URL.createObjectURL(new Blob([createImagePdf(pages)], { type: "application/pdf" }));
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `toolboxi-loan-${Date.now()}.pdf`;
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 500);
-  }
+    const status = await shareUrl(buildShareUrl("/tools/loan-calculator", query), t.hero.title);
+    if (status === "copied" || status === "shared") {
+      toast.success(t.toasts.copiedClipboard);
+    }
+  };
 
-  const chartItems =
-    result.schedule.length > 24
-      ? result.schedule.filter(
-          (_, index) =>
-            index % Math.ceil(result.schedule.length / 24) === 0 ||
-            index === result.schedule.length - 1,
-        )
-      : result.schedule;
-  const chartMax = Math.max(...chartItems.map((item) => item.payment), 1);
-  const totals = [
-    {
-      icon: CreditCard,
-      label: t.loanAmount,
-      value: <Money value={params.amount} locale={locale} />,
-    },
-    { icon: Percent, label: t.annualRate, value: `${params.interestRate}%` },
-    { icon: CalendarDays, label: t.duration, value: `${params.termMonths} ${t.months}` },
-    {
-      icon: CircleDollarSign,
-      label: t.shareOverpay,
-      value: `${number(result.overpayPercent, locale, 1)}%`,
-    },
-  ];
+  const handleSelectRate = (rate: number) => {
+    handleParamChange({ interestRate: rate });
+    showToast(`${t.toasts.rateSet}: ${rate}%`);
+  };
+
+  const handleSelectExample = (ex: ExampleLoanItem) => {
+    const chosenName =
+      language === "en" && ex.nameEn
+        ? ex.nameEn
+        : language === "uz" && ex.nameUz
+          ? ex.nameUz
+          : ex.name;
+
+    handleParamChange({
+      amount: ex.amount,
+      termMonths: ex.termMonths,
+      interestRate: ex.rate,
+      purpose: chosenName,
+      currency: ex.currency,
+    });
+    showToast(`${t.toasts.exampleLoaded}: «${chosenName}»`);
+  };
+
+  const handleLoadHistory = (item: ComparisonScenario) => {
+    setParams(item.params);
+    showToast(`${t.toasts.historyLoaded}: «${item.name}»`);
+  };
+
+  const handleDeleteHistory = (id: string) => {
+    setHistory((prev) => prev.filter((h) => h.id !== id));
+  };
+
+  const handleClearHistory = () => {
+    setHistory([]);
+    showToast(t.toasts.historyCleared);
+  };
+
+  const handleScrollToRates = () => {
+    if (window.innerWidth < 1024) {
+      setMobileTab("rates");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      document.getElementById("sidebar-rates")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <main className="loan-page">
-      <nav className="loan-breadcrumb" aria-label="Breadcrumb">
-        <Link to="/">
-          <span>{t.home}</span>
-        </Link>
-        <ChevronRight />
-        <Link to="/categories/$id" params={{ id: "finance" }}>
-          <span>{t.category}</span>
-        </Link>
-        <ChevronRight />
-        <span>{t.title}</span>
-      </nav>
-      <section className="loan-heading">
-        <ToolIcon tool={{ slug: "loan-calculator", icon: "Landmark" }} size="hero" />
-        <div>
-          <h1>{t.title}</h1>
-          <p>{t.subtitle}</p>
-        </div>
-        <div className="loan-currency-picker">
-          <button
-            className="loan-currency-button"
-            type="button"
-            aria-label={locale === "uz" ? "Valyuta" : locale === "en" ? "Currency" : "Валюта"}
-            onClick={() => setCurrencyOpen((open) => !open)}
-          >
-            <CircleDollarSign />
-            <span>{currency}</span>
-          </button>
-          {currencyOpen && (
-            <div className="loan-currency-menu">
-              {["$", "сум", "€", "£", "₽"].map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => {
-                    setCurrency(item);
-                    setCurrencyOpen(false);
-                  }}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <button
-          className={`loan-action loan-favorite${favorite ? " active" : ""}`}
-          type="button"
-          onClick={() => setFavorite(toggleFavorite("loan-calculator"))}
-        >
-          <Heart fill={favorite ? "currentColor" : "none"} />
-          {t.favorite}
-        </button>
-        <button className="loan-action" type="button" onClick={share}>
-          <Share2 />
-          {t.share}
-        </button>
-      </section>
+    <div className="new-loan-page text-slate-800 dark:text-slate-100 font-body transition-colors duration-200">
+      {/* Main Container */}
+      <section className="max-w-[1440px] w-full mx-auto pb-24 lg:pb-8">
+        {/* 2. Sleek Global Hero Banner */}
+        <HeroBanner
+          historyCount={history.length}
+          onOpenHistory={() => setIsHistoryOpen(true)}
+          onToggleFavorite={() => setIsSiteFavorite(toggleFavorite("loan-calculator"))}
+          onShare={handleShare}
+          isFavorite={isSiteFavorite}
+        />
 
-      <section className="loan-workspace">
-        <form
-          className="loan-panel loan-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            showCalculation();
-          }}
-        >
-          <div className="loan-panel-head">
-            <h2>{t.settings}</h2>
-            <button type="button" onClick={reset}>
-              <RotateCcw />
-              {t.reset}
-            </button>
-          </div>
-          <div className="loan-form-columns">
-            <div className="loan-field-stack">
-              <NumberField
-                label={t.amount}
-                value={params.amount}
-                unit="$"
-                onChange={(value) => setMoney("amount", value)}
-              />
-              <Range
-                min={1_000}
-                max={1_000_000}
-                step={1_000}
-                value={params.amount}
-                onChange={(amount) => patch({ amount })}
-                left="$1k"
-                right="$1m"
-              />
-              <NumberField
-                label={t.rate}
-                value={params.interestRate}
-                unit="%"
-                onChange={(value) =>
-                  patch({ interestRate: Math.min(100, Math.max(0, Number(value) || 0)) })
-                }
-              />
-              <Range
-                min={0}
-                max={50}
-                step={0.1}
-                value={params.interestRate}
-                onChange={(interestRate) => patch({ interestRate })}
-                left="0%"
-                right="50%"
-              />
+        {/* Mobile Navigation Header & View Mode Switcher (< 1024px) */}
+        <div className="lg:hidden mb-4 space-y-2">
+          {/* Mobile Tab Switcher */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 rounded-2xl p-1 shadow-2xs flex items-center justify-between gap-1">
+            <div className="flex-1 grid grid-cols-4 gap-0.5 sm:gap-1 min-w-0">
+              {/* Tab 1: Calc */}
+              <button
+                type="button"
+                onClick={() => setMobileTab("calc")}
+                className={`min-w-0 py-1.5 sm:py-2 px-0.5 sm:px-1 rounded-xl text-[11px] sm:text-xs font-heading font-semibold transition-all flex items-center justify-center gap-1 cursor-pointer ${
+                  mobileTab === "calc" && mobileViewMode === "tabs"
+                    ? "bg-blue-600 text-white shadow-2xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                }`}
+              >
+                <Calculator className="w-3 h-3 shrink-0" />
+                <span className="truncate leading-none">{t.mobile.tabCalc}</span>
+              </button>
+
+              {/* Tab 2: Result */}
+              <button
+                type="button"
+                onClick={() => setMobileTab("result")}
+                className={`min-w-0 py-1.5 sm:py-2 px-0.5 sm:px-1 rounded-xl text-[11px] sm:text-xs font-heading font-semibold transition-all flex items-center justify-center gap-1 cursor-pointer ${
+                  mobileTab === "result" && mobileViewMode === "tabs"
+                    ? "bg-blue-600 text-white shadow-2xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                }`}
+              >
+                <BarChart3 className="w-3 h-3 shrink-0" />
+                <span className="truncate leading-none">{t.mobile.tabResult}</span>
+              </button>
+
+              {/* Tab 3: Rates */}
+              <button
+                type="button"
+                onClick={() => setMobileTab("rates")}
+                className={`min-w-0 py-1.5 sm:py-2 px-0.5 sm:px-1 rounded-xl text-[11px] sm:text-xs font-heading font-semibold transition-all flex items-center justify-center gap-1 cursor-pointer ${
+                  mobileTab === "rates" && mobileViewMode === "tabs"
+                    ? "bg-blue-600 text-white shadow-2xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                }`}
+              >
+                <Car className="w-3 h-3 shrink-0" />
+                <span className="truncate leading-none">{t.mobile.tabRates}</span>
+              </button>
+
+              {/* Tab 4: Info */}
+              <button
+                type="button"
+                onClick={() => setMobileTab("info")}
+                className={`min-w-0 py-1.5 sm:py-2 px-0.5 sm:px-1 rounded-xl text-[11px] sm:text-xs font-heading font-semibold transition-all flex items-center justify-center gap-1 cursor-pointer ${
+                  mobileTab === "info" && mobileViewMode === "tabs"
+                    ? "bg-blue-600 text-white shadow-2xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                }`}
+              >
+                <HelpCircle className="w-3 h-3 shrink-0" />
+                <span className="truncate leading-none">{t.mobile.tabInfo}</span>
+              </button>
             </div>
-            <div className="loan-field-stack">
-              <NumberField
-                label={t.term}
-                value={params.termMonths}
-                unit={t.months}
-                onChange={(value) =>
-                  patch({ termMonths: Math.min(600, Math.max(1, Number(value) || 1)) })
-                }
-              />
-              <Range
-                min={6}
-                max={360}
-                step={1}
-                value={params.termMonths}
-                onChange={(termMonths) => patch({ termMonths })}
-                left="6"
-                right="360"
-              />
-              <fieldset className="loan-payment-type">
-                <legend>{t.paymentType}</legend>
-                <PaymentTypeCard
-                  checked={params.paymentType === "annuity"}
-                  title={t.annuity}
-                  hint={t.annuityHint}
-                  onClick={() => patch({ paymentType: "annuity" })}
-                />
-                <PaymentTypeCard
-                  checked={params.paymentType === "differentiated"}
-                  title={t.differentiated}
-                  hint={t.differentiatedHint}
-                  onClick={() => patch({ paymentType: "differentiated" })}
-                />
-              </fieldset>
-            </div>
-          </div>
-          <div className="loan-extras">
+
+            {/* View Mode Toggle: Tabs vs All Blocks */}
             <button
               type="button"
-              onClick={() => setExtraOpen((open) => !open)}
-              aria-expanded={extraOpen}
+              onClick={() => setMobileViewMode(mobileViewMode === "tabs" ? "all" : "tabs")}
+              title={mobileViewMode === "tabs" ? t.mobile.viewModeAll : t.mobile.viewModeTabs}
+              className={`p-1.5 rounded-lg text-xs transition-colors shrink-0 cursor-pointer ${
+                mobileViewMode === "all"
+                  ? "bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60"
+                  : "text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+              }`}
             >
-              {t.extra}
-              <ChevronDown className={extraOpen ? "is-open" : ""} />
+              {mobileViewMode === "all" ? (
+                <Layers className="w-3.5 h-3.5" />
+              ) : (
+                <LayoutGrid className="w-3.5 h-3.5" />
+              )}
             </button>
-            {extraOpen && (
-              <div className="loan-extra-grid">
-                <NumberField
-                  label={t.downPayment}
-                  value={params.downPayment}
-                  unit="$"
-                  onChange={(value) => setMoney("downPayment", value)}
-                />
-                <NumberField
-                  label={t.fees}
-                  value={params.fees}
-                  unit="$"
-                  onChange={(value) => setMoney("fees", value)}
-                />
-                <NumberField
-                  label={t.insurance}
-                  value={params.insurance}
-                  unit="$"
-                  onChange={(value) => setMoney("insurance", value)}
-                />
-              </div>
-            )}
           </div>
-          <button className="loan-calculate" type="submit">
-            <Calculator />
-            {t.calculate}
-          </button>
-        </form>
+        </div>
 
-        <section className="loan-result-area" id="loan-results">
-          <div className="loan-tabs" role="tablist">
-            {(["result", "schedule", "details"] as Tab[]).map((value) => (
-              <button
-                key={value}
-                type="button"
-                role="tab"
-                aria-selected={tab === value}
-                className={tab === value ? "active" : ""}
-                onClick={() => setTab(value)}
-              >
-                {t[value]}
-              </button>
-            ))}
-          </div>
-          {tab === "result" && (
-            <>
-              <div className="loan-total">
-                <div>
-                  <span>{t.monthly}</span>
-                  <b>
-                    <Money value={result.monthly} locale={locale} />
-                  </b>
-                  {params.paymentType === "differentiated" && (
-                    <small>
-                      {t.from} <Money value={result.lastMonthly} locale={locale} />
-                    </small>
-                  )}
-                </div>
-                <div>
-                  <span>{t.total}</span>
-                  <strong>
-                    <Money value={result.total} locale={locale} />
-                  </strong>
-                </div>
-                <div>
-                  <span>{t.overpay}</span>
-                  <strong>
-                    <Money value={result.overpay} locale={locale} />
-                  </strong>
-                </div>
-              </div>
-              <div className="loan-metrics">
-                {totals.map(({ icon: Icon, label, value }) => (
-                  <div key={label}>
-                    <span>
-                      <Icon />
-                    </span>
-                    <p>
-                      {label}
-                      <b>{value}</b>
-                    </p>
+        {/* 3A. Mobile Tabs Content View (when mobileViewMode === 'tabs' on mobile) */}
+        <div className="lg:hidden">
+          {mobileViewMode === "tabs" ? (
+            <div className="space-y-4">
+              {/* Tab: Calculator */}
+              {mobileTab === "calc" && (
+                <div className="space-y-3.5 animate-in fade-in duration-200">
+                  <CalculatorForm
+                    params={params}
+                    onChange={handleParamChange}
+                    onReset={handleReset}
+                    onCalculate={handleCalculate}
+                    onScrollToRates={handleScrollToRates}
+                  />
+
+                  {/* Mobile Quick CTA Card at bottom of Calculator */}
+                  <div className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl shadow-md flex items-center justify-between gap-3">
+                    <div>
+                      <span className="text-[11px] text-blue-100 uppercase tracking-wider font-semibold block">
+                        {t.result.monthlyPayment}
+                      </span>
+                      <span className="text-xl font-black font-heading tracking-tight">
+                        {formatCurrencyNumber(result.monthlyPayment, params.roundToInteger)}{" "}
+                        {params.currency}
+                        {t.mobile.monthlyPaymentShort}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileTab("result");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="px-3.5 py-2 bg-white text-blue-700 rounded-xl font-heading font-bold text-xs shadow-xs hover:bg-blue-50 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+                    >
+                      <span>{t.mobile.viewResult}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
-                ))}
-              </div>
-              <div className="loan-chart-card">
-                <div className="loan-chart-title">
-                  <h2>{t.schedule}</h2>
-                  <span>
-                    <i />
-                    {t.principal}
-                    <i />
-                    {t.interest}
-                  </span>
                 </div>
-                <div className="loan-chart-layout">
-                  <div className="loan-chart-y" aria-hidden="true">
-                    <span>${number(chartMax, locale)}</span>
-                    <span>${number(chartMax / 2, locale)}</span>
-                    <span>$0</span>
+              )}
+
+              {/* Tab: Result */}
+              {mobileTab === "result" && (
+                <div className="space-y-3 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileTab("calc");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shadow-2xs cursor-pointer"
+                    >
+                      <span>← {t.mobile.editParams}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileTab("rates");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                    >
+                      <Car className="w-3.5 h-3.5" />
+                      <span>{t.mobile.tabRates} →</span>
+                    </button>
                   </div>
-                  <div className="loan-chart" aria-label={t.schedule}>
-                    {chartItems.map((item) => (
-                      <div
-                        className="loan-bar"
-                        key={item.month}
-                        title={`${t.month} ${item.month}: $${number(item.payment, locale)}`}
-                      >
-                        <em style={{ height: `${(item.interest / chartMax) * 100}%` }} />
-                        <span style={{ height: `${(item.principal / chartMax) * 100}%` }} />
+
+                  <ResultPane
+                    params={params}
+                    result={result}
+                    currency={params.currency}
+                    onCopyAll={handleCopySummary}
+                    onExportPDF={() => setIsPDFOpen(true)}
+                  />
+                </div>
+              )}
+
+              {/* Tab: World Rates (Авто в фокусе) */}
+              {mobileTab === "rates" && (
+                <div className="space-y-3 animate-in fade-in duration-200">
+                  {/* Notice banner: Auto is active */}
+                  <div className="bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/70 dark:border-blue-900/60 rounded-xl p-3 flex items-center justify-between gap-2 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0">
+                        <Car className="w-4 h-4" />
                       </div>
-                    ))}
+                      <div>
+                        <span className="font-heading font-bold text-slate-900 dark:text-slate-100 block">
+                          {t.mobile.autoRatesFirstNotice}
+                        </span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                          {t.rates.description}
+                        </span>
+                      </div>
+                    </div>
                   </div>
+
+                  <RightSidebar
+                    currentRate={params.interestRate}
+                    currency={params.currency}
+                    onSelectRate={handleSelectRate}
+                    onSelectExample={handleSelectExample}
+                  />
                 </div>
-                <div className="loan-chart-axis">
-                  <span>1</span>
-                  <span>{Math.ceil(params.termMonths / 2)}</span>
-                  <span>{params.termMonths}</span>
+              )}
+
+              {/* Tab: Info & FAQ */}
+              {mobileTab === "info" && (
+                <div className="animate-in fade-in duration-200">
+                  <BottomCards />
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setTableOpen(true);
-                    setTab("schedule");
-                  }}
-                >
-                  <ListOrdered />
-                  {t.showTable}
-                  <ChevronRight />
-                </button>
-                <button className="loan-pdf-button" type="button" onClick={downloadPdf}>
-                  <Printer />
-                  {locale === "uz" ? "PDF sifatida saqlash" : locale === "en" ? "Save as PDF" : "Сохранить в PDF"}
-                </button>
+              )}
+            </div>
+          ) : (
+            /* Continuous all blocks stacked on mobile */
+            <div className="space-y-5 animate-in fade-in duration-200">
+              <CalculatorForm
+                params={params}
+                onChange={handleParamChange}
+                onReset={handleReset}
+                onCalculate={handleCalculate}
+                onScrollToRates={handleScrollToRates}
+              />
+              <div id="result-pane-anchor">
+                <ResultPane
+                  params={params}
+                  result={result}
+                  currency={params.currency}
+                  onCopyAll={handleCopySummary}
+                  onExportPDF={() => setIsPDFOpen(true)}
+                />
               </div>
-            </>
+              <RightSidebar
+                currentRate={params.interestRate}
+                currency={params.currency}
+                onSelectRate={handleSelectRate}
+                onSelectExample={handleSelectExample}
+              />
+              <BottomCards />
+            </div>
           )}
-          {tab === "schedule" && (
-            <Schedule
-              tableOpen={tableOpen}
-              rows={result.schedule}
-              locale={locale}
-              t={t}
-              onPdf={downloadPdf}
-            />
-          )}
-          {tab === "details" && <Details result={result} locale={locale} t={t} />}
-        </section>
-      </section>
-      <LoanInfo locale={locale} />
-    </main>
-  );
-}
-
-function NumberField({
-  label,
-  value,
-  unit,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  unit: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <label className="loan-number-field">
-      <span>{label}</span>
-      <div>
-        <input
-          value={Number.isFinite(value) ? String(value) : ""}
-          inputMode="decimal"
-          onChange={(event) => onChange(event.target.value)}
-        />
-        <b>{unit}</b>
-      </div>
-    </label>
-  );
-}
-function Range({
-  min,
-  max,
-  step,
-  value,
-  onChange,
-  left,
-  right,
-}: {
-  min: number;
-  max: number;
-  step: number;
-  value: number;
-  onChange: (value: number) => void;
-  left: string;
-  right: string;
-}) {
-  return (
-    <label className="loan-range">
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={Math.min(max, Math.max(min, value))}
-        onChange={(event) => onChange(Number(event.target.value))}
-      />
-      <span>
-        <small>{left}</small>
-        <small>{right}</small>
-      </span>
-    </label>
-  );
-}
-function PaymentTypeCard({
-  checked,
-  title,
-  hint,
-  onClick,
-}: {
-  checked: boolean;
-  title: string;
-  hint: string;
-  onClick: () => void;
-}) {
-  return (
-    <button type="button" className={checked ? "selected" : ""} onClick={onClick}>
-      <i>{checked && <Check />}</i>
-      <span>
-        <b>{title}</b>
-        <small>{hint}</small>
-      </span>
-    </button>
-  );
-}
-function Schedule({
-  rows,
-  locale,
-  t,
-  onPdf,
-}: {
-  tableOpen: boolean;
-  rows: Payment[];
-  locale: Locale;
-  t: (typeof copy)[Locale];
-  onPdf: () => void;
-}) {
-  return (
-    <div className="loan-schedule-panel">
-      <div className="loan-schedule-head">
-        <div>
-          <h2>{t.schedule}</h2>
-          <p>
-            {locale === "uz"
-              ? "Har oy uchun asosiy qarz, foizlar va qolgan summa."
-              : locale === "en"
-                ? "Principal, interest and remaining balance for every month."
-                : "Основной долг, проценты и остаток по каждому месяцу."}
-          </p>
         </div>
-        <button type="button" onClick={onPdf}>
-          <Printer />
-          {locale === "uz" ? "PDF sifatida saqlash" : locale === "en" ? "Save as PDF" : "Сохранить в PDF"}
-        </button>
-      </div>
-      <div className="loan-table-wrap">
-        <table className="loan-payment-table">
-          <thead>
-            <tr>
-              <th>{t.month}</th>
-              <th>{t.payment}</th>
-              <th>{t.debt}</th>
-              <th>{t.interest}</th>
-              <th>{t.balance}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.month}>
-                <td>{row.month}</td>
-                <td className="loan-payment-value">
-                  <Money value={row.payment} locale={locale} />
-                </td>
-                <td className="loan-principal-value">
-                  <Money value={row.principal} locale={locale} />
-                </td>
-                <td className="loan-interest-value">
-                  <Money value={row.interest} locale={locale} />
-                </td>
-                <td>
-                  <Money value={row.balance} locale={locale} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-function Details({
-  result,
-  locale,
-  t,
-}: {
-  result: ReturnType<typeof calculate>;
-  locale: Locale;
-  t: (typeof copy)[Locale];
-}) {
-  const interest = Math.max(0, result.overpay - result.extras);
-  const parts = [
-    { label: t.principal, value: result.principalAmount, color: "#2878ed" },
-    { label: t.interest, value: interest, color: "#a9cbff" },
-    { label: t.included, value: result.extras, color: "#31c48d" },
-  ].filter((part) => part.value > 0);
-  return (
-    <div className="loan-details">
-      <h2>{t.structure}</h2>
-      <div className="loan-breakdown">
-        {parts.map((part) => (
-          <div key={part.label}>
-            <span
-              style={{ width: `${(part.value / result.total) * 100}%`, background: part.color }}
+
+        {/* 3B. Desktop Three-Column Layout (>= 1024px) */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-5 items-start">
+          {/* Column 1: Input Form with Range Sliders (4 cols ~ 33%) */}
+          <div className="lg:col-span-4 w-full">
+            <CalculatorForm
+              params={params}
+              onChange={handleParamChange}
+              onReset={handleReset}
+              onCalculate={handleCalculate}
+              onScrollToRates={handleScrollToRates}
             />
-            <p>
-              {part.label}
-              <b>
-                <Money value={part.value} locale={locale} />
-              </b>
-            </p>
           </div>
-        ))}
-      </div>
-      <p>{result.extras > 0 ? t.included : t.noExtra}</p>
-    </div>
-  );
-}
 
-function LoanInfo({ locale }: { locale: Locale }) {
-  const en = locale === "en";
-  const uz = locale === "uz";
-  const steps = uz
-    ? [
-        "Kredit summasini kiriting",
-        "Muddat va foiz stavkasini belgilang",
-        "To‘lov turini tanlang",
-        "Natija va jadvalni ko‘rib chiqing",
-      ]
-    : en
-    ? [
-        "Enter the loan amount",
-        "Set the term and interest rate",
-        "Choose a payment type",
-        "Review the result and schedule",
-      ]
-    : [
-        "Введите сумму кредита",
-        "Укажите срок и процентную ставку",
-        "Выберите тип платежей",
-        "Ознакомьтесь с результатом и графиком",
-      ];
-  const tips = uz
-    ? [
-        "Kattaroq boshlang‘ich to‘lov umumiy foizni kamaytiradi.",
-        "Bir nechta bank takliflarini solishtiring.",
-        "Komissiyalar va yillik sug‘urtani hisobga oling.",
-        "Muddatidan oldin to‘lash shartlarini tekshiring.",
-      ]
-    : en
-    ? [
-        "A larger down payment reduces total interest.",
-        "Compare offers from several lenders.",
-        "Review fees and annual insurance.",
-        "Check whether early repayment is available.",
-      ]
-    : [
-        "Больший первоначальный взнос уменьшает переплату.",
-        "Сравнивайте предложения нескольких банков.",
-        "Учитывайте комиссии и ежегодную страховку.",
-        "Проверьте условия досрочного погашения.",
-      ];
-  const questions = uz
-    ? [
-        "Annuitet to‘lovi nima?",
-        "Oylik to‘lov qanday hisoblanadi?",
-        "Muddatidan oldin to‘lashni hisobga olish mumkinmi?",
-      ]
-    : en
-    ? [
-        "What is an annuity payment?",
-        "How is the monthly payment calculated?",
-        "Can I account for early repayment?",
-      ]
-    : [
-        "Что такое аннуитетный платёж?",
-        "Как рассчитывается ежемесячный платёж?",
-        "Можно ли учесть досрочное погашение?",
-      ];
-  return (
-    <section className="loan-info-grid">
-      <article>
-        <div className="loan-info-title">
-          <ListOrdered />
-          <h2>{uz ? "Qanday foydalaniladi" : en ? "How to use" : "Как пользоваться"}</h2>
+          {/* Column 2: Results Pane (5 cols ~ 42%) */}
+          <div id="result-pane-anchor" className="lg:col-span-5 w-full">
+            <ResultPane
+              params={params}
+              result={result}
+              currency={params.currency}
+              onCopyAll={handleCopySummary}
+              onExportPDF={() => setIsPDFOpen(true)}
+            />
+          </div>
+
+          {/* Column 3: Sidebar with SVG Flags & Global Rates (3 cols ~ 25%) */}
+          <div className="lg:col-span-3 w-full">
+            <RightSidebar
+              currentRate={params.interestRate}
+              currency={params.currency}
+              onSelectRate={handleSelectRate}
+              onSelectExample={handleSelectExample}
+            />
+          </div>
         </div>
-        <ol>
-          {steps.map((step, index) => (
-            <li key={step}>
-              <i>{index + 1}</i>
-              {step}
-            </li>
-          ))}
-        </ol>
-      </article>
-      <article>
-        <div className="loan-info-title">
-          <Check />
-          <h2>{uz ? "Foydali maslahatlar" : en ? "Useful tips" : "Полезные советы"}</h2>
+
+        {/* 4. Desktop Independent Bottom Cards (>= 1024px) */}
+        <div className="hidden lg:block mt-6">
+          <BottomCards />
         </div>
-        <ul>
-          {tips.map((tip) => (
-            <li key={tip}>
-              <Check />
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </article>
-      <article>
-        <div className="loan-info-title">
-          <CircleDollarSign />
-          <h2>{uz ? "Ko‘p so‘raladigan savollar" : en ? "Frequently asked questions" : "Частые вопросы"}</h2>
+      </section>
+
+      {/* Mobile Sticky Bottom Action Dock (fixed on mobile < 1024px) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200/90 dark:border-slate-800 shadow-2xl px-3 py-2 pb-safe">
+        <div className="max-w-md mx-auto flex items-center justify-between gap-2">
+          {/* Left: Monthly Payment Live Badge */}
+          <div
+            onClick={() => {
+              setMobileTab("result");
+              setMobileViewMode("tabs");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex flex-col cursor-pointer pr-2.5 border-r border-slate-200 dark:border-slate-800 group"
+          >
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none">
+              {t.result.monthlyPayment}
+            </span>
+            <span className="font-heading font-black text-sm sm:text-base text-blue-600 dark:text-blue-400 leading-tight mt-0.5 group-hover:underline">
+              {formatCurrencyNumber(result.monthlyPayment, params.roundToInteger)} {params.currency}
+            </span>
+          </div>
+
+          {/* Right: Quick Tab Action Buttons */}
+          <div className="flex items-center gap-1 sm:gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileTab("calc");
+                setMobileViewMode("tabs");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`flex flex-col items-center justify-center px-2 py-1 rounded-xl transition-colors cursor-pointer ${
+                mobileTab === "calc" && mobileViewMode === "tabs"
+                  ? "bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              }`}
+            >
+              <Calculator className="w-4 h-4" />
+              <span className="text-[9px] font-heading font-semibold mt-0.5">
+                {t.mobile.tabCalc}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setMobileTab("result");
+                setMobileViewMode("tabs");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`flex flex-col items-center justify-center px-2 py-1 rounded-xl transition-colors cursor-pointer ${
+                mobileTab === "result" && mobileViewMode === "tabs"
+                  ? "bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              <span className="text-[9px] font-heading font-semibold mt-0.5">
+                {t.mobile.tabResult}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setMobileTab("rates");
+                setMobileViewMode("tabs");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`flex flex-col items-center justify-center px-2 py-1 rounded-xl transition-colors cursor-pointer ${
+                mobileTab === "rates" && mobileViewMode === "tabs"
+                  ? "bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              }`}
+            >
+              <Car className="w-4 h-4" />
+              <span className="text-[9px] font-heading font-semibold mt-0.5">
+                {t.mobile.tabRates}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setIsPDFOpen(true)}
+              className="flex flex-col items-center justify-center px-2 py-1 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors cursor-pointer"
+            >
+              <FileText className="w-4 h-4 text-rose-500" />
+              <span className="text-[9px] font-heading font-semibold mt-0.5">PDF</span>
+            </button>
+          </div>
         </div>
-        <div className="loan-faq">
-          {questions.map((question) => (
-            <details key={question}>
-              <summary>
-                {question}
-                <ChevronDown />
-              </summary>
-              <p>
-                {uz
-                  ? "Kredit sozlamalari o‘zgartirilganda kalkulyator jadvalni darhol qayta hisoblaydi."
-                  : en
-                    ? "The calculator updates the schedule immediately when you change the loan settings."
-                    : "Калькулятор сразу пересчитывает график при изменении параметров кредита."}
-              </p>
-            </details>
-          ))}
+      </div>
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900/95 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl backdrop-blur-xs flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2">
+          <span>{toastMessage}</span>
         </div>
-      </article>
-    </section>
+      )}
+
+      {/* History Modal */}
+      <HistoryModal
+        isOpen={isHistoryOpen}
+        onClose={() => setIsHistoryOpen(false)}
+        history={history}
+        onLoad={handleLoadHistory}
+        onDelete={handleDeleteHistory}
+        onClearAll={handleClearHistory}
+      />
+
+      {/* PDF Export Modal */}
+      <PDFExportModal
+        isOpen={isPDFOpen}
+        onClose={() => setIsPDFOpen(false)}
+        params={params}
+        result={result}
+        currency={params.currency}
+      />
+    </div>
   );
 }
