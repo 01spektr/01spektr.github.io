@@ -86,6 +86,14 @@ function RootComponent() {
               name: "Toolboxi.uz",
               url: "https://toolboxi.uz/",
               logo: "https://toolboxi.uz/apple-touch-icon.png",
+              description:
+                "Developer of free online tools and custom web solutions for work, business and everyday tasks.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                url: "https://toolboxi.uz/contact/",
+                availableLanguage: ["English", "Russian", "Uzbek"],
+              },
             }).replace(/</g, "\\u003c"),
           }}
         />

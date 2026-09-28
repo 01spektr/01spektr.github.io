@@ -21,12 +21,15 @@ export function localeFromHomePath(path: string): Locale | null {
 }
 
 const LOCALIZED_TOOL_SLUGS = new Set(["currency-rates"]);
+const LOCALIZED_INFO_PAGES = new Set(["about", "contact"]);
 
 export function localeFromPath(path: string): Locale | null {
   const normalized = path.replace(/\/$/, "") || "/";
   const [, firstSegment] = normalized.split("/");
   if (isLocale(firstSegment) && firstSegment !== DEFAULT_LOCALE) return firstSegment;
   if (normalized === "/") return DEFAULT_LOCALE;
+  const infoMatch = normalized.match(/^\/(about|contact)$/);
+  if (infoMatch && LOCALIZED_INFO_PAGES.has(infoMatch[1])) return DEFAULT_LOCALE;
   const toolMatch = normalized.match(/^\/tools\/([^/]+)$/);
   return toolMatch && LOCALIZED_TOOL_SLUGS.has(toolMatch[1]) ? DEFAULT_LOCALE : null;
 }
@@ -38,9 +41,17 @@ export function localizedToolPath(slug: string, locale: Locale): string {
   return `/${locale}/tools/${slug}`;
 }
 
+export function localizedInfoPath(page: "about" | "contact", locale: Locale): string {
+  return locale === DEFAULT_LOCALE ? `/${page}` : `/${locale}/${page}`;
+}
+
 export function localizedPathForLocale(path: string, locale: Locale): string | null {
   const normalized = path.replace(/\/$/, "") || "/";
   if (localeFromHomePath(normalized) !== null) return localeHomePath(locale);
+  const infoMatch = normalized.match(/^\/(?:ru\/|uz\/)?(about|contact)$/);
+  if (infoMatch && LOCALIZED_INFO_PAGES.has(infoMatch[1])) {
+    return localizedInfoPath(infoMatch[1] as "about" | "contact", locale);
+  }
   const toolMatch = normalized.match(/^\/(?:ru\/|uz\/)?tools\/([^/]+)$/);
   if (!toolMatch || !LOCALIZED_TOOL_SLUGS.has(toolMatch[1])) return null;
   return localizedToolPath(toolMatch[1], locale);

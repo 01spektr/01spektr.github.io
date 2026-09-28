@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AboutPage, aboutHead } from "@/features/site-info/site-info";
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute("/ru_/about")({
   component: AboutPage,
-  head: () => aboutHead("en"),
+  head: () => aboutHead("ru"),
 });

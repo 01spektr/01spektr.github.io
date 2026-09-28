@@ -9,6 +9,7 @@ import { useI18n } from "@/lib/i18n";
 import { getToolBySlug } from "@/lib/tools/catalog";
 import { recordHistory } from "@/lib/tools/history";
 import { recordToolVisit } from "@/lib/tools/usage";
+import { ToolFeedbackPrompt } from "@/features/site-info/site-info";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { t, locale } = useI18n();
@@ -16,6 +17,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
   const [sidebarCompact, setSidebarCompact] = useState(false);
+  const toolMatch = pathname.match(/^\/(?:(?:ru|uz)\/)?tools\/([^/]+)\/?$/);
+  const activeTool = toolMatch ? getToolBySlug(decodeURIComponent(toolMatch[1])) : undefined;
 
   useEffect(() => {
     setSidebarCompact(localStorage.getItem("toolbox-sidebar") === "compact");
@@ -63,6 +66,11 @@ export function AppShell({ children }: { children: ReactNode }) {
       >
         <Header onMenu={() => setMenu(true)} onSearch={() => setSearch(true)} />
         <main className="px-4 py-5 lg:px-8 lg:py-6">{children}</main>
+        {activeTool?.available && (
+          <div className="px-4 pb-5 lg:px-8 lg:pb-6">
+            <ToolFeedbackPrompt slug={activeTool.slug} />
+          </div>
+        )}
         <Footer />
       </div>
       <CommandPalette open={search} onOpenChange={setSearch} />

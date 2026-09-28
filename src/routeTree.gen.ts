@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as HistoryRouteImport } from './routes/history'
@@ -19,8 +20,12 @@ import { Route as RuRouteImport } from './routes/ru'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as UzRouteImport } from './routes/uz'
 import { Route as CategoriesIdRouteImport } from './routes/categories.$id'
+import { Route as RuAboutRouteImport } from './routes/ru_.about'
+import { Route as RuContactRouteImport } from './routes/ru_.contact'
 import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsSlugRouteImport } from './routes/tools/$slug'
+import { Route as UzAboutRouteImport } from './routes/uz_.about'
+import { Route as UzContactRouteImport } from './routes/uz_.contact'
 import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
 import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
 
@@ -32,6 +37,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnRoute = EnRouteImport.update({
@@ -74,6 +84,16 @@ const CategoriesIdRoute = CategoriesIdRouteImport.update({
   path: '/categories/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuAboutRoute = RuAboutRouteImport.update({
+  id: '/ru_/about',
+  path: '/ru/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RuContactRoute = RuContactRouteImport.update({
+  id: '/ru_/contact',
+  path: '/ru/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsIndexRoute = ToolsIndexRouteImport.update({
   id: '/tools/',
   path: '/tools/',
@@ -82,6 +102,16 @@ const ToolsIndexRoute = ToolsIndexRouteImport.update({
 const ToolsSlugRoute = ToolsSlugRouteImport.update({
   id: '/tools/$slug',
   path: '/tools/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzAboutRoute = UzAboutRouteImport.update({
+  id: '/uz_/about',
+  path: '/uz/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzContactRoute = UzContactRouteImport.update({
+  id: '/uz_/contact',
+  path: '/uz/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RuToolsCurrencyRatesRoute = RuToolsCurrencyRatesRouteImport.update({
@@ -98,6 +128,7 @@ const UzToolsCurrencyRatesRoute = UzToolsCurrencyRatesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/en': typeof EnRoute
   '/favorites': typeof FavoritesRoute
   '/history': typeof HistoryRoute
@@ -106,7 +137,11 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
+  '/ru/about': typeof RuAboutRoute
+  '/ru/contact': typeof RuContactRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/uz/about': typeof UzAboutRoute
+  '/uz/contact': typeof UzContactRoute
   '/tools/': typeof ToolsIndexRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
@@ -114,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/en': typeof EnRoute
   '/favorites': typeof FavoritesRoute
   '/history': typeof HistoryRoute
@@ -122,7 +158,11 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
+  '/ru/about': typeof RuAboutRoute
+  '/ru/contact': typeof RuContactRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/uz/about': typeof UzAboutRoute
+  '/uz/contact': typeof UzContactRoute
   '/tools': typeof ToolsIndexRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
@@ -131,6 +171,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/en': typeof EnRoute
   '/favorites': typeof FavoritesRoute
   '/history': typeof HistoryRoute
@@ -139,7 +180,11 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/uz': typeof UzRoute
   '/categories/$id': typeof CategoriesIdRoute
+  '/ru_/about': typeof RuAboutRoute
+  '/ru_/contact': typeof RuContactRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/uz_/about': typeof UzAboutRoute
+  '/uz_/contact': typeof UzContactRoute
   '/tools/': typeof ToolsIndexRoute
   '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
@@ -149,6 +194,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
     | '/en'
     | '/favorites'
     | '/history'
@@ -157,7 +203,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/uz'
     | '/categories/$id'
+    | '/ru/about'
+    | '/ru/contact'
     | '/tools/$slug'
+    | '/uz/about'
+    | '/uz/contact'
     | '/tools/'
     | '/ru/tools/currency-rates'
     | '/uz/tools/currency-rates'
@@ -165,6 +215,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contact'
     | '/en'
     | '/favorites'
     | '/history'
@@ -173,7 +224,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/uz'
     | '/categories/$id'
+    | '/ru/about'
+    | '/ru/contact'
     | '/tools/$slug'
+    | '/uz/about'
+    | '/uz/contact'
     | '/tools'
     | '/ru/tools/currency-rates'
     | '/uz/tools/currency-rates'
@@ -181,6 +236,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
     | '/en'
     | '/favorites'
     | '/history'
@@ -189,7 +245,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/uz'
     | '/categories/$id'
+    | '/ru_/about'
+    | '/ru_/contact'
     | '/tools/$slug'
+    | '/uz_/about'
+    | '/uz_/contact'
     | '/tools/'
     | '/ru_/tools/currency-rates'
     | '/uz_/tools/currency-rates'
@@ -198,6 +258,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   EnRoute: typeof EnRoute
   FavoritesRoute: typeof FavoritesRoute
   HistoryRoute: typeof HistoryRoute
@@ -206,7 +267,11 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   UzRoute: typeof UzRoute
   CategoriesIdRoute: typeof CategoriesIdRoute
+  RuAboutRoute: typeof RuAboutRoute
+  RuContactRoute: typeof RuContactRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
+  UzAboutRoute: typeof UzAboutRoute
+  UzContactRoute: typeof UzContactRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
   RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
   UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
@@ -226,6 +291,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en': {
@@ -284,6 +356,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/about': {
+      id: '/ru_/about'
+      path: '/ru/about'
+      fullPath: '/ru/about'
+      preLoaderRoute: typeof RuAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ru_/contact': {
+      id: '/ru_/contact'
+      path: '/ru/contact'
+      fullPath: '/ru/contact'
+      preLoaderRoute: typeof RuContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tools/': {
       id: '/tools/'
       path: '/tools'
@@ -296,6 +382,20 @@ declare module '@tanstack/react-router' {
       path: '/tools/$slug'
       fullPath: '/tools/$slug'
       preLoaderRoute: typeof ToolsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/about': {
+      id: '/uz_/about'
+      path: '/uz/about'
+      fullPath: '/uz/about'
+      preLoaderRoute: typeof UzAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/contact': {
+      id: '/uz_/contact'
+      path: '/uz/contact'
+      fullPath: '/uz/contact'
+      preLoaderRoute: typeof UzContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ru_/tools/currency-rates': {
@@ -318,6 +418,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   EnRoute: EnRoute,
   FavoritesRoute: FavoritesRoute,
   HistoryRoute: HistoryRoute,
@@ -326,7 +427,11 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   UzRoute: UzRoute,
   CategoriesIdRoute: CategoriesIdRoute,
+  RuAboutRoute: RuAboutRoute,
+  RuContactRoute: RuContactRoute,
   ToolsSlugRoute: ToolsSlugRoute,
+  UzAboutRoute: UzAboutRoute,
+  UzContactRoute: UzContactRoute,
   ToolsIndexRoute: ToolsIndexRoute,
   RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
   UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,

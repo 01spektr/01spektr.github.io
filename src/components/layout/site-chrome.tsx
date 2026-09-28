@@ -6,6 +6,7 @@ import {
   LOCALES,
   SUPPORTED_LOCALES,
   localeHomePath,
+  localizedInfoPath,
   localizedPathForLocale,
   type Locale,
 } from "@/lib/i18n/config";
@@ -25,7 +26,7 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
         <nav className="tc-nav">
           <Link to="/tools">{t("nav.tools")}</Link>
           <a href={`${homePath}#categories`}>{t("nav.categories")}</a>
-          <Link to="/about">{t("nav.about")}</Link>
+          <a href={localizedInfoPath("about", locale)}>{t("nav.about")}</a>
         </nav>
         <div className="tc-header-actions">
           <button
@@ -76,7 +77,8 @@ export function SiteHeader({ onSearch }: { onSearch: () => void }) {
           <a href={`${homePath}#categories`}>{t("nav.categories")}</a>
           <Link to="/favorites">{t("nav.favorites")}</Link>
           <Link to="/history">{t("nav.history")}</Link>
-          <Link to="/about">{t("nav.about")}</Link>
+          <a href={localizedInfoPath("about", locale)}>{t("nav.about")}</a>
+          <a href={localizedInfoPath("contact", locale)}>{t("footer.contact")}</a>
         </nav>
       )}
     </header>
@@ -94,7 +96,8 @@ export function SiteFooter() {
           <p>{t("footer.tagline")}</p>
         </div>
         <nav aria-label={t("footer.siteInfo")}>
-          <Link to="/about">{t("footer.about")}</Link>
+          <a href={localizedInfoPath("about", locale)}>{t("footer.about")}</a>
+          <a href={localizedInfoPath("contact", locale)}>{t("footer.contact")}</a>
           <Link to="/tools">{t("nav.all")}</Link>
           <Link to="/privacy">{t("footer.privacy")}</Link>
           <Link to="/terms">{t("footer.terms")}</Link>
