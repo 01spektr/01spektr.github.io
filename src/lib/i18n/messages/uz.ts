@@ -74,7 +74,8 @@ export const uz = {
     "Logotip, rang sozlamalari va kerakli formatga eksport bilan chiroyli QR-kodlar yarating. Tez, qulay, bepul.",
   "qr.tip": "Havolalar, matn, kontaktlar, Wi-Fi va boshqa ma’lumotlar uchun QR-kodlar yarating.",
   "qr.privacyTitle": "Ma’lumotlaringiz brauzerda qoladi",
-  "qr.privacyBody": "QR-kodlar bevosita qurilmangizda yaratiladi. Ma’lumotlar serverga yuborilmaydi.",
+  "qr.privacyBody":
+    "QR-kodlar bevosita qurilmangizda yaratiladi. Ma’lumotlar serverga yuborilmaydi.",
   "qr.section.content": "1. Kontent turi",
   "qr.section.design": "2. Dizayn sozlamalari",
   "qr.section.extra": "3. Qo‘shimcha imkoniyatlar",
@@ -189,7 +190,8 @@ export const uz = {
   "worldTime.24_chasa": "24 soat",
   "worldTime.24_chasovaya_shkala_vremeni": "24 soatlik vaqt shkalasi",
   "worldTime.aziya": "Osiyo",
-  "worldTime.aktualnoe_mestnoe_vremya_smeschenie_utc_i_status_rabochih_chasov_v_gor": "Dunyo shaharlaridagi mahalliy vaqt, UTC farqi va ish vaqti holati",
+  "worldTime.aktualnoe_mestnoe_vremya_smeschenie_utc_i_status_rabochih_chasov_v_gor":
+    "Dunyo shaharlaridagi mahalliy vaqt, UTC farqi va ish vaqti holati",
   "worldTime.afrika": "Afrika",
   "worldTime.v_izbrannom": "Sevimlilarda",
   "worldTime.v_konverter": "Konverterga",
@@ -201,9 +203,11 @@ export const uz = {
   "worldTime.vchera": "Kecha",
   "worldTime.vyberite_gorod_dlya_dobavleniya": "Qo‘shish uchun shaharni tanlang:",
   "worldTime.vyberite_gorod_dlya_konvertatsii_vremeni": "Vaqtni o‘girish uchun shaharni tanlang",
-  "worldTime.vyberite_goroda_i_naydite_obschee_udobnoe_vremya": "Shaharlarni tanlang va umumiy qulay vaqtni toping",
+  "worldTime.vyberite_goroda_i_naydite_obschee_udobnoe_vremya":
+    "Shaharlarni tanlang va umumiy qulay vaqtni toping",
   "worldTime.gorod": "SHAHAR",
-  "worldTime.geograficheskaya_panorama_poyasov_utc_meridianov_i_gorodov_mira": "UTC mintaqalari, meridianlar va dunyo shaharlarining geografik ko‘rinishi",
+  "worldTime.geograficheskaya_panorama_poyasov_utc_meridianov_i_gorodov_mira":
+    "UTC mintaqalari, meridianlar va dunyo shaharlarining geografik ko‘rinishi",
   "worldTime.gorod_2": "Shahar",
   "worldTime.goroda_mira": "Dunyo shaharlari",
   "worldTime.goroda_nahodyatsya_v_odnom_chasovom_poyase": "Shaharlar bir xil vaqt mintaqasida",
@@ -226,7 +230,8 @@ export const uz = {
   "worldTime.ishodnyy_gorod": "Boshlang‘ich shahar",
   "worldTime.kalendar": "Taqvim",
   "worldTime.karta_chasovyh_poyasov": "Vaqt mintaqalari xaritasi",
-  "worldTime.katalog_gorodov_i_chasovyh_poyasov_mira": "Dunyo shaharlari va vaqt mintaqalari katalogi",
+  "worldTime.katalog_gorodov_i_chasovyh_poyasov_mira":
+    "Dunyo shaharlari va vaqt mintaqalari katalogi",
   "worldTime.kliknite_na_lyuboy_gorod_dlya_deystviy": "Amallar uchun istalgan shaharni bosing",
   "worldTime.konverter_vremeni": "Vaqt konverteri",
   "worldTime.konets_dnya": "Kun oxiri",
@@ -244,13 +249,16 @@ export const uz = {
   "worldTime.otmena": "Bekor qilish",
   "worldTime.presety": "TAYYOR VAQTLAR:",
   "worldTime.pereyti_k_tekuschemu_vremeni": "Joriy vaqtga o‘tish",
-  "worldTime.peretaschite_polzunok_dlya_bystrogo_podbora": "Vaqtni tez tanlash uchun slayderni suring",
+  "worldTime.peretaschite_polzunok_dlya_bystrogo_podbora":
+    "Vaqtni tez tanlash uchun slayderni suring",
   "worldTime.poisk_goroda_strany": "Shahar yoki mamlakatni qidiring...",
   "worldTime.poisk_goroda": "Shaharni qidiring...",
   "worldTime.pokazany_goroda": "Ko‘rsatilgan shaharlar",
-  "worldTime.pokazat_ili_skryt_granitsy_poyasov": "Vaqt mintaqalari chegaralarini ko‘rsatish yoki yashirish",
+  "worldTime.pokazat_ili_skryt_granitsy_poyasov":
+    "Vaqt mintaqalari chegaralarini ko‘rsatish yoki yashirish",
   "worldTime.pomenyat_mestami": "Joyini almashtirish",
-  "worldTime.poprobuyte_izmenit_poiskovyy_zapros_ili_sbrosit_filtry": "Qidiruvni o‘zgartiring yoki filtrlarni tiklang",
+  "worldTime.poprobuyte_izmenit_poiskovyy_zapros_ili_sbrosit_filtry":
+    "Qidiruvni o‘zgartiring yoki filtrlarni tiklang",
   "worldTime.poyasa_utc": "UTC mintaqalari",
   "worldTime.presety_2": "TAYYOR VAQTLAR:",
   "worldTime.priblizit_kartu": "Xaritani yaqinlashtirish",
@@ -280,7 +288,8 @@ export const uz = {
   "worldTime.tekuschee_vremya_3": "Joriy vaqt:",
   "worldTime.topograficheskaya": "Topografik",
   "worldTime.tochnoe_vremya": "Aniq vaqt:",
-  "worldTime.tochnyy_raschet_vremeni_mezhdu_gorodami_i_chasovymi_poyasami_mira": "Shaharlar va vaqt mintaqalari orasidagi vaqtni aniq hisoblash",
+  "worldTime.tochnyy_raschet_vremeni_mezhdu_gorodami_i_chasovymi_poyasami_mira":
+    "Shaharlar va vaqt mintaqalari orasidagi vaqtni aniq hisoblash",
   "worldTime.ubrat_gorod": "Shaharni olib tashlash",
   "worldTime.udalit_gorod_iz_sravneniya": "Shaharni taqqoslashdan olib tashlash",
   "worldTime.udobnoe_vremya_dlya_vstrechi": "Uchrashuv uchun qulay vaqt",
@@ -311,7 +320,8 @@ export const uz = {
   "worldTime.cht": "Pa",
   "worldTime.category": "Kundalik vositalar",
   "worldTime.title": "Dunyo vaqt mintaqalari",
-  "worldTime.subtitle": "Shaharlar vaqtini solishtiring, sanalarni o‘giring va xalqaro uchrashuvlar uchun qulay vaqtni toping.",
+  "worldTime.subtitle":
+    "Shaharlar vaqtini solishtiring, sanalarni o‘giring va xalqaro uchrashuvlar uchun qulay vaqtni toping.",
   "worldTime.privacy": "Aniq mahalliy vaqt bevosita brauzerda hisoblanadi.",
   "worldTime.liveUtc": "UTC standarti bo‘yicha jonli vaqt",
   "worldTime.citiesCount": "shahar",
@@ -330,6 +340,61 @@ export const uz = {
   "worldTime.hourOne": "soat",
   "worldTime.hourFew": "soat",
   "worldTime.hourMany": "soat",
+  "worldTime.badgeLiveTitle": "Aniq vaqt",
+  "worldTime.badgeLiveText": "Har soniyada yangilanadi",
+  "worldTime.badgeCitiesTitle": "Dunyo shaharlari",
+  "worldTime.badgeMeetingTitle": "Rejalashtirish",
+  "worldTime.badgeMeetingText": "Chalkashliksiz uchrashuvlar",
+  "worldTime.resourcesTitle": "Vaqt mintaqalari bo‘yicha ma’lumot",
+  "worldTime.resourcesSubtitle": "UTC, IANA, yozgi vaqt va xalqaro uchrashuvlar",
+  "worldTime.infoTitle": "Foydali ma’lumot",
+  "worldTime.infoSubtitle": "Asosiy tushunchalar va qoidalar",
+  "worldTime.info.utc.title": "UTC — umumiy vaqt mezoni",
+  "worldTime.info.utc.text":
+    "Muvofiqlashtirilgan universal vaqt mavsumga qarab o‘zgarmaydi. UTC+5 yoki UTC−4 kabi yozuvlar shaharning UTC dan farqini ko‘rsatadi.",
+  "worldTime.info.iana.title": "IANA vaqt mintaqalari",
+  "worldTime.info.iana.text":
+    "Asia/Tashkent yoki Europe/London kabi nomlar joriy farqni ham, mahalliy vaqt qoidalarining tarixiy o‘zgarishlarini ham hisobga oladi.",
+  "worldTime.info.dst.title": "Yozgi vaqt",
+  "worldTime.info.dst.text":
+    "Ayrim davlatlar bahor va kuzda soatni o‘zgartiradi. Shu sababli ikki shahar orasidagi vaqt farqi yil davomida o‘zgarishi mumkin.",
+  "worldTime.info.meeting.title": "Xalqaro uchrashuvlar",
+  "worldTime.info.meeting.text":
+    "Ishtirokchilarning ish vaqtini solishtiring va sanani tekshiring: sana almashish chizig‘ining turli tomonidagi shaharlarda kun har xil bo‘lishi mumkin.",
+  "worldTime.faqTitle": "Ko‘p beriladigan savollar",
+  "worldTime.faqSubtitle": "Vaqt va konvertatsiya haqida javoblar",
+  "worldTime.faq.difference.question": "Nega shaharlar orasidagi farq doim butun soat emas?",
+  "worldTime.faq.difference.answer":
+    "Ba’zi mintaqalarda UTC+5:30 yoki UTC+5:45 kabi 30 yoki 45 daqiqalik farq ishlatiladi. Bu davlatlarning rasmiy vaqt qoidalaridir.",
+  "worldTime.faq.dst.question": "Nega vaqt farqi yil davomida o‘zgaradi?",
+  "worldTime.faq.dst.answer":
+    "Davlatlar yozgi vaqtga turli sanalarda o‘tadi, ayrimlari esa undan foydalanmaydi. Konverter tanlangan sana qoidalarini avtomatik qo‘llaydi.",
+  "worldTime.faq.accuracy.question": "Vosita ko‘rsatadigan vaqt qanchalik aniq?",
+  "worldTime.faq.accuracy.answer":
+    "Hisob brauzerning vaqt mintaqalari bazasi va IANA qoidalari asosida bajariladi. Jonli soat aniqligi qurilmangizdagi vaqtga bog‘liq.",
+  "worldTime.faq.meeting.question": "Xalqaro uchrashuv uchun qulay vaqtni qanday tanlash mumkin?",
+  "worldTime.faq.meeting.answer":
+    "Har bir ishtirokchining shahrini qo‘shing va vaqt shkalasini suring. Yashil oraliqlar odatiy ish soatlari kesishgan vaqtni ko‘rsatadi.",
+  "worldTime.faq.travel.question": "Konverterdan sayohatni rejalashtirishda foydalanish mumkinmi?",
+  "worldTime.faq.travel.answer":
+    "Ha. Mavsumiy qoidalar va boshqa kalendar kuniga o‘tishni hisobga olish uchun safar sanasi, jo‘nash va yetib borish shaharlarini tanlang.",
+  "worldTime.tipsTitle": "Amaliy maslahatlar",
+  "worldTime.tipsSubtitle": "Vaqt bilan bog‘liq xatolardan saqlanish",
+  "worldTime.tip.city.title": "Faqat UTC emas, shaharni tanlang. ",
+  "worldTime.tip.city.text":
+    "Shahar mintaqasi yozgi vaqt va mahalliy o‘zgarishlarni hisobga oladi, qat’iy UTC farqi esa buni qilmaydi.",
+  "worldTime.tip.date.title": "Sanani doim tekshiring. ",
+  "worldTime.tip.date.text":
+    "Turli davlatlardagi bir xil mahalliy vaqt boshqa-boshqa kalendar kuniga to‘g‘ri kelishi mumkin.",
+  "worldTime.tip.work.title": "Ish vaqtlarini solishtiring. ",
+  "worldTime.tip.work.text":
+    "Xalqaro qo‘ng‘iroq uchun barcha ishtirokchilarning kunduzgi vaqti kesishadigan oraliqni tanlang.",
+  "worldTime.tip.dst.title": "Mavsumiy soat o‘zgarishini unutmang. ",
+  "worldTime.tip.dst.text":
+    "Bir davlat yozgi vaqtga o‘tganda takroriy uchrashuv bir soatga siljishi mumkin.",
+  "worldTime.tip.calendar.title": "Taqvimda vaqt mintaqasini saqlang. ",
+  "worldTime.tip.calendar.text":
+    "Qoidalar o‘zgarganda taqvim vaqtni o‘zi qayta hisoblashi uchun tadbirni IANA mintaqasi bilan saqlang.",
   "worldTime.expandMap": "To‘liq ekranga yoyish",
   "worldTime.collapseMap": "Xaritani yig‘ish",
 } satisfies Record<MessageKey, string>;

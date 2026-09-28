@@ -1,4 +1,4 @@
-import type { MessageKey } from './ru';
+import type { MessageKey } from "./ru";
 
 export const en = {
   "brand.tagline": "One place. Many tools.",
@@ -189,7 +189,8 @@ export const en = {
   "worldTime.24_chasa": "24 hours",
   "worldTime.24_chasovaya_shkala_vremeni": "24-hour time scale",
   "worldTime.aziya": "Asia",
-  "worldTime.aktualnoe_mestnoe_vremya_smeschenie_utc_i_status_rabochih_chasov_v_gor": "Current local time, UTC offset and working-hours status around the world",
+  "worldTime.aktualnoe_mestnoe_vremya_smeschenie_utc_i_status_rabochih_chasov_v_gor":
+    "Current local time, UTC offset and working-hours status around the world",
   "worldTime.afrika": "Africa",
   "worldTime.v_izbrannom": "Favorite",
   "worldTime.v_konverter": "To converter",
@@ -201,9 +202,11 @@ export const en = {
   "worldTime.vchera": "Yesterday",
   "worldTime.vyberite_gorod_dlya_dobavleniya": "Select a city to add:",
   "worldTime.vyberite_gorod_dlya_konvertatsii_vremeni": "Select a city for time conversion",
-  "worldTime.vyberite_goroda_i_naydite_obschee_udobnoe_vremya": "Select cities and find a convenient shared time",
+  "worldTime.vyberite_goroda_i_naydite_obschee_udobnoe_vremya":
+    "Select cities and find a convenient shared time",
   "worldTime.gorod": "CITY",
-  "worldTime.geograficheskaya_panorama_poyasov_utc_meridianov_i_gorodov_mira": "Geographic view of UTC zones, meridians and world cities",
+  "worldTime.geograficheskaya_panorama_poyasov_utc_meridianov_i_gorodov_mira":
+    "Geographic view of UTC zones, meridians and world cities",
   "worldTime.gorod_2": "City",
   "worldTime.goroda_mira": "World cities",
   "worldTime.goroda_nahodyatsya_v_odnom_chasovom_poyase": "The cities are in the same time zone",
@@ -250,7 +253,8 @@ export const en = {
   "worldTime.pokazany_goroda": "Showing cities",
   "worldTime.pokazat_ili_skryt_granitsy_poyasov": "Show or hide time zone boundaries",
   "worldTime.pomenyat_mestami": "Swap cities",
-  "worldTime.poprobuyte_izmenit_poiskovyy_zapros_ili_sbrosit_filtry": "Try changing the search or resetting filters",
+  "worldTime.poprobuyte_izmenit_poiskovyy_zapros_ili_sbrosit_filtry":
+    "Try changing the search or resetting filters",
   "worldTime.poyasa_utc": "UTC zones",
   "worldTime.presety_2": "PRESETS:",
   "worldTime.priblizit_kartu": "Zoom in",
@@ -280,7 +284,8 @@ export const en = {
   "worldTime.tekuschee_vremya_3": "Current time:",
   "worldTime.topograficheskaya": "Topographic",
   "worldTime.tochnoe_vremya": "Exact time:",
-  "worldTime.tochnyy_raschet_vremeni_mezhdu_gorodami_i_chasovymi_poyasami_mira": "Accurate time conversion between cities and time zones",
+  "worldTime.tochnyy_raschet_vremeni_mezhdu_gorodami_i_chasovymi_poyasami_mira":
+    "Accurate time conversion between cities and time zones",
   "worldTime.ubrat_gorod": "Remove city",
   "worldTime.udalit_gorod_iz_sravneniya": "Remove city from comparison",
   "worldTime.udobnoe_vremya_dlya_vstrechi": "Convenient meeting time",
@@ -311,7 +316,8 @@ export const en = {
   "worldTime.cht": "Thu",
   "worldTime.category": "Everyday tools",
   "worldTime.title": "World time zones",
-  "worldTime.subtitle": "Compare city times, convert dates and find a convenient time for international meetings.",
+  "worldTime.subtitle":
+    "Compare city times, convert dates and find a convenient time for international meetings.",
   "worldTime.privacy": "Accurate local time is calculated directly in your browser.",
   "worldTime.liveUtc": "Live time based on UTC",
   "worldTime.citiesCount": "cities",
@@ -330,6 +336,62 @@ export const en = {
   "worldTime.hourOne": "hour",
   "worldTime.hourFew": "hours",
   "worldTime.hourMany": "hours",
+  "worldTime.badgeLiveTitle": "Exact time",
+  "worldTime.badgeLiveText": "Updated every second",
+  "worldTime.badgeCitiesTitle": "World cities",
+  "worldTime.badgeMeetingTitle": "Planning",
+  "worldTime.badgeMeetingText": "Meetings without confusion",
+  "worldTime.resourcesTitle": "Time zone reference",
+  "worldTime.resourcesSubtitle": "UTC, IANA, daylight saving time and international meetings",
+  "worldTime.infoTitle": "Useful information",
+  "worldTime.infoSubtitle": "Key concepts and rules",
+  "worldTime.info.utc.title": "UTC is the common reference",
+  "worldTime.info.utc.text":
+    "Coordinated Universal Time does not change with the seasons. City offsets such as UTC+5 or UTC−4 show their difference from UTC.",
+  "worldTime.info.iana.title": "IANA time zones",
+  "worldTime.info.iana.text":
+    "Names such as Asia/Tashkent or Europe/London include the current offset as well as historical changes to local time rules.",
+  "worldTime.info.dst.title": "Daylight saving time",
+  "worldTime.info.dst.text":
+    "Some countries move their clocks in spring and autumn. The time difference between two cities can therefore change during the year.",
+  "worldTime.info.meeting.title": "International meetings",
+  "worldTime.info.meeting.text":
+    "Compare participants' working hours and always check the date: cities on opposite sides of the date line may be on different days.",
+  "worldTime.faqTitle": "Frequently asked questions",
+  "worldTime.faqSubtitle": "Answers about time and conversion",
+  "worldTime.faq.difference.question":
+    "Why is the difference between cities not always a whole number of hours?",
+  "worldTime.faq.difference.answer":
+    "Some zones use 30 or 45-minute offsets, such as UTC+5:30 or UTC+5:45. These are official national time rules.",
+  "worldTime.faq.dst.question": "Why does the time difference change during the year?",
+  "worldTime.faq.dst.answer":
+    "Countries start daylight saving time on different dates, while some do not use it at all. The converter applies the rules for the selected date automatically.",
+  "worldTime.faq.accuracy.question": "How accurate is the time shown by the tool?",
+  "worldTime.faq.accuracy.answer":
+    "Calculations use the browser's time-zone database and IANA rules. The accuracy of the live clock depends on the time set on your device.",
+  "worldTime.faq.meeting.question": "How do I choose a convenient international meeting time?",
+  "worldTime.faq.meeting.answer":
+    "Add each participant's city and move the timeline. Green intervals show where normal working hours overlap.",
+  "worldTime.faq.travel.question": "Can I use the converter to plan a trip?",
+  "worldTime.faq.travel.answer":
+    "Yes. Select the travel date and departure and arrival cities to account for seasonal rules and a possible change of calendar day.",
+  "worldTime.tipsTitle": "Practical tips",
+  "worldTime.tipsSubtitle": "How to avoid time-zone mistakes",
+  "worldTime.tip.city.title": "Choose a city, not only a UTC offset. ",
+  "worldTime.tip.city.text":
+    "A city zone includes daylight saving and local rule changes, while a fixed UTC offset does not.",
+  "worldTime.tip.date.title": "Always check the date. ",
+  "worldTime.tip.date.text":
+    "The same local time in different countries may fall on different calendar days.",
+  "worldTime.tip.work.title": "Compare working hours. ",
+  "worldTime.tip.work.text":
+    "For international calls, look for an overlap in daytime hours for every participant.",
+  "worldTime.tip.dst.title": "Remember seasonal clock changes. ",
+  "worldTime.tip.dst.text":
+    "A recurring meeting can shift by one hour when one country enters or leaves daylight saving time.",
+  "worldTime.tip.calendar.title": "Save the time zone in your calendar. ",
+  "worldTime.tip.calendar.text":
+    "Store the event with an IANA zone so the calendar can recalculate it when rules change.",
   "worldTime.expandMap": "Expand to full screen",
   "worldTime.collapseMap": "Collapse map",
 } satisfies Record<MessageKey, string>;

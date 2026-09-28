@@ -188,7 +188,8 @@ export const ru = {
   "worldTime.24_chasa": "24 часа",
   "worldTime.24_chasovaya_shkala_vremeni": "24-часовая шкала времени",
   "worldTime.aziya": "Азия",
-  "worldTime.aktualnoe_mestnoe_vremya_smeschenie_utc_i_status_rabochih_chasov_v_gor": "Актуальное местное время, смещение UTC и статус рабочих часов в городах мира",
+  "worldTime.aktualnoe_mestnoe_vremya_smeschenie_utc_i_status_rabochih_chasov_v_gor":
+    "Актуальное местное время, смещение UTC и статус рабочих часов в городах мира",
   "worldTime.afrika": "Африка",
   "worldTime.v_izbrannom": "В избранном",
   "worldTime.v_konverter": "В конвертер",
@@ -200,9 +201,11 @@ export const ru = {
   "worldTime.vchera": "Вчера",
   "worldTime.vyberite_gorod_dlya_dobavleniya": "Выберите город для добавления:",
   "worldTime.vyberite_gorod_dlya_konvertatsii_vremeni": "Выберите город для конвертации времени",
-  "worldTime.vyberite_goroda_i_naydite_obschee_udobnoe_vremya": "Выберите города и найдите общее удобное время",
+  "worldTime.vyberite_goroda_i_naydite_obschee_udobnoe_vremya":
+    "Выберите города и найдите общее удобное время",
   "worldTime.gorod": "ГОРОД",
-  "worldTime.geograficheskaya_panorama_poyasov_utc_meridianov_i_gorodov_mira": "Географическая панорама поясов UTC, меридианов и городов мира",
+  "worldTime.geograficheskaya_panorama_poyasov_utc_meridianov_i_gorodov_mira":
+    "Географическая панорама поясов UTC, меридианов и городов мира",
   "worldTime.gorod_2": "Город",
   "worldTime.goroda_mira": "Города мира",
   "worldTime.goroda_nahodyatsya_v_odnom_chasovom_poyase": "Города находятся в одном часовом поясе",
@@ -243,13 +246,15 @@ export const ru = {
   "worldTime.otmena": "Отмена",
   "worldTime.presety": "ПРЕСЕТЫ:",
   "worldTime.pereyti_k_tekuschemu_vremeni": "Перейти к текущему времени",
-  "worldTime.peretaschite_polzunok_dlya_bystrogo_podbora": "Перетащите ползунок для быстрого подбора",
+  "worldTime.peretaschite_polzunok_dlya_bystrogo_podbora":
+    "Перетащите ползунок для быстрого подбора",
   "worldTime.poisk_goroda_strany": "Поиск города, страны...",
   "worldTime.poisk_goroda": "Поиск города...",
   "worldTime.pokazany_goroda": "Показаны города",
   "worldTime.pokazat_ili_skryt_granitsy_poyasov": "Показать или скрыть границы поясов",
   "worldTime.pomenyat_mestami": "Поменять местами",
-  "worldTime.poprobuyte_izmenit_poiskovyy_zapros_ili_sbrosit_filtry": "Попробуйте изменить поисковый запрос или сбросить фильтры",
+  "worldTime.poprobuyte_izmenit_poiskovyy_zapros_ili_sbrosit_filtry":
+    "Попробуйте изменить поисковый запрос или сбросить фильтры",
   "worldTime.poyasa_utc": "Пояса UTC",
   "worldTime.presety_2": "Пресеты:",
   "worldTime.priblizit_kartu": "Приблизить карту",
@@ -279,7 +284,8 @@ export const ru = {
   "worldTime.tekuschee_vremya_3": "Текущее время:",
   "worldTime.topograficheskaya": "Топографическая",
   "worldTime.tochnoe_vremya": "Точное время:",
-  "worldTime.tochnyy_raschet_vremeni_mezhdu_gorodami_i_chasovymi_poyasami_mira": "Точный расчет времени между городами и часовыми поясами мира",
+  "worldTime.tochnyy_raschet_vremeni_mezhdu_gorodami_i_chasovymi_poyasami_mira":
+    "Точный расчет времени между городами и часовыми поясами мира",
   "worldTime.ubrat_gorod": "Убрать город",
   "worldTime.udalit_gorod_iz_sravneniya": "Удалить город из сравнения",
   "worldTime.udobnoe_vremya_dlya_vstrechi": "Удобное время для встречи",
@@ -310,7 +316,8 @@ export const ru = {
   "worldTime.cht": "чт",
   "worldTime.category": "Повседневные инструменты",
   "worldTime.title": "Часовые пояса мира",
-  "worldTime.subtitle": "Сравнивайте время в городах, конвертируйте даты и находите удобное время для международных встреч.",
+  "worldTime.subtitle":
+    "Сравнивайте время в городах, конвертируйте даты и находите удобное время для международных встреч.",
   "worldTime.privacy": "Точное местное время рассчитывается прямо в браузере.",
   "worldTime.liveUtc": "Живое время по стандарту UTC",
   "worldTime.citiesCount": "городов",
@@ -329,6 +336,62 @@ export const ru = {
   "worldTime.hourOne": "час",
   "worldTime.hourFew": "часа",
   "worldTime.hourMany": "часов",
+  "worldTime.badgeLiveTitle": "Точное время",
+  "worldTime.badgeLiveText": "Обновляется каждую секунду",
+  "worldTime.badgeCitiesTitle": "Города мира",
+  "worldTime.badgeMeetingTitle": "Планирование",
+  "worldTime.badgeMeetingText": "Встречи без путаницы",
+  "worldTime.resourcesTitle": "Справочная информация о часовых поясах",
+  "worldTime.resourcesSubtitle": "UTC, IANA, летнее время и международные встречи",
+  "worldTime.infoTitle": "Полезная информация",
+  "worldTime.infoSubtitle": "Основные понятия и правила",
+  "worldTime.info.utc.title": "UTC — единая точка отсчёта",
+  "worldTime.info.utc.text":
+    "Всемирное координированное время не зависит от сезона. Смещения городов записываются как UTC+5 или UTC−4 и показывают разницу относительно UTC.",
+  "worldTime.info.iana.title": "Часовые пояса IANA",
+  "worldTime.info.iana.text":
+    "Названия вида Asia/Tashkent или Europe/London учитывают не только текущее смещение, но и исторические изменения правил времени.",
+  "worldTime.info.dst.title": "Летнее время",
+  "worldTime.info.dst.text":
+    "Некоторые страны переводят часы весной и осенью. Поэтому разница между двумя городами может меняться в течение года.",
+  "worldTime.info.meeting.title": "Международные встречи",
+  "worldTime.info.meeting.text":
+    "Сравнивайте рабочие часы участников и обязательно учитывайте дату: в соседние дни переходят города по разные стороны линии перемены дат.",
+  "worldTime.faqTitle": "Частые вопросы",
+  "worldTime.faqSubtitle": "Ответы о времени и конвертации",
+  "worldTime.faq.difference.question":
+    "Почему разница между городами бывает не целым числом часов?",
+  "worldTime.faq.difference.answer":
+    "Некоторые зоны используют смещение на 30 или 45 минут, например UTC+5:30 или UTC+5:45. Это официальные национальные правила времени.",
+  "worldTime.faq.dst.question": "Почему разница времени меняется в течение года?",
+  "worldTime.faq.dst.answer":
+    "Страны переходят на летнее время в разные даты, а некоторые вообще его не используют. Конвертер применяет правила выбранной даты автоматически.",
+  "worldTime.faq.accuracy.question": "Насколько точное время показывает инструмент?",
+  "worldTime.faq.accuracy.answer":
+    "Расчёт выполняется по системной базе часовых поясов браузера и правилам IANA. Точность текущих часов зависит от времени на вашем устройстве.",
+  "worldTime.faq.meeting.question": "Как выбрать удобное время международной встречи?",
+  "worldTime.faq.meeting.answer":
+    "Добавьте города участников и двигайте шкалу. Зелёные интервалы показывают пересечение обычных рабочих часов для выбранных городов.",
+  "worldTime.faq.travel.question": "Можно ли использовать конвертер при планировании поездки?",
+  "worldTime.faq.travel.answer":
+    "Да. Укажите дату поездки и города отправления и прибытия, чтобы учесть сезонные правила и возможный переход на другой календарный день.",
+  "worldTime.tipsTitle": "Практические советы",
+  "worldTime.tipsSubtitle": "Как избежать ошибок со временем",
+  "worldTime.tip.city.title": "Выбирайте город, а не только UTC. ",
+  "worldTime.tip.city.text":
+    "Городской пояс учитывает летнее время и местные изменения, тогда как фиксированное смещение UTC этого не делает.",
+  "worldTime.tip.date.title": "Всегда проверяйте дату. ",
+  "worldTime.tip.date.text":
+    "Одинаковое местное время в разных странах может относиться к разным календарным дням.",
+  "worldTime.tip.work.title": "Сверяйте рабочие часы. ",
+  "worldTime.tip.work.text":
+    "Для международных звонков ищите пересечение дневных интервалов всех участников.",
+  "worldTime.tip.dst.title": "Помните о сезонном переводе часов. ",
+  "worldTime.tip.dst.text":
+    "Повторяющаяся встреча может сдвинуться на час после перехода одной из стран на летнее время.",
+  "worldTime.tip.calendar.title": "Добавляйте часовой пояс в календарь. ",
+  "worldTime.tip.calendar.text":
+    "Сохраняйте событие с IANA-зоной, чтобы календарь сам пересчитал время при изменении правил.",
   "worldTime.expandMap": "Развернуть на весь экран",
   "worldTime.collapseMap": "Свернуть карту",
 } as const;
