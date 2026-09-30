@@ -401,6 +401,11 @@ function BusinessCategory({
       : en
         ? "Calculate workdays, deadlines and a project completion date from a start date and work schedule."
         : "Рассчитывайте рабочие дни, сроки и дату завершения проекта с учётом начала и рабочего графика.",
+    "smart-calendar": uz
+      ? "Ishlab chiqarish taqvimini ko‘ring, rasmiy bayramlarni hisobga oling, ish kunlari, loyiha muddatlari va ish vaqti me’yorlarini hisoblang."
+      : en
+        ? "Review the production calendar, account for official holidays, and calculate workdays, project deadlines and labor-hour norms."
+        : "Изучайте производственный календарь, учитывайте официальные праздники и рассчитывайте рабочие дни, сроки проектов и нормы рабочего времени.",
   };
 
   return (

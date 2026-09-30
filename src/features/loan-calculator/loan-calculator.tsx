@@ -27,7 +27,6 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { recordHistory } from "@/lib/tools/history";
-import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
 import "./loan-calculator.css";
 
@@ -70,14 +69,12 @@ export function LoanCalculatorPage() {
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [historyTab, setHistoryTab] = useState<"history" | "saved">("history");
   const [isPDFOpen, setIsPDFOpen] = useState(false);
-  const [isSiteFavorite, setIsSiteFavorite] = useState(false);
 
   // Mobile navigation state
   const [mobileTab, setMobileTab] = useState<"calc" | "result" | "rates" | "info">("calc");
   const [mobileViewMode, setMobileViewMode] = useState<"tabs" | "all">("tabs");
-
-  useEffect(() => setIsSiteFavorite(isFavorite("loan-calculator")), []);
 
   // Global history
   const [history, setHistory] = useState<ComparisonScenario[]>(() => {
@@ -193,6 +190,24 @@ export function LoanCalculatorPage() {
       // ignore
     }
   }, [history]);
+
+  const [savedCalculations, setSavedCalculations] = useState<ComparisonScenario[]>(() => {
+    try {
+      const stored = localStorage.getItem("toolboxi_loan_saved_v1");
+      if (stored) return JSON.parse(stored);
+    } catch {
+      // fallback
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("toolboxi_loan_saved_v1", JSON.stringify(savedCalculations));
+    } catch {
+      // ignore
+    }
+  }, [savedCalculations]);
 
   // Recalculate
   const result = useMemo(() => {
@@ -311,6 +326,13 @@ export function LoanCalculatorPage() {
     showToast(t.toasts.historyCleared);
   };
 
+  const handleToggleSaved = (item: ComparisonScenario) => {
+    setSavedCalculations((current) => {
+      const exists = current.some((saved) => saved.id === item.id);
+      return exists ? current.filter((saved) => saved.id !== item.id) : [item, ...current];
+    });
+  };
+
   const handleScrollToRates = () => {
     if (window.innerWidth < 1024) {
       setMobileTab("rates");
@@ -327,10 +349,16 @@ export function LoanCalculatorPage() {
         {/* 2. Sleek Global Hero Banner */}
         <HeroBanner
           historyCount={history.length}
-          onOpenHistory={() => setIsHistoryOpen(true)}
-          onToggleFavorite={() => setIsSiteFavorite(toggleFavorite("loan-calculator"))}
+          savedCount={savedCalculations.length}
+          onOpenHistory={() => {
+            setHistoryTab("history");
+            setIsHistoryOpen(true);
+          }}
+          onOpenSaved={() => {
+            setHistoryTab("saved");
+            setIsHistoryOpen(true);
+          }}
           onShare={handleShare}
-          isFavorite={isSiteFavorite}
         />
 
         {/* Mobile Navigation Header & View Mode Switcher (< 1024px) */}
@@ -705,9 +733,12 @@ export function LoanCalculatorPage() {
         isOpen={isHistoryOpen}
         onClose={() => setIsHistoryOpen(false)}
         history={history}
+        saved={savedCalculations}
+        initialTab={historyTab}
         onLoad={handleLoadHistory}
         onDelete={handleDeleteHistory}
         onClearAll={handleClearHistory}
+        onToggleSaved={handleToggleSaved}
       />
 
       {/* PDF Export Modal */}

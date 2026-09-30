@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
 import { CATEGORIES, toolsByCategory } from "@/lib/tools/catalog";
@@ -24,8 +25,20 @@ function ToolsIndex() {
       <div className="mt-8 grid gap-10">
         {CATEGORIES.map((cat) => (
           <section key={cat.id}>
-            <h2 className="mb-3 text-lg font-semibold">{cat.name[locale]}</h2>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <h2 className="mb-3">
+              <Link
+                to="/categories/$id"
+                params={{ id: cat.slug }}
+                className="group inline-flex items-center gap-2 rounded-lg text-lg font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35"
+                aria-label={`${cat.name[locale]} — ${t("tools.openCategory")}`}
+              >
+                {cat.name[locale]}
+                <span className="grid size-7 place-items-center rounded-full bg-primary/8 text-primary transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight className="size-4" />
+                </span>
+              </Link>
+            </h2>
+            <div className="grid items-start gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {toolsByCategory(cat.id).map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}

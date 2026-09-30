@@ -1,0 +1,80 @@
+.smart-calendar-page {
+  --font-primary: var(--font-display);
+  --font-secondary: var(--font-sans);
+  width: 100%;
+  color: #0f172a;
+  font-family: var(--font-primary);
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.smart-calendar-page :is(h1, h2, h3, h4, h5, h6, .font-heading, .font-primary) {
+  font-family: var(--font-primary);
+  letter-spacing: -0.015em;
+}
+
+.smart-calendar-page :is(.font-secondary, .font-body) {
+  font-family: var(--font-secondary);
+}
+
+.smart-calendar-page .card-clean {
+  border: 1px solid #e2e8f0;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 2%);
+}
+
+.dark .smart-calendar-page {
+  color: #f8fafc;
+}
+
+.dark .smart-calendar-page .card-clean {
+  border-color: #232e42;
+  background-color: #151d2e;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+}
+
+@media (max-width: 640px) {
+  .smart-calendar-page {
+    font-size: 10.5px;
+  }
+}
+
+@media print {
+  body:has(.smart-calendar-page) .no-print {
+    display: none !important;
+  }
+
+  body:has(.smart-calendar-page) {
+    margin: 0 !important;
+    background: #fff !important;
+  }
+
+  body:has(.smart-calendar-page) * {
+    visibility: hidden;
+  }
+
+  body:has(.smart-calendar-page) #printable-report-sheet,
+  body:has(.smart-calendar-page) #printable-report-sheet * {
+    visibility: visible;
+  }
+
+  body:has(.smart-calendar-page) #printable-report-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 10mm !important;
+    border: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+}

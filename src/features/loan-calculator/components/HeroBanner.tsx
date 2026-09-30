@@ -1,40 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Zap, FileText, Calculator, ChevronRight, Clock, Heart, Share2 } from "lucide-react";
+import { Zap, FileText, Calculator, ChevronRight, Clock, Heart, Share2, Check } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 interface HeroBannerProps {
   historyCount: number;
-  isFavorite: boolean;
+  savedCount: number;
   onOpenHistory: () => void;
-  onToggleFavorite: () => void;
-  onShare: () => void;
+  onOpenSaved: () => void;
+  onShare: () => Promise<void>;
 }
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({
   historyCount,
-  isFavorite,
+  savedCount,
   onOpenHistory,
-  onToggleFavorite,
+  onOpenSaved,
   onShare,
 }) => {
   const { t, language } = useLanguage();
+  const [copied, setCopied] = useState(false);
   const labels =
     language === "ru"
       ? {
           home: "Главная",
           category: "Финансы и инвестиции",
-          favorite: "В избранное",
+          saved: "Сохранённые",
           share: "Поделиться",
         }
       : language === "uz"
         ? {
             home: "Bosh sahifa",
             category: "Moliya va investitsiyalar",
-            favorite: "Sevimlilarga",
+            saved: "Saqlanganlar",
             share: "Ulashish",
           }
-        : { home: "Home", category: "Finance & investing", favorite: "Favorite", share: "Share" };
+        : { home: "Home", category: "Finance & investing", saved: "Saved", share: "Share" };
 
   return (
     <div className="w-full mb-5">
@@ -60,21 +61,29 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
 
         <div className="flex flex-wrap items-center gap-2">
           <button type="button" onClick={onOpenHistory} className="new-loan-header-action">
-            <Clock className="h-4 w-4" />
+            <Clock className="h-3.5 w-3.5" />
             <span>{t.nav.history}</span>
             {historyCount > 0 && <b>{historyCount}</b>}
           </button>
           <button
             type="button"
-            onClick={onToggleFavorite}
-            className={`new-loan-header-action${isFavorite ? " active" : ""}`}
+            onClick={onOpenSaved}
+            className={`new-loan-header-action saved${savedCount > 0 ? " active" : ""}`}
           >
-            <Heart className="h-4 w-4" fill={isFavorite ? "currentColor" : "none"} />
-            <span>{labels.favorite}</span>
+            <Heart className="h-3.5 w-3.5" fill={savedCount > 0 ? "currentColor" : "none"} />
+            <span>{labels.saved}</span>
           </button>
-          <button type="button" onClick={onShare} className="new-loan-header-action">
-            <Share2 className="h-4 w-4" />
-            <span>{labels.share}</span>
+          <button
+            type="button"
+            onClick={async () => {
+              await onShare();
+              setCopied(true);
+              window.setTimeout(() => setCopied(false), 2000);
+            }}
+            className="new-loan-header-action"
+          >
+            {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Share2 className="h-3.5 w-3.5" />}
+            <span className={copied ? "text-emerald-600" : undefined}>{copied ? "OK!" : labels.share}</span>
           </button>
         </div>
       </div>

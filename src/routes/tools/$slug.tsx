@@ -69,6 +69,9 @@ const VatCalculatorPage = lazyWithDeployRecovery(() =>
 const CustomsCalculatorPage = lazyWithDeployRecovery(() =>
   import("@/features/customs-calculator").then((m) => ({ default: m.CustomsCalculatorPage })),
 );
+const SmartCalendarPage = lazyWithDeployRecovery(() =>
+  import("@/features/smart-calendar").then((m) => ({ default: m.SmartCalendarPage })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -101,6 +104,8 @@ export const Route = createFileRoute("/tools/$slug")({
         "Add VAT to an amount, extract VAT from a gross total, compare international tax rates and export a detailed calculation.",
       "customs-calculator":
         "Calculate customs duties, VAT, processing fees and total import costs by HS code, destination country and declarant type.",
+      "smart-calendar":
+        "Plan workdays, calculate deadlines, review labor-hour norms and official holidays with an interactive production calendar.",
     };
     if (!tool) {
       return seoHead({
@@ -209,6 +214,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <CustomsCalculatorPage />
+      </Suspense>
+    );
+  }
+  if (slug === "smart-calendar") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <SmartCalendarPage />
       </Suspense>
     );
   }
