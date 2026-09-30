@@ -184,7 +184,9 @@ export function HomePage({ language }: { language: Locale }) {
       return (defaultPopularRank.get(a.slug) ?? 999) - (defaultPopularRank.get(b.slug) ?? 999);
     })
     .slice(0, 5);
-  const newTools = TOOLS.filter((tool) => !POPULAR_SLUGS.includes(tool.slug)).slice(0, 5);
+  const newTools = TOOLS.filter((tool) => tool.available)
+    .sort((a, b) => (b.releasedAt ?? "").localeCompare(a.releasedAt ?? ""))
+    .slice(0, 5);
   const actualRecent = [...new Set(history.map((entry) => entry.toolId))]
     .map((id) => TOOLS.find((tool) => tool.id === id))
     .filter((tool): tool is ToolDef => Boolean(tool));

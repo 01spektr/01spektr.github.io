@@ -22,7 +22,7 @@ export interface ToolCategory {
   tint: string;
 }
 
-export interface ToolDef {
+interface ToolDefBase {
   id: string;
   slug: string;
   category: CategoryId;
@@ -30,9 +30,19 @@ export interface ToolDef {
   description: Localized;
   keywords: string[];
   icon: string;
-  available: boolean;
   featured?: boolean;
 }
+
+export type ToolDef = ToolDefBase &
+  ({
+      available: true;
+      /** ISO release date used to keep the “New tools” section in chronological order. */
+      releasedAt: string;
+    }
+  | {
+      available: false;
+      releasedAt?: never;
+    });
 
 export const CATEGORIES: ToolCategory[] = [
   {
@@ -171,6 +181,7 @@ export const TOOLS: ToolDef[] = [
     icon: "QrCode",
     available: true,
     featured: true,
+    releasedAt: "2026-09-08",
   },
   {
     id: "color-palette",
@@ -186,6 +197,7 @@ export const TOOLS: ToolDef[] = [
     icon: "Palette",
     available: true,
     featured: true,
+    releasedAt: "2026-09-18",
   },
   {
     id: "image-resize",
@@ -200,6 +212,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["изображение", "ресайз", "png"],
     icon: "Image",
     available: true,
+    releasedAt: "2026-09-17",
   },
   {
     id: "barcode-generator",
@@ -214,6 +227,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["штрихкод", "ean", "barcode"],
     icon: "Barcode",
     available: true,
+    releasedAt: "2026-09-17",
   },
   {
     id: "cmyk-convert",
@@ -228,6 +242,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["cmyk", "rgb", "печать"],
     icon: "Droplets",
     available: true,
+    releasedAt: "2026-09-17",
   },
   {
     id: "cargo-volume",
@@ -293,6 +308,7 @@ export const TOOLS: ToolDef[] = [
     icon: "Ship",
     available: true,
     featured: true,
+    releasedAt: "2026-09-25",
   },
   {
     id: "vat-calculator",
@@ -307,6 +323,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["ндс", "vat", "налог"],
     icon: "Percent",
     available: true,
+    releasedAt: "2026-09-25",
   },
   {
     id: "loan-calculator",
@@ -321,6 +338,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["кредит", "платёж"],
     icon: "Landmark",
     available: true,
+    releasedAt: "2026-09-17",
   },
   {
     id: "currency-rates",
@@ -345,6 +363,7 @@ export const TOOLS: ToolDef[] = [
     icon: "ArrowLeftRight",
     available: true,
     featured: true,
+    releasedAt: "2026-09-19",
   },
   {
     id: "invoice-number",
@@ -402,6 +421,7 @@ export const TOOLS: ToolDef[] = [
     icon: "CalendarDays",
     available: true,
     featured: true,
+    releasedAt: "2026-09-30",
   },
   {
     id: "workday-calculator",
@@ -450,6 +470,7 @@ export const TOOLS: ToolDef[] = [
     icon: "Type",
     available: true,
     featured: true,
+    releasedAt: "2026-09-20",
   },
   {
     id: "word-counter",
@@ -529,6 +550,7 @@ export const TOOLS: ToolDef[] = [
     icon: "Clock3",
     available: true,
     featured: true,
+    releasedAt: "2026-09-18",
   },
   {
     id: "json-formatter",
@@ -571,6 +593,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["uuid", "guid"],
     icon: "Fingerprint",
     available: true,
+    releasedAt: "2026-09-08",
   },
   {
     id: "roof-calculator",
@@ -585,6 +608,7 @@ export const TOOLS: ToolDef[] = [
     keywords: ["кровля", "крыша", "металлочерепица", "конёк"],
     icon: "House",
     available: true,
+    releasedAt: "2026-09-17",
   },
   {
     id: "area-calculator",
