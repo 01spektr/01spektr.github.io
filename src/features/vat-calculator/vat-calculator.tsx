@@ -15,6 +15,7 @@ import { ToolIcon } from '@/components/tool-icon';
 import { isFavorite, toggleFavorite } from '@/lib/tools/favorites';
 import { buildShareUrl, shareUrl } from '@/lib/tools/share';
 import { recordHistory } from '@/lib/tools/history';
+import { toast } from 'sonner';
 import './vat-calculator.css';
 
 const LOCAL_STORAGE_HISTORY_KEY = 'vat_calculator_history_v1';
@@ -105,10 +106,7 @@ function VatCalculatorMain() {
   }, []);
 
   const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 2500);
+    toast.success(msg);
   };
 
   // Handle explicit calculation click
@@ -206,7 +204,7 @@ function VatCalculatorMain() {
 
   return (
     <div className="vat-page text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200">
-      <main className="max-w-7xl w-full mx-auto">
+      <main className="max-w-[1380px] w-full mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6">
         <div className="space-y-4 sm:space-y-6">
           <nav className="vat-breadcrumb" aria-label="Breadcrumb">
             <Link to="/">{labels.home}</Link><ChevronRight />
@@ -310,13 +308,7 @@ function VatCalculatorMain() {
         onSelectMode={setMode}
       />
 
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 dark:bg-slate-800 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 border border-slate-800 dark:border-slate-700">
-          <Check className="w-4 h-4 text-emerald-400" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
+      {/* Toast notifications are handled globally by sonner */}
     </div>
   );
 }
