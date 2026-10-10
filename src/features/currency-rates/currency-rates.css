@@ -1,7 +1,8 @@
 .currency-rates-page {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1380px;
   margin: 0 auto;
+  padding: 1rem 1rem 3rem;
   color: var(--foreground);
 }
 
