@@ -28,22 +28,34 @@ import { Route as UzAboutRouteImport } from './routes/uz_.about'
 import { Route as UzContactRouteImport } from './routes/uz_.contact'
 import { Route as RuCategoriesIdRouteImport } from './routes/ru_.categories.$id'
 import { Route as RuToolsBarcodeGeneratorRouteImport } from './routes/ru_.tools.barcode-generator'
+import { Route as RuToolsCmykConvertRouteImport } from './routes/ru_.tools.cmyk-convert'
+import { Route as RuToolsColorPaletteRouteImport } from './routes/ru_.tools.color-palette'
 import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
 import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools.customs-calculator'
+import { Route as RuToolsImageResizeRouteImport } from './routes/ru_.tools.image-resize'
 import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
 import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-generator'
 import { Route as RuToolsRoofCalculatorRouteImport } from './routes/ru_.tools.roof-calculator'
 import { Route as RuToolsSmartCalendarRouteImport } from './routes/ru_.tools.smart-calendar'
+import { Route as RuToolsTextSymbolGeneratorRouteImport } from './routes/ru_.tools.text-symbol-generator'
+import { Route as RuToolsUuidGeneratorRouteImport } from './routes/ru_.tools.uuid-generator'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
+import { Route as RuToolsWorldTimezonesRouteImport } from './routes/ru_.tools.world-timezones'
 import { Route as UzCategoriesIdRouteImport } from './routes/uz_.categories.$id'
 import { Route as UzToolsBarcodeGeneratorRouteImport } from './routes/uz_.tools.barcode-generator'
+import { Route as UzToolsCmykConvertRouteImport } from './routes/uz_.tools.cmyk-convert'
+import { Route as UzToolsColorPaletteRouteImport } from './routes/uz_.tools.color-palette'
 import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
 import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools.customs-calculator'
+import { Route as UzToolsImageResizeRouteImport } from './routes/uz_.tools.image-resize'
 import { Route as UzToolsLoanCalculatorRouteImport } from './routes/uz_.tools.loan-calculator'
 import { Route as UzToolsQrGeneratorRouteImport } from './routes/uz_.tools.qr-generator'
 import { Route as UzToolsRoofCalculatorRouteImport } from './routes/uz_.tools.roof-calculator'
 import { Route as UzToolsSmartCalendarRouteImport } from './routes/uz_.tools.smart-calendar'
+import { Route as UzToolsTextSymbolGeneratorRouteImport } from './routes/uz_.tools.text-symbol-generator'
+import { Route as UzToolsUuidGeneratorRouteImport } from './routes/uz_.tools.uuid-generator'
 import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
+import { Route as UzToolsWorldTimezonesRouteImport } from './routes/uz_.tools.world-timezones'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -140,6 +152,16 @@ const RuToolsBarcodeGeneratorRoute = RuToolsBarcodeGeneratorRouteImport.update({
   path: '/ru/tools/barcode-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsCmykConvertRoute = RuToolsCmykConvertRouteImport.update({
+  id: '/ru_/tools/cmyk-convert',
+  path: '/ru/tools/cmyk-convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RuToolsColorPaletteRoute = RuToolsColorPaletteRouteImport.update({
+  id: '/ru_/tools/color-palette',
+  path: '/ru/tools/color-palette',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsCurrencyRatesRoute = RuToolsCurrencyRatesRouteImport.update({
   id: '/ru_/tools/currency-rates',
   path: '/ru/tools/currency-rates',
@@ -151,6 +173,11 @@ const RuToolsCustomsCalculatorRoute =
     path: '/ru/tools/customs-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RuToolsImageResizeRoute = RuToolsImageResizeRouteImport.update({
+  id: '/ru_/tools/image-resize',
+  path: '/ru/tools/image-resize',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsLoanCalculatorRoute = RuToolsLoanCalculatorRouteImport.update({
   id: '/ru_/tools/loan-calculator',
   path: '/ru/tools/loan-calculator',
@@ -171,9 +198,25 @@ const RuToolsSmartCalendarRoute = RuToolsSmartCalendarRouteImport.update({
   path: '/ru/tools/smart-calendar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsTextSymbolGeneratorRoute =
+  RuToolsTextSymbolGeneratorRouteImport.update({
+    id: '/ru_/tools/text-symbol-generator',
+    path: '/ru/tools/text-symbol-generator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const RuToolsUuidGeneratorRoute = RuToolsUuidGeneratorRouteImport.update({
+  id: '/ru_/tools/uuid-generator',
+  path: '/ru/tools/uuid-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
   id: '/ru_/tools/vat-calculator',
   path: '/ru/tools/vat-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RuToolsWorldTimezonesRoute = RuToolsWorldTimezonesRouteImport.update({
+  id: '/ru_/tools/world-timezones',
+  path: '/ru/tools/world-timezones',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UzCategoriesIdRoute = UzCategoriesIdRouteImport.update({
@@ -184,6 +227,16 @@ const UzCategoriesIdRoute = UzCategoriesIdRouteImport.update({
 const UzToolsBarcodeGeneratorRoute = UzToolsBarcodeGeneratorRouteImport.update({
   id: '/uz_/tools/barcode-generator',
   path: '/uz/tools/barcode-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzToolsCmykConvertRoute = UzToolsCmykConvertRouteImport.update({
+  id: '/uz_/tools/cmyk-convert',
+  path: '/uz/tools/cmyk-convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzToolsColorPaletteRoute = UzToolsColorPaletteRouteImport.update({
+  id: '/uz_/tools/color-palette',
+  path: '/uz/tools/color-palette',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UzToolsCurrencyRatesRoute = UzToolsCurrencyRatesRouteImport.update({
@@ -197,6 +250,11 @@ const UzToolsCustomsCalculatorRoute =
     path: '/uz/tools/customs-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const UzToolsImageResizeRoute = UzToolsImageResizeRouteImport.update({
+  id: '/uz_/tools/image-resize',
+  path: '/uz/tools/image-resize',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsLoanCalculatorRoute = UzToolsLoanCalculatorRouteImport.update({
   id: '/uz_/tools/loan-calculator',
   path: '/uz/tools/loan-calculator',
@@ -217,9 +275,25 @@ const UzToolsSmartCalendarRoute = UzToolsSmartCalendarRouteImport.update({
   path: '/uz/tools/smart-calendar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UzToolsTextSymbolGeneratorRoute =
+  UzToolsTextSymbolGeneratorRouteImport.update({
+    id: '/uz_/tools/text-symbol-generator',
+    path: '/uz/tools/text-symbol-generator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const UzToolsUuidGeneratorRoute = UzToolsUuidGeneratorRouteImport.update({
+  id: '/uz_/tools/uuid-generator',
+  path: '/uz/tools/uuid-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsVatCalculatorRoute = UzToolsVatCalculatorRouteImport.update({
   id: '/uz_/tools/vat-calculator',
   path: '/uz/tools/vat-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzToolsWorldTimezonesRoute = UzToolsWorldTimezonesRouteImport.update({
+  id: '/uz_/tools/world-timezones',
+  path: '/uz/tools/world-timezones',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -243,22 +317,34 @@ export interface FileRoutesByFullPath {
   '/tools/': typeof ToolsIndexRoute
   '/ru/categories/$id': typeof RuCategoriesIdRoute
   '/ru/tools/barcode-generator': typeof RuToolsBarcodeGeneratorRoute
+  '/ru/tools/cmyk-convert': typeof RuToolsCmykConvertRoute
+  '/ru/tools/color-palette': typeof RuToolsColorPaletteRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
+  '/ru/tools/image-resize': typeof RuToolsImageResizeRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
+  '/ru/tools/text-symbol-generator': typeof RuToolsTextSymbolGeneratorRoute
+  '/ru/tools/uuid-generator': typeof RuToolsUuidGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
+  '/ru/tools/world-timezones': typeof RuToolsWorldTimezonesRoute
   '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
+  '/uz/tools/cmyk-convert': typeof UzToolsCmykConvertRoute
+  '/uz/tools/color-palette': typeof UzToolsColorPaletteRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
+  '/uz/tools/image-resize': typeof UzToolsImageResizeRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
+  '/uz/tools/text-symbol-generator': typeof UzToolsTextSymbolGeneratorRoute
+  '/uz/tools/uuid-generator': typeof UzToolsUuidGeneratorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
+  '/uz/tools/world-timezones': typeof UzToolsWorldTimezonesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -280,22 +366,34 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsIndexRoute
   '/ru/categories/$id': typeof RuCategoriesIdRoute
   '/ru/tools/barcode-generator': typeof RuToolsBarcodeGeneratorRoute
+  '/ru/tools/cmyk-convert': typeof RuToolsCmykConvertRoute
+  '/ru/tools/color-palette': typeof RuToolsColorPaletteRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
+  '/ru/tools/image-resize': typeof RuToolsImageResizeRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
+  '/ru/tools/text-symbol-generator': typeof RuToolsTextSymbolGeneratorRoute
+  '/ru/tools/uuid-generator': typeof RuToolsUuidGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
+  '/ru/tools/world-timezones': typeof RuToolsWorldTimezonesRoute
   '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
+  '/uz/tools/cmyk-convert': typeof UzToolsCmykConvertRoute
+  '/uz/tools/color-palette': typeof UzToolsColorPaletteRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
+  '/uz/tools/image-resize': typeof UzToolsImageResizeRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
+  '/uz/tools/text-symbol-generator': typeof UzToolsTextSymbolGeneratorRoute
+  '/uz/tools/uuid-generator': typeof UzToolsUuidGeneratorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
+  '/uz/tools/world-timezones': typeof UzToolsWorldTimezonesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -318,22 +416,34 @@ export interface FileRoutesById {
   '/tools/': typeof ToolsIndexRoute
   '/ru_/categories/$id': typeof RuCategoriesIdRoute
   '/ru_/tools/barcode-generator': typeof RuToolsBarcodeGeneratorRoute
+  '/ru_/tools/cmyk-convert': typeof RuToolsCmykConvertRoute
+  '/ru_/tools/color-palette': typeof RuToolsColorPaletteRoute
   '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru_/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
+  '/ru_/tools/image-resize': typeof RuToolsImageResizeRoute
   '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru_/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru_/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru_/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
+  '/ru_/tools/text-symbol-generator': typeof RuToolsTextSymbolGeneratorRoute
+  '/ru_/tools/uuid-generator': typeof RuToolsUuidGeneratorRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
+  '/ru_/tools/world-timezones': typeof RuToolsWorldTimezonesRoute
   '/uz_/categories/$id': typeof UzCategoriesIdRoute
   '/uz_/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
+  '/uz_/tools/cmyk-convert': typeof UzToolsCmykConvertRoute
+  '/uz_/tools/color-palette': typeof UzToolsColorPaletteRoute
   '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz_/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
+  '/uz_/tools/image-resize': typeof UzToolsImageResizeRoute
   '/uz_/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz_/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz_/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz_/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
+  '/uz_/tools/text-symbol-generator': typeof UzToolsTextSymbolGeneratorRoute
+  '/uz_/tools/uuid-generator': typeof UzToolsUuidGeneratorRoute
   '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
+  '/uz_/tools/world-timezones': typeof UzToolsWorldTimezonesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -357,22 +467,34 @@ export interface FileRouteTypes {
     | '/tools/'
     | '/ru/categories/$id'
     | '/ru/tools/barcode-generator'
+    | '/ru/tools/cmyk-convert'
+    | '/ru/tools/color-palette'
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
+    | '/ru/tools/image-resize'
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
     | '/ru/tools/roof-calculator'
     | '/ru/tools/smart-calendar'
+    | '/ru/tools/text-symbol-generator'
+    | '/ru/tools/uuid-generator'
     | '/ru/tools/vat-calculator'
+    | '/ru/tools/world-timezones'
     | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
+    | '/uz/tools/cmyk-convert'
+    | '/uz/tools/color-palette'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
+    | '/uz/tools/image-resize'
     | '/uz/tools/loan-calculator'
     | '/uz/tools/qr-generator'
     | '/uz/tools/roof-calculator'
     | '/uz/tools/smart-calendar'
+    | '/uz/tools/text-symbol-generator'
+    | '/uz/tools/uuid-generator'
     | '/uz/tools/vat-calculator'
+    | '/uz/tools/world-timezones'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -394,22 +516,34 @@ export interface FileRouteTypes {
     | '/tools'
     | '/ru/categories/$id'
     | '/ru/tools/barcode-generator'
+    | '/ru/tools/cmyk-convert'
+    | '/ru/tools/color-palette'
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
+    | '/ru/tools/image-resize'
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
     | '/ru/tools/roof-calculator'
     | '/ru/tools/smart-calendar'
+    | '/ru/tools/text-symbol-generator'
+    | '/ru/tools/uuid-generator'
     | '/ru/tools/vat-calculator'
+    | '/ru/tools/world-timezones'
     | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
+    | '/uz/tools/cmyk-convert'
+    | '/uz/tools/color-palette'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
+    | '/uz/tools/image-resize'
     | '/uz/tools/loan-calculator'
     | '/uz/tools/qr-generator'
     | '/uz/tools/roof-calculator'
     | '/uz/tools/smart-calendar'
+    | '/uz/tools/text-symbol-generator'
+    | '/uz/tools/uuid-generator'
     | '/uz/tools/vat-calculator'
+    | '/uz/tools/world-timezones'
   id:
     | '__root__'
     | '/'
@@ -431,22 +565,34 @@ export interface FileRouteTypes {
     | '/tools/'
     | '/ru_/categories/$id'
     | '/ru_/tools/barcode-generator'
+    | '/ru_/tools/cmyk-convert'
+    | '/ru_/tools/color-palette'
     | '/ru_/tools/currency-rates'
     | '/ru_/tools/customs-calculator'
+    | '/ru_/tools/image-resize'
     | '/ru_/tools/loan-calculator'
     | '/ru_/tools/qr-generator'
     | '/ru_/tools/roof-calculator'
     | '/ru_/tools/smart-calendar'
+    | '/ru_/tools/text-symbol-generator'
+    | '/ru_/tools/uuid-generator'
     | '/ru_/tools/vat-calculator'
+    | '/ru_/tools/world-timezones'
     | '/uz_/categories/$id'
     | '/uz_/tools/barcode-generator'
+    | '/uz_/tools/cmyk-convert'
+    | '/uz_/tools/color-palette'
     | '/uz_/tools/currency-rates'
     | '/uz_/tools/customs-calculator'
+    | '/uz_/tools/image-resize'
     | '/uz_/tools/loan-calculator'
     | '/uz_/tools/qr-generator'
     | '/uz_/tools/roof-calculator'
     | '/uz_/tools/smart-calendar'
+    | '/uz_/tools/text-symbol-generator'
+    | '/uz_/tools/uuid-generator'
     | '/uz_/tools/vat-calculator'
+    | '/uz_/tools/world-timezones'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -469,22 +615,34 @@ export interface RootRouteChildren {
   ToolsIndexRoute: typeof ToolsIndexRoute
   RuCategoriesIdRoute: typeof RuCategoriesIdRoute
   RuToolsBarcodeGeneratorRoute: typeof RuToolsBarcodeGeneratorRoute
+  RuToolsCmykConvertRoute: typeof RuToolsCmykConvertRoute
+  RuToolsColorPaletteRoute: typeof RuToolsColorPaletteRoute
   RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
   RuToolsCustomsCalculatorRoute: typeof RuToolsCustomsCalculatorRoute
+  RuToolsImageResizeRoute: typeof RuToolsImageResizeRoute
   RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
   RuToolsQrGeneratorRoute: typeof RuToolsQrGeneratorRoute
   RuToolsRoofCalculatorRoute: typeof RuToolsRoofCalculatorRoute
   RuToolsSmartCalendarRoute: typeof RuToolsSmartCalendarRoute
+  RuToolsTextSymbolGeneratorRoute: typeof RuToolsTextSymbolGeneratorRoute
+  RuToolsUuidGeneratorRoute: typeof RuToolsUuidGeneratorRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
+  RuToolsWorldTimezonesRoute: typeof RuToolsWorldTimezonesRoute
   UzCategoriesIdRoute: typeof UzCategoriesIdRoute
   UzToolsBarcodeGeneratorRoute: typeof UzToolsBarcodeGeneratorRoute
+  UzToolsCmykConvertRoute: typeof UzToolsCmykConvertRoute
+  UzToolsColorPaletteRoute: typeof UzToolsColorPaletteRoute
   UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
   UzToolsCustomsCalculatorRoute: typeof UzToolsCustomsCalculatorRoute
+  UzToolsImageResizeRoute: typeof UzToolsImageResizeRoute
   UzToolsLoanCalculatorRoute: typeof UzToolsLoanCalculatorRoute
   UzToolsQrGeneratorRoute: typeof UzToolsQrGeneratorRoute
   UzToolsRoofCalculatorRoute: typeof UzToolsRoofCalculatorRoute
   UzToolsSmartCalendarRoute: typeof UzToolsSmartCalendarRoute
+  UzToolsTextSymbolGeneratorRoute: typeof UzToolsTextSymbolGeneratorRoute
+  UzToolsUuidGeneratorRoute: typeof UzToolsUuidGeneratorRoute
   UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
+  UzToolsWorldTimezonesRoute: typeof UzToolsWorldTimezonesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -622,6 +780,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsBarcodeGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/cmyk-convert': {
+      id: '/ru_/tools/cmyk-convert'
+      path: '/ru/tools/cmyk-convert'
+      fullPath: '/ru/tools/cmyk-convert'
+      preLoaderRoute: typeof RuToolsCmykConvertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ru_/tools/color-palette': {
+      id: '/ru_/tools/color-palette'
+      path: '/ru/tools/color-palette'
+      fullPath: '/ru/tools/color-palette'
+      preLoaderRoute: typeof RuToolsColorPaletteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/currency-rates': {
       id: '/ru_/tools/currency-rates'
       path: '/ru/tools/currency-rates'
@@ -634,6 +806,13 @@ declare module '@tanstack/react-router' {
       path: '/ru/tools/customs-calculator'
       fullPath: '/ru/tools/customs-calculator'
       preLoaderRoute: typeof RuToolsCustomsCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ru_/tools/image-resize': {
+      id: '/ru_/tools/image-resize'
+      path: '/ru/tools/image-resize'
+      fullPath: '/ru/tools/image-resize'
+      preLoaderRoute: typeof RuToolsImageResizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ru_/tools/loan-calculator': {
@@ -664,11 +843,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsSmartCalendarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/text-symbol-generator': {
+      id: '/ru_/tools/text-symbol-generator'
+      path: '/ru/tools/text-symbol-generator'
+      fullPath: '/ru/tools/text-symbol-generator'
+      preLoaderRoute: typeof RuToolsTextSymbolGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ru_/tools/uuid-generator': {
+      id: '/ru_/tools/uuid-generator'
+      path: '/ru/tools/uuid-generator'
+      fullPath: '/ru/tools/uuid-generator'
+      preLoaderRoute: typeof RuToolsUuidGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/vat-calculator': {
       id: '/ru_/tools/vat-calculator'
       path: '/ru/tools/vat-calculator'
       fullPath: '/ru/tools/vat-calculator'
       preLoaderRoute: typeof RuToolsVatCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ru_/tools/world-timezones': {
+      id: '/ru_/tools/world-timezones'
+      path: '/ru/tools/world-timezones'
+      fullPath: '/ru/tools/world-timezones'
+      preLoaderRoute: typeof RuToolsWorldTimezonesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/uz_/categories/$id': {
@@ -685,6 +885,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzToolsBarcodeGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz_/tools/cmyk-convert': {
+      id: '/uz_/tools/cmyk-convert'
+      path: '/uz/tools/cmyk-convert'
+      fullPath: '/uz/tools/cmyk-convert'
+      preLoaderRoute: typeof UzToolsCmykConvertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/color-palette': {
+      id: '/uz_/tools/color-palette'
+      path: '/uz/tools/color-palette'
+      fullPath: '/uz/tools/color-palette'
+      preLoaderRoute: typeof UzToolsColorPaletteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/currency-rates': {
       id: '/uz_/tools/currency-rates'
       path: '/uz/tools/currency-rates'
@@ -697,6 +911,13 @@ declare module '@tanstack/react-router' {
       path: '/uz/tools/customs-calculator'
       fullPath: '/uz/tools/customs-calculator'
       preLoaderRoute: typeof UzToolsCustomsCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/image-resize': {
+      id: '/uz_/tools/image-resize'
+      path: '/uz/tools/image-resize'
+      fullPath: '/uz/tools/image-resize'
+      preLoaderRoute: typeof UzToolsImageResizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/uz_/tools/loan-calculator': {
@@ -727,11 +948,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzToolsSmartCalendarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz_/tools/text-symbol-generator': {
+      id: '/uz_/tools/text-symbol-generator'
+      path: '/uz/tools/text-symbol-generator'
+      fullPath: '/uz/tools/text-symbol-generator'
+      preLoaderRoute: typeof UzToolsTextSymbolGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/uuid-generator': {
+      id: '/uz_/tools/uuid-generator'
+      path: '/uz/tools/uuid-generator'
+      fullPath: '/uz/tools/uuid-generator'
+      preLoaderRoute: typeof UzToolsUuidGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/vat-calculator': {
       id: '/uz_/tools/vat-calculator'
       path: '/uz/tools/vat-calculator'
       fullPath: '/uz/tools/vat-calculator'
       preLoaderRoute: typeof UzToolsVatCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/world-timezones': {
+      id: '/uz_/tools/world-timezones'
+      path: '/uz/tools/world-timezones'
+      fullPath: '/uz/tools/world-timezones'
+      preLoaderRoute: typeof UzToolsWorldTimezonesRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -757,22 +999,34 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsIndexRoute: ToolsIndexRoute,
   RuCategoriesIdRoute: RuCategoriesIdRoute,
   RuToolsBarcodeGeneratorRoute: RuToolsBarcodeGeneratorRoute,
+  RuToolsCmykConvertRoute: RuToolsCmykConvertRoute,
+  RuToolsColorPaletteRoute: RuToolsColorPaletteRoute,
   RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
   RuToolsCustomsCalculatorRoute: RuToolsCustomsCalculatorRoute,
+  RuToolsImageResizeRoute: RuToolsImageResizeRoute,
   RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
   RuToolsQrGeneratorRoute: RuToolsQrGeneratorRoute,
   RuToolsRoofCalculatorRoute: RuToolsRoofCalculatorRoute,
   RuToolsSmartCalendarRoute: RuToolsSmartCalendarRoute,
+  RuToolsTextSymbolGeneratorRoute: RuToolsTextSymbolGeneratorRoute,
+  RuToolsUuidGeneratorRoute: RuToolsUuidGeneratorRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
+  RuToolsWorldTimezonesRoute: RuToolsWorldTimezonesRoute,
   UzCategoriesIdRoute: UzCategoriesIdRoute,
   UzToolsBarcodeGeneratorRoute: UzToolsBarcodeGeneratorRoute,
+  UzToolsCmykConvertRoute: UzToolsCmykConvertRoute,
+  UzToolsColorPaletteRoute: UzToolsColorPaletteRoute,
   UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,
   UzToolsCustomsCalculatorRoute: UzToolsCustomsCalculatorRoute,
+  UzToolsImageResizeRoute: UzToolsImageResizeRoute,
   UzToolsLoanCalculatorRoute: UzToolsLoanCalculatorRoute,
   UzToolsQrGeneratorRoute: UzToolsQrGeneratorRoute,
   UzToolsRoofCalculatorRoute: UzToolsRoofCalculatorRoute,
   UzToolsSmartCalendarRoute: UzToolsSmartCalendarRoute,
+  UzToolsTextSymbolGeneratorRoute: UzToolsTextSymbolGeneratorRoute,
+  UzToolsUuidGeneratorRoute: UzToolsUuidGeneratorRoute,
   UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
+  UzToolsWorldTimezonesRoute: UzToolsWorldTimezonesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -16,6 +16,12 @@ import { qrGeneratorHead } from "@/features/qr-generator/seo";
 import { barcodeGeneratorHead } from "@/features/barcode-generator/seo";
 import { roofCalculatorHead } from "@/features/roof-calculator/seo";
 import { smartCalendarHead } from "@/features/smart-calendar/seo";
+import { imageResizeHead } from "@/features/image-resize/seo";
+import { textSymbolGeneratorHead } from "@/features/text-generator/seo";
+import { cmykConvertHead } from "@/features/cmyk-converter/seo";
+import { colorPaletteHead } from "@/features/color-palette/seo";
+import { worldTimezonesHead } from "@/features/world-timezones/seo";
+import { uuidGeneratorHead } from "@/features/uuid-generator/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
@@ -91,6 +97,12 @@ export const Route = createFileRoute("/tools/$slug")({
     if (params.slug === "barcode-generator") return barcodeGeneratorHead("en");
     if (params.slug === "roof-calculator") return roofCalculatorHead("en");
     if (params.slug === "smart-calendar") return smartCalendarHead("en");
+    if (params.slug === "image-resize") return imageResizeHead("en");
+    if (params.slug === "text-symbol-generator") return textSymbolGeneratorHead("en");
+    if (params.slug === "cmyk-convert") return cmykConvertHead("en");
+    if (params.slug === "color-palette") return colorPaletteHead("en");
+    if (params.slug === "world-timezones") return worldTimezonesHead("en");
+    if (params.slug === "uuid-generator") return uuidGeneratorHead("en");
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
       "qr-generator":
