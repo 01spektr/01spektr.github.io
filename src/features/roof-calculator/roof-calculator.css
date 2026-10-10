@@ -1,15 +1,17 @@
-/* Roof workspace: shared Toolboxi blue and reusable controls. */
-.roof-shell {
-  --rc-ink: #142441;
-  --rc-muted: #62718b;
-  --rc-blue: #2463eb;
-  --rc-line: #e2e9f3;
-  --rc-soft: #f5f8fd;
+:root {
+  --rc-ink: #0f172a;
+  --rc-muted: #64748b;
+  --rc-blue: #2563eb;
+  --rc-line: #e2e8f0;
+  --rc-soft: #f8fafc;
   --rc-radius: 16px;
-  background: #f6f8fc;
-  color: var(--rc-ink);
-  min-height: 100vh;
-  font-family: Inter, "Segoe UI", sans-serif;
+}
+.dark {
+  --rc-ink: #f8fafc;
+  --rc-muted: #94a3b8;
+  --rc-blue: #3b82f6;
+  --rc-line: #1e293b;
+  --rc-soft: #0f172a;
 }
 .roof-shell-top {
   height: 76px;
@@ -173,7 +175,12 @@
   background: white;
   border: 1px solid var(--rc-line);
   border-radius: var(--rc-radius);
-  box-shadow: 0 3px 14px #24395904;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+}
+.dark .rc-card {
+  background: #0f172a;
+  border-color: #1e293b;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.2);
 }
 .rc-form {
   overflow: hidden;
@@ -1498,45 +1505,45 @@
   background: #172b4c;
   border-color: #315689;
 }
-.dark .roof-shell .rc-step h2 > span,
-.dark .roof-shell .rc-guide code,
-.dark .roof-shell .rc-saved-toggle small {
+.dark .rc-step h2 > span,
+.dark .rc-guide code,
+.dark .rc-saved-toggle small {
   background: #152b50;
 }
-.dark .roof-shell .rc-material-grid > div,
-.dark .roof-shell .rc-field > div:not(.rc-slider-row),
-.dark .roof-shell .rc-panel-list > div,
-.dark .roof-shell .rc-price-row,
-.dark .roof-shell .rc-saved-list > div {
+.dark .rc-material-grid > div,
+.dark .rc-field > div:not(.rc-slider-row),
+.dark .rc-panel-list > div,
+.dark .rc-price-row,
+.dark .rc-saved-list > div {
   border-color: var(--rc-line);
 }
-.dark .roof-shell .rc-notice {
+.dark .rc-notice {
   background: #142b26;
   color: #b8d8ca;
 }
-.dark .roof-shell .rc-guide-icon {
+.dark .rc-guide-icon {
   background: #152b50;
 }
-.dark .roof-shell .rc-guide-note {
+.dark .rc-guide-note {
   color: #b8cbea !important;
   background: #132640;
   border-color: #315689;
 }
-.dark .roof-shell .rv-grid {
+.dark .rv-grid {
   color: #56749d;
 }
-.dark .roof-shell .rv-ground {
+.dark .rv-ground {
   fill: #1c2b40;
   stroke: #405775;
 }
-.dark .roof-shell .rv-wall {
+.dark .rv-wall {
   fill: #2a3b51;
   stroke: #526a86;
 }
-.dark .roof-shell .wall-0 {
+.dark .wall-0 {
   fill: #35465c;
 }
-.dark .roof-shell .wall-1 {
+.dark .wall-1 {
   fill: #25364b;
 }
 @media (max-width: 860px) {

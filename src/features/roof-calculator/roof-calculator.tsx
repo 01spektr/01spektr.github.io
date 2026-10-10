@@ -39,6 +39,8 @@ import { estimate } from "./pricing";
 import { validate } from "./validation";
 import { deserialize, readProjects, serialize, writeProjects, type SavedRoof } from "./storage";
 import { RoofView } from "./roof-view";
+import { RoofHeroBanner } from "./components/HeroBanner";
+import { RoofMetricsCards } from "./components/MetricsCards";
 import "./roof-calculator.css";
 type Tab = "result" | "drawing" | "materials" | "estimate";
 
@@ -265,7 +267,26 @@ export function RoofCalculatorPage() {
   const [rotate, setRotate] = useState(false);
   const [saved, setSaved] = useState<SavedRoof[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const resultRef = useRef<HTMLElement>(null);
+
+  const handleCopySummary = () => {
+    if (!result) return;
+    const text = [
+      `📐 ${tr("Калькулятор кровли")} · Toolboxi.uz`,
+      `----------------------------------------`,
+      `${tr("Тип крыши")}: ${tr(ROOF_NAMES[input.type])}`,
+      `${tr("Размеры здания")}: ${f(input.length)} × ${f(input.width)} ${locale === "ru" ? "м" : "m"}`,
+      `${tr("Площадь крыши")}: ${f(result.g.area)} ${locale === "ru" ? "м²" : "m²"}`,
+      `${tr("Кровельные листы")}: ${result.m.sheets} ${locale === "ru" ? "шт." : locale === "uz" ? "dona" : "pcs"} (${tr(MATERIALS[input.material].name)})`,
+      `${tr("Коньковые планки")}: ${result.m.ridgePieces} ${locale === "ru" ? "шт." : locale === "uz" ? "dona" : "pcs"}`,
+      `${tr("Саморезы")}: ${result.m.screws} ${locale === "ru" ? "шт." : locale === "uz" ? "dona" : "pcs"}`,
+    ].join("\n");
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    toast.success(tr("Сводка расчёта скопирована"));
+  };
   useEffect(() => {
     setSaved(readProjects());
     const params = new URLSearchParams(location.search);
@@ -445,43 +466,16 @@ export function RoofCalculatorPage() {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return (
-    <div className="roof-shell">
-      <div className="rc-app">
-        <nav className="rc-breadcrumb" aria-label={tr("Навигация")}>
-          <Link to="/">
-            <House size={15} />
-            {tr("Главная")}
-          </Link>
-          <ChevronRight />
-          <Link to="/categories/$id" params={{ id: "construction" }}>
-            {tr("Строительство и ремонт")}
-          </Link>
-          <ChevronRight />
-          <span>{tr("Калькулятор кровли")}</span>
-        </nav>
-        <header className="rc-heading">
-          <ToolIcon
-            tool={{ slug: "roof-calculator", icon: "House" }}
-            size="hero"
-            className="rc-heading-icon"
-          />
-          <div>
-            <div className="rc-eyebrow">{tr("ПЛАНИРУЙТЕ С УВЕРЕННОСТЬЮ")}</div>
-            <h1>{tr("Калькулятор кровли")}</h1>
-            <p>{tr("От размеров здания — к площади, материалам и смете.")}</p>
-          </div>
-          <div className="rc-heading-actions">
-            <Button variant="outline" disabled={!valid} onClick={() => save(true)}>
-              <Star />
-              {tr("В избранное")}
-            </Button>
-            <Button variant="outline" disabled={!valid} onClick={share}>
-              <Share2 />
-              {tr("Поделиться")}
-            </Button>
-          </div>
-        </header>
-        <div className="rc-workspace">
+    <div className="w-full max-w-[1380px] mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6">
+      <RoofHeroBanner
+        isSaved={Boolean(result && saved.some((p) => p.area === result.g.area && p.input.type === input.type))}
+        onToggleSaved={() => save(true)}
+        onShare={share}
+        onReset={() => setInput({ ...DEFAULTS })}
+      />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* Left column: Parameters Form */}
+        <div className="lg:col-span-6 xl:col-span-6 flex flex-col gap-5">
           <section className="rc-form rc-card" aria-label={tr("Параметры крыши")}>
             <Step n="01" title={tr("Выберите крышу")}>
               <div className="rc-roof-types">
@@ -648,6 +642,21 @@ export function RoofCalculatorPage() {
               {tr("Результат обновляется при изменении параметров")}
             </p>
           </section>
+        </div>
+
+        {/* Right column: Results & Visualizer (matching loan-calculator layout) */}
+        <div className="lg:col-span-6 xl:col-span-6 flex flex-col gap-5">
+          {result && (
+            <RoofMetricsCards
+              geometry={result.g}
+              materials={result.m}
+              input={input}
+              totalCost={result.rows.reduce((s, r) => s + r.total, 0)}
+              onCopyAll={handleCopySummary}
+              copied={copied}
+            />
+          )}
+
           <section
             className="rc-result rc-card"
             ref={resultRef}
@@ -897,7 +906,8 @@ export function RoofCalculatorPage() {
             )}
           </section>
         </div>
-        <section className="rc-saved rc-card">
+      </div>
+        <section className="rc-saved rc-card mt-6">
           <button
             className="rc-saved-toggle"
             onClick={() => setHistoryOpen(!historyOpen)}
@@ -960,7 +970,6 @@ export function RoofCalculatorPage() {
           )}
         </section>
         <RoofGuide locale={locale} />
-      </div>
     </div>
   );
 }
