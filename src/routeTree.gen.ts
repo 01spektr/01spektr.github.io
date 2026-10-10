@@ -29,10 +29,12 @@ import { Route as UzContactRouteImport } from './routes/uz_.contact'
 import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
 import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools.customs-calculator'
 import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
+import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-generator'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
 import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
 import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools.customs-calculator'
 import { Route as UzToolsLoanCalculatorRouteImport } from './routes/uz_.tools.loan-calculator'
+import { Route as UzToolsQrGeneratorRouteImport } from './routes/uz_.tools.qr-generator'
 import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
 
 const IndexRoute = IndexRouteImport.update({
@@ -136,6 +138,11 @@ const RuToolsLoanCalculatorRoute = RuToolsLoanCalculatorRouteImport.update({
   path: '/ru/tools/loan-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsQrGeneratorRoute = RuToolsQrGeneratorRouteImport.update({
+  id: '/ru_/tools/qr-generator',
+  path: '/ru/tools/qr-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
   id: '/ru_/tools/vat-calculator',
   path: '/ru/tools/vat-calculator',
@@ -155,6 +162,11 @@ const UzToolsCustomsCalculatorRoute =
 const UzToolsLoanCalculatorRoute = UzToolsLoanCalculatorRouteImport.update({
   id: '/uz_/tools/loan-calculator',
   path: '/uz/tools/loan-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzToolsQrGeneratorRoute = UzToolsQrGeneratorRouteImport.update({
+  id: '/uz_/tools/qr-generator',
+  path: '/uz/tools/qr-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UzToolsVatCalculatorRoute = UzToolsVatCalculatorRouteImport.update({
@@ -184,10 +196,12 @@ export interface FileRoutesByFullPath {
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
+  '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
+  '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesByTo {
@@ -211,10 +225,12 @@ export interface FileRoutesByTo {
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
+  '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
+  '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesById {
@@ -239,10 +255,12 @@ export interface FileRoutesById {
   '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru_/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
+  '/ru_/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz_/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz_/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
+  '/uz_/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRouteTypes {
@@ -268,10 +286,12 @@ export interface FileRouteTypes {
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
     | '/ru/tools/loan-calculator'
+    | '/ru/tools/qr-generator'
     | '/ru/tools/vat-calculator'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
     | '/uz/tools/loan-calculator'
+    | '/uz/tools/qr-generator'
     | '/uz/tools/vat-calculator'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -295,10 +315,12 @@ export interface FileRouteTypes {
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
     | '/ru/tools/loan-calculator'
+    | '/ru/tools/qr-generator'
     | '/ru/tools/vat-calculator'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
     | '/uz/tools/loan-calculator'
+    | '/uz/tools/qr-generator'
     | '/uz/tools/vat-calculator'
   id:
     | '__root__'
@@ -322,10 +344,12 @@ export interface FileRouteTypes {
     | '/ru_/tools/currency-rates'
     | '/ru_/tools/customs-calculator'
     | '/ru_/tools/loan-calculator'
+    | '/ru_/tools/qr-generator'
     | '/ru_/tools/vat-calculator'
     | '/uz_/tools/currency-rates'
     | '/uz_/tools/customs-calculator'
     | '/uz_/tools/loan-calculator'
+    | '/uz_/tools/qr-generator'
     | '/uz_/tools/vat-calculator'
   fileRoutesById: FileRoutesById
 }
@@ -350,10 +374,12 @@ export interface RootRouteChildren {
   RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
   RuToolsCustomsCalculatorRoute: typeof RuToolsCustomsCalculatorRoute
   RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
+  RuToolsQrGeneratorRoute: typeof RuToolsQrGeneratorRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
   UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
   UzToolsCustomsCalculatorRoute: typeof UzToolsCustomsCalculatorRoute
   UzToolsLoanCalculatorRoute: typeof UzToolsLoanCalculatorRoute
+  UzToolsQrGeneratorRoute: typeof UzToolsQrGeneratorRoute
   UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
 }
 
@@ -499,6 +525,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsLoanCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/qr-generator': {
+      id: '/ru_/tools/qr-generator'
+      path: '/ru/tools/qr-generator'
+      fullPath: '/ru/tools/qr-generator'
+      preLoaderRoute: typeof RuToolsQrGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/vat-calculator': {
       id: '/ru_/tools/vat-calculator'
       path: '/ru/tools/vat-calculator'
@@ -525,6 +558,13 @@ declare module '@tanstack/react-router' {
       path: '/uz/tools/loan-calculator'
       fullPath: '/uz/tools/loan-calculator'
       preLoaderRoute: typeof UzToolsLoanCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/qr-generator': {
+      id: '/uz_/tools/qr-generator'
+      path: '/uz/tools/qr-generator'
+      fullPath: '/uz/tools/qr-generator'
+      preLoaderRoute: typeof UzToolsQrGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/uz_/tools/vat-calculator': {
@@ -558,10 +598,12 @@ const rootRouteChildren: RootRouteChildren = {
   RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
   RuToolsCustomsCalculatorRoute: RuToolsCustomsCalculatorRoute,
   RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
+  RuToolsQrGeneratorRoute: RuToolsQrGeneratorRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
   UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,
   UzToolsCustomsCalculatorRoute: UzToolsCustomsCalculatorRoute,
   UzToolsLoanCalculatorRoute: UzToolsLoanCalculatorRoute,
+  UzToolsQrGeneratorRoute: UzToolsQrGeneratorRoute,
   UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
 }
 export const routeTree = rootRouteImport

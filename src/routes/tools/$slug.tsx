@@ -12,6 +12,7 @@ import { currencyRatesHead } from "@/features/currency-rates/seo";
 import { vatCalculatorHead } from "@/features/vat-calculator/seo";
 import { customsCalculatorHead } from "@/features/customs-calculator/seo";
 import { loanCalculatorHead } from "@/features/loan-calculator/seo";
+import { qrGeneratorHead } from "@/features/qr-generator/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
@@ -83,6 +84,7 @@ export const Route = createFileRoute("/tools/$slug")({
     if (params.slug === "vat-calculator") return vatCalculatorHead("en");
     if (params.slug === "customs-calculator") return customsCalculatorHead("en");
     if (params.slug === "loan-calculator") return loanCalculatorHead("en");
+    if (params.slug === "qr-generator") return qrGeneratorHead("en");
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
       "qr-generator":
