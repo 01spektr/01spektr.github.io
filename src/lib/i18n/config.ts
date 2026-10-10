@@ -20,7 +20,7 @@ export function localeFromHomePath(path: string): Locale | null {
   return isLocale(code) ? code : null;
 }
 
-const LOCALIZED_TOOL_SLUGS = new Set(["currency-rates", "vat-calculator"]);
+const LOCALIZED_TOOL_SLUGS = new Set(["currency-rates", "vat-calculator", "customs-calculator"]);
 const LOCALIZED_INFO_PAGES = new Set(["about", "contact"]);
 
 export function localeFromPath(path: string): Locale | null {
