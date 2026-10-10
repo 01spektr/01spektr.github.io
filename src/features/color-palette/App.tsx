@@ -34,8 +34,9 @@ import { ImagePaletteExtractor } from './components/ImagePaletteExtractor';
 import { ShadesGenerator } from './components/ShadesGenerator';
 import { AccessibilityChecker } from './components/AccessibilityChecker';
 import { FavoritesModal } from './components/FavoritesDrawer';
-import { Toast } from './components/Toast';
 import { PaletteLocaleBoundary } from './components/PaletteLocaleBoundary';
+import { PaletteHeroBanner } from './components/HeroBanner';
+import { toast } from 'sonner';
 import { QuickPresetCategory } from './data/presets';
 import {
   Sparkles,
@@ -115,11 +116,7 @@ export default function App() {
   const isUndoRedoAction = useRef(false);
 
   const showToast = useCallback((msg: string) => {
-    setToastMessage(msg);
-  }, []);
-
-  const hideToast = useCallback(() => {
-    setToastMessage(null);
+    toast.success(msg);
   }, []);
 
   // Load saved palettes from localStorage & parse URL hash on mount
@@ -414,63 +411,28 @@ export default function App() {
 
   return (
     <PaletteLocaleBoundary enabled={en}>
-    <div className="palette-tool mx-auto w-full max-w-[1384px] text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+    <div className="palette-tool mx-auto w-full max-w-[1380px] px-3 sm:px-4 md:px-6 py-4 sm:py-6 text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
       <div>
-        <header className="palette-site-header mb-5">
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-            <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted-foreground">
-              <Link to={homePath} className="inline-flex items-center gap-1.5 transition-colors hover:text-primary">
-                <Home className="size-3.5" /> {tr('Главная', 'Home')}
-              </Link>
-              <ChevronRight className="size-3.5" />
-              <Link to="/categories/$id" params={{ id: 'design-print' }} className="transition-colors hover:text-primary">
-                {tr('Дизайн и полиграфия', 'Design & print')}
-              </Link>
-              <ChevronRight className="size-3.5" />
-              <span className="text-foreground">{tr('Палитра цветов', 'Color palette')}</span>
-            </nav>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  toggleFavorite('color-palette');
-                  setFavorite(isFavorite('color-palette'));
-                }}
-              >
-                <Star className={`size-4 ${favorite ? 'fill-primary text-primary' : ''}`} />
-                {favorite ? tr('В избранном', 'Saved') : tr('В избранное', 'Add to favorites')}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() =>
-                  void shareUrl(
-                    buildShareUrl('/tools/color-palette', new URLSearchParams()),
-                    tr('Палитра цветов', 'Color palette'),
-                  )
-                }
-              >
-                <Share2 className="size-4" /> {tr('Поделиться', 'Share')}
-              </Button>
-            </div>
-          </div>
-          <div className="grid gap-4 lg:grid-cols-[1fr_360px] lg:items-center">
-            <div className="flex items-start gap-4">
-              <ToolIcon tool={tool} size="hero" />
-              <div>
-                <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                  {tr('Палитра цветов', 'Color palette')}
-                </h1>
-                <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  {tr('Подбирайте гармоничные цвета для бренда, интерфейсов и печати.', 'Build harmonious color palettes for brands, interfaces and print.')}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 rounded-xl bg-primary/5 px-4 py-3 text-sm text-muted-foreground">
-              <Info className="size-5 shrink-0 text-primary" />
-              {tr('Все вычисления и обработка изображений выполняются в браузере.', 'All calculations and image processing happen in your browser.')}
-            </div>
-          </div>
-        </header>
+        <PaletteHeroBanner
+          fav={favorite}
+          onToggleFav={() => {
+            toggleFavorite('color-palette');
+            setFavorite(isFavorite('color-palette'));
+          }}
+          onShare={async () => {
+            await shareUrl(
+              buildShareUrl(
+                locale === 'en'
+                  ? '/en/tools/color-palette'
+                  : locale === 'uz'
+                  ? '/uz/tools/color-palette'
+                  : '/tools/color-palette',
+                new URLSearchParams()
+              ),
+              tr('Палитра цветов', 'Color palette')
+            );
+          }}
+        />
 
         {/* Main Workspace Layout */}
         <div className="flex flex-col lg:flex-row gap-6 items-start">
@@ -809,8 +771,7 @@ export default function App() {
         onNotify={showToast}
       />
 
-      {/* Floating Toast Notification */}
-      <Toast message={toastMessage} onClose={hideToast} />
+      {/* Toast notifications are handled globally by sonner */}
     </div>
     </PaletteLocaleBoundary>
   );
