@@ -28,9 +28,11 @@ import { Route as UzAboutRouteImport } from './routes/uz_.about'
 import { Route as UzContactRouteImport } from './routes/uz_.contact'
 import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
 import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools.customs-calculator'
+import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
 import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
 import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools.customs-calculator'
+import { Route as UzToolsLoanCalculatorRouteImport } from './routes/uz_.tools.loan-calculator'
 import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
 
 const IndexRoute = IndexRouteImport.update({
@@ -129,6 +131,11 @@ const RuToolsCustomsCalculatorRoute =
     path: '/ru/tools/customs-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RuToolsLoanCalculatorRoute = RuToolsLoanCalculatorRouteImport.update({
+  id: '/ru_/tools/loan-calculator',
+  path: '/ru/tools/loan-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
   id: '/ru_/tools/vat-calculator',
   path: '/ru/tools/vat-calculator',
@@ -145,6 +152,11 @@ const UzToolsCustomsCalculatorRoute =
     path: '/uz/tools/customs-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const UzToolsLoanCalculatorRoute = UzToolsLoanCalculatorRouteImport.update({
+  id: '/uz_/tools/loan-calculator',
+  path: '/uz/tools/loan-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsVatCalculatorRoute = UzToolsVatCalculatorRouteImport.update({
   id: '/uz_/tools/vat-calculator',
   path: '/uz/tools/vat-calculator',
@@ -171,9 +183,11 @@ export interface FileRoutesByFullPath {
   '/tools/': typeof ToolsIndexRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
+  '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
+  '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesByTo {
@@ -196,9 +210,11 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsIndexRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
+  '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
+  '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesById {
@@ -222,9 +238,11 @@ export interface FileRoutesById {
   '/tools/': typeof ToolsIndexRoute
   '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru_/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
+  '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz_/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
+  '/uz_/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRouteTypes {
@@ -249,9 +267,11 @@ export interface FileRouteTypes {
     | '/tools/'
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
+    | '/ru/tools/loan-calculator'
     | '/ru/tools/vat-calculator'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
+    | '/uz/tools/loan-calculator'
     | '/uz/tools/vat-calculator'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -274,9 +294,11 @@ export interface FileRouteTypes {
     | '/tools'
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
+    | '/ru/tools/loan-calculator'
     | '/ru/tools/vat-calculator'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
+    | '/uz/tools/loan-calculator'
     | '/uz/tools/vat-calculator'
   id:
     | '__root__'
@@ -299,9 +321,11 @@ export interface FileRouteTypes {
     | '/tools/'
     | '/ru_/tools/currency-rates'
     | '/ru_/tools/customs-calculator'
+    | '/ru_/tools/loan-calculator'
     | '/ru_/tools/vat-calculator'
     | '/uz_/tools/currency-rates'
     | '/uz_/tools/customs-calculator'
+    | '/uz_/tools/loan-calculator'
     | '/uz_/tools/vat-calculator'
   fileRoutesById: FileRoutesById
 }
@@ -325,9 +349,11 @@ export interface RootRouteChildren {
   ToolsIndexRoute: typeof ToolsIndexRoute
   RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
   RuToolsCustomsCalculatorRoute: typeof RuToolsCustomsCalculatorRoute
+  RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
   UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
   UzToolsCustomsCalculatorRoute: typeof UzToolsCustomsCalculatorRoute
+  UzToolsLoanCalculatorRoute: typeof UzToolsLoanCalculatorRoute
   UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
 }
 
@@ -466,6 +492,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsCustomsCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/loan-calculator': {
+      id: '/ru_/tools/loan-calculator'
+      path: '/ru/tools/loan-calculator'
+      fullPath: '/ru/tools/loan-calculator'
+      preLoaderRoute: typeof RuToolsLoanCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/vat-calculator': {
       id: '/ru_/tools/vat-calculator'
       path: '/ru/tools/vat-calculator'
@@ -485,6 +518,13 @@ declare module '@tanstack/react-router' {
       path: '/uz/tools/customs-calculator'
       fullPath: '/uz/tools/customs-calculator'
       preLoaderRoute: typeof UzToolsCustomsCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/loan-calculator': {
+      id: '/uz_/tools/loan-calculator'
+      path: '/uz/tools/loan-calculator'
+      fullPath: '/uz/tools/loan-calculator'
+      preLoaderRoute: typeof UzToolsLoanCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/uz_/tools/vat-calculator': {
@@ -517,9 +557,11 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsIndexRoute: ToolsIndexRoute,
   RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
   RuToolsCustomsCalculatorRoute: RuToolsCustomsCalculatorRoute,
+  RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
   UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,
   UzToolsCustomsCalculatorRoute: UzToolsCustomsCalculatorRoute,
+  UzToolsLoanCalculatorRoute: UzToolsLoanCalculatorRoute,
   UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
 }
 export const routeTree = rootRouteImport
