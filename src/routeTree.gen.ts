@@ -32,6 +32,7 @@ import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.cur
 import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools.customs-calculator'
 import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
 import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-generator'
+import { Route as RuToolsRoofCalculatorRouteImport } from './routes/ru_.tools.roof-calculator'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
 import { Route as UzCategoriesIdRouteImport } from './routes/uz_.categories.$id'
 import { Route as UzToolsBarcodeGeneratorRouteImport } from './routes/uz_.tools.barcode-generator'
@@ -39,6 +40,7 @@ import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.cur
 import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools.customs-calculator'
 import { Route as UzToolsLoanCalculatorRouteImport } from './routes/uz_.tools.loan-calculator'
 import { Route as UzToolsQrGeneratorRouteImport } from './routes/uz_.tools.qr-generator'
+import { Route as UzToolsRoofCalculatorRouteImport } from './routes/uz_.tools.roof-calculator'
 import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
 
 const IndexRoute = IndexRouteImport.update({
@@ -157,6 +159,11 @@ const RuToolsQrGeneratorRoute = RuToolsQrGeneratorRouteImport.update({
   path: '/ru/tools/qr-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsRoofCalculatorRoute = RuToolsRoofCalculatorRouteImport.update({
+  id: '/ru_/tools/roof-calculator',
+  path: '/ru/tools/roof-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
   id: '/ru_/tools/vat-calculator',
   path: '/ru/tools/vat-calculator',
@@ -193,6 +200,11 @@ const UzToolsQrGeneratorRoute = UzToolsQrGeneratorRouteImport.update({
   path: '/uz/tools/qr-generator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UzToolsRoofCalculatorRoute = UzToolsRoofCalculatorRouteImport.update({
+  id: '/uz_/tools/roof-calculator',
+  path: '/uz/tools/roof-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsVatCalculatorRoute = UzToolsVatCalculatorRouteImport.update({
   id: '/uz_/tools/vat-calculator',
   path: '/uz/tools/vat-calculator',
@@ -223,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
+  '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
@@ -230,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
+  '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesByTo {
@@ -256,6 +270,7 @@ export interface FileRoutesByTo {
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
+  '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
@@ -263,6 +278,7 @@ export interface FileRoutesByTo {
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
+  '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesById {
@@ -290,6 +306,7 @@ export interface FileRoutesById {
   '/ru_/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru_/tools/qr-generator': typeof RuToolsQrGeneratorRoute
+  '/ru_/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz_/categories/$id': typeof UzCategoriesIdRoute
   '/uz_/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
@@ -297,6 +314,7 @@ export interface FileRoutesById {
   '/uz_/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz_/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz_/tools/qr-generator': typeof UzToolsQrGeneratorRoute
+  '/uz_/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRouteTypes {
@@ -325,6 +343,7 @@ export interface FileRouteTypes {
     | '/ru/tools/customs-calculator'
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
+    | '/ru/tools/roof-calculator'
     | '/ru/tools/vat-calculator'
     | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
@@ -332,6 +351,7 @@ export interface FileRouteTypes {
     | '/uz/tools/customs-calculator'
     | '/uz/tools/loan-calculator'
     | '/uz/tools/qr-generator'
+    | '/uz/tools/roof-calculator'
     | '/uz/tools/vat-calculator'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -358,6 +378,7 @@ export interface FileRouteTypes {
     | '/ru/tools/customs-calculator'
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
+    | '/ru/tools/roof-calculator'
     | '/ru/tools/vat-calculator'
     | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
@@ -365,6 +386,7 @@ export interface FileRouteTypes {
     | '/uz/tools/customs-calculator'
     | '/uz/tools/loan-calculator'
     | '/uz/tools/qr-generator'
+    | '/uz/tools/roof-calculator'
     | '/uz/tools/vat-calculator'
   id:
     | '__root__'
@@ -391,6 +413,7 @@ export interface FileRouteTypes {
     | '/ru_/tools/customs-calculator'
     | '/ru_/tools/loan-calculator'
     | '/ru_/tools/qr-generator'
+    | '/ru_/tools/roof-calculator'
     | '/ru_/tools/vat-calculator'
     | '/uz_/categories/$id'
     | '/uz_/tools/barcode-generator'
@@ -398,6 +421,7 @@ export interface FileRouteTypes {
     | '/uz_/tools/customs-calculator'
     | '/uz_/tools/loan-calculator'
     | '/uz_/tools/qr-generator'
+    | '/uz_/tools/roof-calculator'
     | '/uz_/tools/vat-calculator'
   fileRoutesById: FileRoutesById
 }
@@ -425,6 +449,7 @@ export interface RootRouteChildren {
   RuToolsCustomsCalculatorRoute: typeof RuToolsCustomsCalculatorRoute
   RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
   RuToolsQrGeneratorRoute: typeof RuToolsQrGeneratorRoute
+  RuToolsRoofCalculatorRoute: typeof RuToolsRoofCalculatorRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
   UzCategoriesIdRoute: typeof UzCategoriesIdRoute
   UzToolsBarcodeGeneratorRoute: typeof UzToolsBarcodeGeneratorRoute
@@ -432,6 +457,7 @@ export interface RootRouteChildren {
   UzToolsCustomsCalculatorRoute: typeof UzToolsCustomsCalculatorRoute
   UzToolsLoanCalculatorRoute: typeof UzToolsLoanCalculatorRoute
   UzToolsQrGeneratorRoute: typeof UzToolsQrGeneratorRoute
+  UzToolsRoofCalculatorRoute: typeof UzToolsRoofCalculatorRoute
   UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
 }
 
@@ -598,6 +624,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsQrGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/roof-calculator': {
+      id: '/ru_/tools/roof-calculator'
+      path: '/ru/tools/roof-calculator'
+      fullPath: '/ru/tools/roof-calculator'
+      preLoaderRoute: typeof RuToolsRoofCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/vat-calculator': {
       id: '/ru_/tools/vat-calculator'
       path: '/ru/tools/vat-calculator'
@@ -647,6 +680,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzToolsQrGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz_/tools/roof-calculator': {
+      id: '/uz_/tools/roof-calculator'
+      path: '/uz/tools/roof-calculator'
+      fullPath: '/uz/tools/roof-calculator'
+      preLoaderRoute: typeof UzToolsRoofCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/vat-calculator': {
       id: '/uz_/tools/vat-calculator'
       path: '/uz/tools/vat-calculator'
@@ -681,6 +721,7 @@ const rootRouteChildren: RootRouteChildren = {
   RuToolsCustomsCalculatorRoute: RuToolsCustomsCalculatorRoute,
   RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
   RuToolsQrGeneratorRoute: RuToolsQrGeneratorRoute,
+  RuToolsRoofCalculatorRoute: RuToolsRoofCalculatorRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
   UzCategoriesIdRoute: UzCategoriesIdRoute,
   UzToolsBarcodeGeneratorRoute: UzToolsBarcodeGeneratorRoute,
@@ -688,6 +729,7 @@ const rootRouteChildren: RootRouteChildren = {
   UzToolsCustomsCalculatorRoute: UzToolsCustomsCalculatorRoute,
   UzToolsLoanCalculatorRoute: UzToolsLoanCalculatorRoute,
   UzToolsQrGeneratorRoute: UzToolsQrGeneratorRoute,
+  UzToolsRoofCalculatorRoute: UzToolsRoofCalculatorRoute,
   UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
 }
 export const routeTree = rootRouteImport
