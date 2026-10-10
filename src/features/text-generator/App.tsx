@@ -14,12 +14,13 @@ import { SeoFaqSection } from "./components/SeoFaqSection.tsx";
 import { FavoritesModal } from "./components/FavoritesModal.tsx";
 import { HistoryModal } from "./components/HistoryModal.tsx";
 import { SearchModal } from "./components/SearchModal.tsx";
-import { Toast } from "./components/Toast.tsx";
 import { useTranslation } from "./context/LanguageContext.tsx";
 import { SidebarCategoryType, TextStyleItem, FavoriteItem, HistoryItem } from "./types.ts";
 import { TEXT_STYLES } from "./data/textStyles.ts";
 import { styleName } from "./data/styleNames.ts";
 import { copyToClipboard } from "./utils/clipboard.ts";
+import { toast } from "sonner";
+import { recordHistory } from "@/lib/tools/history";
 import { SlidersHorizontal, Eye } from "lucide-react";
 
 export default function App() {
@@ -40,11 +41,6 @@ export default function App() {
   const [isHistoryOpen, setIsHistoryOpen] = useState<boolean>(false);
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
-  // Toast state
-  const [toast, setToast] = useState<{ message: string; visible: boolean }>({
-    message: "",
-    visible: false,
-  });
 
   // Update previewText whenever inputText changes, applying selectedStyle
   useEffect(() => {
@@ -98,16 +94,18 @@ export default function App() {
   }, []);
 
   const triggerToast = useCallback((message: string) => {
-    setToast({ message, visible: true });
-    setTimeout(() => {
-      setToast((prev) => ({ ...prev, visible: false }));
-    }, 2200);
+    toast.success(message);
   }, []);
 
   const handleCopyText = async (text: string, styleName: string) => {
     const success = await copyToClipboard(text);
     if (success) {
       triggerToast(`${t("toast.copied")}: ${text.length > 25 ? text.slice(0, 25) + "…" : text}`);
+      recordHistory({
+        toolId: "text-symbol-generator",
+        title: `${styleName}: ${text.length > 25 ? text.slice(0, 25) + "…" : text}`,
+        params: { text, style: styleName },
+      });
       // Add to history
       setHistory((prev) => {
         const filtered = prev.filter((item) => item.text !== text);
@@ -496,8 +494,7 @@ export default function App() {
         onInsertSymbol={handleInsertSymbol}
       />
 
-      {/* Toast Alert */}
-      <Toast message={toast.message} isVisible={toast.visible} />
+      {/* Toast notifications are handled globally by sonner */}
     </div>
   );
 }
