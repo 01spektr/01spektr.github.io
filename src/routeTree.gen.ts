@@ -27,7 +27,9 @@ import { Route as ToolsSlugRouteImport } from './routes/tools/$slug'
 import { Route as UzAboutRouteImport } from './routes/uz_.about'
 import { Route as UzContactRouteImport } from './routes/uz_.contact'
 import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
+import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
 import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
+import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -119,9 +121,19 @@ const RuToolsCurrencyRatesRoute = RuToolsCurrencyRatesRouteImport.update({
   path: '/ru/tools/currency-rates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
+  id: '/ru_/tools/vat-calculator',
+  path: '/ru/tools/vat-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsCurrencyRatesRoute = UzToolsCurrencyRatesRouteImport.update({
   id: '/uz_/tools/currency-rates',
   path: '/uz/tools/currency-rates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzToolsVatCalculatorRoute = UzToolsVatCalculatorRouteImport.update({
+  id: '/uz_/tools/vat-calculator',
+  path: '/uz/tools/vat-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -144,7 +156,9 @@ export interface FileRoutesByFullPath {
   '/uz/contact': typeof UzContactRoute
   '/tools/': typeof ToolsIndexRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
+  '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
+  '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -165,7 +179,9 @@ export interface FileRoutesByTo {
   '/uz/contact': typeof UzContactRoute
   '/tools': typeof ToolsIndexRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
+  '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
+  '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -187,7 +203,9 @@ export interface FileRoutesById {
   '/uz_/contact': typeof UzContactRoute
   '/tools/': typeof ToolsIndexRoute
   '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
+  '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
+  '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -210,7 +228,9 @@ export interface FileRouteTypes {
     | '/uz/contact'
     | '/tools/'
     | '/ru/tools/currency-rates'
+    | '/ru/tools/vat-calculator'
     | '/uz/tools/currency-rates'
+    | '/uz/tools/vat-calculator'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -231,7 +251,9 @@ export interface FileRouteTypes {
     | '/uz/contact'
     | '/tools'
     | '/ru/tools/currency-rates'
+    | '/ru/tools/vat-calculator'
     | '/uz/tools/currency-rates'
+    | '/uz/tools/vat-calculator'
   id:
     | '__root__'
     | '/'
@@ -252,7 +274,9 @@ export interface FileRouteTypes {
     | '/uz_/contact'
     | '/tools/'
     | '/ru_/tools/currency-rates'
+    | '/ru_/tools/vat-calculator'
     | '/uz_/tools/currency-rates'
+    | '/uz_/tools/vat-calculator'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -274,7 +298,9 @@ export interface RootRouteChildren {
   UzContactRoute: typeof UzContactRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
   RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
+  RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
   UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
+  UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -405,11 +431,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsCurrencyRatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/vat-calculator': {
+      id: '/ru_/tools/vat-calculator'
+      path: '/ru/tools/vat-calculator'
+      fullPath: '/ru/tools/vat-calculator'
+      preLoaderRoute: typeof RuToolsVatCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/currency-rates': {
       id: '/uz_/tools/currency-rates'
       path: '/uz/tools/currency-rates'
       fullPath: '/uz/tools/currency-rates'
       preLoaderRoute: typeof UzToolsCurrencyRatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/tools/vat-calculator': {
+      id: '/uz_/tools/vat-calculator'
+      path: '/uz/tools/vat-calculator'
+      fullPath: '/uz/tools/vat-calculator'
+      preLoaderRoute: typeof UzToolsVatCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -434,7 +474,9 @@ const rootRouteChildren: RootRouteChildren = {
   UzContactRoute: UzContactRoute,
   ToolsIndexRoute: ToolsIndexRoute,
   RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
+  RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
   UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,
+  UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
