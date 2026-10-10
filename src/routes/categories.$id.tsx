@@ -35,23 +35,20 @@ import { localeHomePath, localizedToolPath, type Locale } from "@/lib/i18n/confi
 import { getCategoryBySlug, toolsByCategory } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
 import { seoHead } from "@/lib/seo";
+import { categoryHead } from "@/features/categories/seo";
 import "./categories.css";
 
 export const Route = createFileRoute("/categories/$id")({
   component: CategoryPage,
-  head: ({ params }) => {
-    const category = getCategoryBySlug(params.id);
-    return seoHead({
-      title: category ? `${category.name.ru} — Toolboxi.uz` : "Категория не найдена — Toolboxi.uz",
-      description: category?.description.ru ?? "Категория инструментов не найдена.",
-      path: `/categories/${params.id}`,
-      noIndex: !category,
-    });
-  },
+  head: ({ params }) => categoryHead(params.id, "en"),
 });
 
 function CategoryPage() {
   const { id } = Route.useParams();
+  return <CategoryView id={id} />;
+}
+
+export function CategoryView({ id }: { id: string }) {
   const { t, locale } = useI18n();
   const category = getCategoryBySlug(id);
 

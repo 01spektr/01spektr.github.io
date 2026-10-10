@@ -31,7 +31,9 @@ export function localeFromPath(path: string): Locale | null {
   const infoMatch = normalized.match(/^\/(about|contact)$/);
   if (infoMatch && LOCALIZED_INFO_PAGES.has(infoMatch[1])) return DEFAULT_LOCALE;
   const toolMatch = normalized.match(/^\/tools\/([^/]+)$/);
-  return toolMatch && LOCALIZED_TOOL_SLUGS.has(toolMatch[1]) ? DEFAULT_LOCALE : null;
+  if (toolMatch && LOCALIZED_TOOL_SLUGS.has(toolMatch[1])) return DEFAULT_LOCALE;
+  const categoryMatch = normalized.match(/^\/categories\/([^/]+)$/);
+  return categoryMatch ? DEFAULT_LOCALE : null;
 }
 
 export function localizedToolPath(slug: string, locale: Locale): string {
@@ -39,6 +41,10 @@ export function localizedToolPath(slug: string, locale: Locale): string {
     return `/tools/${slug}`;
   }
   return `/${locale}/tools/${slug}`;
+}
+
+export function localizedCategoryPath(id: string, locale: Locale): string {
+  return locale === DEFAULT_LOCALE ? `/categories/${id}` : `/${locale}/categories/${id}`;
 }
 
 export function localizedInfoPath(page: "about" | "contact", locale: Locale): string {
@@ -51,6 +57,10 @@ export function localizedPathForLocale(path: string, locale: Locale): string | n
   const infoMatch = normalized.match(/^\/(?:ru\/|uz\/)?(about|contact)$/);
   if (infoMatch && LOCALIZED_INFO_PAGES.has(infoMatch[1])) {
     return localizedInfoPath(infoMatch[1] as "about" | "contact", locale);
+  }
+  const catMatch = normalized.match(/^\/(?:ru\/|uz\/)?categories\/([^/]+)$/);
+  if (catMatch) {
+    return localizedCategoryPath(catMatch[1], locale);
   }
   const toolMatch = normalized.match(/^\/(?:ru\/|uz\/)?tools\/([^/]+)$/);
   if (!toolMatch || !LOCALIZED_TOOL_SLUGS.has(toolMatch[1])) return null;

@@ -26,12 +26,14 @@ import { Route as ToolsIndexRouteImport } from './routes/tools/index'
 import { Route as ToolsSlugRouteImport } from './routes/tools/$slug'
 import { Route as UzAboutRouteImport } from './routes/uz_.about'
 import { Route as UzContactRouteImport } from './routes/uz_.contact'
+import { Route as RuCategoriesIdRouteImport } from './routes/ru_.categories.$id'
 import { Route as RuToolsBarcodeGeneratorRouteImport } from './routes/ru_.tools.barcode-generator'
 import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.currency-rates'
 import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools.customs-calculator'
 import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
 import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-generator'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
+import { Route as UzCategoriesIdRouteImport } from './routes/uz_.categories.$id'
 import { Route as UzToolsBarcodeGeneratorRouteImport } from './routes/uz_.tools.barcode-generator'
 import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.currency-rates'
 import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools.customs-calculator'
@@ -124,6 +126,11 @@ const UzContactRoute = UzContactRouteImport.update({
   path: '/uz/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuCategoriesIdRoute = RuCategoriesIdRouteImport.update({
+  id: '/ru_/categories/$id',
+  path: '/ru/categories/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsBarcodeGeneratorRoute = RuToolsBarcodeGeneratorRouteImport.update({
   id: '/ru_/tools/barcode-generator',
   path: '/ru/tools/barcode-generator',
@@ -153,6 +160,11 @@ const RuToolsQrGeneratorRoute = RuToolsQrGeneratorRouteImport.update({
 const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
   id: '/ru_/tools/vat-calculator',
   path: '/ru/tools/vat-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UzCategoriesIdRoute = UzCategoriesIdRouteImport.update({
+  id: '/uz_/categories/$id',
+  path: '/uz/categories/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UzToolsBarcodeGeneratorRoute = UzToolsBarcodeGeneratorRouteImport.update({
@@ -205,12 +217,14 @@ export interface FileRoutesByFullPath {
   '/uz/about': typeof UzAboutRoute
   '/uz/contact': typeof UzContactRoute
   '/tools/': typeof ToolsIndexRoute
+  '/ru/categories/$id': typeof RuCategoriesIdRoute
   '/ru/tools/barcode-generator': typeof RuToolsBarcodeGeneratorRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
+  '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
@@ -236,12 +250,14 @@ export interface FileRoutesByTo {
   '/uz/about': typeof UzAboutRoute
   '/uz/contact': typeof UzContactRoute
   '/tools': typeof ToolsIndexRoute
+  '/ru/categories/$id': typeof RuCategoriesIdRoute
   '/ru/tools/barcode-generator': typeof RuToolsBarcodeGeneratorRoute
   '/ru/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
+  '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
   '/uz/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
@@ -268,12 +284,14 @@ export interface FileRoutesById {
   '/uz_/about': typeof UzAboutRoute
   '/uz_/contact': typeof UzContactRoute
   '/tools/': typeof ToolsIndexRoute
+  '/ru_/categories/$id': typeof RuCategoriesIdRoute
   '/ru_/tools/barcode-generator': typeof RuToolsBarcodeGeneratorRoute
   '/ru_/tools/currency-rates': typeof RuToolsCurrencyRatesRoute
   '/ru_/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru_/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
+  '/uz_/categories/$id': typeof UzCategoriesIdRoute
   '/uz_/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
   '/uz_/tools/currency-rates': typeof UzToolsCurrencyRatesRoute
   '/uz_/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
@@ -301,12 +319,14 @@ export interface FileRouteTypes {
     | '/uz/about'
     | '/uz/contact'
     | '/tools/'
+    | '/ru/categories/$id'
     | '/ru/tools/barcode-generator'
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
     | '/ru/tools/vat-calculator'
+    | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
@@ -332,12 +352,14 @@ export interface FileRouteTypes {
     | '/uz/about'
     | '/uz/contact'
     | '/tools'
+    | '/ru/categories/$id'
     | '/ru/tools/barcode-generator'
     | '/ru/tools/currency-rates'
     | '/ru/tools/customs-calculator'
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
     | '/ru/tools/vat-calculator'
+    | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
     | '/uz/tools/currency-rates'
     | '/uz/tools/customs-calculator'
@@ -363,12 +385,14 @@ export interface FileRouteTypes {
     | '/uz_/about'
     | '/uz_/contact'
     | '/tools/'
+    | '/ru_/categories/$id'
     | '/ru_/tools/barcode-generator'
     | '/ru_/tools/currency-rates'
     | '/ru_/tools/customs-calculator'
     | '/ru_/tools/loan-calculator'
     | '/ru_/tools/qr-generator'
     | '/ru_/tools/vat-calculator'
+    | '/uz_/categories/$id'
     | '/uz_/tools/barcode-generator'
     | '/uz_/tools/currency-rates'
     | '/uz_/tools/customs-calculator'
@@ -395,12 +419,14 @@ export interface RootRouteChildren {
   UzAboutRoute: typeof UzAboutRoute
   UzContactRoute: typeof UzContactRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
+  RuCategoriesIdRoute: typeof RuCategoriesIdRoute
   RuToolsBarcodeGeneratorRoute: typeof RuToolsBarcodeGeneratorRoute
   RuToolsCurrencyRatesRoute: typeof RuToolsCurrencyRatesRoute
   RuToolsCustomsCalculatorRoute: typeof RuToolsCustomsCalculatorRoute
   RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
   RuToolsQrGeneratorRoute: typeof RuToolsQrGeneratorRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
+  UzCategoriesIdRoute: typeof UzCategoriesIdRoute
   UzToolsBarcodeGeneratorRoute: typeof UzToolsBarcodeGeneratorRoute
   UzToolsCurrencyRatesRoute: typeof UzToolsCurrencyRatesRoute
   UzToolsCustomsCalculatorRoute: typeof UzToolsCustomsCalculatorRoute
@@ -530,6 +556,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/categories/$id': {
+      id: '/ru_/categories/$id'
+      path: '/ru/categories/$id'
+      fullPath: '/ru/categories/$id'
+      preLoaderRoute: typeof RuCategoriesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/barcode-generator': {
       id: '/ru_/tools/barcode-generator'
       path: '/ru/tools/barcode-generator'
@@ -570,6 +603,13 @@ declare module '@tanstack/react-router' {
       path: '/ru/tools/vat-calculator'
       fullPath: '/ru/tools/vat-calculator'
       preLoaderRoute: typeof RuToolsVatCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/uz_/categories/$id': {
+      id: '/uz_/categories/$id'
+      path: '/uz/categories/$id'
+      fullPath: '/uz/categories/$id'
+      preLoaderRoute: typeof UzCategoriesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/uz_/tools/barcode-generator': {
@@ -635,12 +675,14 @@ const rootRouteChildren: RootRouteChildren = {
   UzAboutRoute: UzAboutRoute,
   UzContactRoute: UzContactRoute,
   ToolsIndexRoute: ToolsIndexRoute,
+  RuCategoriesIdRoute: RuCategoriesIdRoute,
   RuToolsBarcodeGeneratorRoute: RuToolsBarcodeGeneratorRoute,
   RuToolsCurrencyRatesRoute: RuToolsCurrencyRatesRoute,
   RuToolsCustomsCalculatorRoute: RuToolsCustomsCalculatorRoute,
   RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
   RuToolsQrGeneratorRoute: RuToolsQrGeneratorRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
+  UzCategoriesIdRoute: UzCategoriesIdRoute,
   UzToolsBarcodeGeneratorRoute: UzToolsBarcodeGeneratorRoute,
   UzToolsCurrencyRatesRoute: UzToolsCurrencyRatesRoute,
   UzToolsCustomsCalculatorRoute: UzToolsCustomsCalculatorRoute,

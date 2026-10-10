@@ -19,6 +19,7 @@ import {
 import { useI18n } from "@/lib/i18n";
 import { CATEGORIES, TOOLS, searchTools, type Locale, type ToolDef } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
+import { localizedCategoryPath } from "@/lib/i18n/config";
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { getFavorites, subscribeFavorites, toggleFavorite } from "@/lib/tools/favorites";
 import { toast } from "sonner";
@@ -293,8 +294,7 @@ export function Home({ language }: { language: Locale }) {
               count = available.filter((t) => t.category === cat.id).length;
             return (
               <Link
-                to="/categories/$id"
-                params={{ id: cat.slug }}
+                to={localizedCategoryPath(cat.slug, language)}
                 key={cat.id}
                 className={`hp-category ${count ? "" : "hp-category-soon"}`}
                 style={{ "--tile-color": cat.tint } as CSSProperties}

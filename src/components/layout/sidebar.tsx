@@ -17,7 +17,7 @@ import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { CATEGORIES } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
-import { localeHomePath } from "@/lib/i18n/config";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 
 const NAV = [
   { to: "/", icon: Home, key: "nav.home" as const, exact: true },
@@ -80,13 +80,12 @@ export function Sidebar({ onNavigate, compact = false, onToggle }: { onNavigate?
         <nav className="grid gap-1 pb-6">
           {CATEGORIES.map((cat) => {
             const Icon = iconByName(cat.icon);
-            const to = `/categories/${cat.slug}`;
+            const to = localizedCategoryPath(cat.slug, locale);
             const active = pathname === to;
             return (
               <Link
                 key={cat.id}
-                to="/categories/$id"
-                params={{ id: cat.slug }}
+                to={to}
                 onClick={onNavigate}
                 className={cn(
                   "flex min-h-11 items-center rounded-xl text-sm text-sidebar-muted transition-colors hover:bg-sidebar-hover hover:text-sidebar-foreground",
