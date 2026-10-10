@@ -15,6 +15,7 @@ import { loanCalculatorHead } from "@/features/loan-calculator/seo";
 import { qrGeneratorHead } from "@/features/qr-generator/seo";
 import { barcodeGeneratorHead } from "@/features/barcode-generator/seo";
 import { roofCalculatorHead } from "@/features/roof-calculator/seo";
+import { smartCalendarHead } from "@/features/smart-calendar/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
@@ -89,6 +90,7 @@ export const Route = createFileRoute("/tools/$slug")({
     if (params.slug === "qr-generator") return qrGeneratorHead("en");
     if (params.slug === "barcode-generator") return barcodeGeneratorHead("en");
     if (params.slug === "roof-calculator") return roofCalculatorHead("en");
+    if (params.slug === "smart-calendar") return smartCalendarHead("en");
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
       "qr-generator":

@@ -33,6 +33,7 @@ import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools
 import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
 import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-generator'
 import { Route as RuToolsRoofCalculatorRouteImport } from './routes/ru_.tools.roof-calculator'
+import { Route as RuToolsSmartCalendarRouteImport } from './routes/ru_.tools.smart-calendar'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
 import { Route as UzCategoriesIdRouteImport } from './routes/uz_.categories.$id'
 import { Route as UzToolsBarcodeGeneratorRouteImport } from './routes/uz_.tools.barcode-generator'
@@ -41,6 +42,7 @@ import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools
 import { Route as UzToolsLoanCalculatorRouteImport } from './routes/uz_.tools.loan-calculator'
 import { Route as UzToolsQrGeneratorRouteImport } from './routes/uz_.tools.qr-generator'
 import { Route as UzToolsRoofCalculatorRouteImport } from './routes/uz_.tools.roof-calculator'
+import { Route as UzToolsSmartCalendarRouteImport } from './routes/uz_.tools.smart-calendar'
 import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
 
 const IndexRoute = IndexRouteImport.update({
@@ -164,6 +166,11 @@ const RuToolsRoofCalculatorRoute = RuToolsRoofCalculatorRouteImport.update({
   path: '/ru/tools/roof-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsSmartCalendarRoute = RuToolsSmartCalendarRouteImport.update({
+  id: '/ru_/tools/smart-calendar',
+  path: '/ru/tools/smart-calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsVatCalculatorRoute = RuToolsVatCalculatorRouteImport.update({
   id: '/ru_/tools/vat-calculator',
   path: '/ru/tools/vat-calculator',
@@ -205,6 +212,11 @@ const UzToolsRoofCalculatorRoute = UzToolsRoofCalculatorRouteImport.update({
   path: '/uz/tools/roof-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UzToolsSmartCalendarRoute = UzToolsSmartCalendarRouteImport.update({
+  id: '/uz_/tools/smart-calendar',
+  path: '/uz/tools/smart-calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsVatCalculatorRoute = UzToolsVatCalculatorRouteImport.update({
   id: '/uz_/tools/vat-calculator',
   path: '/uz/tools/vat-calculator',
@@ -236,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
+  '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
@@ -244,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
+  '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesByTo {
@@ -271,6 +285,7 @@ export interface FileRoutesByTo {
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
+  '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz/categories/$id': typeof UzCategoriesIdRoute
   '/uz/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
@@ -279,6 +294,7 @@ export interface FileRoutesByTo {
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
+  '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRoutesById {
@@ -307,6 +323,7 @@ export interface FileRoutesById {
   '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
   '/ru_/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru_/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
+  '/ru_/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/uz_/categories/$id': typeof UzCategoriesIdRoute
   '/uz_/tools/barcode-generator': typeof UzToolsBarcodeGeneratorRoute
@@ -315,6 +332,7 @@ export interface FileRoutesById {
   '/uz_/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
   '/uz_/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz_/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
+  '/uz_/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
   '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
 }
 export interface FileRouteTypes {
@@ -344,6 +362,7 @@ export interface FileRouteTypes {
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
     | '/ru/tools/roof-calculator'
+    | '/ru/tools/smart-calendar'
     | '/ru/tools/vat-calculator'
     | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
@@ -352,6 +371,7 @@ export interface FileRouteTypes {
     | '/uz/tools/loan-calculator'
     | '/uz/tools/qr-generator'
     | '/uz/tools/roof-calculator'
+    | '/uz/tools/smart-calendar'
     | '/uz/tools/vat-calculator'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -379,6 +399,7 @@ export interface FileRouteTypes {
     | '/ru/tools/loan-calculator'
     | '/ru/tools/qr-generator'
     | '/ru/tools/roof-calculator'
+    | '/ru/tools/smart-calendar'
     | '/ru/tools/vat-calculator'
     | '/uz/categories/$id'
     | '/uz/tools/barcode-generator'
@@ -387,6 +408,7 @@ export interface FileRouteTypes {
     | '/uz/tools/loan-calculator'
     | '/uz/tools/qr-generator'
     | '/uz/tools/roof-calculator'
+    | '/uz/tools/smart-calendar'
     | '/uz/tools/vat-calculator'
   id:
     | '__root__'
@@ -414,6 +436,7 @@ export interface FileRouteTypes {
     | '/ru_/tools/loan-calculator'
     | '/ru_/tools/qr-generator'
     | '/ru_/tools/roof-calculator'
+    | '/ru_/tools/smart-calendar'
     | '/ru_/tools/vat-calculator'
     | '/uz_/categories/$id'
     | '/uz_/tools/barcode-generator'
@@ -422,6 +445,7 @@ export interface FileRouteTypes {
     | '/uz_/tools/loan-calculator'
     | '/uz_/tools/qr-generator'
     | '/uz_/tools/roof-calculator'
+    | '/uz_/tools/smart-calendar'
     | '/uz_/tools/vat-calculator'
   fileRoutesById: FileRoutesById
 }
@@ -450,6 +474,7 @@ export interface RootRouteChildren {
   RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
   RuToolsQrGeneratorRoute: typeof RuToolsQrGeneratorRoute
   RuToolsRoofCalculatorRoute: typeof RuToolsRoofCalculatorRoute
+  RuToolsSmartCalendarRoute: typeof RuToolsSmartCalendarRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
   UzCategoriesIdRoute: typeof UzCategoriesIdRoute
   UzToolsBarcodeGeneratorRoute: typeof UzToolsBarcodeGeneratorRoute
@@ -458,6 +483,7 @@ export interface RootRouteChildren {
   UzToolsLoanCalculatorRoute: typeof UzToolsLoanCalculatorRoute
   UzToolsQrGeneratorRoute: typeof UzToolsQrGeneratorRoute
   UzToolsRoofCalculatorRoute: typeof UzToolsRoofCalculatorRoute
+  UzToolsSmartCalendarRoute: typeof UzToolsSmartCalendarRoute
   UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
 }
 
@@ -631,6 +657,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsRoofCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/smart-calendar': {
+      id: '/ru_/tools/smart-calendar'
+      path: '/ru/tools/smart-calendar'
+      fullPath: '/ru/tools/smart-calendar'
+      preLoaderRoute: typeof RuToolsSmartCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/vat-calculator': {
       id: '/ru_/tools/vat-calculator'
       path: '/ru/tools/vat-calculator'
@@ -687,6 +720,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzToolsRoofCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz_/tools/smart-calendar': {
+      id: '/uz_/tools/smart-calendar'
+      path: '/uz/tools/smart-calendar'
+      fullPath: '/uz/tools/smart-calendar'
+      preLoaderRoute: typeof UzToolsSmartCalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/vat-calculator': {
       id: '/uz_/tools/vat-calculator'
       path: '/uz/tools/vat-calculator'
@@ -722,6 +762,7 @@ const rootRouteChildren: RootRouteChildren = {
   RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
   RuToolsQrGeneratorRoute: RuToolsQrGeneratorRoute,
   RuToolsRoofCalculatorRoute: RuToolsRoofCalculatorRoute,
+  RuToolsSmartCalendarRoute: RuToolsSmartCalendarRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
   UzCategoriesIdRoute: UzCategoriesIdRoute,
   UzToolsBarcodeGeneratorRoute: UzToolsBarcodeGeneratorRoute,
@@ -730,6 +771,7 @@ const rootRouteChildren: RootRouteChildren = {
   UzToolsLoanCalculatorRoute: UzToolsLoanCalculatorRoute,
   UzToolsQrGeneratorRoute: UzToolsQrGeneratorRoute,
   UzToolsRoofCalculatorRoute: UzToolsRoofCalculatorRoute,
+  UzToolsSmartCalendarRoute: UzToolsSmartCalendarRoute,
   UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
 }
 export const routeTree = rootRouteImport
