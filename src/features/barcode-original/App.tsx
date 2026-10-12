@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  Home,
-  ChevronRight,
-  Zap,
-  ShieldCheck,
-  Infinity as InfinityIcon,
   Info,
   Settings,
   Copy,
@@ -15,6 +10,7 @@ import {
   AlertCircle,
   ChevronDown,
   Palette,
+  Check,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import {
@@ -29,14 +25,12 @@ import {
   calculateItf14Checksum,
 } from "./utils/barcode";
 import { FormatExamples } from "./components/FormatExamples";
-import { AccordionSections } from "./components/AccordionSections";
+import { BarcodeBottomCards } from "./components/BarcodeBottomCards";
 import { FormatInfoModal } from "./components/FormatInfoModal";
-import { Link } from "@tanstack/react-router";
-import { ToolIcon } from "@/components/tool-icon";
-import { Button } from "@/components/ui/button";
+import { BarcodeHeroBanner } from "./components/BarcodeHeroBanner";
+import { BarcodeMetricsCards } from "./components/BarcodeMetricsCards";
 import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
-import { Star, Share2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import {
   BARCODE_COLOR_LABELS_EN,
@@ -87,6 +81,7 @@ export default function App() {
   const en = locale === "en";
   const tr = (ru: string, english: string) => (en ? english : ru);
   const [favorite, setFavorite] = useState(() => isFavorite("barcode-generator"));
+
   // State
   const [selectedFormatId, setSelectedFormatId] = useState<string>("EAN-13");
   const [inputValue, setInputValue] = useState<string>("4780123456789");
@@ -102,31 +97,30 @@ export default function App() {
   const [isPngDropdownOpen, setIsPngDropdownOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Barcode Preview Reference & Render Status
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const [renderError, setRenderError] = useState<string | null>(null);
+  // Validation & Warnings
   const [checksumWarning, setChecksumWarning] = useState<string | null>(null);
+  const [renderError, setRenderError] = useState<string | null>(null);
 
-  // Selected format definition
+  // SVG ref for barcode
+  const svgRef = useRef<SVGSVGElement | null>(null);
+
+  // Active helpers
   const currentFormat =
     BARCODE_FORMATS.find((f) => f.id === selectedFormatId) || BARCODE_FORMATS[0];
-
+  const activeSize =
+    SIZE_OPTIONS.find((s) => s.id === selectedSizeId) || SIZE_OPTIONS[1];
   const activeColorHex =
     selectedColorId === "custom"
       ? customHexColor
       : COLOR_OPTIONS.find((c) => c.id === selectedColorId)?.hex || "#000000";
 
-  const activeSize = SIZE_OPTIONS.find((s) => s.id === selectedSizeId) || SIZE_OPTIONS[1];
-
-  // Helper toast
+  // Toast trigger
   const showToast = (msg: string) => {
     setToastMessage(msg);
-    setTimeout(() => {
-      setToastMessage((prev) => (prev === msg ? null : prev));
-    }, 3200);
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
-  // Re-render barcode whenever parameters change
+  // Render Barcode
   useEffect(() => {
     if (!svgRef.current) return;
 
@@ -136,17 +130,14 @@ export default function App() {
     let encodeVal = inputValue.trim();
 
     if (!encodeVal) {
-      setRenderError("Введите данные для штрихкода");
+      setRenderError("Введите значение для генерации штрихкода.");
       return;
     }
 
-    // Specific format sanitization and checksum auto-handling
     if (selectedFormatId === "EAN-13") {
       const digits = encodeVal.replace(/\D/g, "");
       if (digits.length < 12) {
-        setRenderError(
-          `Введено ${digits.length} из 12 цифр. Для EAN-13 требуется минимум 12 цифр.`,
-        );
+        setRenderError(`Введено ${digits.length} из 12 цифр. Для EAN-13 требуется минимум 12 цифр.`);
         return;
       }
       const first12 = digits.slice(0, 12);
@@ -225,7 +216,6 @@ export default function App() {
     activeColorHex,
   ]);
 
-  // Handler to select a format from examples or dropdown
   const handleSelectFormat = (formatId: string, sampleValue?: string) => {
     setSelectedFormatId(formatId);
     const targetFormat = BARCODE_FORMATS.find((f) => f.id === formatId);
@@ -236,7 +226,6 @@ export default function App() {
     }
   };
 
-  // Auto-fix checksum action in UI
   const handleFixChecksum = () => {
     const digits = inputValue.replace(/\D/g, "");
     if (selectedFormatId === "EAN-13" && digits.length >= 12) {
@@ -260,30 +249,21 @@ export default function App() {
     }
   };
 
-  // Copy to clipboard
   const handleCopyImage = async () => {
     if (!svgRef.current) return;
-    try {
-      const ok = await copyBarcodeImageToClipboard(svgRef.current);
-      if (ok) {
-        showToast("Штрихкод скопирован в буфер обмена!");
-        confetti({
-          particleCount: 35,
-          spread: 60,
-          origin: { y: 0.7 },
-        });
-      } else {
-        // Fallback: download if copy not permitted in frame
-        await downloadSvgAsPng(svgRef.current, `barcode_${selectedFormatId}_${inputValue}`, 2);
-        showToast("Изображение сохранено (копирование недоступно в этом браузере)");
-      }
-    } catch {
-      await downloadSvgAsPng(svgRef.current, `barcode_${selectedFormatId}_${inputValue}`, 2);
-      showToast("Изображение сохранено");
+    const ok = await copyBarcodeImageToClipboard(svgRef.current);
+    if (ok) {
+      showToast("Штрихкод скопирован в буфер обмена");
+      confetti({
+        particleCount: 25,
+        spread: 40,
+        origin: { y: 0.8 },
+      });
+    } else {
+      showToast("Не удалось скопировать (не поддерживается браузером)");
     }
   };
 
-  // Download PNG with quality multiplier
   const handleDownloadPng = async (scaleMultiplier = 2) => {
     if (!svgRef.current) return;
     setIsPngDropdownOpen(false);
@@ -300,7 +280,6 @@ export default function App() {
     }
   };
 
-  // Download SVG
   const handleDownloadSvg = () => {
     if (!svgRef.current) return;
     try {
@@ -312,7 +291,6 @@ export default function App() {
     }
   };
 
-  // Download PDF
   const handleDownloadPdf = async () => {
     if (!svgRef.current) return;
     try {
@@ -324,7 +302,6 @@ export default function App() {
     }
   };
 
-  // Quick download according to selected format
   const handleQuickDownload = () => {
     if (fileFormat === "PNG") {
       handleDownloadPng(activeSize.scale);
@@ -335,8 +312,20 @@ export default function App() {
     }
   };
 
+  const handleShare = async () => {
+    const params = new URLSearchParams();
+    params.set("format", selectedFormatId);
+    params.set("value", inputValue);
+    await shareUrl(
+      buildShareUrl("/tools/barcode-generator", params),
+      tr("Генератор штрихкодов", "Barcode generator"),
+    );
+  };
+
+  const isCurrentValid = !renderError;
+
   return (
-    <div className="barcode-integrated tool-page-frame text-slate-800 pb-14 font-sans antialiased">
+    <div className="barcode-integrated tool-page-frame text-slate-800 dark:text-slate-100 pb-14 font-sans antialiased transition-colors">
       {/* Toast Notification */}
       {toastMessage && (
         <div
@@ -355,170 +344,29 @@ export default function App() {
         onClose={() => setIsFormatModalOpen(false)}
       />
 
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 px-4 pb-5 pt-1 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500">
-            <Link to={en ? "/en" : "/"} className="hover:text-blue-600">{t("breadcrumb.home")}</Link>
-            <span>›</span>
-            <Link
-              to="/categories/$id"
-              params={{ id: "design-print" }}
-              className="hover:text-blue-600"
-            >
-              {tr("Дизайн и полиграфия", "Design & print")}
-            </Link>
-            <span>›</span>
-            <span>{tr("Генератор штрихкодов", "Barcode generator")}</span>
-          </nav>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setFavorite(toggleFavorite("barcode-generator"))}
-            >
-              <Star className={favorite ? "fill-primary text-primary" : ""} />
-              {favorite ? t("fav.remove") : t("fav.add")}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                void shareUrl(
-                  buildShareUrl("/tools/barcode-generator", new URLSearchParams()),
-                  tr("Генератор штрихкодов", "Barcode generator"),
-                )
-              }
-            >
-              <Share2 />
-              {t("share")}
-            </Button>
-          </div>
-        </div>
-        <header className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
-          <div className="flex items-start gap-4">
-            <ToolIcon tool={{ slug: "barcode-generator", icon: "Barcode" }} size="hero" />
-            <div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                {tr("Генератор штрихкодов", "Barcode generator")}
-              </h1>
-              <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-500">
-                {tr("Создавайте штрихкоды EAN, Code128, Code39 и других форматов. Генерация и экспорт происходят прямо в браузере.", "Create EAN, Code 128, Code 39 and other barcodes. Generation and export happen directly in your browser.")}
-              </p>
-            </div>
-          </div>
-          <aside className="flex shrink-0 items-center gap-3 rounded-xl bg-blue-50 px-4 py-3 text-xs leading-relaxed text-slate-600">
-            <Info className="size-5 shrink-0 text-blue-600" />
-            <p>
-              {tr("Работает прямо в вашем браузере.", "Works directly in your browser.")}
-              <br />
-              {tr("Данные не отправляются на сервер.", "No data is sent to a server.")}
-            </p>
-          </aside>
-        </header>
-      </div>
-      {/* Main Container */}
-      <main className="mx-auto max-w-[1440px] space-y-6 px-4 pt-1 sm:px-6 lg:px-8">
-        {/* Breadcrumb Navigation */}
-        <nav
-          id="breadcrumbs-nav"
-          aria-label="Навигация"
-          className="hidden flex items-center gap-2 text-xs text-slate-500 font-medium"
-        >
-          <a href="#" className="flex items-center gap-1 hover:text-slate-800 transition-colors">
-            <Home className="w-3.5 h-3.5 text-blue-600" />
-            <span>Главная</span>
-          </a>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="hover:text-slate-800 cursor-pointer">Категории</span>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="hover:text-slate-800 cursor-pointer">Дизайн и полиграфия</span>
-          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-slate-700 font-semibold">Генератор штрихкодов</span>
-        </nav>
+      {/* Standardized Benchmark Container max-w-[1380px] */}
+      <main className="mx-auto max-w-[1380px] w-full px-4 sm:px-6 lg:px-8 py-3 sm:py-6 space-y-5">
+        {/* Unified HeroBanner matching loan-calculator */}
+        <BarcodeHeroBanner
+          favorite={favorite}
+          onToggleFavorite={() => setFavorite(toggleFavorite("barcode-generator"))}
+          onShare={handleShare}
+        />
 
-        {/* Top Header Section */}
-        <header className="hidden flex-col lg:flex-row lg:items-center justify-between gap-6 pb-2">
-          {/* Title & App Icon */}
-          <div className="flex items-center gap-4">
-            <div
-              id="app-logo-badge"
-              className="w-13 h-13 rounded-2xl bg-blue-600 shadow-sm flex items-center justify-center shrink-0"
-            >
-              {/* Barcode icon glyph with vertical bars */}
-              <div className="flex items-center gap-0.5 h-7">
-                <div className="w-1.5 h-full bg-white rounded-xs"></div>
-                <div className="w-0.5 h-full bg-white rounded-xs"></div>
-                <div className="w-1 h-full bg-white rounded-xs"></div>
-                <div className="w-2 h-full bg-white rounded-xs"></div>
-                <div className="w-0.5 h-full bg-white rounded-xs"></div>
-                <div className="w-1.5 h-full bg-white rounded-xs"></div>
-              </div>
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
-                Генератор штрихкодов
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5 max-w-xl leading-relaxed">
-                Создавайте штрихкоды в форматах EAN, Code128, Code39 и других. Скачивайте в нужном
-                формате и используйте в своих проектах.
-              </p>
-            </div>
-          </div>
-
-          {/* 3 Top Feature Badges */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {/* Fast */}
-            <div
-              id="badge-fast"
-              className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs"
-            >
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                <Zap className="w-4 h-4 fill-blue-600 text-blue-600" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-slate-900 leading-tight">Быстро</div>
-                <div className="text-[11px] text-slate-500 truncate">Генерация за секунды</div>
-              </div>
-            </div>
-
-            {/* Convenient */}
-            <div
-              id="badge-convenient"
-              className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs"
-            >
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-4 h-4 text-blue-600" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-slate-900 leading-tight">Удобно</div>
-                <div className="text-[11px] text-slate-500 truncate">
-                  Поддержка популярных форматов
-                </div>
-              </div>
-            </div>
-
-            {/* Free */}
-            <div
-              id="badge-free"
-              className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs"
-            >
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                <InfinityIcon className="w-4 h-4 text-blue-600" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold text-slate-900 leading-tight">Бесплатно</div>
-                <div className="text-[11px] text-slate-500 truncate">Без регистрации</div>
-              </div>
-            </div>
-          </div>
-        </header>
+        {/* Live Metrics Cards */}
+        <BarcodeMetricsCards
+          format={currentFormat}
+          inputValue={inputValue}
+          isValid={isCurrentValid}
+          onCopyText={() => navigator.clipboard.writeText(inputValue)}
+        />
 
         {/* Primary Generator Workspace: 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
           {/* Left Column: Configuration Controls */}
           <section
             id="generator-config-card"
-            className="lg:col-span-6 xl:col-span-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6 flex flex-col justify-between"
+            className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs p-5 sm:p-6 space-y-6 flex flex-col justify-between transition-colors"
           >
             <div className="space-y-6">
               {/* STEP 1: Select Barcode Type */}
@@ -527,7 +375,7 @@ export default function App() {
                   <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shrink-0">
                     1
                   </span>
-                  <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                  <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
                     {tr("Выберите тип штрихкода", "Choose a barcode type")}
                   </h2>
                 </div>
@@ -539,7 +387,7 @@ export default function App() {
                       id="barcode-format-select"
                       value={selectedFormatId}
                       onChange={(e) => handleSelectFormat(e.target.value)}
-                      className="w-full bg-white border border-slate-200 hover:border-slate-300 text-slate-900 text-sm font-medium rounded-xl px-4 py-3 pr-10 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors cursor-pointer shadow-2xs"
+                      className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-900 dark:text-slate-100 text-sm font-medium rounded-xl px-4 py-3 pr-10 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors cursor-pointer shadow-2xs"
                     >
                       {BARCODE_FORMATS.map((fmt) => (
                         <option key={fmt.id} value={fmt.id}>
@@ -553,18 +401,16 @@ export default function App() {
                   {/* Format Info Callout Box */}
                   <div
                     id="format-info-callout"
-                    className="bg-[#f0f6ff] border border-blue-100/70 rounded-xl p-3.5 flex gap-3 items-start text-xs"
+                    className="bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/60 rounded-xl p-3.5 flex gap-3 items-start text-xs"
                   >
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
-                      <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[11px]">
-                        i
-                      </div>
+                    <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                      i
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-bold text-slate-900 text-sm leading-tight">
+                      <div className="font-bold text-slate-900 dark:text-slate-100 text-sm leading-tight">
                         {currentFormat.name}
                       </div>
-                      <p className="text-slate-600 text-xs mt-1 leading-relaxed">
+                      <p className="text-slate-600 dark:text-slate-300 text-xs mt-1 leading-relaxed">
                         {en
                           ? barcodeDescription(currentFormat.id)
                           : currentFormat.id === "EAN-13"
@@ -574,9 +420,9 @@ export default function App() {
                       <button
                         id="open-format-details-btn"
                         onClick={() => setIsFormatModalOpen(true)}
-                        className="mt-1.5 text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-1 cursor-pointer transition-colors text-xs"
+                        className="mt-1.5 text-blue-600 dark:text-blue-400 hover:underline font-semibold inline-flex items-center gap-1 cursor-pointer transition-colors text-xs"
                       >
-                        <span>{tr("Подробнее", "Details")}</span>
+                        <span>{tr("Подробнее о стандарте", "Standard details")}</span>
                         <span>→</span>
                       </button>
                     </div>
@@ -590,7 +436,7 @@ export default function App() {
                   <span className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shrink-0">
                     2
                   </span>
-                  <h2 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                  <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
                     {tr("Введите данные", "Enter data")}
                   </h2>
                 </div>
@@ -603,48 +449,50 @@ export default function App() {
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       placeholder="4780123456789"
-                      className="w-full bg-white border border-slate-200 hover:border-slate-300 text-slate-900 font-mono text-sm sm:text-base rounded-xl px-4 py-2.5 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors shadow-2xs"
+                      className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-900 dark:text-slate-100 font-mono text-sm sm:text-base rounded-xl px-4 py-2.5 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors shadow-2xs"
                     />
                   </div>
                   <button
                     id="generate-barcode-btn"
                     onClick={() => {
-                      showToast(tr("Штрихкод сгенерирован", "Barcode generated"));
+                      showToast(tr("Штрихкод обновлён", "Barcode updated"));
                     }}
-                    className="bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white px-6 py-2.5 rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer shrink-0"
+                    className="bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer shrink-0"
                   >
                     <Settings className="w-4 h-4" />
-                    <span>{tr("Сгенерировать", "Generate")}</span>
+                    <span>{tr("Применить", "Apply")}</span>
                   </button>
                 </div>
 
                 {/* Helper hint & warnings */}
                 <div className="space-y-1 text-xs">
-                  <p className="text-slate-500">
+                  <p className="text-slate-500 dark:text-slate-400">
                     {en
                       ? barcodeHint(currentFormat.id)
                       : currentFormat.id === "EAN-13"
-                        ? "Для EAN-13 введите 12 цифр, контрольная сумма будет добавлена автоматически."
+                        ? "Для EAN-13 введите 12 или 13 цифр, контрольная сумма рассчитывается автоматически."
                         : currentFormat.rulesHint}
                   </p>
 
                   {checksumWarning && (
-                    <div className="flex items-center justify-between gap-2 p-2 bg-amber-50 border border-amber-200 rounded-lg text-amber-800">
-                      <div className="flex items-center gap-1.5">
-                        <AlertCircle className="w-3.5 h-3.5 shrink-0 text-amber-600" />
-                        <span>{en ? englishRuntimeMessage(checksumWarning) : checksumWarning}</span>
+                    <div className="flex items-center justify-between gap-2 p-2.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-xl text-amber-900 dark:text-amber-200">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                        <span className="text-xs truncate">
+                          {en ? englishRuntimeMessage(checksumWarning) : checksumWarning}
+                        </span>
                       </div>
                       <button
                         onClick={handleFixChecksum}
-                        className="text-amber-900 font-semibold underline underline-offset-2 hover:text-amber-950 shrink-0 cursor-pointer ml-2"
+                        className="text-amber-900 dark:text-amber-300 font-bold underline underline-offset-2 hover:opacity-80 shrink-0 cursor-pointer ml-2 text-xs"
                       >
-                        {tr("Применить к полю", "Apply")}
+                        {tr("Исправить", "Fix")}
                       </button>
                     </div>
                   )}
 
                   {renderError && (
-                    <div className="flex items-center gap-1.5 text-rose-600 font-medium">
+                    <div className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400 font-medium">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                       <span>{en ? englishRuntimeMessage(renderError) : renderError}</span>
                     </div>
@@ -653,13 +501,13 @@ export default function App() {
               </div>
 
               {/* STEP 3: Optional Settings */}
-              <div id="step-3-container" className="space-y-3.5 pt-1 border-t border-slate-100">
+              <div id="step-3-container" className="space-y-3.5 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <div className="flex items-center gap-2.5">
                   <span className="w-5 h-5 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shrink-0">
                     3
                   </span>
-                  <h2 className="text-sm font-bold text-slate-900 tracking-tight">
-                    {tr("Настройки", "Settings")} <span className="font-normal text-slate-500">{tr("(опционально)", "(optional)")}</span>
+                  <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
+                    {tr("Параметры оформления", "Styling & Format")}
                   </h2>
                 </div>
 
@@ -667,7 +515,7 @@ export default function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {/* Size Selector */}
                   <div className="space-y-1.5">
-                    <label htmlFor="select-size" className="text-xs font-medium text-slate-600">
+                    <label htmlFor="select-size" className="text-xs font-medium text-slate-600 dark:text-slate-400">
                       {tr("Размер", "Size")}
                     </label>
                     <div className="relative">
@@ -675,7 +523,7 @@ export default function App() {
                         id="select-size"
                         value={selectedSizeId}
                         onChange={(e) => setSelectedSizeId(e.target.value)}
-                        className="w-full bg-slate-50/80 border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-medium rounded-xl px-3 py-2 pr-7 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors cursor-pointer"
+                        className="w-full bg-slate-50/80 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium rounded-xl px-3 py-2 pr-7 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
                       >
                         {SIZE_OPTIONS.map((s) => (
                           <option key={s.id} value={s.id}>
@@ -689,7 +537,7 @@ export default function App() {
 
                   {/* Color Selector */}
                   <div className="space-y-1.5">
-                    <label htmlFor="select-color" className="text-xs font-medium text-slate-600">
+                    <label htmlFor="select-color" className="text-xs font-medium text-slate-600 dark:text-slate-400">
                       {tr("Цвет", "Colour")}
                     </label>
                     <div className="relative flex items-center">
@@ -697,7 +545,7 @@ export default function App() {
                         id="select-color"
                         value={selectedColorId}
                         onChange={(e) => setSelectedColorId(e.target.value)}
-                        className="w-full bg-slate-50/80 border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-medium rounded-xl pl-7 pr-7 py-2 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors cursor-pointer"
+                        className="w-full bg-slate-50/80 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium rounded-xl pl-7 pr-7 py-2 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
                       >
                         {COLOR_OPTIONS.map((c) => (
                           <option key={c.id} value={c.id}>
@@ -705,7 +553,6 @@ export default function App() {
                           </option>
                         ))}
                       </select>
-                      {/* Color Preview Swatch Dot */}
                       <span
                         className="w-3 h-3 rounded-full absolute left-2.5 pointer-events-none border border-black/10"
                         style={{ backgroundColor: activeColorHex }}
@@ -718,7 +565,7 @@ export default function App() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="select-file-format"
-                      className="text-xs font-medium text-slate-600"
+                      className="text-xs font-medium text-slate-600 dark:text-slate-400"
                     >
                       {tr("Формат файла", "File format")}
                     </label>
@@ -727,11 +574,11 @@ export default function App() {
                         id="select-file-format"
                         value={fileFormat}
                         onChange={(e) => setFileFormat(e.target.value as "PNG" | "SVG" | "PDF")}
-                        className="w-full bg-slate-50/80 border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl px-3 py-2 pr-7 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors cursor-pointer"
+                        className="w-full bg-slate-50/80 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold rounded-xl px-3 py-2 pr-7 appearance-none focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
                       >
-                        <option value="PNG">PNG</option>
-                        <option value="SVG">SVG</option>
-                        <option value="PDF">PDF</option>
+                        <option value="PNG">PNG (Растр)</option>
+                        <option value="SVG">SVG (Вектор)</option>
+                        <option value="PDF">PDF (Печать)</option>
                       </select>
                       <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-3 pointer-events-none" />
                     </div>
@@ -740,16 +587,20 @@ export default function App() {
 
                 {/* Custom Color Input if custom selected */}
                 {selectedColorId === "custom" && (
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+                  <div className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs">
                     <Palette className="w-4 h-4 text-slate-500" />
-                    <span className="text-slate-600">{tr("Выберите оттенок:", "Choose a colour:")}</span>
+                    <span className="text-slate-600 dark:text-slate-300">
+                      {tr("Выберите оттенок:", "Choose a colour:")}
+                    </span>
                     <input
                       type="color"
                       value={customHexColor}
                       onChange={(e) => setCustomHexColor(e.target.value)}
                       className="w-7 h-7 rounded-lg border-0 cursor-pointer p-0 bg-transparent"
                     />
-                    <span className="font-mono text-slate-700">{customHexColor}</span>
+                    <span className="font-mono text-slate-700 dark:text-slate-200">
+                      {customHexColor}
+                    </span>
                   </div>
                 )}
 
@@ -757,7 +608,7 @@ export default function App() {
                 <div className="flex flex-wrap items-center gap-4 pt-1">
                   <label
                     id="checkbox-label-show-text"
-                    className="flex items-center gap-2 cursor-pointer select-none text-xs font-medium text-slate-700 hover:text-slate-900"
+                    className="flex items-center gap-2 cursor-pointer select-none text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900"
                   >
                     <input
                       id="checkbox-show-text"
@@ -771,7 +622,7 @@ export default function App() {
 
                   <label
                     id="checkbox-label-quiet-zone"
-                    className="flex items-center gap-2 cursor-pointer select-none text-xs font-medium text-slate-700 hover:text-slate-900"
+                    className="flex items-center gap-2 cursor-pointer select-none text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900"
                   >
                     <input
                       id="checkbox-quiet-zone"
@@ -790,17 +641,19 @@ export default function App() {
           {/* Right Column: Barcode Live Preview & Action Downloads */}
           <section
             id="generator-preview-card"
-            className="lg:col-span-6 xl:col-span-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 flex flex-col justify-between"
+            className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs p-5 sm:p-6 flex flex-col justify-between transition-colors"
           >
             {/* Header: Title & Copy Image */}
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h2 className="text-sm sm:text-base font-bold text-slate-900">{tr("Предпросмотр", "Preview")}</h2>
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+              <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 font-heading">
+                {tr("Предпросмотр штрихкода", "Barcode Preview")}
+              </h2>
               <button
                 id="copy-barcode-image-btn"
                 onClick={handleCopyImage}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 rounded-lg shadow-2xs transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700 rounded-xl shadow-2xs transition-colors cursor-pointer"
               >
-                <Copy className="w-3.5 h-3.5 text-slate-500" />
+                <Copy className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                 <span>{tr("Скопировать изображение", "Copy image")}</span>
               </button>
             </div>
@@ -809,15 +662,17 @@ export default function App() {
             <div className="py-6 flex flex-col items-center justify-center">
               <div
                 id="barcode-preview-stage"
-                className="w-full bg-slate-50/70 border border-slate-200/60 rounded-xl p-6 sm:p-8 flex flex-col items-center justify-center min-h-[260px]"
+                className="w-full bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center min-h-[260px] transition-colors"
               >
+                {/* Crisp white container for the barcode itself, ensuring 100% contrast & scannability */}
                 <div
                   id="barcode-render-box"
-                  className={`bg-white p-4 sm:p-6 rounded-lg shadow-2xs border border-slate-200/50 flex flex-col items-center justify-center transition-all ${
-                    selectedFormatId === "ITF-14" ? "border-4 border-black" : ""
+                  className={`bg-white p-4 sm:p-6 rounded-xl shadow-xs border flex flex-col items-center justify-center transition-all ${
+                    selectedFormatId === "ITF-14"
+                      ? "border-4 border-black"
+                      : "border-slate-200/70"
                   }`}
                 >
-                  {/* SVG Barcode Output */}
                   <svg
                     ref={svgRef}
                     id="barcode-svg-element"
@@ -826,17 +681,18 @@ export default function App() {
                 </div>
 
                 {/* Status footer for standard */}
-                <div className="mt-3 text-center">
-                  <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-slate-400">
-                    {selectedFormatId} • {showText ? tr("С текстом", "With text") : tr("Без текста", "Without text")} •{" "}
-                    {addQuietZone ? tr("Quiet zone вкл.", "Quiet zone on") : tr("Без полей", "No quiet zone")}
+                <div className="mt-3.5 text-center">
+                  <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                    {selectedFormatId} •{" "}
+                    {showText ? tr("С текстом", "With text") : tr("Без текста", "Without text")} •{" "}
+                    {addQuietZone ? tr("Поля вкл.", "Quiet zone on") : tr("Без полей", "No quiet zone")}
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Download Buttons Row */}
-            <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2.5">
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2.5">
               {/* Primary Download Button with Quality Caret */}
               <div className="relative inline-flex flex-1 sm:flex-initial">
                 <button
@@ -860,28 +716,28 @@ export default function App() {
                 {isPngDropdownOpen && (
                   <div
                     id="png-resolution-dropdown"
-                    className="absolute bottom-full left-0 mb-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-20 text-xs space-y-1"
+                    className="absolute bottom-full left-0 mb-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-2 z-20 text-xs space-y-1"
                   >
                     <div className="px-3 py-1 font-semibold text-slate-400 uppercase text-[10px]">
                       {tr("Разрешение для экспорта", "Export resolution")}
                     </div>
                     <button
                       onClick={() => handleDownloadPng(1)}
-                      className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-between cursor-pointer"
                     >
                       <span>{tr("Стандартное (1x - экран)", "Standard (1x — screen)")}</span>
                       <span className="text-slate-400">300 px</span>
                     </button>
                     <button
                       onClick={() => handleDownloadPng(2)}
-                      className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between cursor-pointer font-medium"
+                      className="w-full text-left px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-between cursor-pointer font-medium"
                     >
                       <span>{tr("Оптимальное (2x - этикетки)", "Optimal (2x — labels)")}</span>
-                      <span className="text-blue-600">600 px</span>
+                      <span className="text-blue-600 dark:text-blue-400">600 px</span>
                     </button>
                     <button
                       onClick={() => handleDownloadPng(4)}
-                      className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between cursor-pointer"
+                      className="w-full text-left px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-between cursor-pointer"
                     >
                       <span>{tr("Полиграфия (4x - 1200 DPI)", "Print (4x — 1200 DPI)")}</span>
                       <span className="text-slate-400">1200 px</span>
@@ -894,9 +750,9 @@ export default function App() {
               <button
                 id="download-svg-btn"
                 onClick={handleDownloadSvg}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 rounded-xl shadow-2xs transition-colors cursor-pointer"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700 rounded-xl shadow-2xs transition-colors cursor-pointer"
               >
-                <FileCode className="w-4 h-4 text-slate-500" />
+                <FileCode className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <span>{tr("Скачать SVG", "Download SVG")}</span>
               </button>
 
@@ -904,23 +760,26 @@ export default function App() {
               <button
                 id="download-pdf-btn"
                 onClick={handleDownloadPdf}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 rounded-xl shadow-2xs transition-colors cursor-pointer"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700 rounded-xl shadow-2xs transition-colors cursor-pointer"
               >
-                <FileText className="w-4 h-4 text-slate-500" />
+                <FileText className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <span>{tr("Скачать PDF", "Download PDF")}</span>
               </button>
             </div>
           </section>
         </div>
 
-        {/* Examples of other formats (in a single horizontal row, sized to barcodes) */}
+        {/* Examples of other barcode formats */}
         <section id="format-examples-section">
-          <FormatExamples currentFormatId={selectedFormatId} onSelectFormat={handleSelectFormat} />
+          <FormatExamples
+            currentFormatId={selectedFormatId}
+            onSelectFormat={handleSelectFormat}
+          />
         </section>
 
-        {/* Footer Sections: FAQ, Guide, Commercial Use (3 in a row) */}
+        {/* Footer Sections: FAQ, Guide, Commercial Use */}
         <section id="faq-and-guides-section" className="pt-1">
-          <AccordionSections />
+          <BarcodeBottomCards />
         </section>
       </main>
     </div>
