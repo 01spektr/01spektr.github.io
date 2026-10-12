@@ -13,6 +13,7 @@ import { ExtraOptions } from "./components/extra-options";
 import { QrPreview } from "./components/qr-preview";
 import { QrHeroBanner } from "./components/HeroBanner";
 import { QrMetricsCards } from "./components/MetricsCards";
+import { QrBottomCards } from "./components/BottomCards";
 import { copyQrPng } from "./export";
 import { payloadLabel } from "./payload";
 import { deserializeQrState, historyParams, serializeQrState } from "./serializer";
@@ -141,6 +142,9 @@ export function QrGeneratorPage() {
       <div className="mt-8">
         <Examples onApply={patch} />
       </div>
+
+      {/* 5. Reference & Bottom Cards (matching loan-calculator standard) */}
+      <QrBottomCards />
     </div>
   );
 }

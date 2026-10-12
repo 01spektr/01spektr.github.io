@@ -2,6 +2,7 @@ import { defaultQrState, type QrContentType, type QrState } from "./state";
 
 const TYPE_SET = new Set<QrContentType>([
   "url",
+  "social",
   "text",
   "contact",
   "wifi",
@@ -28,6 +29,10 @@ export function serializeQrState(state: QrState): URLSearchParams {
   switch (state.type) {
     case "url":
       if (state.url) p.set("d", state.url);
+      break;
+    case "social":
+      p.set("sp", state.socialPlatform);
+      if (state.socialUsername) p.set("su", state.socialUsername);
       break;
     case "text":
       if (state.text) p.set("d", state.text.slice(0, 800));
@@ -90,6 +95,11 @@ export function deserializeQrState(params: URLSearchParams): Partial<QrState> {
 
   const type = patch.type ?? "url";
   if (type === "url" && params.get("d")) patch.url = params.get("d") ?? "";
+  if (type === "social") {
+    const sp = params.get("sp");
+    if (sp) patch.socialPlatform = sp as QrState["socialPlatform"];
+    if (params.get("su")) patch.socialUsername = params.get("su") ?? "";
+  }
   if (type === "text" && params.get("d")) patch.text = params.get("d") ?? "";
   if (type === "contact") {
     patch.contact = {

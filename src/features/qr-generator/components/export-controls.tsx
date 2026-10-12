@@ -23,7 +23,7 @@ interface Props {
   preview: ReactNode;
 }
 
-const FORMATS: ExportFormat[] = ["png", "svg", "jpg", "webp"];
+const FORMATS: ExportFormat[] = ["png", "svg", "pdf", "jpg", "webp"];
 
 export function ExportControls({ state, patch, svg, disabled, onUsed, preview }: Props) {
   const { t } = useI18n();
@@ -33,7 +33,7 @@ export function ExportControls({ state, patch, svg, disabled, onUsed, preview }:
 
   async function handleDownload() {
     if (!svg || disabled) return;
-    const format = state.highQualitySvg ? "svg" : state.exportFormat;
+    const format = state.exportFormat;
     try {
       await downloadQr(
         svg,
@@ -96,12 +96,12 @@ export function ExportControls({ state, patch, svg, disabled, onUsed, preview }:
 
       <Button
         size="lg"
-        className="h-12 w-full text-[15px]"
+        className="h-12 w-full text-[15px] font-medium"
         disabled={disabled}
         onClick={() => void handleDownload()}
       >
         <Download className="size-4" />
-        {t("qr.download")}
+        {t("qr.download")} (.{(state.exportFormat || "png").toUpperCase()})
       </Button>
       <Button
         variant="outline"
@@ -112,7 +112,7 @@ export function ExportControls({ state, patch, svg, disabled, onUsed, preview }:
         <Copy className="size-4" />
         {t("qr.copy")}
       </Button>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-5 gap-1.5">
         {FORMATS.map((fmt) => {
           const active = state.exportFormat === fmt;
           return (
@@ -121,9 +121,9 @@ export function ExportControls({ state, patch, svg, disabled, onUsed, preview }:
               type="button"
               onClick={() => patch({ exportFormat: fmt, highQualitySvg: fmt === "svg" })}
               className={cn(
-                "h-10 rounded-xl text-xs font-semibold uppercase",
+                "h-10 rounded-xl text-xs font-semibold uppercase transition-all",
                 active
-                  ? "bg-accent text-accent-foreground shadow-[0_0_0_1.5px_var(--primary)]"
+                  ? "bg-accent text-accent-foreground shadow-[0_0_0_1.5px_var(--primary)] font-bold"
                   : "bg-muted/70 text-muted-foreground hover:bg-muted hover:text-foreground",
               )}
             >

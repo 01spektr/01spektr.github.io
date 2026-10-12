@@ -60,11 +60,58 @@ function canvasToBlob(canvas: HTMLCanvasElement, type: string, quality = 0.92): 
   });
 }
 
+export async function downloadQrPdf(
+  svg: string,
+  pixelSize: number,
+  bg: string,
+  transparent: boolean,
+  filename = "qr-code.pdf",
+) {
+  const { jsPDF } = await import("jspdf");
+  // Ultra-high resolution render for razor-sharp 300+ DPI print output
+  const renderSize = Math.max(pixelSize * 2, 2400);
+  const canvas = await rasterizeSvg(svg, renderSize, {
+    background: transparent ? undefined : bg || "#ffffff",
+    transparent,
+  });
+  const imgData = canvas.toDataURL("image/png");
+
+  const aspect = canvas.height / canvas.width;
+  // Standard print artboard: 200mm base with quiet zone
+  const pageWidth = 200;
+  const pageHeight = Math.max(pageWidth, Math.round(pageWidth * aspect));
+  const margin = 15;
+  const qrWidth = pageWidth - margin * 2;
+  const qrHeight = qrWidth * aspect;
+  const offsetX = margin;
+  const offsetY = (pageHeight - qrHeight) / 2;
+
+  const doc = new jsPDF({
+    orientation: pageHeight > pageWidth ? "portrait" : "landscape",
+    unit: "mm",
+    format: [pageWidth, pageHeight],
+    compress: true,
+  });
+
+  // Background color if not transparent
+  if (!transparent && bg) {
+    doc.setFillColor(bg);
+    doc.rect(0, 0, pageWidth, pageHeight, "F");
+  }
+
+  doc.addImage(imgData, "PNG", offsetX, offsetY, qrWidth, qrHeight, undefined, "FAST");
+  doc.save(filename);
+}
+
 export async function downloadQr(svg: string, format: ExportFormat, pixelSize: number, bg: string, transparent: boolean) {
   const filename = `qr-code.${format}`;
   if (format === "svg") {
     const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     saveBlob(blob, filename);
+    return;
+  }
+  if (format === "pdf") {
+    await downloadQrPdf(svg, pixelSize, bg, transparent, filename);
     return;
   }
   const mime =

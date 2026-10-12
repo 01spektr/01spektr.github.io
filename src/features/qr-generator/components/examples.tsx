@@ -22,7 +22,7 @@ export function Examples({ onApply }: Props) {
       icon: Link2,
       title: t("qr.ex.url"),
       hint: t("qr.ex.urlHint"),
-      patch: { type: "url", url: "https://www.example.com" },
+      patch: { type: "url", url: "https://toolboxi.uz" },
     },
     {
       id: "url",

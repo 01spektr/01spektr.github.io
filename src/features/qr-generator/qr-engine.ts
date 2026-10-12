@@ -271,10 +271,45 @@ export function graphicToSvg(graphic: QrGraphic, state: QrState): string {
   const finderRx = graphic.eyeStyle === "rounded" ? 1.15 : 0;
   const innerRx = graphic.eyeStyle === "rounded" ? 0.7 : 0;
   const coreRx = graphic.eyeStyle === "rounded" ? 0.45 : 0;
+
+  // 1. Defs: Gradients
+  let defs = "";
+  let bodyFill = escapeXml(fg);
+
+  if (state.gradientEnabled && state.gradientColor2) {
+    const gradId = "qr-gradient";
+    bodyFill = `url(#${gradId})`;
+    if (state.gradientType === "radial") {
+      defs = `<defs>
+    <radialGradient id="${gradId}" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="${escapeXml(state.foregroundColor)}"/>
+      <stop offset="100%" stop-color="${escapeXml(state.gradientColor2)}"/>
+    </radialGradient>
+  </defs>`;
+    } else {
+      // Linear gradient with angle support
+      const rad = ((state.gradientAngle || 45) * Math.PI) / 180;
+      const x1 = Math.round(50 - Math.cos(rad) * 50) + "%";
+      const y1 = Math.round(50 - Math.sin(rad) * 50) + "%";
+      const x2 = Math.round(50 + Math.cos(rad) * 50) + "%";
+      const y2 = Math.round(50 + Math.sin(rad) * 50) + "%";
+      defs = `<defs>
+    <linearGradient id="${gradId}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">
+      <stop offset="0%" stop-color="${escapeXml(state.foregroundColor)}"/>
+      <stop offset="100%" stop-color="${escapeXml(state.gradientColor2)}"/>
+    </linearGradient>
+  </defs>`;
+    }
+  }
+
   const bg =
     graphic.bgFill === "none"
       ? ""
       : `<rect width="${vbWidth}" height="${vbHeight}" rx="${graphic.bgRx}" fill="${escapeXml(graphic.bgFill)}"/>`;
+
+  // 2. Eye colors (finders)
+  const outerEyeColor = state.customEyeColor ? escapeXml(state.eyeOuterColor) : bodyFill;
+  const innerEyeColor = state.customEyeColor ? escapeXml(state.eyeInnerColor) : bodyFill;
 
   const finders = graphic.finders
     .map((f) => {
@@ -282,16 +317,16 @@ export function graphicToSvg(graphic: QrGraphic, state: QrState): string {
       const y = f.y + quiet + graphic.framePad;
       const hole = state.transparentBackground ? "#ffffff" : state.backgroundColor;
       return `<g transform="translate(${x} ${y})">
-  <rect width="7" height="7" rx="${finderRx}" fill="${escapeXml(fg)}"/>
+  <rect width="7" height="7" rx="${finderRx}" fill="${outerEyeColor}"/>
   <rect x="1" y="1" width="5" height="5" rx="${innerRx}" fill="${escapeXml(hole)}"/>
-  <rect x="2" y="2" width="3" height="3" rx="${coreRx}" fill="${escapeXml(fg)}"/>
+  <rect x="2" y="2" width="3" height="3" rx="${coreRx}" fill="${innerEyeColor}"/>
 </g>`;
     })
     .join("");
 
   const ox = quiet + graphic.framePad;
   const oy = quiet + graphic.framePad;
-  const modules = `<g transform="translate(${ox} ${oy})"><path fill="${escapeXml(fg)}" d="${graphic.modulePath}"/></g>`;
+  const modules = `<g transform="translate(${ox} ${oy})"><path fill="${bodyFill}" d="${graphic.modulePath}"/></g>`;
 
   let overlay = "";
   if (graphic.logo) {
@@ -323,6 +358,7 @@ export function graphicToSvg(graphic: QrGraphic, state: QrState): string {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ${vbWidth} ${vbHeight}" width="100%" height="100%" shape-rendering="geometricPrecision">
+${defs}
 ${bg}
 ${modules}
 ${finders}

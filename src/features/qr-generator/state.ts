@@ -1,5 +1,6 @@
 export type QrContentType =
   | "url"
+  | "social"
   | "text"
   | "contact"
   | "wifi"
@@ -11,8 +12,18 @@ export type DotStyle = "square" | "rounded" | "soft" | "dots";
 export type EyeStyle = "square" | "rounded";
 export type FrameStyle = "none" | "simple" | "rounded";
 export type ErrorCorrection = "L" | "M" | "Q" | "H";
-export type ExportFormat = "png" | "svg" | "jpg" | "webp";
+export type ExportFormat = "png" | "svg" | "pdf" | "jpg" | "webp";
 export type WifiEncryption = "WPA" | "WEP" | "nopass";
+export type SocialPlatform =
+  | "telegram"
+  | "instagram"
+  | "youtube"
+  | "whatsapp"
+  | "tiktok"
+  | "vk"
+  | "linkedin"
+  | "twitter"
+  | "github";
 
 export interface ContactData {
   firstName: string;
@@ -44,6 +55,8 @@ export interface SmsData {
 export interface QrState {
   type: QrContentType;
   url: string;
+  socialPlatform: SocialPlatform;
+  socialUsername: string;
   text: string;
   contact: ContactData;
   wifi: WifiData;
@@ -51,6 +64,13 @@ export interface QrState {
   phone: string;
   sms: SmsData;
   foregroundColor: string;
+  gradientEnabled: boolean;
+  gradientColor2: string;
+  gradientType: "linear" | "radial";
+  gradientAngle: number;
+  customEyeColor: boolean;
+  eyeOuterColor: string;
+  eyeInnerColor: string;
   backgroundColor: string;
   transparentBackground: boolean;
   logoEnabled: boolean;
@@ -89,7 +109,9 @@ export const MIN_LOGO_RATIO = 0.08;
 
 export const defaultQrState = (): QrState => ({
   type: "url",
-  url: "https://www.example.com",
+  url: "https://toolboxi.uz",
+  socialPlatform: "telegram",
+  socialUsername: "",
   text: "",
   contact: {
     firstName: "",
@@ -109,6 +131,13 @@ export const defaultQrState = (): QrState => ({
   phone: "",
   sms: { phone: "", message: "" },
   foregroundColor: "#1F2937",
+  gradientEnabled: false,
+  gradientColor2: "#2563EB",
+  gradientType: "linear",
+  gradientAngle: 45,
+  customEyeColor: false,
+  eyeOuterColor: "#1F2937",
+  eyeInnerColor: "#2563EB",
   backgroundColor: "#FFFFFF",
   transparentBackground: false,
   logoEnabled: false,

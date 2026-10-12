@@ -34,10 +34,45 @@ function wifiEscape(value: string): string {
   return value.replace(/([\\;,:"])/g, "\\$1");
 }
 
+export function buildSocialUrl(platform: QrState["socialPlatform"], rawUsername: string): string {
+  const handle = rawUsername.trim().replace(/^@/, "");
+  if (!handle) return "";
+  if (/^https?:\/\//i.test(handle)) return handle;
+
+  switch (platform) {
+    case "telegram":
+      return `https://t.me/${handle}`;
+    case "instagram":
+      return `https://instagram.com/${handle}`;
+    case "youtube":
+      return handle.startsWith("channel/") || handle.startsWith("@")
+        ? `https://youtube.com/${handle}`
+        : `https://youtube.com/@${handle}`;
+    case "whatsapp": {
+      const cleanPhone = handle.replace(/[^0-9]/g, "");
+      return cleanPhone ? `https://wa.me/${cleanPhone}` : `https://wa.me/${handle}`;
+    }
+    case "tiktok":
+      return `https://tiktok.com/@${handle}`;
+    case "vk":
+      return `https://vk.com/${handle}`;
+    case "linkedin":
+      return `https://linkedin.com/in/${handle}`;
+    case "twitter":
+      return `https://x.com/${handle}`;
+    case "github":
+      return `https://github.com/${handle}`;
+    default:
+      return `https://${handle}`;
+  }
+}
+
 export function buildPayload(state: QrState): string {
   switch (state.type) {
     case "url":
       return normalizeUrl(state.url);
+    case "social":
+      return buildSocialUrl(state.socialPlatform, state.socialUsername);
     case "text":
       return state.text;
     case "contact":
@@ -73,6 +108,8 @@ export function isPayloadEmpty(state: QrState): boolean {
   switch (state.type) {
     case "url":
       return !state.url.trim();
+    case "social":
+      return !state.socialUsername.trim();
     case "text":
       return !state.text.trim();
     case "contact":
@@ -100,6 +137,10 @@ export function payloadLabel(state: QrState): string {
   switch (state.type) {
     case "url":
       return state.url.trim() || "URL";
+    case "social": {
+      const name = state.socialUsername.trim() || state.socialPlatform;
+      return `${state.socialPlatform}: ${name}`;
+    }
     case "text":
       return state.text.trim().slice(0, 48) || "Text";
     case "contact": {
