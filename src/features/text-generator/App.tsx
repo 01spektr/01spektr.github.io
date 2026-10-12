@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { BreadcrumbsHero } from "./components/BreadcrumbsHero.tsx";
+import { TextMetricsCards } from "./components/MetricsCards.tsx";
 import { MainInputCard } from "./components/MainInputCard.tsx";
 import { GeneratedStylesList } from "./components/GeneratedStylesList.tsx";
 import { SocialPreview } from "./components/SocialPreview.tsx";
@@ -21,11 +22,14 @@ import { styleName } from "./data/styleNames.ts";
 import { copyToClipboard } from "./utils/clipboard.ts";
 import { toast } from "sonner";
 import { recordHistory } from "@/lib/tools/history";
+import { isFavorite as isToolFavorite, toggleFavorite as toggleToolFavorite } from "@/lib/tools/favorites";
+import { buildShareUrl, shareUrl } from "@/lib/tools/share";
 import { SlidersHorizontal, Eye } from "lucide-react";
 
 export default function App() {
   const { t, lang } = useTranslation();
   const [inputText, setInputText] = useState<string>("✦ ✦ «« 亗 Toolboxi.uz 亗 »» ✦ ✦");
+  const [toolFav, setToolFav] = useState(() => isToolFavorite("text-symbol-generator"));
   const [activeCategory, setActiveCategory] = useState<SidebarCategoryType>("styles");
   const [selectedStyle, setSelectedStyle] = useState<TextStyleItem>(TEXT_STYLES[0]);
   const [previewText, setPreviewText] = useState<string>("✦ ✦ «« 亗 Toolboxi.uz 亗 »» ✦ ✦");
@@ -191,19 +195,47 @@ export default function App() {
     );
   };
 
+  const handleShareTool = async () => {
+    const result = await shareUrl(
+      buildShareUrl("/tools/text-symbol-generator", new URLSearchParams()),
+      t("hero.title"),
+    );
+    if (result === "copied") {
+      toast.success(lang === "ru" ? "Ссылка скопирована" : lang === "uz" ? "Havola nusxalandi" : "Link copied");
+    }
+  };
+
   const handleSelectStyleForPreview = (style: TextStyleItem, transformed: string) => {
     setSelectedStyle(style);
     setPreviewText(transformed);
   };
 
+  const handleCopyCurrentPreview = () => {
+    handleCopyText(previewText, styleName(selectedStyle.id, selectedStyle.name, lang));
+  };
+
   return (
     <div className="text-generator-page w-full text-slate-900 dark:text-slate-100 selection:bg-blue-600 selection:text-white transition-colors pb-16 lg:pb-0 font-inter">
       {/* Main Container */}
-      <main className="max-w-[1380px] w-full mx-auto py-4 sm:py-6">
-        {/* Breadcrumbs & Hero Header */}
-        <BreadcrumbsHero />
+      <main className="max-w-[1380px] w-full mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6">
+        {/* 1. Sleek Global Hero Banner */}
+        <BreadcrumbsHero
+          fav={toolFav}
+          onToggleFav={() => setToolFav(toggleToolFavorite("text-symbol-generator"))}
+          onShare={handleShareTool}
+        />
 
-        {/* 2-Column Core Workspace */}
+        {/* 2. Top Metric Cards matching loan-calculator standard */}
+        <div className="mb-6">
+          <TextMetricsCards
+            inputText={inputText}
+            stylesCount={TEXT_STYLES.length}
+            selectedStyleName={styleName(selectedStyle.id, selectedStyle.name, lang)}
+            onCopyAll={handleCopyCurrentPreview}
+          />
+        </div>
+
+        {/* 3. 2-Column Core Workspace Grid */}
         <div className="flex flex-col lg:flex-row items-start gap-5 sm:gap-6">
           {/* Main Column: Interactive Work Area */}
           <div className="flex-1 min-w-0 w-full flex flex-col gap-4 sm:gap-5">
