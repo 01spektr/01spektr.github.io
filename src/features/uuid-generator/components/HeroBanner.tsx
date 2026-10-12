@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Fingerprint, ShieldCheck, Zap, FileSpreadsheet, Star, Share2, Check } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 
 interface HeroBannerProps {
   fav: boolean;
@@ -93,13 +94,12 @@ export const UuidHeroBanner: React.FC<HeroBannerProps> = ({
           aria-label="Breadcrumb"
           className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400"
         >
-          <Link to="/" className="hover:text-primary dark:hover:text-primary transition-colors">
+          <Link to={localeHomePath(locale)} className="hover:text-primary dark:hover:text-primary transition-colors">
             {labels.home}
           </Link>
           <ChevronRight className="h-3.5 w-3.5 shrink-0" />
           <Link
-            to="/categories/$id"
-            params={{ id: "developers" }}
+            to={localizedCategoryPath("developers", locale)}
             className="hover:text-primary dark:hover:text-primary transition-colors"
           >
             {labels.category}

@@ -12,6 +12,7 @@ import {
 import { Link } from "@tanstack/react-router";
 import { ToolIcon } from "@/components/tool-icon";
 import { useI18n } from "@/lib/i18n";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 import { toggleFavorite, isFavorite } from "@/lib/tools/favorites";
 import { shareUrl } from "@/lib/tools/share";
 import { MainTimeConverter } from "./components/MainTimeConverter";
@@ -25,7 +26,7 @@ import type { CityTimezone } from "./types";
 import "./world-timezones.css";
 
 export function WorldTimezonesPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const slug = "world-timezones";
   const [fav, setFav] = useState(() => isFavorite(slug));
   const [timelineCities, setTimelineCities] = useState<CityTimezone[]>(() => {
@@ -69,9 +70,9 @@ export function WorldTimezonesPage() {
     <div className="world-timezones-page">
       <div className="wt-topline">
         <nav className="wt-breadcrumb">
-          <Link to="/">{t("breadcrumb.home")}</Link>
+          <Link to={localeHomePath(locale)}>{t("breadcrumb.home")}</Link>
           <ChevronRight />
-          <Link to="/categories/$id" params={{ id: "everyday" }}>
+          <Link to={localizedCategoryPath("everyday", locale)}>
             {t("worldTime.category")}
           </Link>
           <ChevronRight />

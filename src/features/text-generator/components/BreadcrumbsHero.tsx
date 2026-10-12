@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ToolIcon } from "@/components/tool-icon";
 import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 import { useTranslation } from "../context/LanguageContext.tsx";
 
 export const BreadcrumbsHero: React.FC = () => {
@@ -35,15 +36,14 @@ export const BreadcrumbsHero: React.FC = () => {
       {/* Breadcrumbs */}
       <nav className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 mb-3 sm:mb-4 overflow-x-auto no-scrollbar py-0.5 font-heading">
         <Link
-          to="/"
+          to={localeHomePath(lang)}
           className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-nowrap"
         >
           {t("hero.home")}
         </Link>
         <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
         <Link
-          to="/categories/$id"
-          params={{ id: "ai-text" }}
+          to={localizedCategoryPath("ai-text", lang)}
           className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-nowrap"
         >
           {category}

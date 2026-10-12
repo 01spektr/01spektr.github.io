@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/lib/i18n";
 import { ToolIcon } from "@/components/tool-icon";
+import { localizedToolPath } from "@/lib/i18n/config";
 import { getToolBySlug } from "@/lib/tools/catalog";
 import { seoHead } from "@/lib/seo";
 import { currencyRatesHead } from "@/features/currency-rates/seo";
@@ -298,7 +299,7 @@ function ComingSoon({ slug }: { slug: string }) {
             <Link to="/tools">{t("coming.back")}</Link>
           </Button>
           <Button asChild>
-            <Link to="/tools/$slug" params={{ slug: "qr-generator" }}>
+            <Link to={localizedToolPath("qr-generator", locale)}>
               {t("coming.qr")}
             </Link>
           </Button>

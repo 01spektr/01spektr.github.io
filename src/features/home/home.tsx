@@ -19,7 +19,7 @@ import {
 import { useI18n } from "@/lib/i18n";
 import { CATEGORIES, TOOLS, searchTools, type Locale, type ToolDef } from "@/lib/tools/catalog";
 import { iconByName } from "@/lib/icons";
-import { localizedCategoryPath } from "@/lib/i18n/config";
+import { localizedCategoryPath, localizedToolPath } from "@/lib/i18n/config";
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { getFavorites, subscribeFavorites, toggleFavorite } from "@/lib/tools/favorites";
 import { toast } from "sonner";
@@ -477,7 +477,7 @@ function ToolCard({
           <Heart fill={favorite ? "currentColor" : "none"} />
         </button>
       </div>
-      <Link to="/tools/$slug" params={{ slug: tool.slug }} className="hp-tool-main">
+      <Link to={localizedToolPath(tool.slug, language)} className="hp-tool-main">
         <h3>{tool.name[language]}</h3>
         <p>{tool.description[language]}</p>
       </Link>
@@ -490,7 +490,7 @@ function ToolCard({
         ["roof-calculator", "image-resize", "uuid-generator"].includes(tool.id) && (
           <small className="hp-locale-note">{c.ruOnly}</small>
         )}
-      <Link to="/tools/$slug" params={{ slug: tool.slug }} className="hp-tool-open">
+      <Link to={localizedToolPath(tool.slug, language)} className="hp-tool-open">
         {c.open}
         <ArrowRight />
       </Link>

@@ -914,7 +914,7 @@ function DesignPrintCategory({
   return (
     <div className="construction-page design-category-page pb-10">
       <nav aria-label="Breadcrumb" className="construction-breadcrumb">
-        <Link to="/">{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
+        <Link to={localeHomePath(locale)}>{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
         <ChevronRight />
         <Link to="/tools">{uz ? "Toifalar" : en ? "Categories" : "Категории"}</Link>
         <ChevronRight />
@@ -1115,7 +1115,7 @@ function ConstructionCategory({
   return (
     <div className="construction-page pb-10">
       <nav aria-label="Breadcrumb" className="construction-breadcrumb">
-        <Link to="/">{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
+        <Link to={localeHomePath(locale)}>{uz ? "Bosh sahifa" : en ? "Home" : "Главная"}</Link>
         <ChevronRight />
         <Link to="/tools">{uz ? "Toifalar" : en ? "Categories" : "Категории"}</Link>
         <ChevronRight />

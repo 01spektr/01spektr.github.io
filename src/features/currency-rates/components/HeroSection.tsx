@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { Home, ChevronRight, Zap, BarChart2, Calculator } from 'lucide-react';
 import { ToolIcon } from '@/components/tool-icon';
 import { useI18n } from '@/lib/i18n';
-import { localeHomePath } from '@/lib/i18n/config';
+import { localeHomePath, localizedCategoryPath } from '@/lib/i18n/config';
 
 interface HeroSectionProps {
   t: {
@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ t }) => {
           <span>{t.home}</span>
         </Link>
         <ChevronRight className="w-3 h-3 text-slate-400 shrink-0" />
-        <Link to="/categories/$id" params={{ id: "finance" }} className="hover:text-blue-600 transition-colors">
+        <Link to={localizedCategoryPath("finance", locale)} className="hover:text-blue-600 transition-colors">
           {t.finance}
         </Link>
         <ChevronRight className="w-3 h-3 text-slate-400 shrink-0" />

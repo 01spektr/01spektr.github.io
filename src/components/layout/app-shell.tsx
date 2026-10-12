@@ -1,11 +1,12 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { useRouterState } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { CommandPalette } from "./command-palette";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { Sidebar } from "./sidebar";
-import { useI18n } from "@/lib/i18n";
+import { getPreferredLocale, useI18n } from "@/lib/i18n";
+import { DEFAULT_LOCALE, localeFromPath, localizedPathForLocale } from "@/lib/i18n/config";
 import { getToolBySlug } from "@/lib/tools/catalog";
 import { recordHistory } from "@/lib/tools/history";
 import { recordToolVisit } from "@/lib/tools/usage";
@@ -13,12 +14,25 @@ import { ToolFeedbackPrompt } from "@/features/site-info/site-info";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { t, locale } = useI18n();
+  const navigate = useNavigate();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState(false);
   const [sidebarCompact, setSidebarCompact] = useState(false);
   const toolMatch = pathname.match(/^\/(?:(?:ru|uz)\/)?tools\/([^/]+)\/?$/);
   const activeTool = toolMatch ? getToolBySlug(decodeURIComponent(toolMatch[1])) : undefined;
+
+  useEffect(() => {
+    const preferred = getPreferredLocale();
+    if (preferred === DEFAULT_LOCALE) return;
+    const routeLoc = localeFromPath(pathname);
+    if (!routeLoc) {
+      const destination = localizedPathForLocale(pathname, preferred);
+      if (destination && destination !== pathname) {
+        void navigate({ to: destination, replace: true });
+      }
+    }
+  }, [navigate, pathname]);
 
   useEffect(() => {
     setSidebarCompact(localStorage.getItem("toolbox-sidebar") === "compact");

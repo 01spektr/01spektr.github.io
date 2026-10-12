@@ -13,6 +13,7 @@ import { Check, ChevronRight, Globe2, Heart, History, Search, Share2, ShieldChec
 import { AppProvider, useApp } from './context/AppContext';
 import { ToolIcon } from '@/components/tool-icon';
 import { isFavorite, toggleFavorite } from '@/lib/tools/favorites';
+import { localeHomePath, localizedCategoryPath } from '@/lib/i18n/config';
 import { buildShareUrl, shareUrl } from '@/lib/tools/share';
 import { recordHistory } from '@/lib/tools/history';
 import { toast } from 'sonner';
@@ -207,8 +208,8 @@ function VatCalculatorMain() {
       <main className="max-w-[1380px] w-full mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6">
         <div className="space-y-4 sm:space-y-6">
           <nav className="vat-breadcrumb" aria-label="Breadcrumb">
-            <Link to="/">{labels.home}</Link><ChevronRight />
-            <Link to="/categories/$id" params={{ id: 'finance' }}>{labels.category}</Link><ChevronRight />
+            <Link to={localeHomePath(language)}>{labels.home}</Link><ChevronRight />
+            <Link to={localizedCategoryPath('finance', language)}>{labels.category}</Link><ChevronRight />
             <span>{t('header.title')}</span>
           </nav>
 

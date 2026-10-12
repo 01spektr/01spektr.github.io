@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { House, ChevronRight, Heart, Share2, Check, Layers, Ruler, FileSpreadsheet, RotateCcw } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { localizedCategoryPath } from "@/lib/i18n/config";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 
 interface HeroBannerProps {
   isSaved: boolean;
@@ -92,7 +92,7 @@ export const RoofHeroBanner: React.FC<HeroBannerProps> = ({
           aria-label="Breadcrumb"
           className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400"
         >
-          <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <Link to={localeHomePath(locale)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             {t.home}
           </Link>
           <ChevronRight className="h-3.5 w-3.5 shrink-0" />

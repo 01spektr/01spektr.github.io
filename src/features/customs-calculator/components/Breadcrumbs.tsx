@@ -1,7 +1,7 @@
 import React from "react";
 import { Home, ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { localeHomePath } from "@/lib/i18n/config";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 import { useTranslation } from "../context/LanguageContext";
 
 export const Breadcrumbs: React.FC = () => {
@@ -33,8 +33,7 @@ export const Breadcrumbs: React.FC = () => {
         <li className="flex items-center">
           <ChevronRight className="w-3 h-3 text-slate-400 dark:text-slate-600 stroke-[1.8]" />
           <Link
-            to="/categories/$id"
-            params={{ id: "logistics" }}
+            to={localizedCategoryPath("logistics", language)}
             className="ml-1.5 sm:ml-2 hover:text-[#0066FF] dark:hover:text-blue-400 transition-colors text-slate-600 dark:text-slate-300"
             id="breadcrumb-logistics"
           >

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Zap, FileText, Calculator, ChevronRight, Clock, Heart, Share2, Check } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { localeHomePath, localizedCategoryPath } from "@/lib/i18n/config";
 
 interface HeroBannerProps {
   historyCount: number;
@@ -44,13 +45,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           aria-label="Breadcrumb"
           className="flex min-w-0 items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400"
         >
-          <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400">
+          <Link to={localeHomePath(language)} className="hover:text-blue-600 dark:hover:text-blue-400">
             {labels.home}
           </Link>
           <ChevronRight className="h-3.5 w-3.5 shrink-0" />
           <Link
-            to="/categories/$id"
-            params={{ id: "finance" }}
+            to={localizedCategoryPath("finance", language)}
             className="hover:text-blue-600 dark:hover:text-blue-400"
           >
             {labels.category}

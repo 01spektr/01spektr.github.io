@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ToolCard } from "@/components/tool-card";
 import { useI18n } from "@/lib/i18n";
+import { localizedCategoryPath } from "@/lib/i18n/config";
 import { CATEGORIES, toolsByCategory } from "@/lib/tools/catalog";
 import { seoHead } from "@/lib/seo";
 
@@ -27,8 +28,7 @@ function ToolsIndex() {
           <section key={cat.id}>
             <h2 className="mb-3">
               <Link
-                to="/categories/$id"
-                params={{ id: cat.slug }}
+                to={localizedCategoryPath(cat.slug, locale)}
                 className="group inline-flex items-center gap-2 rounded-lg text-lg font-semibold transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/35"
                 aria-label={`${cat.name[locale]} — ${t("tools.openCategory")}`}
               >

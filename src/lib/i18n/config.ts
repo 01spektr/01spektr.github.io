@@ -41,14 +41,8 @@ const LOCALIZED_INFO_PAGES = new Set(["about", "contact"]);
 export function localeFromPath(path: string): Locale | null {
   const normalized = path.replace(/\/$/, "") || "/";
   const [, firstSegment] = normalized.split("/");
-  if (isLocale(firstSegment) && firstSegment !== DEFAULT_LOCALE) return firstSegment;
-  if (normalized === "/") return DEFAULT_LOCALE;
-  const infoMatch = normalized.match(/^\/(about|contact)$/);
-  if (infoMatch && LOCALIZED_INFO_PAGES.has(infoMatch[1])) return DEFAULT_LOCALE;
-  const toolMatch = normalized.match(/^\/tools\/([^/]+)$/);
-  if (toolMatch && LOCALIZED_TOOL_SLUGS.has(toolMatch[1])) return DEFAULT_LOCALE;
-  const categoryMatch = normalized.match(/^\/categories\/([^/]+)$/);
-  return categoryMatch ? DEFAULT_LOCALE : null;
+  if (isLocale(firstSegment)) return firstSegment;
+  return null;
 }
 
 export function localizedToolPath(slug: string, locale: Locale): string {

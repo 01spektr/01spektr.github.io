@@ -8,7 +8,7 @@ import { CATEGORIES, type Locale, type ToolDef, TOOLS, toolsByCategory } from "@
 import { getHistory, subscribeHistory } from "@/lib/tools/history";
 import { getToolUsage, subscribeToolUsage, type ToolUsage } from "@/lib/tools/usage";
 import { HOME_METADATA, homeHead } from "@/features/home/home";
-import { DEFAULT_LOCALE, localeHomePath, localizedToolPath } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, localeHomePath, localizedToolPath, localizedCategoryPath } from "@/lib/i18n/config";
 
 export const Route = createFileRoute("/")({
   component: HomeRoute,
@@ -257,8 +257,8 @@ export function HomePage({ language }: { language: Locale }) {
               return (
                 <Link
                   key={category.id}
-                  to="/categories/$id"
-                  params={{ id: category.slug }}
+                  to={localizedCategoryPath(category.slug, language)}
+
                   className="home-category-card"
                 >
                   <span
