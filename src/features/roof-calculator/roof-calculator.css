@@ -1478,71 +1478,138 @@
 }
 
 /* The calculator keeps its calculations and layout, while its surfaces follow the global theme. */
-.dark .roof-shell {
+.dark .roof-shell,
+.dark .rc-app,
+.dark .rc-card {
   --rc-ink: #edf3ff;
   --rc-muted: #a9b7cc;
   --rc-line: #2b3c58;
   --rc-soft: #152238;
-  background: #0b0f19;
 }
-.dark .roof-shell .rc-card,
-.dark .roof-shell .rc-app button[data-variant="outline"],
-.dark .roof-shell .rc-app button.bg-card,
-.dark .roof-shell .rc-field > div:not(.rc-slider-row),
-.dark .roof-shell .rc-material-label select,
-.dark .roof-shell .rc-mode .selected,
-.dark .roof-shell .rc-preview-toolbar button.selected,
-.dark .roof-shell .rc-total-icon {
+
+.dark .rc-card,
+.dark .rc-app button[data-variant="outline"],
+.dark .rc-app button.bg-card,
+.dark .rc-field > div:not(.rc-slider-row),
+.dark .rc-material-label select,
+.dark .rc-mode .selected,
+.dark .rc-preview-toolbar button.selected,
+.dark .rc-total-icon {
   background: #121b2a;
-  color: var(--rc-ink);
+  color: #edf3ff;
   border-color: var(--rc-line);
 }
-.dark .roof-shell .rc-roof-types button {
-  color: #a9b7cc;
+
+.dark .rc-field input {
+  color: #edf3ff !important;
+  background: transparent !important;
 }
-.dark .roof-shell .rc-roof-types button.selected,
-.dark .roof-shell .rc-total-area {
+
+.dark .rc-field > div:not(.rc-slider-row) > span {
+  color: #94a3b8;
+  border-left-color: var(--rc-line);
+}
+
+.dark .rc-roof-types button {
+  color: #a9b7cc;
+  border-color: var(--rc-line);
+  background: #121b2a;
+}
+
+.dark .rc-roof-types button > span {
+  color: #edf3ff;
+}
+
+.dark .rc-roof-types button.selected,
+.dark .rc-total-area {
   background: #172b4c;
   border-color: #315689;
 }
+
+.dark .rc-total-area strong {
+  color: #edf3ff;
+}
+
+.dark .rc-metrics b,
+.dark .rc-material-grid b,
+.dark .rc-derived b,
+.dark .rc-price-row > strong {
+  color: #edf3ff;
+}
+
+.dark .rc-step h2 {
+  color: #edf3ff;
+}
+
 .dark .rc-step h2 > span,
 .dark .rc-guide code,
 .dark .rc-saved-toggle small {
   background: #152b50;
+  color: #93c5fd;
 }
+
 .dark .rc-material-grid > div,
 .dark .rc-field > div:not(.rc-slider-row),
 .dark .rc-panel-list > div,
 .dark .rc-price-row,
-.dark .rc-saved-list > div {
+.dark .rc-saved-list > div,
+.dark .rc-metrics > div {
   border-color: var(--rc-line);
+  background: #121b2a;
 }
+
+.dark .rc-panel-list > div strong,
+.dark .rc-panel-list > div span:last-child {
+  color: #edf3ff;
+}
+
 .dark .rc-notice {
   background: #142b26;
   color: #b8d8ca;
 }
+
 .dark .rc-guide-icon {
   background: #152b50;
 }
+
 .dark .rc-guide-note {
   color: #b8cbea !important;
   background: #132640;
   border-color: #315689;
 }
+
 .dark .rv-grid {
   color: #56749d;
 }
+
+.dark .rv-dimension text,
+.dark .rv-label {
+  fill: #cbd5e1;
+}
+
+.dark .rv-dimension path {
+  stroke: #64748b;
+}
+
+.dark .rv-height-note,
+.dark .rv-caption {
+  fill: #94a3b8;
+}
+
 .dark .rv-ground {
   fill: #1c2b40;
   stroke: #405775;
 }
+
 .dark .rv-wall {
   fill: #2a3b51;
   stroke: #526a86;
 }
+
 .dark .wall-0 {
   fill: #35465c;
 }
+
 .dark .wall-1 {
   fill: #25364b;
 }
