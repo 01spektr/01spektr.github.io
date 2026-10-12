@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { ChevronRight, Lock, QrCode, Share2, Star } from "lucide-react";
+import { Lock } from "lucide-react";
 import { toast } from "sonner";
-import { ToolIcon } from "@/components/tool-icon";
-import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 import { isFavorite, subscribeFavorites, toggleFavorite } from "@/lib/tools/favorites";
 import { recordHistory } from "@/lib/tools/history";
@@ -14,6 +11,9 @@ import { Examples } from "./components/examples";
 import { ExportControls } from "./components/export-controls";
 import { ExtraOptions } from "./components/extra-options";
 import { QrPreview } from "./components/qr-preview";
+import { QrHeroBanner } from "./components/HeroBanner";
+import { QrMetricsCards } from "./components/MetricsCards";
+import { copyQrPng } from "./export";
 import { payloadLabel } from "./payload";
 import { deserializeQrState, historyParams, serializeQrState } from "./serializer";
 import { defaultQrState, type QrState } from "./state";
@@ -21,11 +21,11 @@ import { useQrModel } from "./use-qr-model";
 import "./qr-generator.css";
 
 export function QrGeneratorPage() {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const [state, setState] = useState<QrState>(() => defaultQrState());
   const [fav, setFav] = useState(false);
   const restored = useRef(false);
-  const { svg, empty, error, contrast } = useQrModel(state);
+  const { svg, empty, error, contrast, payload } = useQrModel(state);
 
   const patch = useCallback((next: Partial<QrState>) => {
     setState((prev) => ({ ...prev, ...next }));
@@ -75,70 +75,50 @@ export function QrGeneratorPage() {
   }
 
   const disabled = empty || error === "overflow";
-  const categoryName = locale === "ru" ? "Дизайн и полиграфия" : "Design & print";
+
+  const handleCopyQr = useCallback(async () => {
+    if (!svg || disabled) return;
+    try {
+      await copyQrPng(svg, state.size, state.backgroundColor, state.transparentBackground);
+      toast.success(t("qr.copy.ok"));
+      persistUse();
+    } catch {
+      toast.error(t("qr.copy.fail"));
+    }
+  }, [svg, disabled, state.size, state.backgroundColor, state.transparentBackground, t, persistUse]);
 
   return (
-    <div className="qr-generator tool-page-frame pb-10">
-      <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <nav
-          aria-label="Breadcrumb"
-          className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground"
-        >
-          <Link to="/" className="hover:text-foreground">
-            {t("breadcrumb.home")}
-          </Link>
-          <ChevronRight className="size-3.5" />
-          <Link
-            to="/categories/$id"
-            params={{ id: "design-print" }}
-            className="hover:text-foreground"
-          >
-            {categoryName}
-          </Link>
-          <ChevronRight className="size-3.5" />
-          <span className="text-foreground">{t("qr.crumb")}</span>
-        </nav>
-        <div className="flex flex-wrap gap-2">
-          <Button
-            variant="outline"
-            onClick={() => setFav(toggleFavorite("qr-generator"))}
-            aria-pressed={fav}
-          >
-            <Star className={fav ? "fill-primary text-primary" : ""} />
-            {fav ? t("fav.remove") : t("fav.add")}
-          </Button>
-          <Button variant="outline" onClick={() => void onShare()}>
-            <Share2 />
-            {t("share")}
-          </Button>
-        </div>
+    <div className="w-full max-w-[1380px] mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 text-slate-800 dark:text-slate-100 font-body transition-colors duration-200">
+      {/* 1. Sleek Global Hero Banner */}
+      <QrHeroBanner
+        fav={fav}
+        onToggleFav={() => setFav(toggleFavorite("qr-generator"))}
+        onShare={onShare}
+      />
+
+      {/* 2. Top Metric Cards */}
+      <div className="mb-6">
+        <QrMetricsCards
+          state={state}
+          payloadLength={payload.length}
+          contrast={contrast}
+          error={error}
+          empty={empty}
+          onCopyAll={handleCopyQr}
+        />
       </div>
 
-      <header className="mb-6 grid gap-4 lg:grid-cols-[1fr_20rem] lg:items-start">
-        <div className="flex gap-4">
-          <ToolIcon tool={{ slug: "qr-generator", icon: "QrCode" }} size="hero" />
-          <div>
-            <h1 className="font-display text-2xl font-bold tracking-tight sm:text-[1.75rem]">
-              {t("qr.title")}
-            </h1>
-            <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted-foreground">
-              {t("qr.subtitle")}
-            </p>
-          </div>
-        </div>
-        <aside className="rounded-2xl bg-[#eef0ff] px-4 py-3 text-sm text-[#4c3fd4] dark:bg-accent dark:text-accent-foreground">
-          <p className="font-medium leading-relaxed">{t("qr.tip")}</p>
-        </aside>
-      </header>
-
-      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] items-start gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,1fr)]">
-        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5">
+      {/* 3. Main Workspace Grid */}
+      <div className="grid min-w-0 grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* Left column: Controls & Customization */}
+        <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-5 min-w-0">
           <ContentTypePanel state={state} patch={patch} />
           <DesignSettings state={state} patch={patch} contrast={contrast} />
           <ExtraOptions state={state} patch={patch} />
         </div>
 
-        <aside className="surface-card min-w-0 p-5 lg:sticky lg:top-20">
+        {/* Right column: Live Preview & Export */}
+        <aside className="lg:col-span-5 xl:col-span-4 surface-card min-w-0 p-5 lg:sticky lg:top-20">
           <ExportControls
             state={state}
             patch={patch}
@@ -157,7 +137,10 @@ export function QrGeneratorPage() {
         </aside>
       </div>
 
-      <Examples onApply={patch} />
+      {/* 4. Examples Gallery */}
+      <div className="mt-8">
+        <Examples onApply={patch} />
+      </div>
     </div>
   );
 }
