@@ -23,6 +23,7 @@ import { cmykConvertHead } from "@/features/cmyk-converter/seo";
 import { colorPaletteHead } from "@/features/color-palette/seo";
 import { worldTimezonesHead } from "@/features/world-timezones/seo";
 import { uuidGeneratorHead } from "@/features/uuid-generator/seo";
+import { truckFuelCalculatorHead } from "@/features/truck-fuel-calculator/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
@@ -86,6 +87,11 @@ const CustomsCalculatorPage = lazyWithDeployRecovery(() =>
 const SmartCalendarPage = lazyWithDeployRecovery(() =>
   import("@/features/smart-calendar").then((m) => ({ default: m.SmartCalendarPage })),
 );
+const TruckFuelCalculatorPage = lazyWithDeployRecovery(() =>
+  import("@/features/truck-fuel-calculator").then((m) => ({
+    default: m.TruckFuelCalculatorPage,
+  })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -104,8 +110,11 @@ export const Route = createFileRoute("/tools/$slug")({
     if (params.slug === "color-palette") return colorPaletteHead("en");
     if (params.slug === "world-timezones") return worldTimezonesHead("en");
     if (params.slug === "uuid-generator") return uuidGeneratorHead("en");
+    if (params.slug === "truck-fuel-calculator") return truckFuelCalculatorHead("en");
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
+      "truck-fuel-calculator":
+        "Calculate truck fuel consumption, trip cost, and logistics metrics factoring in cargo weight, road terrain, and elevation.",
       "qr-generator":
         "Create QR codes for links, text, contacts, Wi-Fi, email and phone numbers. Free and entirely in your browser.",
       "uuid-generator":
@@ -248,6 +257,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <SmartCalendarPage />
+      </Suspense>
+    );
+  }
+  if (slug === "truck-fuel-calculator") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <TruckFuelCalculatorPage />
       </Suspense>
     );
   }

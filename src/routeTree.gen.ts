@@ -38,6 +38,7 @@ import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-ge
 import { Route as RuToolsRoofCalculatorRouteImport } from './routes/ru_.tools.roof-calculator'
 import { Route as RuToolsSmartCalendarRouteImport } from './routes/ru_.tools.smart-calendar'
 import { Route as RuToolsTextSymbolGeneratorRouteImport } from './routes/ru_.tools.text-symbol-generator'
+import { Route as RuToolsTruckFuelCalculatorRouteImport } from './routes/ru_.tools.truck-fuel-calculator'
 import { Route as RuToolsUuidGeneratorRouteImport } from './routes/ru_.tools.uuid-generator'
 import { Route as RuToolsVatCalculatorRouteImport } from './routes/ru_.tools.vat-calculator'
 import { Route as RuToolsWorldTimezonesRouteImport } from './routes/ru_.tools.world-timezones'
@@ -53,6 +54,7 @@ import { Route as UzToolsQrGeneratorRouteImport } from './routes/uz_.tools.qr-ge
 import { Route as UzToolsRoofCalculatorRouteImport } from './routes/uz_.tools.roof-calculator'
 import { Route as UzToolsSmartCalendarRouteImport } from './routes/uz_.tools.smart-calendar'
 import { Route as UzToolsTextSymbolGeneratorRouteImport } from './routes/uz_.tools.text-symbol-generator'
+import { Route as UzToolsTruckFuelCalculatorRouteImport } from './routes/uz_.tools.truck-fuel-calculator'
 import { Route as UzToolsUuidGeneratorRouteImport } from './routes/uz_.tools.uuid-generator'
 import { Route as UzToolsVatCalculatorRouteImport } from './routes/uz_.tools.vat-calculator'
 import { Route as UzToolsWorldTimezonesRouteImport } from './routes/uz_.tools.world-timezones'
@@ -204,6 +206,12 @@ const RuToolsTextSymbolGeneratorRoute =
     path: '/ru/tools/text-symbol-generator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RuToolsTruckFuelCalculatorRoute =
+  RuToolsTruckFuelCalculatorRouteImport.update({
+    id: '/ru_/tools/truck-fuel-calculator',
+    path: '/ru/tools/truck-fuel-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const RuToolsUuidGeneratorRoute = RuToolsUuidGeneratorRouteImport.update({
   id: '/ru_/tools/uuid-generator',
   path: '/ru/tools/uuid-generator',
@@ -281,6 +289,12 @@ const UzToolsTextSymbolGeneratorRoute =
     path: '/uz/tools/text-symbol-generator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const UzToolsTruckFuelCalculatorRoute =
+  UzToolsTruckFuelCalculatorRouteImport.update({
+    id: '/uz_/tools/truck-fuel-calculator',
+    path: '/uz/tools/truck-fuel-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const UzToolsUuidGeneratorRoute = UzToolsUuidGeneratorRouteImport.update({
   id: '/uz_/tools/uuid-generator',
   path: '/uz/tools/uuid-generator',
@@ -327,6 +341,7 @@ export interface FileRoutesByFullPath {
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
   '/ru/tools/text-symbol-generator': typeof RuToolsTextSymbolGeneratorRoute
+  '/ru/tools/truck-fuel-calculator': typeof RuToolsTruckFuelCalculatorRoute
   '/ru/tools/uuid-generator': typeof RuToolsUuidGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/ru/tools/world-timezones': typeof RuToolsWorldTimezonesRoute
@@ -342,6 +357,7 @@ export interface FileRoutesByFullPath {
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
   '/uz/tools/text-symbol-generator': typeof UzToolsTextSymbolGeneratorRoute
+  '/uz/tools/truck-fuel-calculator': typeof UzToolsTruckFuelCalculatorRoute
   '/uz/tools/uuid-generator': typeof UzToolsUuidGeneratorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
   '/uz/tools/world-timezones': typeof UzToolsWorldTimezonesRoute
@@ -376,6 +392,7 @@ export interface FileRoutesByTo {
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
   '/ru/tools/text-symbol-generator': typeof RuToolsTextSymbolGeneratorRoute
+  '/ru/tools/truck-fuel-calculator': typeof RuToolsTruckFuelCalculatorRoute
   '/ru/tools/uuid-generator': typeof RuToolsUuidGeneratorRoute
   '/ru/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/ru/tools/world-timezones': typeof RuToolsWorldTimezonesRoute
@@ -391,6 +408,7 @@ export interface FileRoutesByTo {
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
   '/uz/tools/text-symbol-generator': typeof UzToolsTextSymbolGeneratorRoute
+  '/uz/tools/truck-fuel-calculator': typeof UzToolsTruckFuelCalculatorRoute
   '/uz/tools/uuid-generator': typeof UzToolsUuidGeneratorRoute
   '/uz/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
   '/uz/tools/world-timezones': typeof UzToolsWorldTimezonesRoute
@@ -426,6 +444,7 @@ export interface FileRoutesById {
   '/ru_/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru_/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
   '/ru_/tools/text-symbol-generator': typeof RuToolsTextSymbolGeneratorRoute
+  '/ru_/tools/truck-fuel-calculator': typeof RuToolsTruckFuelCalculatorRoute
   '/ru_/tools/uuid-generator': typeof RuToolsUuidGeneratorRoute
   '/ru_/tools/vat-calculator': typeof RuToolsVatCalculatorRoute
   '/ru_/tools/world-timezones': typeof RuToolsWorldTimezonesRoute
@@ -441,6 +460,7 @@ export interface FileRoutesById {
   '/uz_/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz_/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
   '/uz_/tools/text-symbol-generator': typeof UzToolsTextSymbolGeneratorRoute
+  '/uz_/tools/truck-fuel-calculator': typeof UzToolsTruckFuelCalculatorRoute
   '/uz_/tools/uuid-generator': typeof UzToolsUuidGeneratorRoute
   '/uz_/tools/vat-calculator': typeof UzToolsVatCalculatorRoute
   '/uz_/tools/world-timezones': typeof UzToolsWorldTimezonesRoute
@@ -477,6 +497,7 @@ export interface FileRouteTypes {
     | '/ru/tools/roof-calculator'
     | '/ru/tools/smart-calendar'
     | '/ru/tools/text-symbol-generator'
+    | '/ru/tools/truck-fuel-calculator'
     | '/ru/tools/uuid-generator'
     | '/ru/tools/vat-calculator'
     | '/ru/tools/world-timezones'
@@ -492,6 +513,7 @@ export interface FileRouteTypes {
     | '/uz/tools/roof-calculator'
     | '/uz/tools/smart-calendar'
     | '/uz/tools/text-symbol-generator'
+    | '/uz/tools/truck-fuel-calculator'
     | '/uz/tools/uuid-generator'
     | '/uz/tools/vat-calculator'
     | '/uz/tools/world-timezones'
@@ -526,6 +548,7 @@ export interface FileRouteTypes {
     | '/ru/tools/roof-calculator'
     | '/ru/tools/smart-calendar'
     | '/ru/tools/text-symbol-generator'
+    | '/ru/tools/truck-fuel-calculator'
     | '/ru/tools/uuid-generator'
     | '/ru/tools/vat-calculator'
     | '/ru/tools/world-timezones'
@@ -541,6 +564,7 @@ export interface FileRouteTypes {
     | '/uz/tools/roof-calculator'
     | '/uz/tools/smart-calendar'
     | '/uz/tools/text-symbol-generator'
+    | '/uz/tools/truck-fuel-calculator'
     | '/uz/tools/uuid-generator'
     | '/uz/tools/vat-calculator'
     | '/uz/tools/world-timezones'
@@ -575,6 +599,7 @@ export interface FileRouteTypes {
     | '/ru_/tools/roof-calculator'
     | '/ru_/tools/smart-calendar'
     | '/ru_/tools/text-symbol-generator'
+    | '/ru_/tools/truck-fuel-calculator'
     | '/ru_/tools/uuid-generator'
     | '/ru_/tools/vat-calculator'
     | '/ru_/tools/world-timezones'
@@ -590,6 +615,7 @@ export interface FileRouteTypes {
     | '/uz_/tools/roof-calculator'
     | '/uz_/tools/smart-calendar'
     | '/uz_/tools/text-symbol-generator'
+    | '/uz_/tools/truck-fuel-calculator'
     | '/uz_/tools/uuid-generator'
     | '/uz_/tools/vat-calculator'
     | '/uz_/tools/world-timezones'
@@ -625,6 +651,7 @@ export interface RootRouteChildren {
   RuToolsRoofCalculatorRoute: typeof RuToolsRoofCalculatorRoute
   RuToolsSmartCalendarRoute: typeof RuToolsSmartCalendarRoute
   RuToolsTextSymbolGeneratorRoute: typeof RuToolsTextSymbolGeneratorRoute
+  RuToolsTruckFuelCalculatorRoute: typeof RuToolsTruckFuelCalculatorRoute
   RuToolsUuidGeneratorRoute: typeof RuToolsUuidGeneratorRoute
   RuToolsVatCalculatorRoute: typeof RuToolsVatCalculatorRoute
   RuToolsWorldTimezonesRoute: typeof RuToolsWorldTimezonesRoute
@@ -640,6 +667,7 @@ export interface RootRouteChildren {
   UzToolsRoofCalculatorRoute: typeof UzToolsRoofCalculatorRoute
   UzToolsSmartCalendarRoute: typeof UzToolsSmartCalendarRoute
   UzToolsTextSymbolGeneratorRoute: typeof UzToolsTextSymbolGeneratorRoute
+  UzToolsTruckFuelCalculatorRoute: typeof UzToolsTruckFuelCalculatorRoute
   UzToolsUuidGeneratorRoute: typeof UzToolsUuidGeneratorRoute
   UzToolsVatCalculatorRoute: typeof UzToolsVatCalculatorRoute
   UzToolsWorldTimezonesRoute: typeof UzToolsWorldTimezonesRoute
@@ -850,6 +878,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsTextSymbolGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/truck-fuel-calculator': {
+      id: '/ru_/tools/truck-fuel-calculator'
+      path: '/ru/tools/truck-fuel-calculator'
+      fullPath: '/ru/tools/truck-fuel-calculator'
+      preLoaderRoute: typeof RuToolsTruckFuelCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/uuid-generator': {
       id: '/ru_/tools/uuid-generator'
       path: '/ru/tools/uuid-generator'
@@ -955,6 +990,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzToolsTextSymbolGeneratorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz_/tools/truck-fuel-calculator': {
+      id: '/uz_/tools/truck-fuel-calculator'
+      path: '/uz/tools/truck-fuel-calculator'
+      fullPath: '/uz/tools/truck-fuel-calculator'
+      preLoaderRoute: typeof UzToolsTruckFuelCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/uuid-generator': {
       id: '/uz_/tools/uuid-generator'
       path: '/uz/tools/uuid-generator'
@@ -1009,6 +1051,7 @@ const rootRouteChildren: RootRouteChildren = {
   RuToolsRoofCalculatorRoute: RuToolsRoofCalculatorRoute,
   RuToolsSmartCalendarRoute: RuToolsSmartCalendarRoute,
   RuToolsTextSymbolGeneratorRoute: RuToolsTextSymbolGeneratorRoute,
+  RuToolsTruckFuelCalculatorRoute: RuToolsTruckFuelCalculatorRoute,
   RuToolsUuidGeneratorRoute: RuToolsUuidGeneratorRoute,
   RuToolsVatCalculatorRoute: RuToolsVatCalculatorRoute,
   RuToolsWorldTimezonesRoute: RuToolsWorldTimezonesRoute,
@@ -1024,6 +1067,7 @@ const rootRouteChildren: RootRouteChildren = {
   UzToolsRoofCalculatorRoute: UzToolsRoofCalculatorRoute,
   UzToolsSmartCalendarRoute: UzToolsSmartCalendarRoute,
   UzToolsTextSymbolGeneratorRoute: UzToolsTextSymbolGeneratorRoute,
+  UzToolsTruckFuelCalculatorRoute: UzToolsTruckFuelCalculatorRoute,
   UzToolsUuidGeneratorRoute: UzToolsUuidGeneratorRoute,
   UzToolsVatCalculatorRoute: UzToolsVatCalculatorRoute,
   UzToolsWorldTimezonesRoute: UzToolsWorldTimezonesRoute,

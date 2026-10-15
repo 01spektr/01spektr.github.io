@@ -35,6 +35,7 @@ const LOCALIZED_TOOL_SLUGS = new Set([
   "color-palette",
   "world-timezones",
   "uuid-generator",
+  "truck-fuel-calculator",
 ]);
 const LOCALIZED_INFO_PAGES = new Set(["about", "contact"]);
 
