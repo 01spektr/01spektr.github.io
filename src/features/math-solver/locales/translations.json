@@ -1,0 +1,1685 @@
+{
+  "ru": {
+    "header": {
+      "searchPlaceholder": "Поиск инструментов, например: QR, калькулятор, конвертер...",
+      "searchShortcut": "Ctrl K",
+      "themeLight": "Светлая",
+      "themeDark": "Тёмная",
+      "login": "Войти"
+    },
+    "categories": {
+      "math": "Математика",
+      "design": "Дизайн и полиграфия",
+      "qr": "QR и штрихкоды",
+      "logistics": "Логистика и грузоперевозки",
+      "dev": "</> Разработка",
+      "finance": "Финансы",
+      "construction": "Строительство",
+      "time": "Дата и время",
+      "all": "Все инструменты"
+    },
+    "breadcrumbs": {
+      "brand": "Toolboxi",
+      "section": "Математика"
+    },
+    "topActions": {
+      "history": "История",
+      "saved": "Сохранённые",
+      "share": "Поделиться",
+      "copied": "Скопировано",
+      "historyTitle": "История вычислений",
+      "savedTitle": "Сохранённые формулы и шпаргалки",
+      "shareTitle": "Поделиться ссылкой"
+    },
+    "stats": {
+      "stat1Title": "CAS Engine 2026",
+      "stat1Subtitle": "Символьный расчёт",
+      "stat2Title": "Скачать PDF",
+      "stat2Subtitle": "Сохранить файл",
+      "stat3Title": "50+ задач & CAS",
+      "stat3Subtitle": "Пошаговое решение"
+    },
+    "subtools": {
+      "solveTitle": "Решатель",
+      "solveSub": "Пошагово",
+      "graphTitle": "График",
+      "graphSub": "2D плоскость",
+      "tableTitle": "Таблица",
+      "tableSub": "Сетка f(x)",
+      "matrixTitle": "Матрица",
+      "matrixSub": "det, обратная",
+      "quizTitle": "Тренажёр",
+      "quizSub": "Проверь себя"
+    },
+    "workspace": {
+      "inputPlaceholder": "Введите выражение для:",
+      "clearInput": "Очистить поле ввода",
+      "solve": "Решить",
+      "keyboard": "Клавиатура",
+      "hideKeyboard": "Скрыть клавиатуру",
+      "showKeyboard": "Экранная клавиатура"
+    },
+    "keyboard": {
+      "basic": "Базовые",
+      "symbols": "Символы",
+      "functions": "Функции",
+      "brackets": "Скобки",
+      "greek": "Греческие",
+      "numpad": "Цифры"
+    },
+    "solution": {
+      "title": "Решение",
+      "quizBtn": "Тренажёр",
+      "printBtn": "Скачать PDF",
+      "viewLabel": "Вид:",
+      "stepByStep": "Пошаговое решение",
+      "shortAnswer": "Краткий ответ",
+      "finalAnswer": "Итоговый ответ:",
+      "step1": "Исходное уравнение",
+      "step2Factor": "Разложим на множители",
+      "step2Transform": "Преобразуем выражение",
+      "step3": "Найдём корни",
+      "step4": "Ответ",
+      "copyAnswer": "Скопировать ответ",
+      "copied": "Скопировано"
+    },
+    "rightSidebar": {
+      "graphTitle": "График функции",
+      "expandGraph": "Развернуть график",
+      "samplesPrefix": "Примеры:",
+      "showAll": "Показать все",
+      "openCatalog": "Открыть каталог задач (50+ примеров)",
+      "usefulActions": "Полезные действия",
+      "cheatsheetsTitle": "Формулы и шпаргалки",
+      "cheatsheetsBadge": "16 тем · Таблицы и правила",
+      "cheatsheetsDesc": "Готовые формулы Виета, ФСУ, производных, интегралов, пределов и матриц в один клик.",
+      "cheatsheetsBtn": "Открыть шпаргалки",
+      "actions": {
+        "simplifyTitle": "Упростить",
+        "simplifySub": "выражение",
+        "factorTitle": "Разложить",
+        "factorSub": "на множители",
+        "rationalizeTitle": "Рационализировать",
+        "rationalizeSub": "выражение",
+        "derivativeTitle": "Найти производную",
+        "derivativeSub": "дифференцирование",
+        "integralTitle": "Вычислить интеграл",
+        "integralSub": "первообразная",
+        "systemTitle": "Решить систему",
+        "systemSub": "уравнений",
+        "tableTitle": "Таблица f(x)",
+        "tableSub": "сетка значений",
+        "graphTitle": "Полный график",
+        "graphSub": "масштаб и оси"
+      }
+    },
+    "sidebar": {
+      "title": "Математика",
+      "tools": {
+        "algebra": "Алгебра",
+        "equations": "Уравнения",
+        "inequalities": "Неравенства",
+        "systems": "Системы уравнений",
+        "systems_inequalities": "Системы неравенств",
+        "solution_check": "Проверка решений",
+        "basic_operations": "Основные действия",
+        "algebraic_properties": "Алгебраические свойства",
+        "fractions": "Простейшие дроби",
+        "polynomials": "Полиномы",
+        "rational_expressions": "Рациональные выражения",
+        "sequences": "Последовательности",
+        "logarithms": "Логарифмы",
+        "trigonometry": "Тригонометрия",
+        "derivatives": "Производные",
+        "integrals": "Интегралы"
+      }
+    },
+    "toolInfo": {
+      "algebra": {
+        "title": "Алгебраический калькулятор",
+        "subtitle": "Решайте уравнения, неравенства, упрощайте выражения, работайте с многочленами и другими задачами."
+      },
+      "equations": {
+        "title": "Калькулятор уравнений",
+        "subtitle": "Решение линейных, квадратных, кубических и биквадратных уравнений с подробными шагами."
+      },
+      "inequalities": {
+        "title": "Калькулятор неравенств",
+        "subtitle": "Решение линейных и квадратных неравенств методом интервалов с записью числовых промежутков."
+      },
+      "systems": {
+        "title": "Системы уравнений",
+        "subtitle": "Решение систем линейных и нелинейных уравнений методами подстановки, сложения и Крамера."
+      },
+      "systems_inequalities": {
+        "title": "Системы неравенств",
+        "subtitle": "Пересечение областей решений на числовой оси и поиск общего интервала."
+      },
+      "solution_check": {
+        "title": "Проверка решений",
+        "subtitle": "Подстановка найденных корней в исходное выражение и точная проверка тождеств."
+      },
+      "basic_operations": {
+        "title": "Основные действия",
+        "subtitle": "Сложение, вычитание, умножение, деление и скобки в алгебраических выражениях."
+      },
+      "algebraic_properties": {
+        "title": "Алгебраические свойства",
+        "subtitle": "Переместительный, сочетательный и распределительный законы, раскрытие скобок."
+      },
+      "fractions": {
+        "title": "Простейшие дроби",
+        "subtitle": "Сокращение дробей, приведение к общему знаменателю и выделение целой части."
+      },
+      "polynomials": {
+        "title": "Полиномы и многочлены",
+        "subtitle": "Деление многочленов уголком, схема Горнера, вынесение общего множителя и группировка."
+      },
+      "rational_expressions": {
+        "title": "Рациональные выражения",
+        "subtitle": "Упрощение алгебраических дробей, избавление от иррациональности в знаменателе."
+      },
+      "sequences": {
+        "title": "Последовательности и прогрессии",
+        "subtitle": "Арифметическая и геометрическая прогрессии, формулы n-го члена и суммы первых членов."
+      },
+      "logarithms": {
+        "title": "Логарифмический калькулятор",
+        "subtitle": "Свойства логарифмов, переход к новому основанию, решение логарифмических уравнений."
+      },
+      "trigonometry": {
+        "title": "Тригонометрический калькулятор",
+        "subtitle": "Вычисление sin, cos, tg, ctg, формулы двойного угла и тригонометрический круг."
+      },
+      "derivatives": {
+        "title": "Калькулятор производных",
+        "subtitle": "Символьное дифференцирование функций по правилам суммы, произведения и частного."
+      },
+      "integrals": {
+        "title": "Интегральный калькулятор",
+        "subtitle": "Аналитическое нахождение первообразных, таблица основных интегралов с константой C."
+      },
+      "matrix": {
+        "title": "Матричный калькулятор",
+        "subtitle": "Вычисление определителей, транспонирование и обратные матрицы для 2×2 и 3×3."
+      }
+    },
+    "bottomAdvice": {
+      "col1Title": "Полезная информация",
+      "col1Subtitle": "Стандарты расчётов, формулы, правила ввода",
+      "col1Badge": "4 раздела CAS",
+      "col1Status": "Справочный стандарт",
+      "col1_item1_title": "1. Стандарты математического ввода",
+      "col1_item1_desc": "Калькулятор поддерживает естественный ввод с клавиатуры и экранную панель:",
+      "col1_item1_powers": "• Степени:",
+      "col1_item1_powers_desc": "x^2, x^3, x², x³. Дробные показатели: x^(2/3)",
+      "col1_item1_roots": "• Корни:",
+      "col1_item1_roots_desc": "sqrt(x) или √(x + 3)",
+      "col1_item1_fractions": "• Дроби:",
+      "col1_item1_fractions_desc": "(x + 2)/(x - 1) с круглыми скобками",
+      "col1_item1_abs": "• Модуль:",
+      "col1_item1_abs_desc": "|x - 3| или abs(x - 3)",
+      "col1_item1_systems": "• Системы:",
+      "col1_item1_systems_desc": "Через точку с запятой: 2x + y = 7; x - 3y = -7",
+      "col1_item2_title": "2. Символьный CAS-движок",
+      "col1_item2_p1": "Канонический вид: перенос в левую часть и приведение к ax² + bx + c = 0.",
+      "col1_item2_p2": "Дискриминанты: полный D = b² - 4ac и четный D₁ = (b/2)² - ac.",
+      "col1_item2_p3": "Точные корни: символьные радикалы (-b ± √D) / (2a) и десятичные приближения.",
+      "col1_item2_p4": "Теорема Виета: проверка корней и факторизация a(x - x₁)(x - x₂).",
+      "col1_item3_title": "3. Исследование 2D графиков функций",
+      "col1_item3_desc": "Автоматический расчет координат абсцисс пересечения с осью OX, вершины параболы V(xᵥ, yᵥ), оси симметрии x = xᵥ и свободного члена (0, c) с масштабированием и скачиванием SVG.",
+      "col1_item4_title": "4. Экспорт решений в PDF формата А4",
+      "col1_item4_desc": "Формирование готового документа формата А4 с пошаговыми выкладками формул, графиком функции и рамкой ответа для школьной и вузовской отчетности.",
+      "col2Title": "Частые вопросы (FAQ)",
+      "col2Subtitle": "12 экспертных ответов · Интерактивные блоки",
+      "col2Badge": "12 ответов",
+      "col2Status": "База вопросов",
+      "faqExampleLabel": "Синтаксис:",
+      "col3Title": "Советы по расчётам",
+      "col3Subtitle": "8 практических правил и методик математики",
+      "col3Badge": "8 правил",
+      "col3Status": "Практика решений",
+      "feedbackCardTitle": "Помогите сделать инструмент лучше",
+      "feedbackCardSubtitle": "Сообщите об ошибке, предложите улучшение или новый математический инструмент.",
+      "feedbackCardBtn": "Написать нам",
+      "feedbackModalTitle": "Обратная связь Toolboxi",
+      "feedbackModalSubtitle": "Предложите функцию или сообщите о замечании",
+      "feedbackModalPlaceholder": "Напишите ваше сообщение, вопрос или идею для улучшения математического инструмента...",
+      "feedbackModalCancel": "Отмена",
+      "feedbackModalSend": "Отправить",
+      "feedbackModalSuccess": "Спасибо за ваш отзыв!",
+      "feedbackModalSuccessDesc": "Мы внимательно изучаем каждое предложение для развития Toolboxi.uz"
+    },
+    "faqs": [
+      {
+        "id": 1,
+        "question": "Как формируется пошаговое решение и промежуточные выкладки?",
+        "answer": "После ввода математического выражения и нажатия «Решить» алгоритм строит последовательный цепочечный алгоритм: канонический вид, вычисление дискриминанта D, нахождение точных корней x₁ и x₂, разложение трёхчлена на множители и вывод в LaTeX с детальными комментариями."
+      },
+      {
+        "id": 2,
+        "question": "Включается ли график функции при экспорте решения в PDF?",
+        "answer": "Да! В диалоге экспорта решения в PDF предусмотрен переключатель добавления графического анализа. График генерируется в высоком векторном качестве с координатной сеткой, осями, вершиной параболы и маркерами корней."
+      },
+      {
+        "id": 3,
+        "question": "Как правильно записывать и решать системы уравнений и неравенств?",
+        "answer": "Уравнения системы вводятся в одной строке через точку с запятой (;). Калькулятор применяет методы аналитической подстановки и алгебраического сложения, находя упорядоченные пары значений (x; y).",
+        "codeSnippet": "2x + y = 7; x - 3y = -7"
+      },
+      {
+        "id": 4,
+        "question": "Что происходит, если дискриминант квадратного уравнения меньше нуля (D < 0)?",
+        "answer": "Калькулятор явно фиксирует, что на множестве действительных чисел корней нет (x ∈ ∅), а парабола не пересекает ось OX. Дополнительно выводятся сопряженные мнимые корни u ± iv для студентов инженерных специальностей."
+      },
+      {
+        "id": 5,
+        "question": "Вычисляются ли производные и первообразные аналитически?",
+        "answer": "Да, символьный движок находит аналитические производные степенных, дробных и тригонометрических выражений по формулам дифференцирования, а также строит первообразные с константой интегрирования + C."
+      },
+      {
+        "id": 6,
+        "question": "Как определяются экстремумы и направление ветвей параболы?",
+        "answer": "По знаку коэффициента a: при a > 0 ветви направлены вверх, а вершина V(xᵥ, yᵥ) — точка минимума; при a < 0 ветви направлены вниз, а вершина — точка максимума. Координаты: xᵥ = -b/(2a), yᵥ = -D/(4a)."
+      },
+      {
+        "id": 7,
+        "question": "Как контролируется область допустимых значений (ОДЗ)?",
+        "answer": "Для дробно-рациональных выражений автоматически отсекаются нули знаменателя (x ≠ 0), для четных радикалов задается неотрицательность f(x) ≥ 0, а аргумент логарифма проверяется на f(x) > 0."
+      },
+      {
+        "id": 8,
+        "question": "Как решать уравнения с модулями |f(x)| = g(x)?",
+        "answer": "Уравнения с модулем решаются через раскрытие знака по определению на числовых промежутках или возведением в квадрат при g(x) ≥ 0 с обязательной проверкой на посторонние корни."
+      },
+      {
+        "id": 9,
+        "question": "Подходят ли шаги решения для экзаменов ОГЭ, ЕГЭ и вузовских отчётов?",
+        "answer": "Да, оформление и полнота шагов полностью соответствуют критериям оценивания второй части ОГЭ/ЕГЭ (ФИПИ) и стандартам академических вузовских отчетов."
+      },
+      {
+        "id": 10,
+        "question": "Как работать с матрицами и вычислять определители?",
+        "answer": "Во вкладке «Матрица» доступен редактор для матриц 2×2 и 3×3. Движок рассчитывает определитель det(A) правилом треугольников и Саррюса, транспонированную матрицу Aᵀ и решения систем методом Крамера."
+      },
+      {
+        "id": 11,
+        "question": "Бесплатен ли инструмент и сохраняются ли данные на сервере?",
+        "answer": "Toolboxi.uz абсолютно бесплатен и не требует регистрации. Все вычисления производятся локально в вашем браузере, обеспечивая максимальную скорость и конфиденциальность."
+      },
+      {
+        "id": 12,
+        "question": "Как масштабировать и сохранить график в высоком разрешении?",
+        "answer": "Используйте колесико мыши или кнопки масштаба (+ / -). Кнопка «Во весь экран» открывает широкоформатный режим, а кнопка «Скачать SVG» сохраняет масштабируемый векторный файл."
+      }
+    ],
+    "tips": [
+      {
+        "id": 1,
+        "title": "1. Всегда фиксируйте ОДЗ до начала преобразований",
+        "text": "Для дробей исключайте нули знаменателей (x ≠ 0), для корней требуйте неотрицательность f(x) ≥ 0, а для логарифмов — строго положительный аргумент f(x) > 0. Это исключит ложные корни."
+      },
+      {
+        "id": 2,
+        "title": "2. Используйте формулу D₁ для четного коэффициента b",
+        "text": "Если b делится на 2 (k = b/2), считайте половинный дискриминант D₁ = k² - ac, а корни x = (-k ± √D₁) / a. Числа в расчетах получаются в 4 раза меньше, что предотвращает ошибки."
+      },
+      {
+        "id": 3,
+        "title": "3. Проверяйте корни устно по теореме Виета",
+        "text": "Для приведенного уравнения x² + px + q = 0 произведение корней x₁ · x₂ = q, а сумма x₁ + x₂ = -p. Подбирая делители числа q, корни легко найти за 5 секунд в уме."
+      },
+      {
+        "id": 4,
+        "title": "4. Метод интервалов и правило кратности корней",
+        "text": "При решении неравенств нанесите нули на числовую ось. Помните: при переходе через корень чётной степени (например, (x - 2)²) знак функции на числовой прямой НЕ меняется."
+      },
+      {
+        "id": 5,
+        "title": "5. Опасность сокращения на выражение с переменной",
+        "text": "Никогда не делите обе части уравнения на выражение с переменной (например, на x или x - 3) без проверки случая равенства нулю. Деление ведёт к потере корней! Всегда выносите общий множитель за скобки."
+      },
+      {
+        "id": 6,
+        "title": "6. Контролируйте аналитику по интерактивному графику",
+        "text": "Сверяйте найденные корни с точками пересечения параболы с осью OX, а экстремум — с вершиной параболы. Наглядный график сразу покажет, если в знаках коэффициентов была допущена описка."
+      },
+      {
+        "id": 7,
+        "title": "7. Точный символьный ответ против десятичного",
+        "text": "В математических задачах приоритет отдаётся точной аналитической записи: корням вида √5, несократимым дробям 2/3, константам π и e. Десятичные округления используются для инженерных оценок."
+      },
+      {
+        "id": 8,
+        "title": "8. Схема Горнера для многочленов высших степеней",
+        "text": "Для кубических уравнений найдите целый корень среди делителей свободного члена, после чего разделите многочлен по схеме Горнера на (x - x₁), понизив степень до квадратного уравнения."
+      }
+    ],
+    "footer": {
+      "slogan": "Полезные инструменты. Больше времени на важное.",
+      "about": "О нас",
+      "feedback": "Обратная связь",
+      "allTools": "Все инструменты",
+      "privacy": "Конфиденциальность",
+      "terms": "Условия использования",
+      "freeNoReg": "Бесплатно. Без регистрации."
+    },
+    "history": {
+      "title": "История вычислений",
+      "empty": "История вычислений пуста",
+      "clear": "Очистить историю",
+      "close": "Закрыть"
+    },
+    "tabs": {
+      "graph": {
+        "title": "Интерактивный графопостроитель функций",
+        "subtitle": "Исследуйте графики функций, находите корни, экстремумы и точки пересечения.",
+        "reset": "Сброс",
+        "addSecond": "Добавить вторую функцию",
+        "hideSecond": "Скрыть вторую функцию",
+        "fn1Label": "Первая функция f₁(x):",
+        "fn2Label": "Вторая функция f₂(x):",
+        "rangeX": "Диапазон X:"
+      },
+      "table": {
+        "title": "Таблица значений функции",
+        "subtitle": "Вычисление значений f(x) с заданным интервалом и шагом.",
+        "copyTsv": "Копировать (TSV)",
+        "downloadCsv": "Скачать CSV",
+        "copied": "Скопировано",
+        "fnLabel": "Функция f(x):",
+        "startLabel": "Начало (x start):",
+        "endLabel": "Конец (x end):",
+        "stepLabel": "Шаг (step):",
+        "colX": "x",
+        "colFx": "f(x) =",
+        "colStatus": "Статус",
+        "rootTag": "Корень функции",
+        "undefined": "Не определено"
+      },
+      "matrix": {
+        "title": "Матричный калькулятор",
+        "subtitle": "Вычисление определителя, транспонирования и обратной матрицы с пошаговыми действиями.",
+        "dimension": "Размерность:",
+        "elementsA": "Элементы матрицы A:",
+        "mathViewA": "Математический вид A:",
+        "step1Title": "Определитель матрицы det(A)",
+        "step1Desc2": "По формуле для матрицы 2×2: det(A) = a₁₁·a₂₂ - a₁₂·a₂₁",
+        "step1Desc3": "Разложение по элементам первой строки:",
+        "step2Title": "Транспонированная матрица Aᵀ",
+        "resultTitle": "Результат",
+        "detZero": "Матрица вырожденная (det = 0). Обратная матрица A⁻¹ не существует.",
+        "detNonZero": "Матрица невырожденная (det ≠ 0). Обратная матрица существует."
+      }
+    },
+    "modals": {
+      "guide": {
+        "title": "Руководство пользователя калькулятора",
+        "subtitle": "Как вводить выражения, использовать CAS и горячие клавиши",
+        "hotkeys": "Горячие клавиши",
+        "syntax": "Правила ввода",
+        "close": "Понятно",
+        "powersTitle": "Степени и индексы:",
+        "powersFormat": "x^2 или x²",
+        "powersDesc": "Используйте знак ^ или клавишу x² на экранной клавиатуре.",
+        "fractionsTitle": "Дроби и деление:",
+        "fractionsFormat": "1/2, (x+1)/(x-2)",
+        "fractionsDesc": "Сложные числители и знаменатели берите в круглые скобки.",
+        "systemsTitle": "Системы уравнений:",
+        "systemsFormat": "x + y = 5; 2x - y = 1",
+        "systemsDesc": "Разделяйте уравнения точкой с запятой (;)",
+        "calculusTitle": "Производные и интегралы:",
+        "calculusFormat": "d/dx(...) или ∫(...) dx",
+        "calculusDesc": "Символы доступны на вкладках клавиатуры.",
+        "hotkeysTitle": "Быстрые действия",
+        "enterDesc": "Нажмите в поле ввода для мгновенного решения.",
+        "searchDesc": "Открыть поиск по всем инструментам сайта.",
+        "escDesc": "Закрыть открытые модальные окна."
+      },
+      "about": {
+        "title": "О сервисе Toolboxi.uz",
+        "subtitle": "Современный математический комплекс и символьный решатель",
+        "desc": "Toolboxi.uz — это передовая платформа интерактивных математических и инженерных инструментов для школьников, студентов и исследователей.",
+        "close": "Закрыть",
+        "featuresTitle": "Ключевые возможности платформы:",
+        "f1Title": "Пошаговое решение:",
+        "f1Desc": "расчёт дискриминанта, выделение полных квадратов, нахождение корней, факторизация многочленов.",
+        "f2Title": "Интерактивный координатный график:",
+        "f2Desc": "построение кривой в реальном времени с авто-разметкой корней и вершин.",
+        "f3Title": "Математическая клавиатура:",
+        "f3Desc": "ввод спецсимволов, дробей, корней, греческих букв, дифференциалов и интегралов в один клик.",
+        "f4Title": "Таблицы и матрицы:",
+        "f4Desc": "генерация таблиц значений функций и решение матриц произвольного порядка."
+      },
+      "search": {
+        "title": "Поиск инструментов и математических тем",
+        "placeholder": "Введите название темы (например: интеграл, Виет, матрицы, ОДЗ)...",
+        "notFound": "По вашему запросу ничего не найдено",
+        "quickLaunch": "Быстрый запуск:"
+      },
+      "quiz": {
+        "title": "Тренажёр: Проверь себя",
+        "subtitle": "Решайте похожие задачи и тренируйте математические навыки",
+        "streak": "Текущая серия:",
+        "record": "Рекорд:",
+        "placeholder": "Введите ваш ответ (например: 3, -2)",
+        "check": "Проверить",
+        "correct": "Отлично! Абсолютно верно!",
+        "wrong": "Пока не сошлось.",
+        "showSolution": "Показать разбор",
+        "hideSolution": "Скрыть разбор",
+        "nextProblem": "Следующая задача"
+      },
+      "print": {
+        "title": "Печать и экспорт решения в PDF",
+        "subtitle": "Формирование официального отчёта формата А4",
+        "includeGraph": "График в PDF",
+        "printBtn": "Печать",
+        "downloadBtn": "Скачать PDF",
+        "close": "Закрыть"
+      },
+      "samples": {
+        "title": "Каталог математических задач",
+        "subtitle": "50+ разобранных примеров с пошаговыми решениями",
+        "searchPlaceholder": "Поиск по примерам и формулам...",
+        "solveBtn": "Решить задачу",
+        "close": "Закрыть",
+        "countShown": "Показано задач:",
+        "of": "из",
+        "hint": "Кликните «Решить задачу» для загрузки в калькулятор и мгновенного расчета"
+      },
+      "cheatsheets": {
+        "title": "Справочник формул и шпаргалок",
+        "subtitle": "16 разделов высшей и элементарной математики",
+        "searchPlaceholder": "Поиск формул (Виет, ФСУ, производные, интегралы)...",
+        "applyBtn": "Решить в калькуляторе",
+        "close": "Закрыть"
+      }
+    },
+    "actionChips": {
+      "equation": "Уравнение",
+      "inequality": "Неравенство",
+      "simplify": "Упростить",
+      "factor": "Разложить",
+      "roots": "Найти корни",
+      "quadratic": "Квадратное",
+      "linear": "Линейное",
+      "biquad": "Биквадратное",
+      "intervals": "Метод интервалов",
+      "linear_ineq": "Линейное",
+      "strict": "Строгое (>)",
+      "nonstrict": "Нестрогое (≤)",
+      "subst": "Метод подстановки",
+      "addition": "Метод сложения",
+      "cramer": "Метод Крамера",
+      "intersect": "Пересечение интервалов",
+      "two_ineq": "Система двух",
+      "check_root": "Проверить корень",
+      "check_linear": "Проверить линейное",
+      "expand": "Раскрыть скобки",
+      "combine": "Привести подобные",
+      "sq_sum": "Квадрат суммы (a+b)²",
+      "diff_sq": "Разность квадратов",
+      "reduce": "Сократить дробь",
+      "add_frac": "Сложить дроби",
+      "poly_div": "Деление многочленов",
+      "poly_factor": "Разложить на множители",
+      "common_denom": "Общий знаменатель",
+      "simplify_rat": "Упростить выражение",
+      "arithmetic": "Арифметическая (a_n)",
+      "geometric": "Геометрическая (b_n)",
+      "log_eq": "Решить уравнение",
+      "natural_log": "Натуральный (ln)",
+      "log_sum": "Сумма логарифмов",
+      "trig_eq": "Решить уравнение",
+      "double_angle": "Двойной угол",
+      "identity": "Основное тождество",
+      "diff_first": "Найти f'",
+      "crit_pts": "Критические точки",
+      "diff_product": "Производная произведения",
+      "indefinite": "Неопределённый (∫)",
+      "definite": "Многочлен",
+      "trig_int": "Тригонометрический",
+      "det2": "Определитель 2×2",
+      "det3": "Определитель 3×3",
+      "inv": "Обратная матрица"
+    },
+    "bottomNav": {
+      "solver": "Решатель",
+      "graph": "График",
+      "categories": "Разделы",
+      "cheatsheets": "Шпоры",
+      "menu": "Меню"
+    },
+    "mobile": {
+      "switchCategory": "Выбрать другой раздел",
+      "currentTopic": "Текущий раздел",
+      "allTopics": "Все разделы калькулятора (16)",
+      "quickNavigation": "Быстрая навигация",
+      "modes": "Режимы калькулятора",
+      "references": "Справочники и задачи"
+    }
+  },
+  "uz": {
+    "header": {
+      "searchPlaceholder": "Asboblarni qidirish, masalan: QR, kalkulyator, konverter...",
+      "searchShortcut": "Ctrl K",
+      "themeLight": "Yorug'",
+      "themeDark": "Qorong'i",
+      "login": "Kirish"
+    },
+    "categories": {
+      "math": "Matematika",
+      "design": "Dizayn va poligrafiya",
+      "qr": "QR va shtrix-kodlar",
+      "logistics": "Logistika va yuk tashish",
+      "dev": "</> Dasturlash",
+      "finance": "Moliya",
+      "construction": "Qurilish",
+      "time": "Sana va vaqt",
+      "all": "Barcha asboblar"
+    },
+    "breadcrumbs": {
+      "brand": "Toolboxi",
+      "section": "Matematika"
+    },
+    "topActions": {
+      "history": "Tarix",
+      "saved": "Saqlanganlar",
+      "share": "Ulashish",
+      "copied": "Nusxalandi",
+      "historyTitle": "Hisoblashlar tarixi",
+      "savedTitle": "Saqlangan formulalar va eslatmalar",
+      "shareTitle": "Havolani ulashish"
+    },
+    "stats": {
+      "stat1Title": "CAS Engine 2026",
+      "stat1Subtitle": "Belgili hisoblash",
+      "stat2Title": "PDF yuklab olish",
+      "stat2Subtitle": "Faylni saqlash",
+      "stat3Title": "50+ masala & CAS",
+      "stat3Subtitle": "Bosqichma-bosqich yechim"
+    },
+    "subtools": {
+      "solveTitle": "Yechuvchi",
+      "solveSub": "Bosqichma-bosqich",
+      "graphTitle": "Grafik",
+      "graphSub": "2D tekislik",
+      "tableTitle": "Jadval",
+      "tableSub": "f(x) to'ri",
+      "matrixTitle": "Matritsa",
+      "matrixSub": "det, teskari",
+      "quizTitle": "Trenajyor",
+      "quizSub": "O'zingizni sinang"
+    },
+    "workspace": {
+      "inputPlaceholder": "Ifodani kiriting:",
+      "clearInput": "Kiritish maydonini tozalash",
+      "solve": "Yechish",
+      "keyboard": "Klaviatura",
+      "hideKeyboard": "Klaviaturani yashirish",
+      "showKeyboard": "Ekran klaviaturasi"
+    },
+    "keyboard": {
+      "basic": "Asosiy",
+      "symbols": "Belgilar",
+      "functions": "Funksiyalar",
+      "brackets": "Qavslar",
+      "greek": "Grekcha",
+      "numpad": "Raqamlar"
+    },
+    "solution": {
+      "title": "Yechim",
+      "quizBtn": "Trenajyor",
+      "printBtn": "PDF yuklab olish",
+      "viewLabel": "Ko'rinish:",
+      "stepByStep": "Bosqichma-bosqich yechim",
+      "shortAnswer": "Qisqa javob",
+      "finalAnswer": "Yakuniy javob:",
+      "step1": "Dastlabki tenglama",
+      "step2Factor": "Ko'paytuvchilarga ajratamiz",
+      "step2Transform": "Ifodani shakllantiramiz",
+      "step3": "Ildizlarni topamiz",
+      "step4": "Javob",
+      "copyAnswer": "Javobdan nusxa olish",
+      "copied": "Nusxalandi"
+    },
+    "rightSidebar": {
+      "graphTitle": "Funksiya grafigi",
+      "expandGraph": "Grafikni kengaytirish",
+      "samplesPrefix": "Misollar:",
+      "showAll": "Barchasini ko'rsatish",
+      "openCatalog": "Masalalar katalogini ochish (50+ misol)",
+      "usefulActions": "Foydali amallar",
+      "cheatsheetsTitle": "Formulalar va eslatmalar",
+      "cheatsheetsBadge": "16 ta mavzu · Jadvallar va qoidalar",
+      "cheatsheetsDesc": "Viyet formulalari, qisqa ko'paytirish, hosilalar, integrallar va matritsalar bir marta bosishda.",
+      "cheatsheetsBtn": "Eslatmalarni ochish",
+      "actions": {
+        "simplifyTitle": "Soddalashtirish",
+        "simplifySub": "ifodani",
+        "factorTitle": "Ajratish",
+        "factorSub": "ko'paytuvchilarga",
+        "rationalizeTitle": "Ratsionallashtirish",
+        "rationalizeSub": "ifodani",
+        "derivativeTitle": "Hosilani topish",
+        "derivativeSub": "differensiallash",
+        "integralTitle": "Integralni hisoblash",
+        "integralSub": "boshlang'ich funksiya",
+        "systemTitle": "Sistemani yechish",
+        "systemSub": "tenglamalar",
+        "tableTitle": "f(x) jadvali",
+        "tableSub": "qiymatlar to'ri",
+        "graphTitle": "To'liq grafik",
+        "graphSub": "masshtab va o'qlar"
+      }
+    },
+    "sidebar": {
+      "title": "Matematika",
+      "tools": {
+        "algebra": "Algebra",
+        "equations": "Tenglamalar",
+        "inequalities": "Tengsizliklar",
+        "systems": "Tenglamalar sistemasi",
+        "systems_inequalities": "Tengsizliklar sistemasi",
+        "solution_check": "Yechimlarni tekshirish",
+        "basic_operations": "Asosiy amallar",
+        "algebraic_properties": "Algebraik xossalar",
+        "fractions": "Oddiy kasrlar",
+        "polynomials": "Ko'phadlar",
+        "rational_expressions": "Ratsional ifodalar",
+        "sequences": "Ketma-ketliklar",
+        "logarithms": "Logarifmlar",
+        "trigonometry": "Trigonometriya",
+        "derivatives": "Hosilalar",
+        "integrals": "Integrallar"
+      }
+    },
+    "toolInfo": {
+      "algebra": {
+        "title": "Algebraik kalkulyator",
+        "subtitle": "Tenglamalar, tengsizliklarni yeching, ifodalarni soddalashtiring, ko'phadlar bilan ishlang."
+      },
+      "equations": {
+        "title": "Tenglamalar kalkulyatori",
+        "subtitle": "Chiziqli, kvadrat, kubik va bikvadrat tenglamalarni bosqichma-bosqich yechish."
+      },
+      "inequalities": {
+        "title": "Tengsizliklar kalkulyatori",
+        "subtitle": "Chiziqli va kvadrat tengsizliklarni oraliqlar usulida yechish va oraliqlarni yozish."
+      },
+      "systems": {
+        "title": "Tenglamalar sistemasi",
+        "subtitle": "Chiziqli va nochiziqli tenglamalar sistemasini o'rniga qo'yish va qo'shish usullarida yechish."
+      },
+      "systems_inequalities": {
+        "title": "Tengsizliklar sistemasi",
+        "subtitle": "Sonlar o'qida yechimlar sohasining kesishmasi va umumiy oraliqni topish."
+      },
+      "solution_check": {
+        "title": "Yechimlarni tekshirish",
+        "subtitle": "Topilgan ildizlarni dastlabki ifodaga qo'yish va ayniyatlarni aniq tekshirish."
+      },
+      "basic_operations": {
+        "title": "Asosiy amallar",
+        "subtitle": "Algebraik ifodalarda qo'shish, ayirish, ko'paytirish, bo'lish va qavslar."
+      },
+      "algebraic_properties": {
+        "title": "Algebraik xossalar",
+        "subtitle": "O'rin almashtirish, guruhlash va taqsimot qonunlari, qavslarni ochish."
+      },
+      "fractions": {
+        "title": "Oddiy kasrlar",
+        "subtitle": "Kasrlarni qisqartirish, umumiy maxrajga keltirish va butun qismini ajratish."
+      },
+      "polynomials": {
+        "title": "Ko'phadlar va polinomlar",
+        "subtitle": "Ko'phadlarni burchakli bo'lish, Gorner sxemasi, umumiy ko'paytuvchini chiqarish."
+      },
+      "rational_expressions": {
+        "title": "Ratsional ifodalar",
+        "subtitle": "Algebraik kasrlarni soddalashtirish, maxrajdagi irratsionallikdan qutulish."
+      },
+      "sequences": {
+        "title": "Ketma-ketliklar va progressiyalar",
+        "subtitle": "Arifmetik va geometrik progressiyalar, n-had va dastlabki hadlar yig'indisi formulalari."
+      },
+      "logarithms": {
+        "title": "Logarifmik kalkulyator",
+        "subtitle": "Logarifmlarning xossalari, yangi asosga o'tish, logarifmik tenglamalarni yechish."
+      },
+      "trigonometry": {
+        "title": "Trigonometrik kalkulyator",
+        "subtitle": "sin, cos, tg, ctg qiymatlarini hisoblash, ikki karra burchak formulalari."
+      },
+      "derivatives": {
+        "title": "Hosilalar kalkulyatori",
+        "subtitle": "Funksiyalarni yig'indi, ko'paytma va bo'linma qoidalariga asosan belgili differensiallash."
+      },
+      "integrals": {
+        "title": "Integrallar kalkulyatori",
+        "subtitle": "Boshlang'ich funksiyalarni analitik topish, asosiy integrallar jadvali va + C doimiysi."
+      },
+      "matrix": {
+        "title": "Matritsa kalkulyatori",
+        "subtitle": "2×2 va 3×3 matritsalar uchun determinant, transponirlash va teskari matritsalar."
+      }
+    },
+    "bottomAdvice": {
+      "col1Title": "Foydali ma'lumotlar",
+      "col1Subtitle": "Hisoblash standartlari, formulalar, kiritish qoidalari",
+      "col1Badge": "4 ta CAS bo'limi",
+      "col1Status": "Ma'lumotnoma standarti",
+      "col1_item1_title": "1. Matematik kiritish standartlari",
+      "col1_item1_desc": "Kalkulyator fizik klaviatura va virtual belgilar paneli orqali kiritishni qo'llab-quvvatlaydi:",
+      "col1_item1_powers": "• Darajalar:",
+      "col1_item1_powers_desc": "x^2, x^3, x², x³. Kasr ko'rsatkichlar: x^(2/3)",
+      "col1_item1_roots": "• Ildizlar:",
+      "col1_item1_roots_desc": "sqrt(x) yoki √(x + 3)",
+      "col1_item1_fractions": "• Kasrlar:",
+      "col1_item1_fractions_desc": "(x + 2)/(x - 1) qavslar bilan",
+      "col1_item1_abs": "• Modul:",
+      "col1_item1_abs_desc": "|x - 3| yoki abs(x - 3)",
+      "col1_item1_systems": "• Sistemalar:",
+      "col1_item1_systems_desc": "Nuqta-vergul orqali: 2x + y = 7; x - 3y = -7",
+      "col1_item2_title": "2. Belgili CAS-dvijok",
+      "col1_item2_p1": "Kanonik ko'rinish: chap tomonga o'tkazish va ax² + bx + c = 0 ga keltirish.",
+      "col1_item2_p2": "Diskriminantlar: to'liq D = b² - 4ac va juft D₁ = (b/2)² - ac.",
+      "col1_item2_p3": "Aniq ildizlar: belgili radikallar (-b ± √D) / (2a) va o'nli yaqinlashishlar.",
+      "col1_item2_p4": "Viyet teoremasi: ildizlarni tekshirish va a(x - x₁)(x - x₂) ga ko'paytuvchilarga ajratish.",
+      "col1_item3_title": "3. Funksiyalarning 2D grafiklarini o'rganish",
+      "col1_item3_desc": "OX o'qi bilan kesishish koordinatalari, parabolaning uchi V(xᵥ, yᵥ), simmetriya o'qi x = xᵥ va ozod had (0, c) ni hisoblash hamda SVG faylni yuklab olish.",
+      "col1_item4_title": "4. Yechimlarni A4 formatidagi PDF ga eksport qilish",
+      "col1_item4_desc": "Maktab va oliy o'quv yurtlari hisoboti uchun formulalar, grafik va javob ramkasi bilan rasmiy A4 hujjatini tayyorlash.",
+      "col2Title": "Ko'p beriladigan savollar (FAQ)",
+      "col2Subtitle": "12 ta ekspert javobi · Interaktiv bloklar",
+      "col2Badge": "12 ta javob",
+      "col2Status": "Savollar bazasi",
+      "faqExampleLabel": "Sintaksis:",
+      "col3Title": "Hisoblash bo'yicha tavsiyalar",
+      "col3Subtitle": "8 ta amaliy qoida va matematika usullari",
+      "col3Badge": "8 ta qoida",
+      "col3Status": "Yechimlar amaliyoti",
+      "feedbackCardTitle": "Asbobni yaxshilashga yordam bering",
+      "feedbackCardSubtitle": "Xato haqida xabar bering, taklif kiriting yoki yangi matematik vosita taklif qiling.",
+      "feedbackCardBtn": "Bizga yozing",
+      "feedbackModalTitle": "Toolboxi qayta aloqa",
+      "feedbackModalSubtitle": "Funksiya taklif qiling yoki mulohaza bildiring",
+      "feedbackModalPlaceholder": "Matematik vositani yaxshilash bo'yicha fikr, savol yoki taklifingizni yozing...",
+      "feedbackModalCancel": "Bekor qilish",
+      "feedbackModalSend": "Yuborish",
+      "feedbackModalSuccess": "Fikringiz uchun rahmat!",
+      "feedbackModalSuccessDesc": "Biz Toolboxi.uz ni rivojlantirish uchun har bir taklifni diqqat bilan o'rganamiz"
+    },
+    "faqs": [
+      {
+        "id": 1,
+        "question": "Bosqichma-bosqich yechim va oraliq hisob-kitoblar qanday tuziladi?",
+        "answer": "Matematik ifodani kiritib, «Yechish» tugmasi bosilgach, algoritm ketma-ket hisoblash zanjirini tuzadi: kanonik ko'rinish, D diskriminantni hisoblash, aniq x₁ va x₂ ildizlarini topish, uchhadni ko'paytuvchilarga ajratish va sharhlar bilan LaTeX da ko'rsatish."
+      },
+      {
+        "id": 2,
+        "question": "Yechimni PDF ga eksport qilishda funksiya grafigi kiritiladimi?",
+        "answer": "Ha! Yechimni PDF ga eksport qilish oynasida grafik tahlilini qo'shish tanlovi mavjud. Grafik koordinata to'ri, o'qlar, parabola uchi va ildiz belgilari bilan yuqori vektor sifatda yaratiladi."
+      },
+      {
+        "id": 3,
+        "question": "Tenglamalar va tengsizliklar sistemasini qanday to'g'ri yozish va yechish kerak?",
+        "answer": "Sistema tenglamalari bir qatorda nuqta-vergul (;) orqali kiritiladi. Kalkulyator analitik o'rniga qo'yish va algebraik qo'shish usullarini qo'llab, (x; y) qiymatlar juftligini topadi.",
+        "codeSnippet": "2x + y = 7; x - 3y = -7"
+      },
+      {
+        "id": 4,
+        "question": "Agar kvadrat tenglama diskriminanti noldan kichik bo'lsa (D < 0) nima bo'ladi?",
+        "answer": "Kalkulyator haqiqiy sonlar to'plamida ildizlar yo'qligini (x ∈ ∅) va parabola OX o'qini kesib o'tmasligini aniq ko'rsatadi. Muhandislik yo'nalishi talabalari uchun qo'shimcha ravishda u ± iv qo'shma mavhum ildizlar chiqariladi."
+      },
+      {
+        "id": 5,
+        "question": "Hosilalar va boshlang'ich funksiyalar analitik hisoblanadimi?",
+        "answer": "Ha, belgili dvijok darajali, kasrli va trigonometrik ifodalarning analitik hosilalarini differensiallash qoidalari bo'yicha topadi, shuningdek + C doimiysi bilan boshlang'ich funksiyalarni tuzadi."
+      },
+      {
+        "id": 6,
+        "question": "Ekstremumlar va parabola shoxlarining yo'nalishi qanday aniqlanadi?",
+        "answer": "a koeffitsientining ishorasi bo'yicha: a > 0 bo'lganda shoxlar yuqoriga yo'nalgan va V(xᵥ, yᵥ) uchi minimum nuqtasidir; a < 0 bo'lganda shoxlar pastga yo'nalgan va uchi maksimum nuqtasidir. Koordinatalar: xᵥ = -b/(2a), yᵥ = -D/(4a)."
+      },
+      {
+        "id": 7,
+        "question": "Aniqlanish sohasi (ODZ) qanday nazorat qilinadi?",
+        "answer": "Kasr-ratsional ifodalar uchun maxrajning nollari (x ≠ 0) avtomatik ravishda chiqarib tashlanadi, juft ildizlar uchun f(x) ≥ 0 talab qilinadi, logarifm argumenti esa f(x) > 0 ga tekshiriladi."
+      },
+      {
+        "id": 8,
+        "question": "|f(x)| = g(x) modulli tenglamalar qanday yechiladi?",
+        "answer": "Modulli tenglamalar sonli oraliqlarda ta'rif bo'yicha modul ishorasini ochish yoki g(x) ≥ 0 shartida kvadratga ko'tarish orqali yechiladi, begona ildizlar majburiy tekshiriladi."
+      },
+      {
+        "id": 9,
+        "question": "Yechim bosqichlari imtihonlar va oliy ta'lim hisobotlari uchun mos keladimi?",
+        "answer": "Ha, bosqichlarning to'liqligi va rasmiylashtirilishi rasmiy imtihon mezonlariga hamda oliy ta'lim kurslarining akademik standartlariga to'liq javob beradi."
+      },
+      {
+        "id": 10,
+        "question": "Matritsalar bilan qanday ishlash va determinantlarni qanday hisoblash mumkin?",
+        "answer": "«Matritsa» bo'limida 2×2 va 3×3 matritsalar uchun muharrir mavjud. Dvijok uchburchak va Sarryus qoidalari bo'yicha det(A) determinantini, Aᵀ transponirlangan matritsani va Kramer usulini hisoblaydi."
+      },
+      {
+        "id": 11,
+        "question": "Asbob bepulmi va ma'lumotlar serverda saqlanadimi?",
+        "answer": "Toolboxi.uz mutlaqo bepul va ro'yxatdan o'tishni talab qilmaydi. Barcha hisob-kitoblar brauzeringizda lokal ravishda amalga oshirilib, maksimal tezlik va maxfiylikni ta'minlaydi."
+      },
+      {
+        "id": 12,
+        "question": "Grafikni qanday masshtablash va yuqori aniqlikda saqlash mumkin?",
+        "answer": "Sichqoncha g'ildiragi yoki (+ / -) tugmalaridan foydalaning. «To'liq ekran» tugmasi keng formatli rejimni ochadi, «SVG yuklab olish» tugmasi esa masshtablanuvchi vektor faylini saqlaydi."
+      }
+    ],
+    "tips": [
+      {
+        "id": 1,
+        "title": "1. O'zgartirishlardan oldin har doim ODZ ni belgilang",
+        "text": "Kasrlar uchun maxraj nollarini (x ≠ 0) chiqarib tashlang, ildizlar uchun f(x) ≥ 0, logarifmlar uchun esa qat'iy musbat f(x) > 0 talab qiling. Bu soxta ildizlarning oldini oladi."
+      },
+      {
+        "id": 2,
+        "title": "2. Juft b koeffitsienti uchun D₁ formulasidan foydalaning",
+        "text": "Agar b soni 2 ga bo'linsa (k = b/2), yarim diskriminant D₁ = k² - ac va ildizlarni x = (-k ± √D₁) / a deb hisoblang. Hisoblashlardagi sonlar 4 barobar kichik bo'lib, xatolarning oldi olinadi."
+      },
+      {
+        "id": 3,
+        "title": "3. Ildizlarni Viyet teoremasi bo'yicha og'zaki tekshiring",
+        "text": "Keltirilgan x² + px + q = 0 tenglama uchun ildizlar ko'paytmasi x₁ · x₂ = q, yig'indisi esa x₁ + x₂ = -p bo'ladi. q sonining bo'luvchilarini tanlab, ildizlarni 5 soniyada og'zaki topish mumkin."
+      },
+      {
+        "id": 4,
+        "title": "4. Oraliqlar usuli va ildizlar karraligi qoidasi",
+        "text": "Tengsizliklarni yechishda nollarni sonlar o'qiga qo'ying. Esda tuting: juft darajali ildizdan (masalan, (x - 2)²) o'tganda funksiya ishorasi o'zgarmaydi."
+      },
+      {
+        "id": 5,
+        "title": "5. O'zgaruvchili ifodaga qisqartirishning xavfi",
+        "text": "Tenglamaning ikkala tomonini hech qachon o'zgaruvchili ifodaga (masalan, x yoki x - 3 ga) nolga tenglik holatini tekshirmasdan bo'lmang. Bo'lish ildizlarning yo'qolishiga olib keladi! Har doim umumiy ko'paytuvchini qavsdan tashqariga chiqaring."
+      },
+      {
+        "id": 6,
+        "title": "6. Tahlilni interaktiv grafik bo'yicha tekshiring",
+        "text": "Topilgan ildizlarni parabolaning OX o'qi bilan kesishish nuqtalari, ekstremumni esa parabola uchi bilan solishtiring. Grafik koeffitsientlar ishorasida xatolik bo'lsa darhol ko'rsatadi."
+      },
+      {
+        "id": 7,
+        "title": "7. O'nli javobga qarshi aniq belgili javob",
+        "text": "Matematik masalalarda ustuvorlik har doim aniq analitik yozuvga beriladi: √5 ko'rinishidagi ildizlar, 2/3 qisqarmaydigan kasrlar, π va e doimiylari. O'nli yaxlitlashlar muhandislik baholashlari uchun ishlatiladi."
+      },
+      {
+        "id": 8,
+        "title": "8. Yuqori darajali ko'phadlar uchun Gorner sxemasi",
+        "text": "Kubik tenglamalar uchun ozod hadning bo'luvchilari orasidan butun ildizni toping, so'ngra ko'phadni Gorner sxemasi bo'yicha (x - x₁) ga bo'lib, darajani kvadrat tenglamagacha pasaytiring."
+      }
+    ],
+    "footer": {
+      "slogan": "Foydali asboblar. Muhim narsalarga ko'proq vaqt.",
+      "about": "Biz haqimizda",
+      "feedback": "Qayta aloqa",
+      "allTools": "Barcha asboblar",
+      "privacy": "Maxfiylik",
+      "terms": "Foydalanish shartlari",
+      "freeNoReg": "Bepul. Ro'yxatdan o'tmasdan."
+    },
+    "history": {
+      "title": "Hisoblashlar tarixi",
+      "empty": "Hisoblashlar tarixi bo'sh",
+      "clear": "Tarixni tozalash",
+      "close": "Yopish"
+    },
+    "tabs": {
+      "graph": {
+        "title": "Interaktiv funksiya grafik chizuvchisi",
+        "subtitle": "Funksiya grafiklarini o'rganing, ildizlar, ekstremumlar va kesishish nuqtalarini toping.",
+        "reset": "Qayta o'rnatish",
+        "addSecond": "Ikkinchi funksiyani qo'shish",
+        "hideSecond": "Ikkinchi funksiyani yashirish",
+        "fn1Label": "Birinchi funksiya f₁(x):",
+        "fn2Label": "Ikkinchi funksiya f₂(x):",
+        "rangeX": "X diapazoni:"
+      },
+      "table": {
+        "title": "Funksiya qiymatlari jadvali",
+        "subtitle": "Berilgan oraliq va qadam bilan f(x) qiymatlarini hisoblash.",
+        "copyTsv": "Nusxa olish (TSV)",
+        "downloadCsv": "CSV yuklab olish",
+        "copied": "Nusxalandi",
+        "fnLabel": "Funksiya f(x):",
+        "startLabel": "Boshi (x start):",
+        "endLabel": "Oxiri (x end):",
+        "stepLabel": "Qadam (step):",
+        "colX": "x",
+        "colFx": "f(x) =",
+        "colStatus": "Holat",
+        "rootTag": "Funksiya ildizi",
+        "undefined": "Aniqlanmagan"
+      },
+      "matrix": {
+        "title": "Matritsa kalkulyatori",
+        "subtitle": "Determinant, transponirlash va teskari matritsani bosqichma-bosqich hisoblash.",
+        "dimension": "O'lchami:",
+        "elementsA": "A matritsa elementlari:",
+        "mathViewA": "A ning matematik ko'rinishi:",
+        "step1Title": "det(A) matritsa determinanti",
+        "step1Desc2": "2×2 matritsa uchun formula: det(A) = a₁₁·a₂₂ - a₁₂·a₂₁",
+        "step1Desc3": "Birinchi qator elementlari bo'yicha yoyish:",
+        "step2Title": "Transponirlangan Aᵀ matritsa",
+        "resultTitle": "Natija",
+        "detZero": "Matritsa maxsus (det = 0). Teskari A⁻¹ matritsa mavjud emas.",
+        "detNonZero": "Matritsa maxsus emas (det ≠ 0). Teskari matritsa mavjud."
+      }
+    },
+    "modals": {
+      "guide": {
+        "title": "Kalkulyatordan foydalanish qo'llanmasi",
+        "subtitle": "Ifodalarni kiritish, CAS va tezkor tugmalardan foydalanish",
+        "hotkeys": "Tezkor tugmalar",
+        "syntax": "Kiritish qoidalari",
+        "close": "Tushunarli",
+        "powersTitle": "Darajalar va indekslar:",
+        "powersFormat": "x^2 yoki x²",
+        "powersDesc": "Klaviatüradagi ^ belgisidan yoki ekran tugmasidan foydalaning.",
+        "fractionsTitle": "Kasrlar va bo'lish:",
+        "fractionsFormat": "1/2, (x+1)/(x-2)",
+        "fractionsDesc": "Murakkab surat va maxrajlarni qavslar ichiga oling.",
+        "systemsTitle": "Tenglamalar sistemalari:",
+        "systemsFormat": "x + y = 5; 2x - y = 1",
+        "systemsDesc": "Tenglamalarni nuqta-vergul (;) bilan ajrating.",
+        "calculusTitle": "Hosilalar va integrallar:",
+        "calculusFormat": "d/dx(...) yoki ∫(...) dx",
+        "calculusDesc": "Belgilar klaviatura yorliqlarida mavjud.",
+        "hotkeysTitle": "Tezkor amallar",
+        "enterDesc": "Darhol yechish uchun kiritish maydonida bosing.",
+        "searchDesc": "Saytdagi barcha asboblar bo'yicha qidiruvni ochish.",
+        "escDesc": "Ochiq oynalarni yopish."
+      },
+      "about": {
+        "title": "Toolboxi.uz xizmati haqida",
+        "subtitle": "Zamonaviy matematik majmua va belgili yechuvchi",
+        "desc": "Toolboxi.uz — maktab o'quvchilari, talabalar va tadqiqotchilar uchun ilg'or interaktiv matematik asboblar platformasidir.",
+        "close": "Yopish",
+        "featuresTitle": "Platformaning asosiy imkoniyatlari:",
+        "f1Title": "Bosqichma-bosqich yechim:",
+        "f1Desc": "diskriminantni hisoblash, to'liq kvadratlarni ajratish, ildizlarni topish va ko'phadlarni ko'paytuvchilarga ajratish.",
+        "f2Title": "Interaktiv koordinata grafigi:",
+        "f2Desc": "ildizlar va cho'qqilarni avtomatik belgilash bilan real vaqtda egri chiziq yasash.",
+        "f3Title": "Matematik klaviatura:",
+        "f3Desc": "maxsus belgilar, kasrlar, ildizlar, yunon harflari, differensiallar va integrallarni bir marta bosish orqali kiritish.",
+        "f4Title": "Jadvallar va matritsalar:",
+        "f4Desc": "funksiya qiymatlari jadvalini yaratish va ixtiyoriy tartibdagi matritsalarni yechish."
+      },
+      "search": {
+        "title": "Asboblar va matematik mavzularni qidirish",
+        "placeholder": "Mavzu nomini kiriting (masalan: integral, Viyet, matritsalar)...",
+        "notFound": "So'rovingiz bo'yicha hech narsa topilmadi",
+        "quickLaunch": "Tezkor ishga tushirish:"
+      },
+      "quiz": {
+        "title": "Trenajyor: O'zingizni sinang",
+        "subtitle": "O'xshash masalalarni yeching va matematik ko'nikmalaringizni oshiring",
+        "streak": "Joriy seriya:",
+        "record": "Rekord:",
+        "placeholder": "Javobingizni kiriting (masalan: 3, -2)",
+        "check": "Tekshirish",
+        "correct": "Ajoyib! Mutlaqo to'g'ri!",
+        "wrong": "Hozircha to'g'ri kelmadi.",
+        "showSolution": "Tahlilni ko'rsatish",
+        "hideSolution": "Tahlilni yashirish",
+        "nextProblem": "Keyingi masala"
+      },
+      "print": {
+        "title": "Chop etish va yechimni PDF ga eksport qilish",
+        "subtitle": "Rasmiy A4 formatidagi hisobotni shakllantirish",
+        "includeGraph": "Grafikni PDF ga qo'shish",
+        "printBtn": "Chop etish",
+        "downloadBtn": "PDF yuklab olish",
+        "close": "Yopish"
+      },
+      "samples": {
+        "title": "Matematik masalalar katalogi",
+        "subtitle": "Bosqichma-bosqich yechimi bilan 50+ tahlil qilingan misol",
+        "searchPlaceholder": "Misollar va formulalar bo'yicha qidiruv...",
+        "solveBtn": "Masalani yechish",
+        "close": "Yopish",
+        "countShown": "Ko'rsatilgan masalalar:",
+        "of": "dan",
+        "hint": "Kalkulyatorga yuklash va hisoblash uchun «Masalani yechish» tugmasini bosing"
+      },
+      "cheatsheets": {
+        "title": "Formulalar va eslatmalar ma'lumotnomasi",
+        "subtitle": "Oliy va elementar matematikaning 16 ta bo'limi",
+        "searchPlaceholder": "Formulalarni qidirish (Viyet, hosilalar, integrallar)...",
+        "applyBtn": "Kalkulyatorda yechish",
+        "close": "Yopish"
+      }
+    },
+    "actionChips": {
+      "equation": "Tenglama",
+      "inequality": "Tengsizlik",
+      "simplify": "Soddalashtirish",
+      "factor": "Ko'paytuvchilarga ajratish",
+      "roots": "Ildizlarni topish",
+      "quadratic": "Kvadrat tenglama",
+      "linear": "Chiziqli",
+      "biquad": "Bikvadrat",
+      "intervals": "Intervallar usuli",
+      "linear_ineq": "Chiziqli tengsizlik",
+      "strict": "Qat'iy (>)",
+      "nonstrict": "Noqat'iy (≤)",
+      "subst": "O'rniga qo'yish usuli",
+      "addition": "Qo'shish usuli",
+      "cramer": "Kramer usuli",
+      "intersect": "Intervallar kesishmasi",
+      "two_ineq": "Ikkita tengsizlik sistemasi",
+      "check_root": "Ildizni tekshirish",
+      "check_linear": "Chiziqlini tekshirish",
+      "expand": "Qavslarni ochish",
+      "combine": "O'xshash hadlarni ixchamlash",
+      "sq_sum": "Yig'indining kvadrati (a+b)²",
+      "diff_sq": "Kvadratlar ayirmasi",
+      "reduce": "Kasrni qisqartirish",
+      "add_frac": "Kasrlarni qo'shish",
+      "poly_div": "Ko'phadlarni bo'lish",
+      "poly_factor": "Ko'paytuvchilarga ajratish",
+      "common_denom": "Umumiy maxraj",
+      "simplify_rat": "Ifodani soddalashtirish",
+      "arithmetic": "Arifmetik (a_n)",
+      "geometric": "Geometrik (b_n)",
+      "log_eq": "Tenglamani yechish",
+      "natural_log": "Natural logarifm (ln)",
+      "log_sum": "Logarifmlar yig'indisi",
+      "trig_eq": "Trigonometrik tenglama",
+      "double_angle": "Ikkilangan burchak",
+      "identity": "Asosiy ayniyat",
+      "diff_first": "Hosilani topish f'",
+      "crit_pts": "Kritik nuqtalar",
+      "diff_product": "Ko'paytmaning hosilasi",
+      "indefinite": "Aniqmas integral (∫)",
+      "definite": "Ko'phad",
+      "trig_int": "Trigonometrik integral",
+      "det2": "2×2 determinant",
+      "det3": "3×3 determinant",
+      "inv": "Teskari matritsa"
+    },
+    "bottomNav": {
+      "solver": "Yechuvchi",
+      "graph": "Grafik",
+      "categories": "Bo'limlar",
+      "cheatsheets": "Eslatmalar",
+      "menu": "Menyu"
+    },
+    "mobile": {
+      "switchCategory": "Boshqa bo'limni tanlash",
+      "currentTopic": "Joriy bo'lim",
+      "allTopics": "Barcha kalkulyator bo'limlari (16)",
+      "quickNavigation": "Tezkor navigatsiya",
+      "modes": "Kalkulyator rejimlari",
+      "references": "Ma'lumotnoma va masalalar"
+    }
+  },
+  "en": {
+    "header": {
+      "searchPlaceholder": "Search tools, e.g.: QR, calculator, converter...",
+      "searchShortcut": "Ctrl K",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "login": "Sign in"
+    },
+    "categories": {
+      "math": "Mathematics",
+      "design": "Design & Print",
+      "qr": "QR & Barcodes",
+      "logistics": "Logistics & Freight",
+      "dev": "</> Development",
+      "finance": "Finance",
+      "construction": "Construction",
+      "time": "Date & Time",
+      "all": "All Tools"
+    },
+    "breadcrumbs": {
+      "brand": "Toolboxi",
+      "section": "Mathematics"
+    },
+    "topActions": {
+      "history": "History",
+      "saved": "Saved",
+      "share": "Share",
+      "copied": "Copied",
+      "historyTitle": "Calculation History",
+      "savedTitle": "Saved Formulas & Cheatsheets",
+      "shareTitle": "Share Link"
+    },
+    "stats": {
+      "stat1Title": "CAS Engine 2026",
+      "stat1Subtitle": "Symbolic Computation",
+      "stat2Title": "Download PDF",
+      "stat2Subtitle": "Save Document",
+      "stat3Title": "50+ Problems & CAS",
+      "stat3Subtitle": "Step-by-Step Solution"
+    },
+    "subtools": {
+      "solveTitle": "Solver",
+      "solveSub": "Step-by-step",
+      "graphTitle": "Graph",
+      "graphSub": "2D plane",
+      "tableTitle": "Table",
+      "tableSub": "f(x) grid",
+      "matrixTitle": "Matrix",
+      "matrixSub": "det, inverse",
+      "quizTitle": "Trainer",
+      "quizSub": "Test yourself"
+    },
+    "workspace": {
+      "inputPlaceholder": "Enter expression for:",
+      "clearInput": "Clear input field",
+      "solve": "Solve",
+      "keyboard": "Keyboard",
+      "hideKeyboard": "Hide keyboard",
+      "showKeyboard": "On-screen keyboard"
+    },
+    "keyboard": {
+      "basic": "Basic",
+      "symbols": "Symbols",
+      "functions": "Functions",
+      "brackets": "Brackets",
+      "greek": "Greek",
+      "numpad": "Numpad"
+    },
+    "solution": {
+      "title": "Solution",
+      "quizBtn": "Trainer",
+      "printBtn": "Download PDF",
+      "viewLabel": "View:",
+      "stepByStep": "Step-by-step solution",
+      "shortAnswer": "Short answer",
+      "finalAnswer": "Final answer:",
+      "step1": "Original equation",
+      "step2Factor": "Factor expression",
+      "step2Transform": "Transform expression",
+      "step3": "Find roots",
+      "step4": "Answer",
+      "copyAnswer": "Copy answer",
+      "copied": "Copied"
+    },
+    "rightSidebar": {
+      "graphTitle": "Function Graph",
+      "expandGraph": "Expand graph",
+      "samplesPrefix": "Examples:",
+      "showAll": "Show all",
+      "openCatalog": "Open problem catalog (50+ examples)",
+      "usefulActions": "Quick Actions",
+      "cheatsheetsTitle": "Formulas & Cheatsheets",
+      "cheatsheetsBadge": "16 topics · Tables & Rules",
+      "cheatsheetsDesc": "Ready-to-use Vieta formulas, factoring, derivatives, integrals, limits and matrices in one click.",
+      "cheatsheetsBtn": "Open Cheatsheets",
+      "actions": {
+        "simplifyTitle": "Simplify",
+        "simplifySub": "expression",
+        "factorTitle": "Factor",
+        "factorSub": "polynomial",
+        "rationalizeTitle": "Rationalize",
+        "rationalizeSub": "expression",
+        "derivativeTitle": "Derivative",
+        "derivativeSub": "differentiation",
+        "integralTitle": "Calculate Integral",
+        "integralSub": "antiderivative",
+        "systemTitle": "Solve System",
+        "systemSub": "equations",
+        "tableTitle": "Table f(x)",
+        "tableSub": "value grid",
+        "graphTitle": "Full Graph",
+        "graphSub": "scale & axes"
+      }
+    },
+    "sidebar": {
+      "title": "Mathematics",
+      "tools": {
+        "algebra": "Algebra",
+        "equations": "Equations",
+        "inequalities": "Inequalities",
+        "systems": "Systems of Equations",
+        "systems_inequalities": "Systems of Inequalities",
+        "solution_check": "Check Solutions",
+        "basic_operations": "Basic Operations",
+        "algebraic_properties": "Algebraic Properties",
+        "fractions": "Simple Fractions",
+        "polynomials": "Polynomials",
+        "rational_expressions": "Rational Expressions",
+        "sequences": "Sequences & Series",
+        "logarithms": "Logarithms",
+        "trigonometry": "Trigonometry",
+        "derivatives": "Derivatives",
+        "integrals": "Integrals"
+      }
+    },
+    "toolInfo": {
+      "algebra": {
+        "title": "Algebraic Calculator",
+        "subtitle": "Solve equations, inequalities, simplify expressions, work with polynomials and more."
+      },
+      "equations": {
+        "title": "Equations Calculator",
+        "subtitle": "Solve linear, quadratic, cubic and biquadratic equations with complete step-by-step methods."
+      },
+      "inequalities": {
+        "title": "Inequalities Calculator",
+        "subtitle": "Solve linear and quadratic inequalities using the interval method with interval notation."
+      },
+      "systems": {
+        "title": "Systems of Equations",
+        "subtitle": "Solve systems of linear and nonlinear equations via substitution, addition, and Cramer's rule."
+      },
+      "systems_inequalities": {
+        "title": "Systems of Inequalities",
+        "subtitle": "Find the intersection of solution sets on the real number line and determine common intervals."
+      },
+      "solution_check": {
+        "title": "Check Solutions",
+        "subtitle": "Substitute calculated roots into original expressions and verify mathematical identities."
+      },
+      "basic_operations": {
+        "title": "Basic Operations",
+        "subtitle": "Addition, subtraction, multiplication, division and parentheses in algebraic expressions."
+      },
+      "algebraic_properties": {
+        "title": "Algebraic Properties",
+        "subtitle": "Commutative, associative, and distributive laws; expanding and factoring brackets."
+      },
+      "fractions": {
+        "title": "Simple Fractions",
+        "subtitle": "Fraction reduction, finding common denominators, and extracting whole numbers."
+      },
+      "polynomials": {
+        "title": "Polynomials",
+        "subtitle": "Polynomial long division, Horner's synthetic division, factoring out greatest common factors."
+      },
+      "rational_expressions": {
+        "title": "Rational Expressions",
+        "subtitle": "Simplifying algebraic rational fractions, rationalizing denominators."
+      },
+      "sequences": {
+        "title": "Sequences & Series",
+        "subtitle": "Arithmetic and geometric progressions, nth term formulas and partial sum calculations."
+      },
+      "logarithms": {
+        "title": "Logarithmic Calculator",
+        "subtitle": "Logarithmic laws, change of base formula, solving logarithmic and exponential equations."
+      },
+      "trigonometry": {
+        "title": "Trigonometric Calculator",
+        "subtitle": "Evaluate sin, cos, tan, cot, double-angle identities, and unit circle angles."
+      },
+      "derivatives": {
+        "title": "Derivatives Calculator",
+        "subtitle": "Symbolic differentiation using power, product, quotient, and chain rules."
+      },
+      "integrals": {
+        "title": "Integrals Calculator",
+        "subtitle": "Analytical antiderivative calculations, standard integral tables with constant + C."
+      },
+      "matrix": {
+        "title": "Matrix Calculator",
+        "subtitle": "Matrix determinants, transposition, and inverse matrix calculations for 2×2 and 3×3."
+      }
+    },
+    "bottomAdvice": {
+      "col1Title": "Useful Information",
+      "col1Subtitle": "Calculation standards, formulas, input syntax",
+      "col1Badge": "4 CAS sections",
+      "col1Status": "Reference standard",
+      "col1_item1_title": "1. Mathematical Input Standards",
+      "col1_item1_desc": "The calculator supports natural physical keyboard input as well as on-screen virtual math keys:",
+      "col1_item1_powers": "• Powers:",
+      "col1_item1_powers_desc": "x^2, x^3, x², x³. Fractional exponents: x^(2/3)",
+      "col1_item1_roots": "• Roots:",
+      "col1_item1_roots_desc": "sqrt(x) or √(x + 3)",
+      "col1_item1_fractions": "• Fractions:",
+      "col1_item1_fractions_desc": "(x + 2)/(x - 1) grouped with parentheses",
+      "col1_item1_abs": "• Absolute value:",
+      "col1_item1_abs_desc": "|x - 3| or abs(x - 3)",
+      "col1_item1_systems": "• Systems:",
+      "col1_item1_systems_desc": "Separated by semicolon: 2x + y = 7; x - 3y = -7",
+      "col1_item2_title": "2. Symbolic CAS Engine",
+      "col1_item2_p1": "Canonical form: move to LHS and simplify to ax² + bx + c = 0.",
+      "col1_item2_p2": "Discriminants: full D = b² - 4ac and even D₁ = (b/2)² - ac.",
+      "col1_item2_p3": "Exact roots: symbolic radicals (-b ± √D) / (2a) and decimal approximations.",
+      "col1_item2_p4": "Vieta's theorem: verification and trinomial factoring a(x - x₁)(x - x₂).",
+      "col1_item3_title": "3. 2D Interactive Function Analysis",
+      "col1_item3_desc": "Automatic calculation of roots (OX intercepts), parabola vertex V(xᵥ, yᵥ), axis of symmetry x = xᵥ and constant term (0, c) with zooming, panning, and SVG download.",
+      "col1_item4_title": "4. PDF Export in A4 Format",
+      "col1_item4_desc": "Generates a clean A4 document with step-by-step formula derivations, embedded vector graph, and final answer box for academic reports.",
+      "col2Title": "Frequently Asked Questions (FAQ)",
+      "col2Subtitle": "12 expert answers · Interactive question cards",
+      "col2Badge": "12 answers",
+      "col2Status": "Knowledge base",
+      "faqExampleLabel": "Syntax:",
+      "col3Title": "Calculation Tips",
+      "col3Subtitle": "8 practical math rules and strategies",
+      "col3Badge": "8 rules",
+      "col3Status": "Solving practice",
+      "feedbackCardTitle": "Help Us Improve the Tool",
+      "feedbackCardSubtitle": "Report an issue, suggest an enhancement, or propose a new math instrument.",
+      "feedbackCardBtn": "Contact Us",
+      "feedbackModalTitle": "Toolboxi Feedback",
+      "feedbackModalSubtitle": "Suggest a feature or report a bug",
+      "feedbackModalPlaceholder": "Write your feedback, question, or feature idea to improve this mathematical tool...",
+      "feedbackModalCancel": "Cancel",
+      "feedbackModalSend": "Send",
+      "feedbackModalSuccess": "Thank you for your feedback!",
+      "feedbackModalSuccessDesc": "We review every suggestion to continuously enhance Toolboxi.uz"
+    },
+    "faqs": [
+      {
+        "id": 1,
+        "question": "How are step-by-step solutions and derivations constructed?",
+        "answer": "Upon entering a mathematical expression and pressing «Solve», the CAS engine constructs a systematic derivation chain: canonical form, discriminant calculation, finding roots x₁ and x₂, factoring, and rendering in LaTeX with full annotations."
+      },
+      {
+        "id": 2,
+        "question": "Is the 2D function graph included when exporting to PDF?",
+        "answer": "Yes! The PDF export modal includes a toggle for graph inclusion. The graph is embedded in crisp vector quality with coordinate grid, axes, roots, and parabola vertex."
+      },
+      {
+        "id": 3,
+        "question": "How do I enter and solve systems of equations and inequalities?",
+        "answer": "Equations within a system are entered in a single line separated by a semicolon (;). The solver applies analytical substitution and elimination methods to find ordered pairs (x; y).",
+        "codeSnippet": "2x + y = 7; x - 3y = -7"
+      },
+      {
+        "id": 4,
+        "question": "What happens if the quadratic discriminant is negative (D < 0)?",
+        "answer": "The calculator clearly states that there are no real roots (x ∈ ∅), and the parabola does not cross the OX axis. Additionally, complex conjugate roots u ± iv are calculated for engineering coursework."
+      },
+      {
+        "id": 5,
+        "question": "Are derivatives and integrals evaluated analytically?",
+        "answer": "Yes, the symbolic CAS engine computes analytical derivatives using standard calculus rules (power, product, quotient) and finds indefinite integrals with integration constant + C."
+      },
+      {
+        "id": 6,
+        "question": "How are extrema and parabola branch directions determined?",
+        "answer": "By the sign of coefficient a: if a > 0, branches open upwards and vertex V(xᵥ, yᵥ) is a global minimum; if a < 0, branches open downwards and vertex is a maximum. Coordinates: xᵥ = -b/(2a), yᵥ = -D/(4a)."
+      },
+      {
+        "id": 7,
+        "question": "How is the domain of definition (ODZ) handled?",
+        "answer": "For rational expressions, denominator zeroes (x ≠ 0) are excluded, even radicals require non-negative radicands f(x) ≥ 0, and logarithm arguments require f(x) > 0."
+      },
+      {
+        "id": 8,
+        "question": "How do you solve equations with absolute values |f(x)| = g(x)?",
+        "answer": "Absolute value equations are solved by partitioning into intervals according to the definition of modulus or by squaring under non-negativity condition g(x) ≥ 0, followed by extraneous root elimination."
+      },
+      {
+        "id": 9,
+        "question": "Are the solution steps suitable for academic exams and coursework?",
+        "answer": "Yes, step-by-step derivations adhere strictly to official secondary and university mathematics grading criteria and coursework formatting."
+      },
+      {
+        "id": 10,
+        "question": "How do you work with matrices and calculate determinants?",
+        "answer": "The «Matrix» tab provides a visual editor for 2×2 and 3×3 matrices. It calculates determinant det(A) via diagonal and Sarrus rules, transposed matrix Aᵀ, and solves linear systems via Cramer's rule."
+      },
+      {
+        "id": 11,
+        "question": "Is the tool completely free and is data stored on a server?",
+        "answer": "Toolboxi.uz is completely free and requires no registration. All computations are evaluated client-side in your browser for maximum speed and absolute privacy."
+      },
+      {
+        "id": 12,
+        "question": "How can I zoom and save the graph in high resolution?",
+        "answer": "Use the mouse scroll wheel or (+ / -) buttons. The «Fullscreen» button opens an expansive view, and the «Download SVG» button exports a scalable vector file."
+      }
+    ],
+    "tips": [
+      {
+        "id": 1,
+        "title": "1. Always determine the domain (ODZ) before transforming",
+        "text": "For fractions, eliminate denominator zeroes (x ≠ 0), for roots ensure f(x) ≥ 0, and for logarithms require f(x) > 0. This prevents extraneous roots."
+      },
+      {
+        "id": 2,
+        "title": "2. Use the reduced discriminant D₁ formula for even b",
+        "text": "If b is divisible by 2 (k = b/2), calculate D₁ = k² - ac, yielding roots x = (-k ± √D₁) / a. Numbers in calculations are 4 times smaller, preventing errors."
+      },
+      {
+        "id": 3,
+        "title": "3. Verify roots mentally using Vieta's formulas",
+        "text": "For monic equation x² + px + q = 0, product of roots x₁ · x₂ = q and sum x₁ + x₂ = -p. By checking divisors of q, roots can be found mentally in 5 seconds."
+      },
+      {
+        "id": 4,
+        "title": "4. Interval method and root multiplicity rule",
+        "text": "When solving inequalities, place roots on the number line. Remember: crossing a root of even multiplicity (e.g., (x - 2)²) does NOT flip the sign of the function."
+      },
+      {
+        "id": 5,
+        "title": "5. Danger of dividing by expressions containing variables",
+        "text": "Never divide both sides of an equation by a variable expression (such as x or x - 3) without checking equality to zero. Division leads to lost roots! Factor out common terms instead."
+      },
+      {
+        "id": 6,
+        "title": "6. Cross-reference analytical results with the 2D graph",
+        "text": "Verify calculated roots with OX x-intercepts, and the extremum with the parabola vertex. A visual graph immediately reveals accidental sign typos."
+      },
+      {
+        "id": 7,
+        "title": "7. Prefer exact symbolic answers over decimals",
+        "text": "In mathematics, priority is given to exact symbolic notation: radical forms like √5, irreducible fractions 2/3, constants π and e. Decimals are used for engineering estimates."
+      },
+      {
+        "id": 8,
+        "title": "8. Horner's synthetic division for higher degree polynomials",
+        "text": "For cubic equations, find an integer root among divisors of the constant term, then divide via Horner's scheme by (x - x₁) to reduce to a quadratic equation."
+      }
+    ],
+    "footer": {
+      "slogan": "Useful tools. More time for what matters.",
+      "about": "About Us",
+      "feedback": "Feedback",
+      "allTools": "All Tools",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "freeNoReg": "Free. No registration required."
+    },
+    "history": {
+      "title": "Calculation History",
+      "empty": "Calculation history is empty",
+      "clear": "Clear history",
+      "close": "Close"
+    },
+    "tabs": {
+      "graph": {
+        "title": "Interactive Function Grapher",
+        "subtitle": "Explore function curves, locate roots, extrema, and intersection points.",
+        "reset": "Reset",
+        "addSecond": "Add second function",
+        "hideSecond": "Hide second function",
+        "fn1Label": "First function f₁(x):",
+        "fn2Label": "Second function f₂(x):",
+        "rangeX": "X Range:"
+      },
+      "table": {
+        "title": "Function Value Table",
+        "subtitle": "Evaluate f(x) over a specified interval and step size.",
+        "copyTsv": "Copy (TSV)",
+        "downloadCsv": "Download CSV",
+        "copied": "Copied",
+        "fnLabel": "Function f(x):",
+        "startLabel": "Start (x start):",
+        "endLabel": "End (x end):",
+        "stepLabel": "Step:",
+        "colX": "x",
+        "colFx": "f(x) =",
+        "colStatus": "Status",
+        "rootTag": "Function root",
+        "undefined": "Undefined"
+      },
+      "matrix": {
+        "title": "Matrix Calculator",
+        "subtitle": "Determinant, transposition, and matrix algebra with step-by-step methods.",
+        "dimension": "Dimension:",
+        "elementsA": "Matrix A elements:",
+        "mathViewA": "Mathematical notation A:",
+        "step1Title": "Matrix determinant det(A)",
+        "step1Desc2": "Formula for 2×2 matrix: det(A) = a₁₁·a₂₂ - a₁₂·a₂₁",
+        "step1Desc3": "Expansion along first row:",
+        "step2Title": "Transposed matrix Aᵀ",
+        "resultTitle": "Result",
+        "detZero": "Singular matrix (det = 0). Inverse matrix A⁻¹ does not exist.",
+        "detNonZero": "Non-singular matrix (det ≠ 0). Inverse matrix exists."
+      }
+    },
+    "modals": {
+      "guide": {
+        "title": "Calculator User Guide",
+        "subtitle": "How to enter math expressions, use CAS, and keyboard shortcuts",
+        "hotkeys": "Keyboard shortcuts",
+        "syntax": "Input syntax",
+        "close": "Got it",
+        "powersTitle": "Powers and exponents:",
+        "powersFormat": "x^2 or x²",
+        "powersDesc": "Use the ^ symbol or the x² on-screen button.",
+        "fractionsTitle": "Fractions and division:",
+        "fractionsFormat": "1/2, (x+1)/(x-2)",
+        "fractionsDesc": "Enclose multi-term numerators and denominators in parentheses.",
+        "systemsTitle": "Systems of equations:",
+        "systemsFormat": "x + y = 5; 2x - y = 1",
+        "systemsDesc": "Separate equations with a semicolon (;)",
+        "calculusTitle": "Derivatives and integrals:",
+        "calculusFormat": "d/dx(...) or ∫(...) dx",
+        "calculusDesc": "Math calculus symbols are available in the virtual keyboard.",
+        "hotkeysTitle": "Keyboard Shortcuts",
+        "enterDesc": "Press inside formula bar to evaluate instantly.",
+        "searchDesc": "Open tool search modal from anywhere.",
+        "escDesc": "Close active modal dialogs."
+      },
+      "about": {
+        "title": "About Toolboxi.uz",
+        "subtitle": "Modern mathematical suite and symbolic CAS engine",
+        "desc": "Toolboxi.uz is an advanced platform of interactive mathematical and engineering instruments for students and researchers.",
+        "close": "Close",
+        "featuresTitle": "Key Platform Capabilities:",
+        "f1Title": "Step-by-step solutions:",
+        "f1Desc": "discriminant calculation, completing squares, radical root extraction, polynomial factorization.",
+        "f2Title": "Interactive 2D graph plotter:",
+        "f2Desc": "real-time curve plotting with automatic detection of roots, vertices, and intercepts.",
+        "f3Title": "Mathematical virtual keyboard:",
+        "f3Desc": "one-click entry for special symbols, fractions, roots, Greek letters, and calculus operators.",
+        "f4Title": "Tables & matrix solver:",
+        "f4Desc": "function value tables and symbolic determinants and matrix operations."
+      },
+      "search": {
+        "title": "Search Tools & Math Topics",
+        "placeholder": "Enter topic name (e.g., integral, Vieta, matrices)...",
+        "notFound": "No tools found matching your query",
+        "quickLaunch": "Quick launch:"
+      },
+      "quiz": {
+        "title": "Trainer: Test Yourself",
+        "subtitle": "Practice solving math problems and strengthen your skills",
+        "streak": "Current streak:",
+        "record": "Best streak:",
+        "placeholder": "Enter your answer (e.g.: 3, -2)",
+        "check": "Check answer",
+        "correct": "Great! Absolutely correct!",
+        "wrong": "Not quite yet.",
+        "showSolution": "Show solution steps",
+        "hideSolution": "Hide solution steps",
+        "nextProblem": "Next problem"
+      },
+      "print": {
+        "title": "Print & Export Solution to PDF",
+        "subtitle": "Create an official A4 academic report",
+        "includeGraph": "Include Graph in PDF",
+        "printBtn": "Print",
+        "downloadBtn": "Download PDF",
+        "close": "Close"
+      },
+      "samples": {
+        "title": "Mathematical Problems Catalog",
+        "subtitle": "50+ curated examples with step-by-step derivations",
+        "searchPlaceholder": "Search problems and formulas...",
+        "solveBtn": "Solve Problem",
+        "close": "Close",
+        "countShown": "Problems shown:",
+        "of": "of",
+        "hint": "Click «Solve Problem» to load into calculator for instant solution"
+      },
+      "cheatsheets": {
+        "title": "Formulas & Cheatsheets Reference",
+        "subtitle": "16 areas of higher and elementary mathematics",
+        "searchPlaceholder": "Search formulas (Vieta, derivatives, integrals)...",
+        "applyBtn": "Solve in calculator",
+        "close": "Close"
+      }
+    },
+    "actionChips": {
+      "equation": "Equation",
+      "inequality": "Inequality",
+      "simplify": "Simplify",
+      "factor": "Factor",
+      "roots": "Find Roots",
+      "quadratic": "Quadratic",
+      "linear": "Linear",
+      "biquad": "Biquadratic",
+      "intervals": "Interval Method",
+      "linear_ineq": "Linear Inequality",
+      "strict": "Strict (>)",
+      "nonstrict": "Non-strict (≤)",
+      "subst": "Substitution Method",
+      "addition": "Addition Method",
+      "cramer": "Cramer's Rule",
+      "intersect": "Interval Intersection",
+      "two_ineq": "System of Two",
+      "check_root": "Check Root",
+      "check_linear": "Check Linear",
+      "expand": "Expand Brackets",
+      "combine": "Combine Like Terms",
+      "sq_sum": "Square of Sum (a+b)²",
+      "diff_sq": "Difference of Squares",
+      "reduce": "Reduce Fraction",
+      "add_frac": "Add Fractions",
+      "poly_div": "Polynomial Division",
+      "poly_factor": "Factor Polynomial",
+      "common_denom": "Common Denominator",
+      "simplify_rat": "Simplify Expression",
+      "arithmetic": "Arithmetic (a_n)",
+      "geometric": "Geometric (b_n)",
+      "log_eq": "Solve Equation",
+      "natural_log": "Natural (ln)",
+      "log_sum": "Sum of Logarithms",
+      "trig_eq": "Solve Trig Equation",
+      "double_angle": "Double Angle",
+      "identity": "Pythagorean Identity",
+      "diff_first": "Find Derivative f'",
+      "crit_pts": "Critical Points",
+      "diff_product": "Product Rule",
+      "indefinite": "Indefinite (∫)",
+      "definite": "Polynomial",
+      "trig_int": "Trigonometric",
+      "det2": "Determinant 2×2",
+      "det3": "Determinant 3×3",
+      "inv": "Inverse Matrix"
+    },
+    "bottomNav": {
+      "solver": "Solver",
+      "graph": "Graph",
+      "categories": "Topics",
+      "cheatsheets": "Formulas",
+      "menu": "Menu"
+    },
+    "mobile": {
+      "switchCategory": "Switch topic",
+      "currentTopic": "Current topic",
+      "allTopics": "All calculator topics (16)",
+      "quickNavigation": "Quick navigation",
+      "modes": "Calculator modes",
+      "references": "Reference & Practice"
+    }
+  }
+}

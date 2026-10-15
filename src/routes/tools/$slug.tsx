@@ -24,6 +24,7 @@ import { colorPaletteHead } from "@/features/color-palette/seo";
 import { worldTimezonesHead } from "@/features/world-timezones/seo";
 import { uuidGeneratorHead } from "@/features/uuid-generator/seo";
 import { truckFuelCalculatorHead } from "@/features/truck-fuel-calculator/seo";
+import { mathSolverHead } from "@/features/math-solver/seo";
 
 type LazyModule<T extends ComponentType> = { default: T };
 
@@ -92,6 +93,11 @@ const TruckFuelCalculatorPage = lazyWithDeployRecovery(() =>
     default: m.TruckFuelCalculatorPage,
   })),
 );
+const MathSolverPage = lazyWithDeployRecovery(() =>
+  import("@/features/math-solver").then((m) => ({
+    default: m.MathSolverPage,
+  })),
+);
 
 export const Route = createFileRoute("/tools/$slug")({
   component: ToolDispatcher,
@@ -111,6 +117,7 @@ export const Route = createFileRoute("/tools/$slug")({
     if (params.slug === "world-timezones") return worldTimezonesHead("en");
     if (params.slug === "uuid-generator") return uuidGeneratorHead("en");
     if (params.slug === "truck-fuel-calculator") return truckFuelCalculatorHead("en");
+    if (params.slug === "math-solver") return mathSolverHead("en");
     const tool = getToolBySlug(params.slug);
     const customDescriptions: Record<string, string> = {
       "truck-fuel-calculator":
@@ -264,6 +271,13 @@ function ToolDispatcher() {
     return (
       <Suspense fallback={<QrPending />}>
         <TruckFuelCalculatorPage />
+      </Suspense>
+    );
+  }
+  if (slug === "math-solver") {
+    return (
+      <Suspense fallback={<QrPending />}>
+        <MathSolverPage />
       </Suspense>
     );
   }

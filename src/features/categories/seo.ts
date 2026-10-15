@@ -117,6 +117,20 @@ const CATEGORY_SEO: Record<string, Record<Locale, { title: string; description: 
       description: "Free construction calculators: roof pitch and sheet area calculation, materials estimator, and measurement conversions.",
     },
   },
+  math: {
+    ru: {
+      title: "Математические калькуляторы и точные науки онлайн — Toolboxi.uz",
+      description: "Бесплатные онлайн-калькуляторы математики, геометрии и точных наук: пошаговое решение уравнений, производных, интегралов, построение графиков и матрицы.",
+    },
+    uz: {
+      title: "Matematika va aniq fanlar kalkulyatorlari onlayn — Toolboxi.uz",
+      description: "Matematika va aniq fanlar bo‘yicha bepul onlayn kalkulyatorlar: tenglamalar, integrallar, hosilalarni bosqichma-bosqich yechish va 2D grafiklar chizish.",
+    },
+    en: {
+      title: "Math & Exact Science Calculators Online — Toolboxi.uz",
+      description: "Free online math, geometry, and science calculators: step-by-step equation solvers, calculus derivatives, integrals, 2D plotting, and matrix tools.",
+    },
+  },
 };
 
 export function categoryHead(slug: string, locale: Locale) {

@@ -24,6 +24,7 @@ import {
 } from "./locales/i18n";
 import { useI18n } from "@/lib/i18n";
 import { isFavorite, toggleFavorite } from "@/lib/tools/favorites";
+import { recordHistory } from "@/lib/tools/history";
 import { buildShareUrl, shareUrl } from "@/lib/tools/share";
 
 export function TruckFuelCalculatorPage() {
@@ -169,6 +170,21 @@ export function TruckFuelCalculatorPage() {
 
   const handleCalculate = () => {
     if (typeof window === "undefined") return;
+
+    recordHistory({
+      toolId: "truck-fuel-calculator",
+      title: `${state.totalDistance} ${state.distanceUnit} · ${state.cargoWeight} t (${calculationResult.totalFuel.toFixed(1)} l)`,
+      params: {
+        dist: String(state.totalDistance),
+        cargo: String(state.cargoWeight),
+        loaded: String(state.loadedDistance),
+        empty: String(state.emptyDistance),
+        avg: String(state.avgConsumption),
+        price: String(state.fuelPrice),
+        curr: state.currency,
+      },
+    });
+
     const resultsEl = document.getElementById("results-section");
     if (resultsEl && window.innerWidth < 1024) {
       resultsEl.scrollIntoView({ behavior: "smooth" });

@@ -77,6 +77,8 @@ export interface CalculationBreakdown {
   cifUZS: number;
   dutyUZS: number;
   dutyRate: number;
+  dutyPercent?: number;
+  effectiveRatePercent?: number;
   vatUZS: number;
   vatRate: number;
   exciseUZS: number;

@@ -33,12 +33,14 @@ function apply(next: Theme) {
 }
 
 if (typeof window !== "undefined") {
-  apply("light");
+  let initialTheme: Theme = "light";
   try {
-    window.localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* Light mode is still applied when storage is unavailable. */
-  }
+    const saved = window.localStorage.getItem(STORAGE_KEY) as Theme | null;
+    if (saved === "dark" || saved === "light") {
+      initialTheme = saved;
+    }
+  } catch {}
+  apply(initialTheme);
 }
 
 export function getTheme() {
@@ -47,6 +49,9 @@ export function getTheme() {
 
 export function setTheme(next: Theme) {
   apply(next);
+  try {
+    window.localStorage.setItem(STORAGE_KEY, next);
+  } catch {}
   emit();
 }
 

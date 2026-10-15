@@ -9,7 +9,8 @@ export type CategoryId =
   | "ai-text"
   | "everyday"
   | "developers"
-  | "construction";
+  | "construction"
+  | "math";
 
 export type Localized = Record<Locale, string>;
 
@@ -152,6 +153,22 @@ export const CATEGORIES: ToolCategory[] = [
     },
     icon: "Ruler",
     tint: "#facc15",
+  },
+  {
+    id: "math",
+    slug: "math",
+    name: {
+      ru: "Математика и точные науки",
+      en: "Math & exact sciences",
+      uz: "Matematika va aniq fanlar",
+    },
+    description: {
+      ru: "Алгебра, геометрия, формулы, графики и пошаговые решения задач",
+      en: "Algebra, geometry, formulas, graphing, and step-by-step problem solvers",
+      uz: "Algebra, geometriya, formulalar, grafiklar va masalalarning bosqichma-bosqich yechimlari",
+    },
+    icon: "DraftingCompass",
+    tint: "#6366f1",
   },
 ];
 
@@ -473,6 +490,62 @@ export const TOOLS: ToolDef[] = [
       "trip cost",
     ],
     icon: "Truck",
+    available: true,
+    featured: true,
+    releasedAt: "2026-10-15",
+  },
+  {
+    id: "math-solver",
+    slug: "math-solver",
+    category: "math",
+    name: {
+      ru: "Математический калькулятор",
+      en: "Math solver & calculator",
+      uz: "Matematik kalkulyator",
+    },
+    description: {
+      ru: "Пошаговое решение уравнений, неравенств, производных, интегралов и построение графиков функций онлайн.",
+      en: "Step-by-step solver for equations, inequalities, derivatives, integrals, and interactive function graphing.",
+      uz: "Tenglamalar, tengsizliklar, hosilalar va integrallarning bosqichma-bosqich yechimi hamda funksiya grafigini chizish.",
+    },
+    keywords: [
+      "математика",
+      "математический калькулятор",
+      "решение уравнений",
+      "решатель уравнений",
+      "калькулятор онлайн",
+      "пошаговое решение",
+      "квадратное уравнение",
+      "производная",
+      "интеграл",
+      "система уравнений",
+      "график функции",
+      "матрицы",
+      "дроби",
+      "шпаргалки по математике",
+      "алгебра",
+      "геометрия",
+      "matematika",
+      "matematik kalkulyator",
+      "tenglamalar yechish",
+      "tengsizliklar",
+      "hosila hisoblash",
+      "integral hisoblash",
+      "matritsa",
+      "grafik chizish",
+      "математика",
+      "тенгламалар ечиш",
+      "калькулятор",
+      "math solver",
+      "math calculator",
+      "equation solver",
+      "solve equations step by step",
+      "derivative calculator",
+      "integral calculator",
+      "graphing calculator",
+      "matrix calculator",
+    ],
+    icon: "Calculator",
     available: true,
     featured: true,
     releasedAt: "2026-10-15",

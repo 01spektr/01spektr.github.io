@@ -82,7 +82,7 @@ export function Header({ onMenu, onSearch }: Props) {
       <Button
         variant="ghost"
         size="icon"
-        className="hidden sm:inline-flex"
+        className="inline-flex"
         onClick={toggleTheme}
         aria-label={theme === "dark" ? t("nav.theme.light") : t("nav.theme.dark")}
       >

@@ -34,6 +34,7 @@ import { Route as RuToolsCurrencyRatesRouteImport } from './routes/ru_.tools.cur
 import { Route as RuToolsCustomsCalculatorRouteImport } from './routes/ru_.tools.customs-calculator'
 import { Route as RuToolsImageResizeRouteImport } from './routes/ru_.tools.image-resize'
 import { Route as RuToolsLoanCalculatorRouteImport } from './routes/ru_.tools.loan-calculator'
+import { Route as RuToolsMathSolverRouteImport } from './routes/ru_.tools.math-solver'
 import { Route as RuToolsQrGeneratorRouteImport } from './routes/ru_.tools.qr-generator'
 import { Route as RuToolsRoofCalculatorRouteImport } from './routes/ru_.tools.roof-calculator'
 import { Route as RuToolsSmartCalendarRouteImport } from './routes/ru_.tools.smart-calendar'
@@ -50,6 +51,7 @@ import { Route as UzToolsCurrencyRatesRouteImport } from './routes/uz_.tools.cur
 import { Route as UzToolsCustomsCalculatorRouteImport } from './routes/uz_.tools.customs-calculator'
 import { Route as UzToolsImageResizeRouteImport } from './routes/uz_.tools.image-resize'
 import { Route as UzToolsLoanCalculatorRouteImport } from './routes/uz_.tools.loan-calculator'
+import { Route as UzToolsMathSolverRouteImport } from './routes/uz_.tools.math-solver'
 import { Route as UzToolsQrGeneratorRouteImport } from './routes/uz_.tools.qr-generator'
 import { Route as UzToolsRoofCalculatorRouteImport } from './routes/uz_.tools.roof-calculator'
 import { Route as UzToolsSmartCalendarRouteImport } from './routes/uz_.tools.smart-calendar'
@@ -185,6 +187,11 @@ const RuToolsLoanCalculatorRoute = RuToolsLoanCalculatorRouteImport.update({
   path: '/ru/tools/loan-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuToolsMathSolverRoute = RuToolsMathSolverRouteImport.update({
+  id: '/ru_/tools/math-solver',
+  path: '/ru/tools/math-solver',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RuToolsQrGeneratorRoute = RuToolsQrGeneratorRouteImport.update({
   id: '/ru_/tools/qr-generator',
   path: '/ru/tools/qr-generator',
@@ -268,6 +275,11 @@ const UzToolsLoanCalculatorRoute = UzToolsLoanCalculatorRouteImport.update({
   path: '/uz/tools/loan-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UzToolsMathSolverRoute = UzToolsMathSolverRouteImport.update({
+  id: '/uz_/tools/math-solver',
+  path: '/uz/tools/math-solver',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UzToolsQrGeneratorRoute = UzToolsQrGeneratorRouteImport.update({
   id: '/uz_/tools/qr-generator',
   path: '/uz/tools/qr-generator',
@@ -337,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/image-resize': typeof RuToolsImageResizeRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
+  '/ru/tools/math-solver': typeof RuToolsMathSolverRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
@@ -353,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz/tools/image-resize': typeof UzToolsImageResizeRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
+  '/uz/tools/math-solver': typeof UzToolsMathSolverRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
@@ -388,6 +402,7 @@ export interface FileRoutesByTo {
   '/ru/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru/tools/image-resize': typeof RuToolsImageResizeRoute
   '/ru/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
+  '/ru/tools/math-solver': typeof RuToolsMathSolverRoute
   '/ru/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
@@ -404,6 +419,7 @@ export interface FileRoutesByTo {
   '/uz/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz/tools/image-resize': typeof UzToolsImageResizeRoute
   '/uz/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
+  '/uz/tools/math-solver': typeof UzToolsMathSolverRoute
   '/uz/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
@@ -440,6 +456,7 @@ export interface FileRoutesById {
   '/ru_/tools/customs-calculator': typeof RuToolsCustomsCalculatorRoute
   '/ru_/tools/image-resize': typeof RuToolsImageResizeRoute
   '/ru_/tools/loan-calculator': typeof RuToolsLoanCalculatorRoute
+  '/ru_/tools/math-solver': typeof RuToolsMathSolverRoute
   '/ru_/tools/qr-generator': typeof RuToolsQrGeneratorRoute
   '/ru_/tools/roof-calculator': typeof RuToolsRoofCalculatorRoute
   '/ru_/tools/smart-calendar': typeof RuToolsSmartCalendarRoute
@@ -456,6 +473,7 @@ export interface FileRoutesById {
   '/uz_/tools/customs-calculator': typeof UzToolsCustomsCalculatorRoute
   '/uz_/tools/image-resize': typeof UzToolsImageResizeRoute
   '/uz_/tools/loan-calculator': typeof UzToolsLoanCalculatorRoute
+  '/uz_/tools/math-solver': typeof UzToolsMathSolverRoute
   '/uz_/tools/qr-generator': typeof UzToolsQrGeneratorRoute
   '/uz_/tools/roof-calculator': typeof UzToolsRoofCalculatorRoute
   '/uz_/tools/smart-calendar': typeof UzToolsSmartCalendarRoute
@@ -493,6 +511,7 @@ export interface FileRouteTypes {
     | '/ru/tools/customs-calculator'
     | '/ru/tools/image-resize'
     | '/ru/tools/loan-calculator'
+    | '/ru/tools/math-solver'
     | '/ru/tools/qr-generator'
     | '/ru/tools/roof-calculator'
     | '/ru/tools/smart-calendar'
@@ -509,6 +528,7 @@ export interface FileRouteTypes {
     | '/uz/tools/customs-calculator'
     | '/uz/tools/image-resize'
     | '/uz/tools/loan-calculator'
+    | '/uz/tools/math-solver'
     | '/uz/tools/qr-generator'
     | '/uz/tools/roof-calculator'
     | '/uz/tools/smart-calendar'
@@ -544,6 +564,7 @@ export interface FileRouteTypes {
     | '/ru/tools/customs-calculator'
     | '/ru/tools/image-resize'
     | '/ru/tools/loan-calculator'
+    | '/ru/tools/math-solver'
     | '/ru/tools/qr-generator'
     | '/ru/tools/roof-calculator'
     | '/ru/tools/smart-calendar'
@@ -560,6 +581,7 @@ export interface FileRouteTypes {
     | '/uz/tools/customs-calculator'
     | '/uz/tools/image-resize'
     | '/uz/tools/loan-calculator'
+    | '/uz/tools/math-solver'
     | '/uz/tools/qr-generator'
     | '/uz/tools/roof-calculator'
     | '/uz/tools/smart-calendar'
@@ -595,6 +617,7 @@ export interface FileRouteTypes {
     | '/ru_/tools/customs-calculator'
     | '/ru_/tools/image-resize'
     | '/ru_/tools/loan-calculator'
+    | '/ru_/tools/math-solver'
     | '/ru_/tools/qr-generator'
     | '/ru_/tools/roof-calculator'
     | '/ru_/tools/smart-calendar'
@@ -611,6 +634,7 @@ export interface FileRouteTypes {
     | '/uz_/tools/customs-calculator'
     | '/uz_/tools/image-resize'
     | '/uz_/tools/loan-calculator'
+    | '/uz_/tools/math-solver'
     | '/uz_/tools/qr-generator'
     | '/uz_/tools/roof-calculator'
     | '/uz_/tools/smart-calendar'
@@ -647,6 +671,7 @@ export interface RootRouteChildren {
   RuToolsCustomsCalculatorRoute: typeof RuToolsCustomsCalculatorRoute
   RuToolsImageResizeRoute: typeof RuToolsImageResizeRoute
   RuToolsLoanCalculatorRoute: typeof RuToolsLoanCalculatorRoute
+  RuToolsMathSolverRoute: typeof RuToolsMathSolverRoute
   RuToolsQrGeneratorRoute: typeof RuToolsQrGeneratorRoute
   RuToolsRoofCalculatorRoute: typeof RuToolsRoofCalculatorRoute
   RuToolsSmartCalendarRoute: typeof RuToolsSmartCalendarRoute
@@ -663,6 +688,7 @@ export interface RootRouteChildren {
   UzToolsCustomsCalculatorRoute: typeof UzToolsCustomsCalculatorRoute
   UzToolsImageResizeRoute: typeof UzToolsImageResizeRoute
   UzToolsLoanCalculatorRoute: typeof UzToolsLoanCalculatorRoute
+  UzToolsMathSolverRoute: typeof UzToolsMathSolverRoute
   UzToolsQrGeneratorRoute: typeof UzToolsQrGeneratorRoute
   UzToolsRoofCalculatorRoute: typeof UzToolsRoofCalculatorRoute
   UzToolsSmartCalendarRoute: typeof UzToolsSmartCalendarRoute
@@ -850,6 +876,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RuToolsLoanCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ru_/tools/math-solver': {
+      id: '/ru_/tools/math-solver'
+      path: '/ru/tools/math-solver'
+      fullPath: '/ru/tools/math-solver'
+      preLoaderRoute: typeof RuToolsMathSolverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ru_/tools/qr-generator': {
       id: '/ru_/tools/qr-generator'
       path: '/ru/tools/qr-generator'
@@ -962,6 +995,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UzToolsLoanCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uz_/tools/math-solver': {
+      id: '/uz_/tools/math-solver'
+      path: '/uz/tools/math-solver'
+      fullPath: '/uz/tools/math-solver'
+      preLoaderRoute: typeof UzToolsMathSolverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/uz_/tools/qr-generator': {
       id: '/uz_/tools/qr-generator'
       path: '/uz/tools/qr-generator'
@@ -1047,6 +1087,7 @@ const rootRouteChildren: RootRouteChildren = {
   RuToolsCustomsCalculatorRoute: RuToolsCustomsCalculatorRoute,
   RuToolsImageResizeRoute: RuToolsImageResizeRoute,
   RuToolsLoanCalculatorRoute: RuToolsLoanCalculatorRoute,
+  RuToolsMathSolverRoute: RuToolsMathSolverRoute,
   RuToolsQrGeneratorRoute: RuToolsQrGeneratorRoute,
   RuToolsRoofCalculatorRoute: RuToolsRoofCalculatorRoute,
   RuToolsSmartCalendarRoute: RuToolsSmartCalendarRoute,
@@ -1063,6 +1104,7 @@ const rootRouteChildren: RootRouteChildren = {
   UzToolsCustomsCalculatorRoute: UzToolsCustomsCalculatorRoute,
   UzToolsImageResizeRoute: UzToolsImageResizeRoute,
   UzToolsLoanCalculatorRoute: UzToolsLoanCalculatorRoute,
+  UzToolsMathSolverRoute: UzToolsMathSolverRoute,
   UzToolsQrGeneratorRoute: UzToolsQrGeneratorRoute,
   UzToolsRoofCalculatorRoute: UzToolsRoofCalculatorRoute,
   UzToolsSmartCalendarRoute: UzToolsSmartCalendarRoute,
